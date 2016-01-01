@@ -1,4 +1,7 @@
-package MysteryNightPackage
+if (!isObject(GameRoundCleanup))
+  new SimSet(GameRoundCleanup);
+
+package DespairSyndromePackage
 {
   function Armor::onDisabled(%this, %obj)
   {
@@ -27,10 +30,15 @@ package MysteryNightPackage
 
   function MiniGameSO::Reset(%this, %client)
   {
+    if (%this.owner != 0)
+      return Parent::reset(%this, %client);
+
+    if (isObject(GameRoundCleanup))
+      GameRoundCleanup.deleteAll();
+
     Parent::reset(%this, %client);
 
-    if (%this.owner != 0)
-      return;
+    // Give everyone names, appearances, roles, etc
   }
 
   function GameConnection::onDeath(%client, %sourceObject, %sourceClient, %damageType, %damLoc)
@@ -109,5 +117,5 @@ package MysteryNightPackage
   }
 };
 
-if ($GameModeArg $= "Add-Ons/GameMode_Mystery_Night/gamemode.txt")
-   activatePackage("MysteryNightPackage");
+if ($GameModeArg $= "Add-Ons/GameMode_Despair_Syndrome/gamemode.txt")
+   activatePackage("DespairSyndromePackage");

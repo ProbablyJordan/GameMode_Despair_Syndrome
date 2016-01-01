@@ -44,7 +44,7 @@ ADDON Brick_ModTer_BasicPack
 ADDON Brick_ModTer_InvertedPack
 ADDON Brick_Modter_4xPack
 ADDON Print_ModTer_Default
-ADDON GameMode_Mystery_Night
+ADDON GameMode_Despair_Syndrome
 
 ADDON Bot_Hole
 ADDON Bot_Blockhead
