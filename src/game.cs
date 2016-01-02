@@ -28,6 +28,16 @@ package DespairSyndromePackage
       %obj.playThread(3, "death1");
   }
 
+  function MiniGameSO::addMember(%this, %member)
+  {
+    Parent::addMember(%this, %member);
+  }
+
+  function MiniGameSO::removeMember(%this, %member)
+  {
+    Parent::removeMember(%this, %member);
+  }
+
   function MiniGameSO::Reset(%this, %client)
   {
     if (%this.owner != 0)
@@ -39,6 +49,16 @@ package DespairSyndromePackage
     Parent::reset(%this, %client);
 
     // Give everyone names, appearances, roles, etc
+  }
+
+  function MiniGameSO::checkLastManStanding(%this)
+  {
+    if (%this != $DefaultMiniGame)
+      return Parent::checkLastManStanding(%this);
+    if (%this.numMembers < 1 || isEventPending(%this.scheduleReset))
+      return 0;
+    //Do game end checks if needed
+    return 0;
   }
 
   function GameConnection::onDeath(%client, %sourceObject, %sourceClient, %damageType, %damLoc)

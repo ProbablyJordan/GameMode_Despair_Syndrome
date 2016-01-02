@@ -1,3 +1,7 @@
+//Gamemode
+ADDON GameMode_Despair_Syndrome
+
+//Default Add-Ons
 ADDON Brick_Arch 
 ADDON Brick_Large_Cubes 
 
@@ -34,6 +38,7 @@ ADDON Weapon_Spear
 ADDON Weapon_Sword 
 
 ADDON Support_Doors
+ADDON Support_Player_Persistence
 ADDON Brick_Doors
 
 ADDON Brick_Halloween
@@ -44,7 +49,6 @@ ADDON Brick_ModTer_BasicPack
 ADDON Brick_ModTer_InvertedPack
 ADDON Brick_Modter_4xPack
 ADDON Print_ModTer_Default
-ADDON GameMode_Despair_Syndrome
 
 ADDON Bot_Hole
 ADDON Bot_Blockhead
@@ -55,10 +59,73 @@ ADDON Bot_Zombie
 ADDON Weapon_Gun
 ADDON Weapon_Guns_Akimbo
 
+//Add-ons required for the build
+ADDON Brick_18Degree
+ADDON Brick_1RandomPack
+ADDON Brick_1x1_2side_print
+ADDON Brick_2x2FRoundPrint
+ADDON Brick_4x4fPrintPlateC
+ADDON Brick_4x4f_PrintPlate
+ADDON Brick_BaseplateBlocks
+ADDON Brick_BaseplatePack
+ADDON Brick_Checkpoint
+ADDON Brick_Corner
+ADDON Brick_DecorativeBlocks
+ADDON Brick_DemiansBB
+ADDON Brick_DemiansBB2
+ADDON Brick_DemiansBB3
+ADDON Brick_Doors_Demian
+ADDON Brick_Doors_Demian_Arched
+ADDON Brick_Doors_Demian_Big
+ADDON Brick_Doors_Demian_Eastern
+ADDON Brick_Doors_Demian_Half
+ADDON Brick_Doors_Demian_Other
+ADDON Brick_Doors_Demian_Thematic
+ADDON Brick_Doors_Frameless
+ADDON Brick_ExtraArches
+ADDON Brick_ExtraGrills
+ADDON Brick_ExtraPrints
+ADDON Brick_ExtraRamps
+ADDON Brick_Fence
+ADDON Brick_GlassPanes
+ADDON Brick_HorizPoles
+ADDON Brick_Interactive
+ADDON Brick_InvertedCorners
+ADDON Brick_Jirue
+ADDON Brick_LegoCrates
+ADDON Brick_Plant
+ADDON Brick_PoleAdapters
+ADDON Brick_Poster_8x
+ADDON Brick_PrintBaseplates
+ADDON Brick_PrintBaseplatesCeiling
+ADDON Brick_PrintCubes
+ADDON Brick_PrintPlates
+ADDON Brick_PrintPlatesCeiling
+ADDON Brick_Print_Icons
+ADDON Brick_Ramp_Prints
+ADDON Brick_RazorWire
+ADDON Brick_RoofTiles_V3
+ADDON Brick_Round_Corners
+ADDON Brick_SmallRampsPack
+ADDON Brick_TAGdoors
+ADDON Brick_TilePlates
+ADDON Brick_Treasure_Chest
+ADDON Brick_VerticalPlatePack
+ADDON Brick_Wedge
+ADDON Brick_Window
+ADDON Brick_WireFence
+ADDON Event_Camera_Control
+ADDON Event_onBrickLoaded
+ADDON Event_setPlayerTransform
+ADDON Event_WaterBrickEvents
+ADDON Light_Eksi
+ADDON Light_Toxic
+ADDON Light_Ambient
+
 // Environment
 $EnvGuiServer::SimpleMode 1
 $EnvGuiServer::SkyFile Add-Ons/Sky_Skylands/Skylands.dml
-$EnvGuiServer::WaterFile Add-Ons/Water_Brick/brick.water
+$EnvGuiServer::WaterFile None
 $EnvGuiServer::GroundFile Add-Ons/Ground_Plate/plate.ground
 
 
