@@ -5,7 +5,7 @@ package DespairSyndromePackage
 {
   function Armor::onDisabled(%this, %obj)
   {
-    if (%obj.isBody && isObject(GameRoundCleanup))
+    if (isObject(%obj.client) && %obj.client.miniGame == $DefaultMiniGame && isObject(GameRoundCleanup))
     {
       %obj.inhibitRemoveBody = true;
       GameRoundCleanup.add(%obj);
@@ -49,6 +49,10 @@ package DespairSyndromePackage
     Parent::reset(%this, %client);
 
     // Give everyone names, appearances, roles, etc
+
+    %this.allowPickup = false;
+    _gun.setitem(gunitem.getid());
+    schedule(60000,0,allowpickup);
   }
 
   function MiniGameSO::checkLastManStanding(%this)
@@ -58,7 +62,7 @@ package DespairSyndromePackage
     if (%this.numMembers < 1 || isEventPending(%this.scheduleReset))
       return 0;
     //Do game end checks if needed
-    return 0;
+    return Parent::checkLastManStanding(%this);
   }
 
   function GameConnection::onDeath(%client, %sourceObject, %sourceClient, %damageType, %damLoc)
@@ -84,6 +88,7 @@ package DespairSyndromePackage
         %player.tempBrick = 0;
       }
 
+      %player.isBody = true;
       %player.client = 0;
     }
     else
@@ -135,7 +140,94 @@ package DespairSyndromePackage
     commandToClient(%client, 'CenterPrint', '', 1);
     %client.miniGame.checkLastManStanding();
   }
+
+  function Armor::onCollision(%this, %obj, %col, %vec, %speed)
+  {
+  }
+
+  function Armor::onTrigger(%this, %obj, %slot, %state)
+  {
+    Parent::onTrigger(%this, %obj, %slot, %state);
+
+    if (%slot != 0)
+      return;
+
+    %item = %obj.carryItem;
+
+    if (isObject(%item) && isEventPending(%item.carrySchedule) && %item.carryPlayer $= %obj)
+    {
+      %time = $Sim::Time - %item.carryStart;
+      cancel(%item.carrySchedule);
+      %item.carryPlayer = 0;
+      %obj.carryItem = 0;
+    }
+
+    if (%state)
+    {
+      %a = %obj.getEyePoint();
+      %b = vectorAdd(%a, vectorScale(%obj.getEyeVector(), 6));
+
+      %mask =
+        $TypeMasks::FxBrickObjectType |
+        $TypeMasks::PlayerObjectType |
+        $TypeMasks::ItemObjectType;
+
+      %ray = containerRayCast(%a, %b, %mask, %obj);
+
+      if (%ray && %ray.getClassName() $= "Item")// && !isEventPending(%ray.carrySchedule))
+      {
+        %obj.carryItem = getWord(%ray, 0);
+        %ray.carryPlayer.carryItem = 0;
+        %ray.carryPlayer = %obj;
+        %ray.carryStart = $Sim::Time;
+        %ray.carryTick();
+      }
+    }
+    else if (isObject(%item) && %time < 0.15 && $DefaultMinigame.allowPickup)
+    {
+      %obj.tool4 = %item.getDataBlock();
+      messageClient(%obj.client, 'MsgItemPickup', '', 4, %item.getDataBlock());
+      %item.delete();
+    }
+  }
 };
+
+function allowpickup()
+{
+  $defaultminigame.allowpickup=true;
+  messageall('',"\c6The weapon can now be picked up with a quick left click!");
+}
+
+function Item::carryTick(%this)
+{
+  cancel(%this.carrySchedule);
+
+  %player = %this.carryPlayer;
+
+  if (!isObject(%player) || %player.getState() $= "Dead")
+    return;
+
+  %eyePoint = %player.getEyePoint();
+  %eyeVector = %player.getEyeVector();
+
+  %a = %eyePoint;
+  %b = vectorAdd(%eyePoint, vectorScale(%eyeVector, 3));
+
+  %mask =
+    $TypeMasks::FxBrickObjectType |
+    $TypeMasks::PlayerObjectType;
+
+  //%ray = containerRayCast(%a, %b, %mask, %player);
+
+  //if (%ray)
+  //  %target = vectorSub(getWords(%ray, 1, 3), vectorScale(%eyeVector, 0.5));
+  //else
+    %target = %b;
+
+  %this.static = false;
+  %this.setVelocity(vectorScale(vectorSub(%target, %this.getWorldBoxCenter()), 8));
+  %this.carrySchedule = %this.schedule(1, "carryTick");
+}
 
 if ($GameModeArg $= "Add-Ons/GameMode_Despair_Syndrome/gamemode.txt")
    activatePackage("DespairSyndromePackage");
