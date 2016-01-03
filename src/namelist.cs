@@ -1,63 +1,63 @@
 function getRandomGender(%gender)
 {
-  if (getRandom(1))
-    return "male";
-  else
-    return "female";
+	if (getRandom(1))
+		return "male";
+	else
+		return "female";
 }
 
 function getRandomName(%gender)
 {
-  %middleNameCount = getRandom(0, 2);
-  %name = sampleNameList("first-" @ %gender);
+	%middleNameCount = getRandom(0, 2);
+	%name = sampleNameList("first-" @ %gender);
 
-  for (%i = 0; %i < %middleNameCount; %i++)
-    %name = %name SPC sampleNameList("first-" @ getRandomGender());
+	for (%i = 0; %i < %middleNameCount; %i++)
+		%name = %name SPC sampleNameList("first-" @ getRandomGender());
 
-  return %name SPC samplenameList("last");
+	return %name SPC samplenameList("last");
 }
 
 function sampleNameList(%nameList)
 {
-  return $MN::NameListItem[%nameList, getRandom($MN::NameListMax[%nameList])];
+	return $DS::NameListItem[%nameList, getRandom($DS::NameListMax[%nameList])];
 }
 
 function loadNameList(%nameList)
 {
-  %file = new FileObject();
-  %fileName = $MN::Path @ "data/" @ %nameList @ ".txt";
+	%file = new FileObject();
+	%fileName = $DS::Path @ "data/" @ %nameList @ ".txt";
 
-  if (!%file.openForRead(%fileName))
-  {
-    error("ERROR: Failed to open '" @ %fileName @ "' for reading");
-    %file.delete();
-    return;
-  }
+	if (!%file.openForRead(%fileName))
+	{
+		error("ERROR: Failed to open '" @ %fileName @ "' for reading");
+		%file.delete();
+		return;
+	}
 
-  deleteVariables("$MN::NameListItem" @ %nameList @ "_*");
-  %max = -1;
+	deleteVariables("$DS::NameListItem" @ %nameList @ "_*");
+	%max = -1;
 
-  while (!%file.isEOF())
-  {
-    %line = %file.readLine();
-    $MN::NameListItem[%nameList, %max++] = getWord(%line, 0);
-  }
+	while (!%file.isEOF())
+	{
+		%line = %file.readLine();
+		$DS::NameListItem[%nameList, %max++] = getWord(%line, 0);
+	}
 
-  %file.close();
-  %file.delete();
+	%file.close();
+	%file.delete();
 
-  $MN::NameListMax[%nameList] = %max;
+	$DS::NameListMax[%nameList] = %max;
 }
 
 function loadAllNameLists()
 {
-  loadNameList("first-male");
-  loadNameList("first-female");
-  loadNameList("last");
+	loadNameList("first-male");
+	loadNameList("first-female");
+	loadNameList("last");
 }
 
-if (!$MN::LoadedNameLists)
+if (!$DS::LoadedNameLists)
 {
-  $MN::LoadedNameLists = true;
-  loadAllNameLists();
+	$DS::LoadedNameLists = true;
+	loadAllNameLists();
 }
