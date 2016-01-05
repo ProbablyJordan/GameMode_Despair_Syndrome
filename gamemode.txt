@@ -35,7 +35,8 @@ ADDON Vehicle_Horse
 ADDON Vehicle_Rowboat 
 ADDON Weapon_Bow 
 ADDON Weapon_Spear 
-ADDON Weapon_Sword 
+ADDON Weapon_Sword
+ADDON Weapon_Push_Broom
 
 ADDON Support_Doors
 ADDON Support_Player_Persistence

@@ -72,7 +72,8 @@ package DSItemPackage
 	function ItemData::onAdd(%this, %item)
 	{
 		Parent::onAdd(%this, %item);
-
+		if (%this.canPickUp !$= "")
+			%item.canPickUp = %this.canPickUp;
 		if (isObject(%this.collisionSFX))
 			%item.monitorCollisionSounds();
 	}

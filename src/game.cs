@@ -51,7 +51,6 @@ package DespairSyndromePackage
 		// Give everyone names, appearances, roles, etc
 
 		%this.allowPickup = false;
-		_gun.setitem(gunitem.getid());
 		schedule(60000,0,allowpickup);
 	}
 
@@ -184,10 +183,10 @@ package DespairSyndromePackage
 				%ray.carryStart = $Sim::Time;
 				%ray.static = false;
 				%ray.carryTick();
-				%obj.playThread(2, "armReadyRight");
+				%obj.playThread(2, "armReadyBoth");
 			}
 		}
-		else if (isObject(%item) && %time < 0.15 && $DefaultMinigame.allowPickup)
+		else if (isObject(%item) && %time < 0.15 && $DefaultMinigame.allowPickup && %item.canPickUp)
 		{
 			%obj.addItem(%item.GetDatablock());
 			%item.delete();
@@ -231,5 +230,5 @@ function Item::carryTick(%this)
 	%this.carrySchedule = %this.schedule(1, "carryTick");
 }
 
-if ($GameModeArg $= $DS::Path @ "gamemode.txt")
+if ($GameModeArg $= ($DS::Path @ "gamemode.txt"))
 	activatePackage("DespairSyndromePackage");

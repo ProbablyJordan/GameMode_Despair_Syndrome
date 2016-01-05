@@ -22,14 +22,14 @@ function max3(%a, %b, %c)
 	return %a > %b ? (%a > %c ? %a : %c) : (%b > %c ? %b : %c);
 }
 
-// function vectorSpread(%vector, %spread) {
-// 	%x = (getRandom() - 0.5) * 10 * 3.1415926 * %spread;
-// 	%y = (getRandom() - 0.5) * 10 * 3.1415926 * %spread;
-// 	%z = (getRandom() - 0.5) * 10 * 3.1415926 * %spread;
+function vectorSpread(%vector, %spread) {
+	%x = (getRandom() - 0.5) * 10 * 3.1415926 * %spread;
+	%y = (getRandom() - 0.5) * 10 * 3.1415926 * %spread;
+	%z = (getRandom() - 0.5) * 10 * 3.1415926 * %spread;
 
-// 	%mat = matrixCreateFromEuler(%x SPC %y SPC %z);
-// 	return vectorNormalize(matrixMulVector(%mat, %vector));
-// }
+	%mat = matrixCreateFromEuler(%x SPC %y SPC %z);
+	return vectorNormalize(matrixMulVector(%mat, %vector));
+}
 
 function spreadVector(%vector, %spread)
 {
