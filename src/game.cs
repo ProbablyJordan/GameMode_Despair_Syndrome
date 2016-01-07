@@ -1,5 +1,10 @@
+$DS::RoomCount = 0;
+
 if (!isObject(GameRoundCleanup))
 	new SimSet(GameRoundCleanup);
+
+if (!isObject(GameCharacters))
+	new SimSet(GameCharacters);
 
 package DespairSyndromePackage
 {
@@ -45,16 +50,17 @@ package DespairSyndromePackage
 
 		if (isObject(GameRoundCleanup))
 			GameRoundCleanup.deleteAll();
+		if (isObject(GameCharacters))
+			GameCharacters.deleteAll();
 		if (isObject(DecalGroup))
 			DecalGroup.deleteAll();
 
 		Parent::reset(%this, %client);
 
-		// Give everyone names, appearances, roles, etc
-
 		%this.allowPickup = false;
 		schedule(60000,0,allowpickup);
 
+		// Close *all* doors
 		%count = BrickGroup_888888.getCount();
 
 		for (%i = 0; %i < %count; %i++)
@@ -64,6 +70,61 @@ package DespairSyndromePackage
 
 			if (%data.isDoor)
 				%obj.setDataBlock(%brick.isCCW ? %data.closedCCW : %data.closedCW);
+		}
+
+		%freeCount = $DS::RoomCount;
+
+		for (%i = 0; %i < %freeCount; %i++)
+		{
+			%room = %i + 1;
+			%freeRoom[%i] = %room;
+		}
+
+		// Give everyone rooms, names, appearances, roles, etc
+		for (%i = 0; %i < %this.numMembers && %freeCount; %i++)
+		{
+			%member = %this.member[%i];
+			%player = %member.player;
+
+			if (!isObject(%player))
+				continue;
+
+			%freeCount--;
+			%freeIndex = getRandom(%freeCount);
+			%room = %freeRoom[%freeIndex];
+
+			for (%j = %freeIndex; %j < %freeCount; %j++)
+				%freeRoom[%j] = %freeRoom[%j + 1];
+
+			%freeRoom[%freeCount] = "";
+
+			%character = new ScriptObject()
+			{
+				client = %member;
+				clientName = %member.getPlayerName();
+				player = %player;
+				gender = getRandomGender();
+				room = %room;
+			};
+
+			GameCharacters.add(%character);
+			%member.character = %character;
+
+			%character.name = getRandomName(%character.gender);
+
+			%roomDoor = BrickGroup_888888.NTObject_room_r["_door_r" @ %room, 0];
+			%roomSpawn = BrickGroup_888888.NTObject_room_r["_" @ %room, 0];
+
+			%player.setTransform(%roomSpawn.getTransform());
+			%roomDoor.eventEnabled0 = true;
+		}
+
+		for (%i = 0; %i < %freeCount; %i++)
+		{
+			%room = %freeRoom[%i];
+			%roomDoor = BrickGroup_888888.NTObject_room_r["_door_r" @ %room, 0];
+			%roomSpawn = BrickGroup_888888.NTObject_room_r["_" @ %room, 0];
+			%roomDoor.eventEnabled0 = false;
 		}
 	}
 
