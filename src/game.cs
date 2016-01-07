@@ -54,6 +54,17 @@ package DespairSyndromePackage
 
 		%this.allowPickup = false;
 		schedule(60000,0,allowpickup);
+
+		%count = BrickGroup_888888.getCount();
+
+		for (%i = 0; %i < %count; %i++)
+		{
+			%brick = BrickGroup_888888.getObject(%i);
+			%data = %brick.getDataBlock();
+
+			if (%data.isDoor)
+				%obj.setDataBlock(%brick.isCCW ? %data.closedCCW : %data.closedCW);
+		}
 	}
 
 	function MiniGameSO::checkLastManStanding(%this)
@@ -76,7 +87,7 @@ package DespairSyndromePackage
 			%sourceClientIsBot = 1;
 			%sourceClient = %sourceObject.sourceObject;
 		}
-		
+
 		%player = %client.player;
 
 		if (isObject(%player))
@@ -125,7 +136,7 @@ package DespairSyndromePackage
 		// removed mini-game kill points here
 
 		%clientName = %client.getPlayerName();
-		
+
 		if (isObject(%sourceClient))
 			%sourceClientName = %sourceClient.getPlayerName();
 		else if (isObject(%sourceObject.sourceObject) && %sourceObject.sourceObject.getClassName() $= "AIPlayer")
@@ -179,6 +190,9 @@ package DespairSyndromePackage
 
 			if (%ray && %ray.getClassName() $= "Item")// && !isEventPending(%ray.carrySchedule))
 			{
+				if (isEventPending(%ray.carrySchedule) && isObject(%ray.carryPlayer))
+					%ray.carryPlayer.playThread(2, "root");
+
 				%obj.carryItem = getWord(%ray, 0);
 				%ray.carryPlayer.carryItem = 0;
 				%ray.carryPlayer = %obj;
@@ -214,21 +228,16 @@ function Item::carryTick(%this)
 	%eyePoint = %player.getEyePoint();
 	%eyeVector = %player.getEyeVector();
 
-	%a = %eyePoint;
-	%b = vectorAdd(%eyePoint, vectorScale(%eyeVector, 3));
+	%center = %this.getWorldBoxCenter();
+	%target = vectorAdd(%eyePoint, vectorScale(%eyeVector, 3));
 
-	%mask =
-		$TypeMasks::FxBrickObjectType |
-		$TypeMasks::PlayerObjectType;
+	if (vectorDist(%center, %target) > 6)
+	{
+		%player.playThread(2, "root");
+		return;
+	}
 
-	//%ray = containerRayCast(%a, %b, %mask, %player);
-
-	//if (%ray)
-	//  %target = vectorSub(getWords(%ray, 1, 3), vectorScale(%eyeVector, 0.5));
-	//else
-		%target = %b;
-
-	%this.setVelocity(vectorScale(vectorSub(%target, %this.getWorldBoxCenter()), 8 / %this.GetDatablock().mass));
+	%this.setVelocity(vectorScale(vectorSub(%target, %center), 8 / %this.GetDatablock().mass));
 	%this.carrySchedule = %this.schedule(1, "carryTick");
 }
 

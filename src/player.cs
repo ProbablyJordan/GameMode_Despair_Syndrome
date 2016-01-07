@@ -72,13 +72,12 @@ function Player::monitorEnergyLevel(%this, %last)
 	cancel(%this.monitorEnergyLevel);
 
 	if (%this.getState() $= "Dead" || !isObject(%this.client))
-	{
 		return;
-	}
 
 	if (%this.running)
 	{
 		%this.setEnergyLevel(%this.getEnergyLevel() - 2);
+
 		if (%this.getEnergyLevel() < 2)
 			%this.setMaxForwardSpeed(%this.getDataBlock().maxForwardSpeed * 0.75);
 	}
@@ -86,9 +85,7 @@ function Player::monitorEnergyLevel(%this, %last)
 	%show = %this.getEnergyLevel() < %this.getDataBlock().maxEnergy;
 
 	if (%show != %last)
-	{
 		commandToClient(%this.client, 'ShowEnergyBar', %show);
-	}
 
 	%this.monitorEnergyLevel = %this.schedule(32, monitorEnergyLevel, %show);
 }
