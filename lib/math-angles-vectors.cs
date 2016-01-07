@@ -22,6 +22,15 @@ function max3(%a, %b, %c)
 	return %a > %b ? (%a > %c ? %a : %c) : (%b > %c ? %b : %c);
 }
 
+function vectorMax(%vectorA, %vectorB)
+{
+	return getMax(getWord(%vectorA, 0), getWord(%vectorB, 0)) SPC getMax(getWord(%vectorA, 1), getWord(%vectorB, 1)) SPC getMax(getWord(%vectorA, 2), getWord(%vectorB, 2));
+}
+function vectorMin(%vectorA, %vectorB)
+{
+	return getMin(getWord(%vectorA, 0), getWord(%vectorB, 0)) SPC getMin(getWord(%vectorA, 1), getWord(%vectorB, 1)) SPC getMin(getWord(%vectorA, 2), getWord(%vectorB, 2));
+}
+
 function vectorSpread(%vector, %spread) {
 	%x = (getRandom() - 0.5) * 10 * 3.1415926 * %spread;
 	%y = (getRandom() - 0.5) * 10 * 3.1415926 * %spread;

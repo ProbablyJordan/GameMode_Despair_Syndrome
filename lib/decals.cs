@@ -48,7 +48,7 @@ function spawnDecal(%data, %position, %normal, %scale, %angle)
 	// TODO: Rotate decal around normal by %angle
 	%obj.setTransform(%position SPC vectorToAxis(%normal));
 	%obj.setScale(%size SPC %size SPC %size);
-
+	%obj.normal = %normal;
 	%fadeColor = "1 1 1 1";
 
 	if (%data.doColorShift)

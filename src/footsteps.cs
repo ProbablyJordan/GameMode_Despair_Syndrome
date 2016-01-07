@@ -88,9 +88,9 @@ function Armor::onLand(%this, %obj)
 			continue;
 		}
 
-		if (%obj.bloodyFootprints)
+		if (%obj.bloodyFootprints > 0)
 		{
-			%obj.doBloodyFootprint(%ray, %i);
+			%obj.doBloodyFootprint(%ray, %i, %obj.bloodyFootprints / %obj.bloodyFootprintsLast);
 		}
 
 		%color = -1;

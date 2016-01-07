@@ -67,7 +67,7 @@ package ItemPropsPackage
 		if (%this.getMountedImage(%slot).item.itemPropsAlways)
 			%this.getItemProps(%this.getMountedImage(%slot), %slot);
 
-		%this.debugWeapon();
+		//%this.debugWeapon();
 	}
 
 	function Armor::onRemove(%this, %player)

@@ -150,7 +150,6 @@ function Player::doSplatterBlood(%this, %amount, %pos) {
 			if(vectorDot("0 0 -1", %decal.normal) >= 0.5 && !isEventPending(%decal.ceilingBloodSchedule)) {
 				if(getRandom(0, 3) == 3) 
 				{
-					talk("boop");
 					%decal.ceilingBloodSchedule = schedule(getRandom(16, 500), 0, ceilingBloodLoop, %decal, getWords(%ray, 1, 3));
 				}
 			}
@@ -195,6 +194,13 @@ function Player::setBloodyFootprints(%this, %val, %bloodclient)
 	%this.bloodyFootprints = %val;
 	%this.bloodyFootprintsLast = %val;
 	%this.bloodClient = %bloodclient;
+	%this.bloody["lshoe"] = true;
+	%this.bloody["rshoe"] = true;
+	if (%this.client)
+	{
+		%this.client.applyBodyParts();
+		%this.client.applyBodyColors();
+	}
 }
 
 function ceilingBloodLoop(%this, %pos, %paint) {
@@ -226,8 +232,8 @@ function bloodDryingLoop(%this) {
 	if(!isObject(%this)) return;
 	if(%this.freshness <= 0)
 	{
-		%decal.color = vectorAdd(getWords(%decal.color, 0, 2), "-0.1 -0.1 -0.1") SPC getWord(%decal.color, 3);
-		%decal.setNodeColor("ALL", %decal.color); //Make it appear darker
+		%this.color = vectorMax("0 0 0", vectorSub(getWords(%this.color, 0, 2), "0.1 0.1 0.1")) SPC getWord(%this.color, 3);
+		%this.setNodeColor("ALL", %this.color); //Make it appear darker
 		return;
 	}
 	%this.freshness--;

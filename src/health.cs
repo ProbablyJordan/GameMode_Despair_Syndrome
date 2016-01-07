@@ -1,3 +1,4 @@
+//Health
 function Player::updateHealth(%this)
 {
 	%maxHealth = %this.getDataBlock().maxDamage;
@@ -63,6 +64,11 @@ package DSHealthPackage
 			%obj.updateHealth();
 	}
 
+	function Armor::onDisabled(%this, %obj, %state)
+	{
+		parent::onDisabled(%this, %obj, %state); //TODO: replace this function with custom one so we can manipulate the bodies better
+	}
+
 	function Armor::damage(%this, %obj, %src, %pos, %damage, %type)
 	{
 		if (%damage == 0)
@@ -85,15 +91,34 @@ package DSHealthPackage
 		%obj.attackRegion[%obj.attackCount] = %obj.getRegion(%pos);
 		%obj.attackType[%obj.attackCount] = %type;
 		%obj.attacker[%obj.attackCount] = %source.getClassName() $= "GameConnection" ? %source : %source.client;
-		talk(%obj.attackCount SPC %obj.attackRegion[%obj.attackCount] SPC %obj.attackType[%obj.attackCount] SPC %obj.attacker[%obj.attackCount].GetPlayerName());
+		echo("HARM:" SPC %obj.attackCount SPC %obj.attackRegion[%obj.attackCount] SPC %obj.attackType[%obj.attackCount] SPC %obj.attacker[%obj.attackCount].GetPlayerName());
 
 		%obj.setDamageFlash(getMax(0.25, %damage / %obj.maxHealth));
 		%obj.playPain();
 
 		%obj.setHealth(%obj.health - %damage);
-
+		%obj.doSplatterBlood(3);
+		if (%source.getClassName() $= "Player") //rather good chance of getting blood on yourself
+		{
+			if (getRandom(1, 3) == 1)
+			{
+				%source.bloody["rhand"] = true; //Both hands get bloodified atm
+				%source.bloody["lhand"] = true;
+				%source.bloody["chest_front"] = true; //you filthy murderer, get blood on your chest.
+				if (isObject(%source.client))
+					%source.client.applyBodyParts();
+			}
+			if (getRandom(1, 2) == 1)
+			{
+				%dot = vectorDot(%obj.getForwardVector(),%source.getForwardVector());
+				%obj.bloody["chest_" @ (%dot > 0 ? "back" : "front")] = true; //TODO: take sides into account, too
+				if (isObject(%obj.client))
+					%obj.client.applyBodyParts();
+			}
+		}
 		if (%obj.health <= 0)
 		{
+			%obj.doSplatterBlood(10);
 			Parent::damage(%this, %obj, %src, %position, %this.maxDamage * 4, %type);
 		}
 	}

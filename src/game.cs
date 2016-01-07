@@ -45,6 +45,8 @@ package DespairSyndromePackage
 
 		if (isObject(GameRoundCleanup))
 			GameRoundCleanup.deleteAll();
+		if (isObject(DecalGroup))
+			DecalGroup.deleteAll();
 
 		Parent::reset(%this, %client);
 

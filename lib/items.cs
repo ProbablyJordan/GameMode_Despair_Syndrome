@@ -77,6 +77,11 @@ package DSItemPackage
 		if (isObject(%this.collisionSFX))
 			%item.monitorCollisionSounds();
 	}
+	function Item::schedulePop(%this)
+	{
+		//Parent::schedulePop(%this);
+		GameRoundCleanup.add(%this);
+	}
 };
 if ($GameModeArg $= ($DS::Path @ "gamemode.txt"))
 	activatePackage("DSItemPackage");
