@@ -119,22 +119,21 @@ function mopImage::onFire(%this, %obj, %slot)
 	else {
 		%pos = %stop;
 	}
-	// talk("MOP BLOOD:" SPC %props.blood);
 	if (%ray && %ray.getClassName() $= "Item" && %ray.getDataBlock() == BucketItem.getID())
 	{
-		if (%props.blood <= 0)
-		{
-			%obj.client.centerPrint("\c6You dip the mop in the bucket, despite it being completely clean.", 2);
-			return;
-		}
-
 		%bucketProps = %ray.getItemProps();
 
 		if (%bucketProps.blood >= BucketItem.maxBlood)
 		{
 			if (isObject(%obj.client))
-				%obj.client.centerPrint("\c6This bucket is too bloody. The mop remains dirty.", 2);
+				%obj.client.centerPrint("\c6This bucket is too bloody.", 2);
 
+			return;
+		}
+
+		if (%props.blood <= 0)
+		{
+			%obj.client.centerPrint("\c6You dip the mop in the bucket, despite it being completely clean.", 2);
 			return;
 		}
 
@@ -179,7 +178,7 @@ function mopImage::onFire(%this, %obj, %slot)
 	if (%props.blood >= MopItem.maxBlood)
 	{
 		// TODO: spawn/add to blood splats?
-
+		
 		if (isObject(%obj.client))
 			%obj.client.centerPrint("\c6The mop is too bloody.", 2);
 	}
