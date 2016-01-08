@@ -8,13 +8,7 @@ function getRandomGender(%gender)
 
 function getRandomName(%gender)
 {
-	%middleNameCount = getRandom(0, 2);
-	%name = sampleNameList("first-" @ %gender);
-
-	for (%i = 0; %i < %middleNameCount; %i++)
-		%name = %name SPC sampleNameList("first-" @ getRandomGender());
-
-	return %name SPC samplenameList("last");
+	return sampleNameList("first-" @ %gender) SPC sampleNameList("last");
 }
 
 function sampleNameList(%nameList)
