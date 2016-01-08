@@ -126,7 +126,8 @@ package DespairSyndromePackage
 				%player.setShapeNameColor("1 0.1 0.9");
 			else if (%character.gender $= "male")
 				%player.setShapeNameColor("0.1 0.8 1");
-
+			%member.applyBodyParts();
+			%member.applyBodyColors();
 			// Give them a key to their room
 			%props = KeyItem.newItemProps(%player, 0);
 			%props.name = "Room #" @ %room @ " Key";

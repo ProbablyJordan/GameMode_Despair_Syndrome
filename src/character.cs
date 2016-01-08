@@ -9,13 +9,17 @@ package DSCharacterPackage
 			Parent::applyBodyParts(%this);
 			return;
 		}
+		%gender = "male";
+		if (isObject(%this.character) && %this.character.gender !$= "")
+			%gender = %this.character.gender;
+
 		%obj.hideNode("ALL");
 
 		%obj.unHideNode("headSkin");
-		%obj.unHideNode("chest");
+		%obj.unHideNode((%gender $= "female" ? "fem" : "") @ "chest");
 		%obj.unHideNode("pants");
-		%obj.unHideNode("larm");
-		%obj.unHideNode("rarm");
+		%obj.unHideNode("larm" @ (%gender $= "female" ? "slim" : ""));
+		%obj.unHideNode("rarm" @ (%gender $= "female" ? "slim" : ""));
 		%obj.unHideNode("lhand");
 		%obj.unHideNode("rhand");
 
@@ -31,13 +35,15 @@ package DSCharacterPackage
 		if (%obj.bloody["rhand"])
 			%obj.unHideNode("rhand_blood");
 		if (%obj.bloody["chest_front"])
-			%obj.unHideNode("chest_blood_front");
+			%obj.unHideNode((%gender $= "female" ? "fem" : "") @ "chest_blood_front");
 		if (%obj.bloody["chest_back"])
-			%obj.unHideNode("chest_blood_back");
+			%obj.unHideNode((%gender $= "female" ? "fem" : "") @ "chest_blood_back");
 		if (%obj.bloody["chest_lside"])
-			%obj.unHideNode("chest_blood_lside");
+			%obj.unHideNode((%gender $= "female" ? "fem" : "") @ "chest_blood_lside");
 		if (%obj.bloody["chest_rside"])
-			%obj.unHideNode("chest_blood_rside");
+			%obj.unHideNode((%gender $= "female" ? "fem" : "") @ "chest_blood_rside");
+
+		%obj.setHeadUp(false);
 	}
 
 	function GameConnection::applyBodyColors(%this)
@@ -53,11 +59,14 @@ package DSCharacterPackage
 		%obj.setFaceName(%this.faceName);
 		%obj.setNodeColor("headSkin", %this.headColor);
 		%obj.setNodeColor("chest", %this.chestColor);
+		%obj.setNodeColor("femchest", %this.chestColor);
 		%obj.setNodeColor("pants", %this.hipColor);
 		%obj.setNodeColor("lshoe", %this.llegColor);
 		%obj.setNodeColor("rshoe", %this.rlegColor);
 		%obj.setNodeColor("larm", %this.larmColor);
 		%obj.setNodeColor("rarm", %this.rarmColor);
+		%obj.setNodeColor("larmslim", %this.larmColor);
+		%obj.setNodeColor("rarmslim", %this.rarmColor);
 		%obj.setNodeColor("lhand", %this.lhandColor);
 		%obj.setNodeColor("rhand", %this.rhandColor);
 		//Set blood colors.
@@ -69,6 +78,8 @@ package DSCharacterPackage
 		%obj.setNodeColor("chest_blood_back", "0.7 0 0 1");
 		%obj.setNodeColor("chest_blood_lside", "0.7 0 0 1");
 		%obj.setNodeColor("chest_blood_rside", "0.7 0 0 1");
+		%obj.setNodeColor("femchest_blood_front", "0.7 0 0 1");
+		%obj.setNodeColor("femchest_blood_back", "0.7 0 0 1");
 	}
 };
 
