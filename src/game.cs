@@ -69,7 +69,7 @@ package DespairSyndromePackage
 			%data = %brick.getDataBlock();
 
 			if (%data.isDoor)
-				%obj.setDataBlock(%brick.isCCW ? %data.closedCCW : %data.closedCW);
+				%brick.setDataBlock(%brick.isCCW ? %data.closedCCW : %data.closedCW);
 		}
 
 		%freeCount = $DS::RoomCount;
@@ -124,7 +124,7 @@ package DespairSyndromePackage
 
 			if (%character.gender $= "female")
 				%player.setShapeNameColor("1 0.1 0.9");
-			else if (%character.gender $= "male"
+			else if (%character.gender $= "male")
 				%player.setShapeNameColor("0.1 0.8 1");
 
 			// Give them a key to their room
