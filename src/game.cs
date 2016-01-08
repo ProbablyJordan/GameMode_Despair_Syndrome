@@ -120,7 +120,7 @@ package DespairSyndromePackage
 			%roomSpawn = BrickGroup_888888.NTObject["_" @ %room, 0];
 
 			%player.setTransform(%roomSpawn.getTransform());
-			%player.setShapeName(%character.name);
+			%player.setShapeName(%character.name, 8564862);
 
 			if (%character.gender $= "female")
 				%player.setShapeNameColor("1 0.1 0.9");

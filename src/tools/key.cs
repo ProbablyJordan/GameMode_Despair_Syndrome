@@ -21,6 +21,9 @@ datablock ItemData(KeyItem)
 	image = KeyImage;
 
 	canDrop = true;
+
+	collisionSFX = KeyImpactSFX;
+	collisionThreshold = 3;
 };
 
 function KeyProps::onAdd(%this)
