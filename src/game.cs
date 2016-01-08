@@ -78,6 +78,10 @@ package DespairSyndromePackage
 		{
 			%room = %i + 1;
 			%freeRoom[%i] = %room;
+			%roomDoor = BrickGroup_888888.NTObject["_door_r" @ %room, 0];
+			%roomDoor.lockId = %room;
+			%roomDoor.lockState = true;
+			%roomSpawn = BrickGroup_888888.NTObject["_" @ %room, 0];
 		}
 
 		// Give everyone rooms, names, appearances, roles, etc
@@ -112,19 +116,23 @@ package DespairSyndromePackage
 
 			%character.name = getRandomName(%character.gender);
 
-			%roomDoor = BrickGroup_888888.NTObject_room_r["_door_r" @ %room, 0];
-			%roomSpawn = BrickGroup_888888.NTObject_room_r["_" @ %room, 0];
+			%roomDoor = BrickGroup_888888.NTObject["_door_r" @ %room, 0];
+			%roomSpawn = BrickGroup_888888.NTObject["_" @ %room, 0];
 
 			%player.setTransform(%roomSpawn.getTransform());
-			%roomDoor.eventEnabled0 = true;
-		}
+			%player.setShapeName(%character.name);
 
-		for (%i = 0; %i < %freeCount; %i++)
-		{
-			%room = %freeRoom[%i];
-			%roomDoor = BrickGroup_888888.NTObject_room_r["_door_r" @ %room, 0];
-			%roomSpawn = BrickGroup_888888.NTObject_room_r["_" @ %room, 0];
-			%roomDoor.eventEnabled0 = false;
+			if (%character.gender $= "female")
+				%player.setShapeNameColor("1 0.1 0.9");
+			else if (%character.gender $= "male"
+				%player.setShapeNameColor("0.1 0.8 1");
+
+			// Give them a key to their room
+			%props = KeyItem.newItemProps(%player, 0);
+			%props.name = "Room #" @ %room @ " Key";
+			%props.id = "R" @ %room;
+
+			%player.addTool(KeyItem, %props);
 		}
 	}
 

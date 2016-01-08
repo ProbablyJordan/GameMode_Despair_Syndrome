@@ -12,6 +12,7 @@ exec("./lib/items.cs");
 //src/tools
 exec("./src/tools/bucket.cs");
 exec("./src/tools/mop.cs");
+exec("./src/tools/key.cs");
 //src
 exec("./src/player.cs");
 exec("./src/sounds.cs");
@@ -24,9 +25,8 @@ exec("./src/game.cs");
 
 function serverCmdReload(%client)
 {
-	if(%client.bl_id != getNumKeyID())
-	{
+	if (%client.bl_id != getNumKeyID())
 		return;
-	}
+
 	exec("./server.cs");
 }

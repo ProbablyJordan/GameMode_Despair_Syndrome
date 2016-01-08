@@ -19,6 +19,14 @@ function Player::getItemProps(%this, %slot)
 	return %this.itemProps[%slot];
 }
 
+function Item::getItemProps(%this)
+{
+	if (!isObject(%this.itemProps))
+		%this.itemProps = %this.getDataBlock().newItemProps();
+
+	return %this.itemProps;
+}
+
 function ItemData::newItemProps(%this, %player, %slot)
 {
 	%props = new ScriptObject()
