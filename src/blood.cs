@@ -184,7 +184,7 @@ function Player::doBloodyFootprint(%this, %ray, %foot, %alpha) {
 	else
 		%decal.sourceClient = %this.client;
 	%decal.spillTime = $Sim::Time;
-	%decal.freshness = 0; //Basically amount of times someone can step in blood
+	%decal.freshness = 0.5; //freshness < 1 means can't get bloody footprints from it
 	%decal.bloodDryingSchedule = schedule($DS::Blood::dryTime, 0, bloodDryingLoop, %decal);
 	%decal.isFootprint = true;
 }

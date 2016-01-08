@@ -34,7 +34,7 @@ function ItemData::newItemProps(%this, %player, %slot)
 		class = %this.itemPropsClass;
 		superClass = "ItemProps";
 
-		sourceItemData = %this;
+		sourceItemData = %this.getID();
 		sourcePlayer = %player;
 		sourceClient = %player.client;
 

@@ -1,4 +1,4 @@
-$DS::RoomCount = 0;
+$DS::RoomCount = 16;
 
 if (!isObject(GameRoundCleanup))
 	new SimSet(GameRoundCleanup);
@@ -69,7 +69,7 @@ package DespairSyndromePackage
 			%data = %brick.getDataBlock();
 
 			if (%data.isDoor)
-				%obj.setDataBlock(%brick.isCCW ? %data.closedCCW : %data.closedCW);
+				%brick.setDataBlock(%brick.isCCW ? %data.closedCCW : %data.closedCW);
 		}
 
 		%freeCount = $DS::RoomCount;
@@ -79,7 +79,7 @@ package DespairSyndromePackage
 			%room = %i + 1;
 			%freeRoom[%i] = %room;
 			%roomDoor = BrickGroup_888888.NTObject["_door_r" @ %room, 0];
-			%roomDoor.lockId = %room;
+			%roomDoor.lockId = "R"@%room;
 			%roomDoor.lockState = true;
 			%roomSpawn = BrickGroup_888888.NTObject["_" @ %room, 0];
 		}
@@ -96,7 +96,7 @@ package DespairSyndromePackage
 			%freeCount--;
 			%freeIndex = getRandom(%freeCount);
 			%room = %freeRoom[%freeIndex];
-
+			talk("Assigned room" SPC %room SPC "to" SPC %member.name SPC "("@%i@")");
 			for (%j = %freeIndex; %j < %freeCount; %j++)
 				%freeRoom[%j] = %freeRoom[%j + 1];
 
@@ -124,7 +124,7 @@ package DespairSyndromePackage
 
 			if (%character.gender $= "female")
 				%player.setShapeNameColor("1 0.1 0.9");
-			else if (%character.gender $= "male"
+			else if (%character.gender $= "male")
 				%player.setShapeNameColor("0.1 0.8 1");
 
 			// Give them a key to their room

@@ -17,6 +17,8 @@ datablock ItemData(mopItem)
 
 	itemPropsClass = "MopProps";
 	maxBlood = 15;
+
+	canDrop = true;
 };
 
 function MopProps::onAdd(%this)
@@ -99,8 +101,8 @@ function mopImage::onFire(%this, %obj, %slot)
 	%props = %obj.getItemProps();
 
 	%obj.playThread(2, shiftAway);
-	%point = %obj.getMuzzlePoint(%slot);
-	%vector = %obj.getMuzzleVector(%slot);
+	%point = %obj.getEyePoint();
+	%vector = %obj.getEyeVector();
 	%stop = vectorAdd(%point, vectorScale(%vector, 7));
 
 	%ray = containerRayCast(%point, %stop,
@@ -117,11 +119,14 @@ function mopImage::onFire(%this, %obj, %slot)
 	else {
 		%pos = %stop;
 	}
-
+	talk("MOP BLOOD:" SPC %props.blood);
 	if (%ray && %ray.getClassName() $= "Item" && %ray.getDataBlock() == BucketItem.getID())
 	{
 		if (%props.blood <= 0)
+		{
+			%obj.client.centerPrint("\c6You dip the mop in the bucket, despite it being completely clean.", 2);
 			return;
+		}
 
 		%bucketProps = %ray.getItemProps();
 
@@ -133,7 +138,7 @@ function mopImage::onFire(%this, %obj, %slot)
 			return;
 		}
 
-		%availableClean = BucketItem.maxBlood - %bucketProps.blood;
+		%availableClean = getMin(%props.blood, BucketItem.maxBlood - %bucketProps.blood);
 		%bucketProps.blood += %availableClean;
 		%props.blood -= %availableClean;
 
@@ -156,15 +161,19 @@ function mopImage::onFire(%this, %obj, %slot)
 		if (!%col.isBlood && !%col.isPaint)
 			continue;
 
-		%clean = getMin(0.9, MopItem.maxBlood - %props.blood);
-
+		%clean = getMin(getMin(%col.freshness, 0.9), MopItem.maxBlood - %props.blood);
+		if (%col.freshness <= 0)
+		{
+			%col.delete();
+			continue;
+		}
+		if (%clean <= 0)
+			continue;
 		%col.freshness -= %clean;
 		%props.blood += %clean;
 		%col.color = getWords(%col.color, 0, 2) SPC getWord(%col.color, 3) * 0.5;
 		%col.setNodeColor("ALL", %col.color);
 		%col.setScale(vectorScale(%col.getScale(), 0.8));
-		if (%col.freshness <= 0)
-			%col.delete();
 	}
 
 	if (%props.blood >= MopItem.maxBlood)

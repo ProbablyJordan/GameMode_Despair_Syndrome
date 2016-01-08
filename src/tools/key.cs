@@ -19,6 +19,8 @@ datablock ItemData(KeyItem)
 	customPickupMultiple = true;
 
 	image = KeyImage;
+
+	canDrop = true;
 };
 
 function KeyProps::onAdd(%this)
@@ -120,47 +122,3 @@ package KeyPackage
 };
 
 activatePackage("KeyPackage");
-
-function mopImage::onFire(%this, %obj, %slot)
-{
-	%obj.playThread(2, shiftAway);
-	%point = %obj.getMuzzlePoint(%slot);
-	%vector = %obj.getMuzzleVector(%slot);
-	%stop = vectorAdd(%point, vectorScale(%vector, 7));
-
-	%ray = containerRayCast(%point, %stop,
-		$TypeMasks::FxBrickObjectType |
-		$TypeMasks::ShapeBaseObjectType |
-		$TypeMasks::TerrainObjectType,
-		%obj
-	);
-
-	if (isObject(firstWord(%ray))) {
-		%pos = getWords( %ray, 1, 3 );
-	}
-	else {
-		%pos = %stop;
-	}
-
-	initContainerRadiusSearch(
-		%pos, 0.75,
-		$TypeMasks::ShapeBaseObjectType
-	);
-
-	while (isObject( %col = containerSearchNext())) {
-		if (%col.isBlood || %col.isPaint) {
-			%col.freshness -= 0.9;
-			%col.color = getWords(%col.color, 0, 2) SPC getWord(%col.color, 3) * 0.5;
-			%col.setNodeColor("ALL", %col.color);
-			%col.setScale(vectorScale(%col.getScale(), 0.8));
-			if (%col.freshness <= 0)
-				%col.delete();
-			continue;
-		}
-	}
-}
-
-function mopImage::onStopFire(%this, %obj, %slot)
-{
-	%obj.playThread(2, root);
-}
