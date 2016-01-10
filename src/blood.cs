@@ -102,7 +102,7 @@ function Player::doDripBlood(%this, %force, %start, %end) {
 		%decal.setNodeColor("ALL", %decal.color);
 		%decal.sourceClient = %this.client;
 		%decal.spillTime = $Sim::Time;
-		%decal.freshness = 1; //Basically amount of times someone can step in blood
+		%decal.freshness = 0.9;
 		%decal.bloodDryingSchedule = schedule($DS::Blood::dryTime, 0, bloodDryingLoop, %decal);
 	}
 

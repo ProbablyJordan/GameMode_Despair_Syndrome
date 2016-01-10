@@ -1,15 +1,15 @@
 //Gamemode
 ADDON GameMode_Despair_Syndrome
 
+//Useful add-ons for gamemode functionality
+ADDON Event_Zones
+ADDON Brick_ZoneBricks
+
 //Default Add-Ons
 ADDON Brick_Arch 
 ADDON Brick_Large_Cubes 
 
-ADDON Brick_V15 
-ADDON Emote_Alarm 
-ADDON Emote_Confusion 
-ADDON Emote_Hate 
-ADDON Emote_Love 
+ADDON Brick_V15
 ADDON Light_Animated 
 ADDON Light_Basic 
 ADDON Particle_Basic 
