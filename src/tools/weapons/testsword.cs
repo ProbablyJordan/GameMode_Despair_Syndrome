@@ -17,6 +17,24 @@ datablock AudioProfile(AdvSwordBlockSoundBad)
 	preload = true;
 };
 
+datablock ExplosionData(advSwordExplosion : swordExplosion)
+{
+	soundProfile = "";
+};
+
+datablock ProjectileData(advSwordProjectile : swordProjectile)
+{
+	uiName = "";
+	explosion = advSwordExplosion;
+};
+
+function advSwordProjectile::onExplode(%this, %obj, %pos)
+{
+	ServerPlay3D(swordHitSound, %pos);
+	parent::onExplode(%this, %obj, %pos);
+}
+
+
 //////////
 // item //
 //////////
@@ -131,7 +149,7 @@ datablock ShapeBaseImageData(AdvSwordImage)
 	raycastFromEye = true;
 	directDamage = 20;
 	directDamageType = $DamageType::AdvSword;
-	raycastHitExplosion = SwordProjectile;
+	raycastHitExplosion = advSwordProjectile;
 };
 
 function AdvSwordImage::onMount(%this, %obj, %slot)

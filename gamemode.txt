@@ -1,6 +1,3 @@
-//Gamemode
-ADDON GameMode_Despair_Syndrome
-
 //Useful add-ons for gamemode functionality
 ADDON Event_Zones
 
@@ -121,6 +118,9 @@ ADDON Event_WaterBrickEvents
 ADDON Light_Eksi
 ADDON Light_Toxic
 ADDON Light_Ambient
+
+//Gamemode
+ADDON GameMode_Despair_Syndrome
 
 // Environment
 $EnvGuiServer::SimpleMode 1

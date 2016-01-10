@@ -35,7 +35,12 @@ package DespairSyndromePackage
 
 	function MiniGameSO::addMember(%this, %member)
 	{
+		%empty = %this.numMembers < 1;
 		Parent::addMember(%this, %member);
+		if (%empty)
+		{
+			%this.reset(0);
+		}
 	}
 
 	function MiniGameSO::removeMember(%this, %member)
@@ -47,6 +52,10 @@ package DespairSyndromePackage
 	{
 		if (%this.owner != 0)
 			return Parent::reset(%this, %client);
+
+		// Play nice with the default rate limiting.
+		if (getSimTime() - %this.lastResetTime < 5000)
+			return;
 
 		if (isObject(GameRoundCleanup))
 			GameRoundCleanup.deleteAll();
@@ -96,7 +105,6 @@ package DespairSyndromePackage
 			%freeCount--;
 			%freeIndex = getRandom(%freeCount);
 			%room = %freeRoom[%freeIndex];
-			talk("Assigned room" SPC %room SPC "to" SPC %member.name SPC "("@%i@")");
 			for (%j = %freeIndex; %j < %freeCount; %j++)
 				%freeRoom[%j] = %freeRoom[%j + 1];
 
@@ -115,6 +123,10 @@ package DespairSyndromePackage
 			%member.character = %character;
 
 			%character.name = getRandomName(%character.gender);
+			%character.appearance = getRandomAppearance(%character.gender);
+
+			%member.applyBodyParts();
+			%member.applyBodyColors();
 
 			%roomDoor = BrickGroup_888888.NTObject["_door_r" @ %room, 0];
 			%roomSpawn = BrickGroup_888888.NTObject["_" @ %room, 0];
@@ -126,8 +138,7 @@ package DespairSyndromePackage
 				%player.setShapeNameColor("1 0.1 0.9");
 			else if (%character.gender $= "male")
 				%player.setShapeNameColor("0.1 0.8 1");
-			%member.applyBodyParts();
-			%member.applyBodyColors();
+
 			// Give them a key to their room
 			%props = KeyItem.newItemProps(%player, 0);
 			%props.name = "Room #" @ %room @ " Key";
@@ -274,7 +285,8 @@ package DespairSyndromePackage
 		}
 		else if (isObject(%item) && %time < 0.15 && $DefaultMinigame.allowPickup && %item.canPickUp)
 		{
-			%obj.addItem(%item.GetDatablock());
+			%obj.addTool(%item.GetDatablock(), %item.itemProps);	
+			%item.itemProps = "";
 			%item.delete();
 		}
 	}

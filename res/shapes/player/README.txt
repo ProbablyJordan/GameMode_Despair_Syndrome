@@ -1,6 +1,6 @@
 put the contents of this file in base/data/shapes/player!!!
 
-New accesories are:
+--New accesories are:
 rhand_blood
 lhand_blood
 chest_blood_front
@@ -13,17 +13,32 @@ lshoe_blood
 rshoe_blood
 --hairs:
 hair_bobcut
+hair_bowl
 hair_broad
 hair_bunn
 hair_cornrows
+hair_daphne
 hair_emo
+hair_fabio
 hair_familiar
+hair_flattop
+hair_freddie
 hair_greaser
 hair_headband
+hair_jewfro
 hair_layered
 hair_messy
+hair_mohawk
 hair_mom
+hair_mullet
 hair_neat
+hair_parted
+hair_phoenix
+hair_pompadour
 hair_ponytail
+hair_punk
+hair_shaggy
 hair_suav
+hair_velma
 hair_wavey
+hair_wig
