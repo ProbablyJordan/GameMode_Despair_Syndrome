@@ -1,6 +1,7 @@
 This is a Blockland save file.  You probably shouldn't modify it cause you'll screw it up.
-1
-
+2
+where doing this man
+where MAKING THIS HAPEN
 1.000000 0.000000 0.000000 1.000000
 1.000000 0.137255 0.000000 1.000000
 1.000000 0.494118 0.000000 1.000000
@@ -65,158 +66,306 @@ This is a Blockland save file.  You probably shouldn't modify it cause you'll sc
 0.392157 0.192157 0.000000 1.000000
 0.584314 0.309804 0.039216 1.000000
 1.000000 0.000000 1.000000 0.000000
-Linecount 8338
+Linecount 8349
 32x32 Base" 27.5 -23 0.1 1 1 18  0 0 1 1 1
-+-OWNER 888888
++-OWNER 29019
 16x16 Base" -27.5 -74.5 0.1 3 1 0  0 0 1 1 1
-+-OWNER 888888
++-OWNER 29019
 1x1x5" -33.75 -71.25 1.5 1 1 2  0 0 0 0 0
-+-OWNER 888888
++-OWNER 29019
 +-EVENT	0	1	onActivate	33	Self		fireRelay				
 +-EVENT	1	1	onRelay	100	Self		fireRelay				
 +-EVENT	2	0	onRelay	0	Self		disappear	-1			
 +-EVENT	3	1	onRelay	0	Self		disappear	0			
 +-EVENT	4	1	onRelay	0	Self		toggleEventEnabled	2 3			
 1x1" -4.25 -52.25 0.3 1 1 49  0 0 1 1 1
-+-OWNER 888888
++-OWNER 29019
 +-EVENT	0	1	onActivate	0	Player		SetPlayerScale	0.5			
 16x16 Base" 2 -77 0.1 3 1 18  0 0 1 1 1
-+-OWNER 888888
++-OWNER 29019
 3x4F" 9.25 -77.5 0.1 2 1 34  0 0 1 1 1
-+-OWNER 888888
++-OWNER 29019
 32x32 Base" -100.5 45.5 0.1 1 1 47  0 0 1 1 1
-+-OWNER 888888
++-OWNER 29019
++-NTOBJECTNAME _room15
++-EVENT	0	1	onBrickLoaded	0	Self		setZone	1	8	0 0 0	
++-EVENT	1	1	onBrickLoaded	0	Self		setZoneSoundProof	1			
++-EVENT	2	1	onRelay	0	Self		toggleEventEnabled	3 4			
++-EVENT	3	1	onRelay	0	Self		setZoneSoundProof	0			
++-EVENT	4	0	onRelay	0	Self		setZoneSoundProof	1			
++-EVENT	5	1	onMiniGameReset	0	Self		setZoneSoundProof	1			
++-EVENT	6	1	onMiniGameReset	0	Self		setEventEnabled	3	1		
++-EVENT	7	1	onMiniGameReset	0	Self		setEventEnabled	4	0		
 32x32 Base" -100.5 29.5 0.1 1 1 47  0 0 1 1 1
-+-OWNER 888888
++-OWNER 29019
++-NTOBJECTNAME _room16
++-EVENT	0	1	onBrickLoaded	0	Self		setZone	1	8	0 0 0	
++-EVENT	1	1	onBrickLoaded	0	Self		setZoneSoundProof	1			
++-EVENT	2	1	onRelay	0	Self		toggleEventEnabled	3 4			
++-EVENT	3	1	onRelay	0	Self		setZoneSoundProof	0			
++-EVENT	4	0	onRelay	0	Self		setZoneSoundProof	1			
++-EVENT	5	1	onMiniGameReset	0	Self		setZoneSoundProof	1			
++-EVENT	6	1	onMiniGameReset	0	Self		setEventEnabled	3	1		
++-EVENT	7	1	onMiniGameReset	0	Self		setEventEnabled	4	0		
 32x32 Base" -44.5 -2.5 0.1 3 1 20  0 0 1 1 1
-+-OWNER 888888
++-OWNER 29019
 32x32 Base" -44.5 13.5 0.1 3 1 47  0 0 1 1 1
-+-OWNER 888888
++-OWNER 29019
 32x32 Base" 5.5 -58 0.1 0 1 18  0 0 1 1 1
-+-OWNER 888888
++-OWNER 29019
 8x8F" 3.5 -47 0.1 3 1 30  0 0 1 1 1
-+-OWNER 888888
++-OWNER 29019
 16x16 Base" -15 -56.5 0.1 1 1 49  0 0 1 1 1
-+-OWNER 888888
++-OWNER 29019
 16x16 Base" -7 -41 0.1 2 1 49  0 0 1 1 1
-+-OWNER 888888
++-OWNER 29019
 16x16 Base" -7 -33 0.1 3 1 52  0 0 1 1 1
-+-OWNER 888888
++-OWNER 29019
 32x32 Base" 21.5 -58 0.1 3 1 49  0 0 1 1 1
-+-OWNER 888888
++-OWNER 29019
 32x32 Base" 43 16.5 0.1 1 1 49  0 0 1 1 1
-+-OWNER 888888
++-OWNER 29019
 32x32 Base" 43 0.5 0.1 3 1 49  0 0 1 1 1
-+-OWNER 888888
++-OWNER 29019
 4x4F" 26 -13.5 0.1 0 1 44  0 0 1 1 1
-+-OWNER 888888
++-OWNER 29019
 16x16 Base" -32.5 -30.5 0.1 1 1 18  0 0 1 1 1
-+-OWNER 888888
++-OWNER 29019
 16x16 Base" -40.5 -30.5 0.1 1 1 18  0 0 1 1 1
-+-OWNER 888888
++-OWNER 29019
 16x16 Base" -48.5 -30.5 0.1 1 1 18  0 0 1 1 1
-+-OWNER 888888
++-OWNER 29019
 16x16 Base" -56.5 -30.5 0.1 1 1 18  0 0 1 1 1
-+-OWNER 888888
++-OWNER 29019
 16x16 Base" -64.5 -30.5 0.1 1 1 18  0 0 1 1 1
-+-OWNER 888888
++-OWNER 29019
 16x16 Base" -72.5 -30.5 0.1 1 1 18  0 0 1 1 1
-+-OWNER 888888
++-OWNER 29019
 16x16 Base" -80.5 -30.5 0.1 1 1 18  0 0 1 1 1
-+-OWNER 888888
++-OWNER 29019
 16x16 Base" -88.5 -30.5 0.1 1 1 18  0 0 1 1 1
-+-OWNER 888888
++-OWNER 29019
 16x16 Base" -96.5 -6.5 0.1 2 1 18  0 0 1 1 1
-+-OWNER 888888
++-OWNER 29019
 16x16 Base" -96.5 1.5 0.1 2 1 18  0 0 1 1 1
-+-OWNER 888888
++-OWNER 29019
 16x16 Base" -96.5 9.5 0.1 2 1 18  0 0 1 1 1
-+-OWNER 888888
++-OWNER 29019
 16x16 Base" -96.5 17.5 0.1 2 1 18  0 0 1 1 1
-+-OWNER 888888
++-OWNER 29019
 16x16 Base" 24.5 -2 0.1 2 1 18  0 0 1 1 1
-+-OWNER 888888
-16x16 Base" 1 -33 0.1 2 1 15  0 0 1 1 1
-+-OWNER 19783
++-OWNER 29019
+16x16 Base" 22 33 0.1 0 1 29  0 0 1 1 1
++-OWNER 29019
++-EVENT	0	1	onBrickLoaded	0	Self		setZone	1	8	0 0 0	
++-EVENT	1	1	onBrickLoaded	0	Self		setZoneSoundProof	1			
 16x32 Base" 24.5 10.5 0.1 0 1 18  0 0 1 1 1
-+-OWNER 888888
++-OWNER 29019
 16x16 Base" -88.5 49.5 0.1 3 1 18  0 0 1 1 1
-+-OWNER 888888
++-OWNER 29019
 16x16 Base" -8.5 41.5 0.1 0 1 18  0 0 1 1 1
-+-OWNER 888888
++-OWNER 29019
 32x32 Base" -4.5 -2.5 0.1 3 1 47  0 0 1 1 1
-+-OWNER 888888
++-OWNER 29019
++-NTOBJECTNAME _room2
++-EVENT	0	1	onBrickLoaded	0	Self		setZone	1	8	0 0 0	
++-EVENT	1	1	onBrickLoaded	0	Self		setZoneSoundProof	1			
++-EVENT	2	1	onRelay	0	Self		toggleEventEnabled	3 4			
++-EVENT	3	1	onRelay	0	Self		setZoneSoundProof	0			
++-EVENT	4	0	onRelay	0	Self		setZoneSoundProof	1			
++-EVENT	5	1	onMiniGameReset	0	Self		setZoneSoundProof	1			
++-EVENT	6	1	onMiniGameReset	0	Self		setEventEnabled	3	1		
++-EVENT	7	1	onMiniGameReset	0	Self		setEventEnabled	4	0		
 64x64 Base" -68.5 5.5 0.1 3 1 20  0 0 1 1 1
-+-OWNER 888888
++-OWNER 29019
 32x32 Base" -28.5 -2.5 0.1 1 1 47  0 0 1 1 1
-+-OWNER 888888
++-OWNER 29019
++-NTOBJECTNAME _room1
++-EVENT	0	1	onBrickLoaded	0	Self		setZone	1	8	0 0 0	
++-EVENT	1	1	onBrickLoaded	0	Self		setZoneSoundProof	1			
++-EVENT	2	1	onRelay	0	Self		toggleEventEnabled	3 4			
++-EVENT	3	1	onRelay	0	Self		setZoneSoundProof	0			
++-EVENT	4	0	onRelay	0	Self		setZoneSoundProof	1			
++-EVENT	5	1	onMiniGameReset	0	Self		setZoneSoundProof	1			
++-EVENT	6	1	onMiniGameReset	0	Self		setEventEnabled	3	1		
++-EVENT	7	1	onMiniGameReset	0	Self		setEventEnabled	4	0		
 32x32 Base" -4.5 -18.5 0.1 0 1 0  0 0 1 1 1
-+-OWNER 888888
++-OWNER 29019
 4x4F Tile" 53.5 -2.5 0.1 3 1 18  0 0 1 1 1
-+-OWNER 888888
++-OWNER 29019
 16x16 Base" -88.5 41.5 0.1 0 1 18  0 0 1 1 1
-+-OWNER 888888
++-OWNER 29019
 32x32 Base" -36.5 -18.5 0.1 2 1 18  0 0 1 1 1
-+-OWNER 888888
++-OWNER 29019
 32x32 Base" -52.5 -18.5 0.1 2 1 18  0 0 1 1 1
-+-OWNER 888888
++-OWNER 29019
 32x32 Base" -68.5 -18.5 0.1 2 1 18  0 0 1 1 1
-+-OWNER 888888
++-OWNER 29019
 32x32 Base" -84.5 -18.5 0.1 2 1 18  0 0 1 1 1
-+-OWNER 888888
++-OWNER 29019
 16x32 Base" -88.5 -2.5 0.1 2 1 18  0 0 1 1 1
-+-OWNER 888888
++-OWNER 29019
 16x32 Base" -88.5 13.5 0.1 2 1 18  0 0 1 1 1
-+-OWNER 888888
++-OWNER 29019
 16x32 Base" -88.5 29.5 0.1 2 1 18  0 0 1 1 1
-+-OWNER 888888
++-OWNER 29019
 32x32 Base" -20.5 -18.5 0.1 2 1 18  0 0 1 1 1
-+-OWNER 888888
++-OWNER 29019
 32x32 Base" -20.5 -34.5 0.1 1 1 51  0 0 1 1 1
-+-OWNER 888888
++-OWNER 29019
 16x32 Base" -60.5 41.5 0.1 3 1 18  0 0 1 1 1
-+-OWNER 888888
++-OWNER 29019
 16x32 Base" -76.5 41.5 0.1 3 1 18  0 0 1 1 1
-+-OWNER 888888
++-OWNER 29019
 16x16 Base" -16.5 41.5 0.1 3 1 18  0 0 1 1 1
-+-OWNER 888888
++-OWNER 29019
 16x32 Base" -44.5 41.5 0.1 3 1 18  0 0 1 1 1
-+-OWNER 888888
++-OWNER 29019
 16x32 Base" -28.5 41.5 0.1 3 1 18  0 0 1 1 1
-+-OWNER 888888
++-OWNER 29019
 16x32 Base" -16.5 -2.5 0.1 0 1 18  0 0 1 1 1
-+-OWNER 888888
++-OWNER 29019
 16x32 Base" -16.5 13.5 0.1 0 1 18  0 0 1 1 1
-+-OWNER 888888
++-OWNER 29019
 16x32 Base" -16.5 29.5 0.1 0 1 18  0 0 1 1 1
-+-OWNER 888888
++-OWNER 29019
 32x32 Base" -76.5 29.5 0.1 0 1 47  0 0 1 1 1
-+-OWNER 888888
++-OWNER 29019
++-NTOBJECTNAME _room13
++-EVENT	0	1	onBrickLoaded	0	Self		setZone	1	8	0 0 0	
++-EVENT	1	1	onBrickLoaded	0	Self		setZoneSoundProof	1			
++-EVENT	2	1	onRelay	0	Self		toggleEventEnabled	3 4			
++-EVENT	3	1	onRelay	0	Self		setZoneSoundProof	0			
++-EVENT	4	0	onRelay	0	Self		setZoneSoundProof	1			
++-EVENT	5	1	onMiniGameReset	0	Self		setZoneSoundProof	1			
++-EVENT	6	1	onMiniGameReset	0	Self		setEventEnabled	3	1		
++-EVENT	7	1	onMiniGameReset	0	Self		setEventEnabled	4	0		
 32x32 Base" -60.5 29.5 0.1 0 1 47  0 0 1 1 1
-+-OWNER 888888
++-OWNER 29019
++-NTOBJECTNAME _room11
++-EVENT	0	1	onBrickLoaded	0	Self		setZone	1	8	0 0 0	
++-EVENT	1	1	onBrickLoaded	0	Self		setZoneSoundProof	1			
++-EVENT	2	1	onRelay	0	Self		toggleEventEnabled	3 4			
++-EVENT	3	1	onRelay	0	Self		setZoneSoundProof	0			
++-EVENT	4	0	onRelay	0	Self		setZoneSoundProof	1			
++-EVENT	5	1	onMiniGameReset	0	Self		setZoneSoundProof	1			
++-EVENT	6	1	onMiniGameReset	0	Self		setEventEnabled	3	1		
++-EVENT	7	1	onMiniGameReset	0	Self		setEventEnabled	4	0		
 32x32 Base" -44.5 29.5 0.1 0 1 47  0 0 1 1 1
-+-OWNER 888888
++-OWNER 29019
++-NTOBJECTNAME _room9
++-EVENT	0	1	onBrickLoaded	0	Self		setZone	1	8	0 0 0	
++-EVENT	1	1	onBrickLoaded	0	Self		setZoneSoundProof	1			
++-EVENT	2	1	onRelay	0	Self		toggleEventEnabled	3 4			
++-EVENT	3	1	onRelay	0	Self		setZoneSoundProof	0			
++-EVENT	4	0	onRelay	0	Self		setZoneSoundProof	1			
++-EVENT	5	1	onMiniGameReset	0	Self		setZoneSoundProof	1			
++-EVENT	6	1	onMiniGameReset	0	Self		setEventEnabled	3	1		
++-EVENT	7	1	onMiniGameReset	0	Self		setEventEnabled	4	0		
 32x32 Base" -76.5 53.5 0.1 2 1 47  0 0 1 1 1
-+-OWNER 888888
++-OWNER 29019
++-NTOBJECTNAME _room14
++-EVENT	0	1	onBrickLoaded	0	Self		setZone	1	8	0 0 0	
++-EVENT	1	1	onBrickLoaded	0	Self		setZoneSoundProof	1			
++-EVENT	2	1	onRelay	0	Self		toggleEventEnabled	3 4			
++-EVENT	3	1	onRelay	0	Self		setZoneSoundProof	0			
++-EVENT	4	0	onRelay	0	Self		setZoneSoundProof	1			
++-EVENT	5	1	onMiniGameReset	0	Self		setZoneSoundProof	1			
++-EVENT	6	1	onMiniGameReset	0	Self		setEventEnabled	3	1		
++-EVENT	7	1	onMiniGameReset	0	Self		setEventEnabled	4	0		
 32x32 Base" -60.5 53.5 0.1 2 1 47  0 0 1 1 1
-+-OWNER 888888
++-OWNER 29019
++-NTOBJECTNAME _room12
++-EVENT	0	1	onBrickLoaded	0	Self		setZone	1	8	0 0 0	
++-EVENT	1	1	onBrickLoaded	0	Self		setZoneSoundProof	1			
++-EVENT	2	1	onRelay	0	Self		toggleEventEnabled	3 4			
++-EVENT	3	1	onRelay	0	Self		setZoneSoundProof	0			
++-EVENT	4	0	onRelay	0	Self		setZoneSoundProof	1			
++-EVENT	5	1	onMiniGameReset	0	Self		setZoneSoundProof	1			
++-EVENT	6	1	onMiniGameReset	0	Self		setEventEnabled	3	1		
++-EVENT	7	1	onMiniGameReset	0	Self		setEventEnabled	4	0		
 32x32 Base" -44.5 53.5 0.1 2 1 47  0 0 1 1 1
-+-OWNER 888888
++-OWNER 29019
++-NTOBJECTNAME _room10
++-EVENT	0	1	onBrickLoaded	0	Self		setZone	1	8	0 0 0	
++-EVENT	1	1	onBrickLoaded	0	Self		setZoneSoundProof	1			
++-EVENT	2	1	onRelay	0	Self		toggleEventEnabled	3 4			
++-EVENT	3	1	onRelay	0	Self		setZoneSoundProof	0			
++-EVENT	4	0	onRelay	0	Self		setZoneSoundProof	1			
++-EVENT	5	1	onMiniGameReset	0	Self		setZoneSoundProof	1			
++-EVENT	6	1	onMiniGameReset	0	Self		setEventEnabled	3	1		
++-EVENT	7	1	onMiniGameReset	0	Self		setEventEnabled	4	0		
 32x32 Base" -12.5 53.5 0.1 2 1 47  0 0 1 1 1
-+-OWNER 888888
++-OWNER 29019
++-NTOBJECTNAME _room7
++-EVENT	0	1	onBrickLoaded	0	Self		setZone	1	8	0 0 0	
++-EVENT	1	1	onBrickLoaded	0	Self		setZoneSoundProof	1			
++-EVENT	2	1	onRelay	0	Self		toggleEventEnabled	3 4			
++-EVENT	3	1	onRelay	0	Self		setZoneSoundProof	0			
++-EVENT	4	0	onRelay	0	Self		setZoneSoundProof	1			
++-EVENT	5	1	onMiniGameReset	0	Self		setZoneSoundProof	1			
++-EVENT	6	1	onMiniGameReset	0	Self		setEventEnabled	3	1		
++-EVENT	7	1	onMiniGameReset	0	Self		setEventEnabled	4	0		
 32x32 Base" -28.5 53.5 0.1 2 1 47  0 0 1 1 1
-+-OWNER 888888
++-OWNER 29019
++-NTOBJECTNAME _room8
++-EVENT	0	1	onBrickLoaded	0	Self		setZone	1	8	0 0 0	
++-EVENT	1	1	onBrickLoaded	0	Self		setZoneSoundProof	1			
++-EVENT	2	1	onRelay	0	Self		toggleEventEnabled	3 4			
++-EVENT	3	1	onRelay	0	Self		setZoneSoundProof	0			
++-EVENT	4	0	onRelay	0	Self		setZoneSoundProof	1			
++-EVENT	5	1	onMiniGameReset	0	Self		setZoneSoundProof	1			
++-EVENT	6	1	onMiniGameReset	0	Self		setEventEnabled	3	1		
++-EVENT	7	1	onMiniGameReset	0	Self		setEventEnabled	4	0		
 32x32 Base" -28.5 29.5 0.1 1 1 47  0 0 1 1 1
-+-OWNER 888888
++-OWNER 29019
++-NTOBJECTNAME _room5
++-EVENT	0	1	onBrickLoaded	0	Self		setZone	1	8	0 0 0	
++-EVENT	1	1	onBrickLoaded	0	Self		setZoneSoundProof	1			
++-EVENT	2	1	onRelay	0	Self		toggleEventEnabled	3 4			
++-EVENT	3	1	onRelay	0	Self		setZoneSoundProof	0			
++-EVENT	4	0	onRelay	0	Self		setZoneSoundProof	1			
++-EVENT	5	1	onMiniGameReset	0	Self		setZoneSoundProof	1			
++-EVENT	6	1	onMiniGameReset	0	Self		setEventEnabled	3	1		
++-EVENT	7	1	onMiniGameReset	0	Self		setEventEnabled	4	0		
 32x32 Base" -28.5 13.5 0.1 1 1 47  0 0 1 1 1
-+-OWNER 888888
++-OWNER 29019
++-NTOBJECTNAME _room3
++-EVENT	0	1	onBrickLoaded	0	Self		setZone	1	8	0 0 0	
++-EVENT	1	1	onBrickLoaded	0	Self		setZoneSoundProof	1			
++-EVENT	2	1	onRelay	0	Self		toggleEventEnabled	3 4			
++-EVENT	3	1	onRelay	0	Self		setZoneSoundProof	0			
++-EVENT	4	0	onRelay	0	Self		setZoneSoundProof	1			
++-EVENT	5	1	onMiniGameReset	0	Self		setZoneSoundProof	1			
++-EVENT	6	1	onMiniGameReset	0	Self		setEventEnabled	3	1		
++-EVENT	7	1	onMiniGameReset	0	Self		setEventEnabled	4	0		
 32x32 Base" -100.5 -18.5 0.1 3 1 49  0 0 1 1 1
-+-OWNER 888888
++-OWNER 29019
 32x32 Base" -4.5 29.5 0.1 3 1 47  0 0 1 1 1
-+-OWNER 888888
++-OWNER 29019
++-NTOBJECTNAME _room6
++-EVENT	0	1	onBrickLoaded	0	Self		setZone	1	8	0 0 0	
++-EVENT	1	1	onBrickLoaded	0	Self		setZoneSoundProof	1			
++-EVENT	2	1	onRelay	0	Self		toggleEventEnabled	3 4			
++-EVENT	3	1	onRelay	0	Self		setZoneSoundProof	0			
++-EVENT	4	0	onRelay	0	Self		setZoneSoundProof	1			
++-EVENT	5	1	onMiniGameReset	0	Self		setZoneSoundProof	1			
++-EVENT	6	1	onMiniGameReset	0	Self		setEventEnabled	3	1		
++-EVENT	7	1	onMiniGameReset	0	Self		setEventEnabled	4	0		
 32x32 Base" -4.5 13.5 0.1 3 1 47  0 0 1 1 1
-+-OWNER 888888
-1x16" -56.5 21.25 0.5 3 0 18  0 0 1 1 1
++-OWNER 29019
++-NTOBJECTNAME _room4
++-EVENT	0	1	onBrickLoaded	0	Self		setZone	1	8	0 0 0	
++-EVENT	1	1	onBrickLoaded	0	Self		setZoneSoundProof	1			
++-EVENT	2	1	onRelay	0	Self		toggleEventEnabled	3 4			
++-EVENT	3	1	onRelay	0	Self		setZoneSoundProof	0			
++-EVENT	4	0	onRelay	0	Self		setZoneSoundProof	1			
++-EVENT	5	1	onMiniGameReset	0	Self		setZoneSoundProof	1			
++-EVENT	6	1	onMiniGameReset	0	Self		setEventEnabled	3	1		
++-EVENT	7	1	onMiniGameReset	0	Self		setEventEnabled	4	0		
+1x1 Print" 17.75 31.75 0.3 1 1 29 Letters/-qmark 4 0 1 1 1
++-OWNER 29019
++-EVENT	0	1	onActivate	0	Client		CenterPrint	<color:FFFFFF>This is a sound-proof room test!<br>All sound inside is isolated, and you won't hear any sound from outside either!	3		
 1x3F Tile" 26.75 -23.25 0.3 0 0 44  0 0 1 1 1
 3x3F Tile" 25.75 -21.25 0.3 2 0 44  0 0 1 1 1
 1x4F Tile" 26 -22.25 0.3 2 0 44  0 0 1 1 1
@@ -383,7 +532,8 @@ Glass Pane Door" -43 50.25 2 3 0 14  0 0 1 1 1
 House Door" -12.25 34.5 2 1 0 61  0 0 1 1 1
 +-NTOBJECTNAME _door_r6
 +-EVENT	0	1	onActivate	0	Self		door	0			
-+-EVENT	1	0		0							
++-EVENT	1	1	onDoorClose	0	Self		fireRelayDown				
++-EVENT	2	1	onDoorOpen	0	Self		fireRelayDown				
 1x 1x1F Vertical Edge Print" -67.75 56.75 0.5 0 0 51 Letters/-space 0 0 1 1 1
 1x15" -12.25 25.75 0.5 2 0 18  0 0 1 1 1
 1x15" -8.25 29.25 0.5 1 0 18  0 0 1 1 1
@@ -425,7 +575,8 @@ Plain Door" -4.75 -8 2 1 0 18  0 0 1 1 1
 House Door" -12.25 2.5 2 1 0 61  0 0 1 1 1
 +-NTOBJECTNAME _door_r2
 +-EVENT	0	1	onActivate	0	Self		door	0			
-+-EVENT	1	0		0							
++-EVENT	1	1	onDoorClose	0	Self		fireRelayDown				
++-EVENT	2	1	onDoorOpen	0	Self		fireRelayDown				
 1x1F Round" -62.75 59.25 0.3 3 0 51  0 0 1 1 1
 1x1F Round" -62.75 60.75 0.3 3 0 51  0 0 1 1 1
 1x1F Round" -65.25 60.75 0.3 3 0 51  0 0 1 1 1
@@ -453,7 +604,8 @@ Plain Door" -4.75 8 2 1 0 18  0 0 1 1 1
 House Door" -12.25 18.5 2 1 0 61  0 0 1 1 1
 +-NTOBJECTNAME _door_r4
 +-EVENT	0	1	onActivate	0	Self		door	0			
-+-EVENT	1	0		0							
++-EVENT	1	1	onDoorClose	0	Self		fireRelayDown				
++-EVENT	2	1	onDoorOpen	0	Self		fireRelayDown				
 1x 1x1F Vertical Edge Print" -66.25 54.25 0.5 1 0 51 Letters/-space 0 0 1 1 1
 1x 1x1F Vertical Edge Print" -67.75 54.25 0.5 2 0 51 Letters/-space 0 0 1 1 1
 1F 1x2F Vertical Print" -67.25 60.75 0.3 2 0 61 Letters/-space 0 0 1 1 1
@@ -513,7 +665,8 @@ Plain Door" -28.25 19 2 3 0 18  0 0 1 1 1
 House Door" -20.75 8.5 2 3 0 61  0 0 1 1 1
 +-NTOBJECTNAME _door_r3
 +-EVENT	0	1	onActivate	0	Self		door	0			
-+-EVENT	1	0		0							
++-EVENT	1	1	onDoorClose	0	Self		fireRelayDown				
++-EVENT	2	1	onDoorOpen	0	Self		fireRelayDown				
 1x6F" -55 58.25 0.3 1 0 61  0 0 0 0 0
 1x6F" -55 60.75 0.3 1 0 61  0 0 0 0 0
 1x1" -53.25 60.75 0.5 2 0 61  0 0 1 1 1
@@ -542,7 +695,8 @@ Plain Door" -28.25 35 2 3 0 18  0 0 1 1 1
 House Door" -20.75 24.5 2 3 0 61  0 0 1 1 1
 +-NTOBJECTNAME _door_r5
 +-EVENT	0	1	onActivate	0	Self		door	0			
-+-EVENT	1	0		0							
++-EVENT	1	1	onDoorClose	0	Self		fireRelayDown				
++-EVENT	2	1	onDoorOpen	0	Self		fireRelayDown				
 1F 2x2F Vertical Print" -60.75 51.5 0.3 1 0 51 2x2f/blank 0 0 0 0 0
 1x1 Wedge" -60.75 52.25 0.5 0 0 61  0 0 1 1 1
 2x2F Glass Pane" -58 46 0.3 1 0 14  0 0 1 1 1
@@ -571,7 +725,8 @@ Plain Door" -23 53.25 2 0 0 18  0 0 1 1 1
 House Door" -33.5 45.75 2 0 0 61  0 0 1 1 1
 +-NTOBJECTNAME _door_r8
 +-EVENT	0	1	onActivate	0	Self		door	0			
-+-EVENT	1	0		0							
++-EVENT	1	1	onDoorClose	0	Self		fireRelayDown				
++-EVENT	2	1	onDoorOpen	0	Self		fireRelayDown				
 1x2" -54.25 50 0.5 0 0 18  0 0 0 0 0
 1x1 Wedge" -56.75 50.25 0.5 0 0 14  0 0 1 1 1
 2x2F Vertical Double Print" -56.75 49.5 0.7 1 0 14 Letters/-space 0 0 1 1 1
@@ -602,7 +757,8 @@ Plain Door" -7 53.25 2 0 0 18  0 0 1 1 1
 House Door" -17.5 45.75 2 0 0 61  0 0 1 1 1
 +-NTOBJECTNAME _door_r7
 +-EVENT	0	1	onActivate	0	Self		door	0			
-+-EVENT	1	0		0							
++-EVENT	1	1	onDoorClose	0	Self		fireRelayDown				
++-EVENT	2	1	onDoorOpen	0	Self		fireRelayDown				
 1F 1x2F Vertical Print" -58.75 46.25 0.3 1 0 49 Letters/-space 0 0 1 1 1
 1F 1x2F Vertical Print" -58.25 46.25 0.3 0 0 49 Letters/-space 0 0 1 1 1
 1x 1x1F Vertical Edge Print" -50.25 55.75 0.5 0 0 51 Letters/-space 0 0 1 1 1
@@ -658,7 +814,8 @@ Plain Door" -55 53.25 2 0 0 18  0 0 1 1 1
 House Door" -65.5 45.75 2 0 0 61  0 0 1 1 1
 +-NTOBJECTNAME _door_r12
 +-EVENT	0	1	onActivate	0	Self		door	0			
-+-EVENT	1	0		0							
++-EVENT	1	1	onDoorClose	0	Self		fireRelayDown				
++-EVENT	2	1	onDoorOpen	0	Self		fireRelayDown				
 1F 1x1F Vertical Print" -50.75 57.25 0.3 1 0 51 Letters/-space 0 0 0 0 0
 1x 1x1F Vertical Edge Print" -51.75 56.75 0.5 0 0 51 Letters/-space 0 0 1 1 1
 1F 1x1F Vertical Print" -50.75 57.75 0.3 0 0 51 Letters/-space 0 0 1 1 1
@@ -687,7 +844,8 @@ Plain Door" -71 53.25 2 0 0 18  0 0 1 1 1
 House Door" -81.5 45.75 2 0 0 61  0 0 1 1 1
 +-NTOBJECTNAME _door_r14
 +-EVENT	0	1	onActivate	0	Self		door	0			
-+-EVENT	1	0		0							
++-EVENT	1	1	onDoorClose	0	Self		fireRelayDown				
++-EVENT	2	1	onDoorOpen	0	Self		fireRelayDown				
 2x2F Vertical Double Print" -25.5 50.25 0.7 0 0 14 Letters/-space 0 0 1 1 1
 Glass Pane Door" -27 50.25 2 3 0 14  0 0 1 1 1
 +-EVENT	0	1	onActivate	0	Self		door	0			
@@ -718,7 +876,8 @@ Plain Door" -50 29.75 2 2 0 18  0 0 1 1 1
 House Door" -39.5 37.25 2 2 0 61  0 0 1 1 1
 +-NTOBJECTNAME _door_r9
 +-EVENT	0	1	onActivate	0	Self		door	0			
-+-EVENT	1	0		0							
++-EVENT	1	1	onDoorClose	0	Self		fireRelayDown				
++-EVENT	2	1	onDoorOpen	0	Self		fireRelayDown				
 3x3F Glass Pane" -27.25 46.75 0.3 2 0 14  0 0 1 1 1
 3x3F Glass Pane" -27.25 48.25 0.3 2 0 14  0 0 1 1 1
 3x3F Glass Pane" -27.25 49.75 0.3 2 0 14  0 0 1 1 1
@@ -747,7 +906,8 @@ Plain Door" -66 29.75 2 2 0 18  0 0 1 1 1
 House Door" -55.5 37.25 2 2 0 61  0 0 1 1 1
 +-NTOBJECTNAME _door_r11
 +-EVENT	0	1	onActivate	0	Self		door	0			
-+-EVENT	1	0		0							
++-EVENT	1	1	onDoorClose	0	Self		fireRelayDown				
++-EVENT	2	1	onDoorOpen	0	Self		fireRelayDown				
 1x3" -29.75 49.75 0.5 3 0 61  0 0 1 1 1
 1x4F" -30.25 51 0.3 0 0 51  0 0 0 0 0
 1x1" -21.25 58.25 0.5 2 0 61  0 0 1 1 1
@@ -776,7 +936,8 @@ Plain Door" -82 29.75 2 2 0 18  0 0 1 1 1
 House Door" -71.5 37.25 2 2 0 61  0 0 1 1 1
 +-NTOBJECTNAME _door_r13
 +-EVENT	0	1	onActivate	0	Self		door	0			
-+-EVENT	1	0		0							
++-EVENT	1	1	onDoorClose	0	Self		fireRelayDown				
++-EVENT	2	1	onDoorOpen	0	Self		fireRelayDown				
 1F 1x2F Vertical Print" -28.75 46.75 0.3 3 0 61 Letters/-space 0 0 1 1 1
 1F 1x2F Vertical Print" -29.25 46.25 0.3 0 0 61 Letters/-space 0 0 1 1 1
 1x1F" -35.25 60.25 0.3 2 0 61  0 0 1 1 1
@@ -960,7 +1121,8 @@ Plain Door" -28.25 3 2 3 0 18  0 0 1 1 1
 House Door" -20.75 -7.5 2 3 0 61  0 0 1 1 1
 +-NTOBJECTNAME _door_r1
 +-EVENT	0	1	onActivate	0	Self		door	0			
-+-EVENT	1	0		0							
++-EVENT	1	1	onDoorClose	0	Self		fireRelayDown				
++-EVENT	2	1	onDoorOpen	0	Self		fireRelayDown				
 2x2F Vertical Double Print" -22.5 1.25 0.7 0 0 14 Letters/-space 0 0 1 1 1
 2x2F Vertical Double Print" -21.5 1.25 0.7 0 0 14 Letters/-space 0 0 1 1 1
 2x2F Vertical Double Print" -24.5 1.25 0.7 0 0 14 Letters/-space 0 0 1 1 1
@@ -1071,12 +1233,12 @@ Spawn Point" -7.75 55.75 1.7 3 0 47  0 0 0 0 0
 +-NTOBJECTNAME _7
 Spawn Point" -2.25 24.75 1.7 0 0 47  0 0 0 0 0
 +-NTOBJECTNAME _6
-2x2F" -58 20.5 0.3 3 1 36  0 0 1 1 1
-+-OWNER 29019
-+-EVENT	0	1	onActivate	0	Self		spawnItem	0 0 5	mopItem		
+1x14x2" 22 36.75 0.8 1 0 29  0 0 1 1 1
 House Door" -49.5 45.75 2 0 0 61  0 0 1 1 1
 +-NTOBJECTNAME _door_r10
 +-EVENT	0	1	onActivate	0	Self		door	0			
++-EVENT	1	1	onDoorClose	0	Self		fireRelayDown				
++-EVENT	2	1	onDoorOpen	0	Self		fireRelayDown				
 1F 1x2F Vertical Print" -93.25 31.75 0.3 3 0 49 Letters/-space 0 0 1 1 1
 1F 1x2F Vertical Print" -93.25 31.25 0.3 0 0 49 Letters/-space 0 0 1 1 1
 1x1F Round" -14.75 60.75 0.3 3 0 51  0 0 1 1 1
@@ -1362,9 +1524,7 @@ Spawn Point" -2.25 8.75 1.7 0 0 47  0 0 0 0 0
 2x2F Print" -76.5 2 0.3 0 0 51 Letters/-space 0 0 0 0 0
 1x 1x1F Vertical Edge Print" -76.75 1.25 0.5 3 0 51 Letters/-space 0 0 1 1 1
 1x1F Vertical Edge Print" -78.75 -1.25 0.7 3 0 51 Letters/-space 0 0 1 1 1
-2x2F" -60 20.5 0.3 3 1 44  0 0 1 1 1
-+-OWNER 29019
-+-EVENT	0	1	onActivate	0	Self		spawnItem	0 0 5	swordItem		
+1x1F Vertical Edge Print" -80.25 -1.25 0.7 0 0 51 Letters/-space 0 0 1 1 1
 1x 1x1F Vertical Edge Print" -78.75 -0.25 0.5 3 0 51 Letters/-space 0 0 1 1 1
 2x2F Print" -79.5 -0.5 0.3 1 0 51 Letters/-space 0 0 0 0 0
 1x 1x1F Vertical Edge Print" -80.25 -0.25 0.5 0 0 51 Letters/-space 0 0 1 1 1
@@ -1848,7 +2008,6 @@ House Door" -52.25 14.5 2 3 0 61  0 0 1 1 1
 1x1" 2.75 -48.25 0.5 3 0 30  0 0 0 0 0
 1F 1x1F Vertical Print" -0.75 19.75 0.3 2 0 51 Letters/-space 0 0 0 0 0
 1x1" -16.75 -53.25 0.5 1 0 61  0 0 1 1 1
-+-EMITTER Emote - Alarm" 0
 1x1 Cone" -12.25 -53.75 0.5 0 0 61  0 0 1 1 1
 1x1 Cone" -12.25 -54.25 0.5 0 0 61  0 0 1 1 1
 1x1 Cone" -11.25 -54.25 0.5 0 0 61  0 0 1 1 1
@@ -2265,8 +2424,8 @@ Glass Pane Door" -25.25 31 2 2 0 14  0 0 1 1 1
 House Door" -92.75 24.5 2 3 0 61  0 0 1 1 1
 +-NTOBJECTNAME _door_r16
 +-EVENT	0	1	onActivate	0	Self		door	0			
-+-EVENT	1	0		0							
-+-EVENT	2	0		0							
++-EVENT	1	1	onDoorClose	0	Self		fireRelayDown				
++-EVENT	2	1	onDoorOpen	0	Self		fireRelayDown				
 Plain Door" -100.25 35 2 3 0 18  0 0 1 1 1
 +-EVENT	0	1	onActivate	0	Self		door	0			
 +-EVENT	1	0		0							
@@ -2362,8 +2521,8 @@ Glass Pane Door" -97.25 47 2 2 0 14  0 0 1 1 1
 House Door" -92.75 40.5 2 3 0 61  0 0 1 1 1
 +-NTOBJECTNAME _door_r15
 +-EVENT	0	1	onActivate	0	Self		door	0			
-+-EVENT	1	0		0							
-+-EVENT	2	0		0							
++-EVENT	1	1	onDoorClose	0	Self		fireRelayDown				
++-EVENT	2	1	onDoorOpen	0	Self		fireRelayDown				
 Plain Door" -100.25 51 2 3 0 18  0 0 1 1 1
 +-EVENT	0	1	onActivate	0	Self		door	0			
 +-EVENT	1	0		0							
@@ -2528,13 +2687,11 @@ Spawn Point" -30.75 2.25 1.7 2 0 47  0 0 0 0 0
 1x1x2" -13.75 -39.25 0.8 0 0 0  0 0 0 0 0
 +-NTOBJECTNAME _item
 +-ITEM NONE" 3 5 4000
-1x1F Vertical Edge Print" -80.25 -1.25 0.7 0 0 51 Letters/-space 0 0 1 1 1
-1x4" -2.25 -30.5 0.5 2 0 6  0 0 1 1 1
-2x2F" -56 20.5 0.3 3 1 37  0 0 1 1 1
-+-OWNER 29019
-+-EVENT	0	1	onActivate	0	Self		spawnItem	0 0 5	BucketItem		
-2x2F Vertical Double Print" -26.5 13.25 0.9 0 0 61 2x2f/blank 0 0 1 1 1
-1x1 Wedge" -27.25 13.25 1.1 3 0 61  0 0 1 1 1
+1x14x2" 22 29.25 0.8 1 0 29  0 0 1 1 1
+1x6x2" 18.25 35.5 0.8 0 0 29  0 0 1 1 1
+1x6x2" 18.25 30.5 0.8 0 0 29  0 0 1 1 1
+1x16" -56.5 21.25 0.5 3 0 18  0 0 1 1 1
+1x16x2" 25.75 33 0.8 0 0 29  0 0 1 1 1
 1x2 Right Side Ramp" -24.75 20.5 0.8 3 0 18  0 0 1 1 1
 1x2 Left Side Ramp" -25.25 20.5 0.8 1 0 18  0 0 1 1 1
 1x2F" -25 19.75 0.9 3 0 18  0 0 0 0 0
@@ -2995,7 +3152,7 @@ Spawn Point" -30.75 2.25 1.7 2 0 47  0 0 0 0 0
 2x2F Corner Full" -81.5 14 1.3 1 0 47  0 0 1 1 1
 2x2F Corner Full" -81 1 1.3 0 0 47  0 0 1 1 1
 2x4F" -81 2.5 1.3 0 0 47  0 0 1 1 1
-2x2F Vertical Double Print" -25.5 13.25 0.9 0 0 61 2x2f/blank 0 0 1 1 1
+4x8F" -79.5 2.5 1.3 0 0 47  0 0 1 1 1
 2x2F Corner Full" -78 1 1.3 3 0 47  0 0 1 1 1
 2x4F" -78 2.5 1.3 0 0 47  0 0 1 1 1
 2x2F Corner Full" -78 4 1.3 2 0 47  0 0 1 1 1
@@ -3032,7 +3189,7 @@ Spawn Point" -30.75 2.25 1.7 2 0 47  0 0 0 0 0
 1F 1x1F Vertical Print" -19.75 51.75 0.9 0 0 51 Letters/-space 0 0 1 1 1
 1F 1x2F Vertical Print" -18.75 52.25 0.5 1 0 51 Letters/-space 0 0 1 1 1
 1F 1x2F Vertical Print" -19.75 52.75 0.5 1 0 51 Letters/-space 0 0 1 1 1
-1F 1x2F Vertical Print" -19.25 52.75 0.5 0 0 51 Letters/-space 0 0 1 1 1
+1x1 Wedge" -27.25 13.25 1.1 3 0 61  0 0 1 1 1
 4x6F" -16 60 0.5 3 0 61  0 0 1 1 1
 1F 2x2F Vertical Print" -19 54.25 0.9 2 0 51 Letters/-space 0 0 1 1 1
 1F 2x2F Vertical Print" -19.75 55 0.9 3 0 51 Letters/-space 0 0 1 1 1
@@ -4369,16 +4526,16 @@ Locker Door" 4.25 -74.75 1.9 1 0 34  0 0 1 1 1
 1F 2x2F Vertical Print" 21.75 8.5 0.5 1 0 49 Letters/-space 0 0 0 0 0
 2x2F Print" 21 8.5 0.5 2 0 51 Letters/-space 0 0 0 0 0
 2x2F Corner Full" -69.5 16.5 1.3 0 0 47  0 0 1 1 1
-1F 2x2F Vertical Print" -2.25 -30.5 0.9 3 0 37 Letters/-space 0 0 1 1 1
+1x6x5" 18.25 30.5 2.9 0 0 29  0 0 1 1 1
 1x3" -27.25 12.25 1.1 0 0 61  0 0 1 1 1
+1x16x5" 25.75 33 2.9 0 0 29  0 0 1 1 1
+1x14x5" 22 36.75 2.9 3 0 29  0 0 1 1 1
+1x14x5" 22 29.25 2.9 3 0 29  0 0 1 1 1
+1x6x5" 18.25 35.5 2.9 0 0 29  0 0 1 1 1
 1x1 Wedge" -24.75 13.25 1.1 0 0 61  0 0 1 1 1
-1x1F Vertical Edge Print" -2.25 -29.75 1.3 2 0 37 Letters/-space 0 0 1 1 1
-1x1F Vertical Edge Print" -2.25 -31.25 1.3 3 0 37 Letters/-space 0 0 1 1 1
-4x8F" -79.5 2.5 1.3 0 0 47  0 0 1 1 1
-1x3" -23.25 46.25 0.9 3 0 45  0 0 1 1 1
-1x3F" -23.25 46.75 0.7 1 0 45  0 0 1 1 1
-2x2F Vertical Double Print" -25.5 50.25 2.7 0 0 14 Letters/-space 0 0 1 1 1
-1F 2x2F Vertical Print" -26.5 50.25 4.1 0 0 14 Letters/-space 0 0 1 1 1
+2x2F Vertical Double Print" -25.5 13.25 0.9 0 0 61 2x2f/blank 0 0 1 1 1
+2x2F Vertical Double Print" -26.5 13.25 0.9 0 0 61 2x2f/blank 0 0 1 1 1
+1F 1x2F Vertical Print" -19.25 52.75 0.5 0 0 51 Letters/-space 0 0 1 1 1
 1F 2x2F Vertical Print" -27.5 50.25 4.1 0 0 14 Letters/-space 0 0 1 1 1
 2x2F Vertical Double Print" -24.75 48.5 2.7 1 0 14 Letters/-space 0 0 1 1 1
 2x2F Vertical Double Print" -24.75 47.5 2.7 1 0 14 Letters/-space 0 0 1 1 1
@@ -4519,7 +4676,7 @@ Locker Door" 4.25 -74.75 1.9 1 0 34  0 0 1 1 1
 1x32" -28.5 5.25 4.1 3 0 36  0 0 1 1 1
 1x 1x1F Vertical Edge Print" -93.25 31.25 1.3 3 0 49 Letters/-space 0 0 0 0 0
 +-EVENT	0	1	onRelay	0	Self		fireRelayDown				
-2x4F" 24.5 -3 1.5 2 0 47  0 0 1 1 1
+2x2F Vertical Double Print" -25.5 50.25 2.7 0 0 14 Letters/-space 0 0 1 1 1
 1x15" -24.75 -2.25 4.1 3 0 36  0 0 1 1 1
 1x15" -36.25 -6.25 4.1 2 0 36  0 0 1 1 1
 1x15" -36.25 1.25 4.1 2 0 36  0 0 1 1 1
@@ -5932,6 +6089,11 @@ Locker Door" -0.25 -78.75 2.1 1 0 34  0 0 1 1 1
 1x1F" -37.25 11.75 1.7 0 0 61  0 0 0 0 0
 +-NTOBJECTNAME _item
 +-ITEM NONE" 0 3 4000
+1x3F" -23.25 46.75 0.7 1 0 45  0 0 1 1 1
+1x3" -23.25 46.25 0.9 3 0 45  0 0 1 1 1
+1F 1x1F Vertical Corner Print" -25.75 46.25 1.7 1 0 49 Letters/-space 0 0 1 1 1
++-EVENT	0	1	onRelay	0	Self		fireRelayWest				
++-EVENT	1	1	onRelay	0	Self		fireRelayDown				
 1F 1x1F Vertical Print" -24.25 46.25 1.5 0 0 49 2x2f/blank 0 0 1 1 1
 +-EVENT	0	1	onActivate	0	Self		setShapeFX	2			
 +-EVENT	1	1	onActivate	100	Self		setShapeFX	0			
@@ -5941,14 +6103,9 @@ Locker Door" -0.25 -78.75 2.1 1 0 34  0 0 1 1 1
 1x 1x1F Vertical Edge Print" -26.25 46.25 1.3 0 0 49 Letters/-space 0 0 1 1 1
 1x2x2" -35 24.75 1.2 1 0 61  0 0 1 1 1
 1x2x2" -35 27.25 1.2 3 0 61  0 0 1 1 1
-1x 1x2F Vertical Print" -2.25 -30.75 1.3 3 0 34 Letters/0 0 0 1 1 1
-1F 1x1F Vertical Corner Print" -25.75 46.25 1.7 1 0 49 Letters/-space 0 0 1 1 1
-+-EVENT	0	1	onRelay	0	Self		fireRelayWest				
-+-EVENT	1	1	onRelay	0	Self		fireRelayDown				
-1x 1x2F Vertical Print" -2.25 -30.25 1.3 3 0 34 Letters/1 0 0 1 1 1
-1F 2x2F Vertical Print" -32.5 6.25 0.9 0 0 51 Letters/-space 0 0 1 1 1
-1F 2x2F Vertical Print" -26.75 7 0.9 3 0 51 Letters/-space 0 0 1 1 1
-1x4F" -62.25 51 1.3 0 0 61  0 0 1 1 1
+1F 2x2F Vertical Print" -26.5 50.25 4.1 0 0 14 Letters/-space 0 0 1 1 1
+16x16 Base" 22 33 4.5 0 0 29  0 0 1 1 1
+2x4F" 24.5 -3 1.5 2 0 47  0 0 1 1 1
 2x2F Print" -27.5 7 0.9 3 0 51 Letters/-space 0 0 1 1 1
 1F 1x1F Vertical Print" -26.75 6.25 2.1 3 0 51 Letters/-space 0 0 1 1 1
 1F 2x2F Vertical Print" -27.5 6.25 0.9 0 0 51 Letters/-space 0 0 1 1 1
@@ -7109,22 +7266,22 @@ Locker Door" -0.25 -78.75 2.1 1 0 34  0 0 1 1 1
 1F 1x1F Vertical Print" -21.25 16.25 1.9 3 0 0 Letters/-space 0 0 1 1 1
 +-NTOBJECTNAME _switch
 +-EVENT	0	1	onActivate	0	Self		fireRelayDown				
+1x1 Print" 18.25 32.25 4.1 1 0 29 Letters/-period 0 0 1 1 1
+1x1 Print" 18.25 32.75 4.1 1 0 29 Letters/D 0 0 1 1 1
+1x1 Print" 18.25 33.25 4.1 1 0 29 Letters/N 0 0 1 1 1
+1x1 Print" 18.25 33.75 4.1 1 0 29 Letters/S 0 0 1 1 1
 1x16x5" -72.5 -10.25 5.9 3 0 36  0 0 1 1 1
 1x15x5" -80.25 -10.25 5.9 3 0 36  0 0 1 1 1
-1F 2x2F Vertical Print" -2.25 -30.5 1.7 3 0 37 Letters/-space 0 0 1 1 1
 25° Ramp 1x" -53.25 60.25 1.9 0 0 61  0 0 1 1 1
+16x16 Base" 22 33 4.7 0 0 28  0 0 1 1 1
 25° Ramp 1x" -53.25 58.75 1.9 2 0 61  0 0 1 1 1
 1F 2x2F Vertical Print" -31.75 7 0.9 3 0 51 Letters/-space 0 0 1 1 1
 2x2F Print" -32.5 7 0.9 3 0 51 Letters/-space 0 0 1 1 1
 2x8F" -55 59.5 0.5 3 0 61  0 0 0 1 0
 1F 1x1F Vertical Print" -31.75 6.25 2.1 3 0 51 Letters/-space 0 0 1 1 1
-2x2F Vertical Double Print" 3.5 -80.25 3.1 2 0 34 Letters/-space 0 0 1 1 1
-1x1F Vertical Corner Print" 4.25 -80.25 3.1 2 0 34 Letters/-space 0 0 1 1 1
-2x2F Vertical Double Print" 4.25 -79.5 3.1 1 0 34 Letters/-space 0 0 1 1 1
-25° Ramp 1x" 0.75 25.75 1.7 3 0 61  0 0 1 1 1
-25° Ramp 1x" 2.25 25.75 1.7 1 0 61  0 0 1 1 1
-1x4F" -26 -4.25 1.1 3 0 3  0 0 1 1 1
-1x32F" -44.5 5.75 4.9 3 0 36  0 0 1 1 1
+1F 2x2F Vertical Print" -32.5 6.25 0.9 0 0 51 Letters/-space 0 0 1 1 1
+1F 2x2F Vertical Print" -26.75 7 0.9 3 0 51 Letters/-space 0 0 1 1 1
+1x4F" -62.25 51 1.3 0 0 61  0 0 1 1 1
 4x6F" 1.5 24 0.7 0 0 18  0 0 1 0 1
 1x4F" -7 31.25 1.1 1 0 3  0 0 1 1 1
 1x32" -84.25 -2.5 7.7 2 0 18  0 0 1 1 1
@@ -7567,14 +7724,14 @@ Locker Door" -0.25 -78.75 2.1 1 0 34  0 0 1 1 1
 1x16" -72.5 -10.25 7.7 3 0 18  0 0 1 1 1
 1x15" -80.25 -10.25 7.7 3 0 18  0 0 1 1 1
 1x2F" -25 20.75 1.5 3 0 18  0 0 1 1 1
-2x2F Vertical Double Print" 0.25 -79.5 3.1 1 0 34 Letters/-space 0 0 1 1 1
+1F 1x1F Vertical Print" -25.25 20.25 1.5 3 0 18 2x2f/blank 0 0 1 1 1
 1F 1x1F Vertical Print" -24.75 20.25 1.5 0 0 18 2x2f/blank 0 0 1 1 1
 1x 1x2F Vertical Print" -8.75 22.25 3.9 3 0 51 2x2f/blank 0 0 1 1 1
 1x 1x2F Vertical Print" -7.25 22.25 3.9 1 0 51 2x2f/blank 0 0 1 1 1
 1x4F" -26 11.75 1.1 3 0 3  0 0 1 1 1
 1x 1x2F Vertical Print" -8.75 6.25 3.9 3 0 51 2x2f/blank 0 0 1 1 1
 4x6F" -34.5 19 0.7 2 0 18  0 0 1 0 1
-25° Ramp 1x" -35.25 17.25 1.7 3 0 61  0 0 1 1 1
+1x32F" -44.5 5.75 4.9 3 0 36  0 0 1 1 1
 1x 1x2F Vertical Print" -24.25 36.75 3.9 1 0 51 2x2f/blank 0 0 1 1 1
 1x 1x2F Vertical Print" -25.75 36.75 3.9 3 0 51 2x2f/blank 0 0 1 1 1
 1x 1x2F Vertical Print" -7.25 6.25 3.9 1 0 51 2x2f/blank 0 0 1 1 1
@@ -7782,27 +7939,26 @@ Locker Door" -0.25 -78.75 2.1 1 0 34  0 0 1 1 1
 2x4F" 2 33 3.1 1 0 61  0 0 1 0 1
 1F 1x1F Vertical Print" 43.75 15.75 2.3 2 0 51 Letters/-space 0 0 1 1 1
 1x32" -68.5 21.25 7.7 3 0 18  0 0 1 1 1
+1x1 Print" 18.25 33.25 3.5 1 0 29 Letters/R 0 0 1 1 1
+1x1 Print" 18.25 32.75 3.5 1 0 29 Letters/O 0 0 1 1 1
+1x1 Print" 18.25 32.25 3.5 1 0 29 Letters/F 0 0 1 1 1
 1F 1x1F Vertical Print" -6.25 36.75 2.3 1 0 51 Letters/-space 0 0 1 1 1
 1F 1x2F Vertical Print" 3.25 -75.25 3.5 1 0 34 Letters/-space 0 0 1 1 1
 3x3F Tile" 4.25 -75.75 3.5 2 0 34  0 0 1 1 1
 1F 1x1F Vertical Print" -1.25 -78.75 3.5 1 0 34 Letters/-space 0 0 1 1 1
+1x1 Print" 18.25 33.75 3.5 1 0 29 Letters/P 0 0 1 1 1
 2x2F Vertical Double Print" -0.5 -80.25 3.1 2 0 34 Letters/-space 0 0 1 1 1
 1x1F Vertical Corner Print" 0.25 -80.25 3.1 2 0 34 Letters/-space 0 0 1 1 1
 4x6F" 2 33 3.5 0 0 47  0 0 0 1 0
 1x1 Stem" -11.25 30.25 1.8 3 0 19  0 0 1 1 1
-1F 1x1F Vertical Print" -25.25 20.25 1.5 3 0 18 2x2f/blank 0 0 1 1 1
-1F 1x2F Vertical Print" -37.75 16.25 1.9 2 0 47 2x2f/blank 0 0 1 1 1
-1x14x2" -52.25 10 5.6 2 0 36  0 0 1 1 1
-2x3F Tile" -38 2.25 2.3 3 0 47  0 0 1 1 1
-1F 1x1F Vertical Print" -70.25 6.75 1.3 3 0 49 Letters/-space 0 0 1 1 1
-1x1F" -65.75 35.75 0.9 1 0 45  0 0 1 1 1
-1x 1x1F Vertical Edge Print" -62.75 36.75 3.1 2 0 49 Letters/-space 0 0 1 1 1
-+-EVENT	0	1	onRelay	0	Self		fireRelayUp				
-1x1F Wedge" -22.25 34.25 0.9 2 0 45  0 0 1 1 1
-1x1F Wedge" -22.25 35.25 0.9 3 0 45  0 0 1 1 1
-1F 1x1F Vertical Print" -51.75 52.75 2.1 0 0 51 Letters/-space 0 0 1 1 1
-2x4F" -48 60 3.3 0 0 61  0 0 1 0 1
-1x1F Wedge" -65.25 35.75 0.9 1 0 45  0 0 1 1 1
+2x2F Vertical Double Print" 0.25 -79.5 3.1 1 0 34 Letters/-space 0 0 1 1 1
+2x2F Vertical Double Print" 3.5 -80.25 3.1 2 0 34 Letters/-space 0 0 1 1 1
+1x1F Vertical Corner Print" 4.25 -80.25 3.1 2 0 34 Letters/-space 0 0 1 1 1
+2x2F Vertical Double Print" 4.25 -79.5 3.1 1 0 34 Letters/-space 0 0 1 1 1
+25° Ramp 1x" 0.75 25.75 1.7 3 0 61  0 0 1 1 1
+25° Ramp 1x" 2.25 25.75 1.7 1 0 61  0 0 1 1 1
+1x4F" -26 -4.25 1.1 3 0 3  0 0 1 1 1
+25° Ramp 1x" -35.25 17.25 1.7 3 0 61  0 0 1 1 1
 1x1F Wedge" -66.25 35.75 0.9 2 0 45  0 0 1 1 1
 1F 1x1F Vertical Print" -67.75 32.75 1.7 0 0 47 2x2f/blank 0 0 1 1 1
 1F 1x1F Vertical Print" -25.25 36.75 1.7 1 0 47 2x2f/blank 0 0 1 1 1
@@ -8122,7 +8278,7 @@ Locker Door" -0.25 -78.75 2.1 1 0 34  0 0 1 1 1
 2x2F Print" -13.5 -37.5 2.5 1 0 36 Letters/-minus 0 0 1 1 1
 1F 1x1F Vertical Print" -68.25 -0.75 1.3 1 0 49 Letters/-space 0 0 1 1 1
 1F 1x1F Vertical Print" -99.25 22.25 2.1 3 0 51 Letters/-space 0 0 1 1 1
-1x16x2" -52.25 17.5 5.6 2 0 36  0 0 1 1 1
+2x4F" -107 26 3.3 3 0 61  0 0 1 0 1
 1x1 Stem" -93.75 28.75 2.2 0 0 19  0 0 1 1 1
 2x4" -106.5 34.5 1.1 0 0 18  0 0 0 0 0
 1x4F" -98 27.75 0.9 3 0 61  0 0 1 1 1
@@ -8131,7 +8287,7 @@ Locker Door" -0.25 -78.75 2.1 1 0 34  0 0 1 1 1
 1x1F Wedge" -70.75 47.25 0.9 0 0 45  0 0 1 1 1
 1F 1x1F Vertical Print" -69.25 50.25 1.7 2 0 47 2x2f/blank 0 0 1 1 1
 1F 2x2F Vertical Print" 26.25 0.5 1.3 1 0 49 Letters/-space 0 0 1 1 1
-1x 1x2F Vertical Print" -37.25 49.25 2.7 2 0 51 2x2f/blank 0 0 1 1 1
+1x1F Wedge" -65.25 35.75 0.9 1 0 45  0 0 1 1 1
 1F 1x1F Vertical Print" -69.25 25.75 2.1 2 0 51 Letters/-space 0 0 1 1 1
 1F 1x1F Vertical Print" -69.25 25.25 2.1 2 0 51 Letters/-space 0 0 1 1 1
 1F 1x1F Vertical Print" -69.25 49.75 1.7 3 0 47 2x2f/blank 0 0 1 1 1
@@ -8342,18 +8498,19 @@ Locker Door" -0.25 -78.75 2.1 1 0 34  0 0 1 1 1
 1x 1x1F Vertical Edge Print" -21.25 15.75 3.1 3 0 49 Letters/-space 0 0 1 1 1
 +-EVENT	0	1	onRelay	0	Self		fireRelayUp				
 1x1x2" -52.25 6.25 5.6 3 0 36  0 0 1 1 1
-2x4F" -107 26 3.3 3 0 61  0 0 1 0 1
-1x1F Vertical Edge Print" -20.25 -41.75 3.5 2 0 49 Letters/-space 0 0 1 1 1
-1x1F Vertical Edge Print" -20.25 -41.25 3.5 3 0 49 Letters/-space 0 0 1 1 1
-1x1F Vertical Edge Print" -16.75 -41.25 3.5 0 0 49 Letters/-space 0 0 1 1 1
-1x1F Vertical Edge Print" -16.75 -41.75 3.5 1 0 49 Letters/-space 0 0 1 1 1
-1x1F Vertical Edge Print" -24.25 -41.75 3.5 2 0 49 Letters/-space 0 0 1 1 1
-1x1F Vertical Edge Print" -24.25 -41.25 3.5 3 0 49 Letters/-space 0 0 1 1 1
-1x1F Vertical Edge Print" -20.75 -41.25 3.5 0 0 49 Letters/-space 0 0 1 1 1
-1x1F Vertical Edge Print" -20.75 -41.75 3.5 1 0 49 Letters/-space 0 0 1 1 1
-1F 2x2F Vertical Print" -67.75 52.5 2.3 1 0 51 Letters/-space 0 0 1 1 1
-2x4F" -55.5 59.5 1.5 1 0 29  0 0 1 0 1
-4x4F" -27 -40.5 3.5 1 0 61  0 0 1 1 1
+1x16x2" -52.25 17.5 5.6 2 0 36  0 0 1 1 1
+1F 1x2F Vertical Print" -37.75 16.25 1.9 2 0 47 2x2f/blank 0 0 1 1 1
+1x14x2" -52.25 10 5.6 2 0 36  0 0 1 1 1
+2x3F Tile" -38 2.25 2.3 3 0 47  0 0 1 1 1
+1F 1x1F Vertical Print" -70.25 6.75 1.3 3 0 49 Letters/-space 0 0 1 1 1
+1x1F" -65.75 35.75 0.9 1 0 45  0 0 1 1 1
+1x 1x1F Vertical Edge Print" -62.75 36.75 3.1 2 0 49 Letters/-space 0 0 1 1 1
++-EVENT	0	1	onRelay	0	Self		fireRelayUp				
+1x1F Wedge" -22.25 34.25 0.9 2 0 45  0 0 1 1 1
+1x1F Wedge" -22.25 35.25 0.9 3 0 45  0 0 1 1 1
+1F 1x1F Vertical Print" -51.75 52.75 2.1 0 0 51 Letters/-space 0 0 1 1 1
+2x4F" -48 60 3.3 0 0 61  0 0 1 0 1
+1x 1x2F Vertical Print" -37.25 49.25 2.7 2 0 51 2x2f/blank 0 0 1 1 1
 2x2F" -16.5 -10.5 4.7 1 0 36  0 0 1 1 1
 1x1F Round" -29.75 -72.75 1.9 3 0 49  0 0 1 1 1
 1F 1x1F Vertical Print" -97.25 36.75 1.9 1 0 47 2x2f/blank 0 0 1 1 1
@@ -8446,7 +8603,7 @@ Locker Door" -0.25 -78.75 2.1 1 0 34  0 0 1 1 1
 1F 1x1F Vertical Print" -25.25 20.75 1.9 1 0 47 2x2f/blank 0 0 1 1 1
 1x1F Wedge" -22.25 19.25 0.7 3 0 45  0 0 1 1 1
 1x1F Wedge" -22.25 18.25 0.7 2 0 45  0 0 1 1 1
-1F 2x2F Vertical Print" 20.75 4.5 1.5 1 0 49 Letters/-space 0 0 1 1 1
+1x1F" -22.25 18.75 0.7 2 0 45  0 0 1 1 1
 1x4F" 49.5 6.75 1.1 3 0 61  0 0 1 1 1
 1F 1x2F Vertical Print" -21.25 15.75 3.5 0 0 49 Letters/-space 0 0 1 1 1
 +-EVENT	0	1	onRelay	0	Self		fireRelayWest				
@@ -8458,7 +8615,7 @@ Locker Door" -0.25 -78.75 2.1 1 0 34  0 0 1 1 1
 1x1F Wedge" -22.25 3.25 0.7 3 0 45  0 0 1 1 1
 1x32x2" -44.5 5.75 6.8 3 0 36  0 0 1 1 1
 1F 2x2F Vertical Print" -60.75 7.5 1.5 3 0 49 Letters/-space 0 0 1 1 1
-2x4" -18.5 -41.5 3.3 1 0 36  0 0 1 1 1
+4x4F" -27 -40.5 3.5 1 0 61  0 0 1 1 1
 1F 2x2F Vertical Print" -60.75 3.5 1.5 3 0 49 Letters/-space 0 0 1 1 1
 1F 2x2F Vertical Print" -60.75 -0.5 1.5 3 0 49 Letters/-space 0 0 1 1 1
 1F 2x2F Vertical Print" -82.75 15 1.5 1 0 49 Letters/-space 0 0 1 1 1
@@ -8657,18 +8814,18 @@ Locker Door" -0.25 -78.75 2.1 1 0 34  0 0 1 1 1
 1x1F Vertical Edge Print" -13.75 -34.75 3.5 3 0 49 Letters/-space 0 0 1 1 1
 1x1F Vertical Edge Print" -13.25 -34.75 3.5 0 0 49 Letters/-space 0 0 1 1 1
 1F 2x2F Vertical Print" 20.75 12.5 1.5 1 0 49 Letters/-space 0 0 1 1 1
-1x1F" -22.25 18.75 0.7 2 0 45  0 0 1 1 1
-1F 1x1F Vertical Print" -72.75 19.25 1.7 3 0 49 Letters/-space 0 0 1 1 1
-1x3F" -51.25 19.25 2.1 2 0 49  0 0 1 1 1
-1F 1x1F Vertical Print" -6.25 -40.25 4.1 3 0 52 Letters/-space 0 0 1 1 1
-1x3F" -51.25 16.75 2.1 2 0 49  0 0 1 1 1
-1F 1x1F Vertical Print" -68.25 7.75 1.7 0 0 49 Letters/-space 0 0 1 1 1
-1F 1x2F Vertical Print" -24.75 36.25 1.9 3 0 47 2x2f/blank 0 0 1 1 1
-1F 1x2F Vertical Print" -25.25 36.25 1.9 1 0 47 2x2f/blank 0 0 1 1 1
-1F 2x2F Vertical Print" -74.25 46.5 3.7 1 0 49 Letters/-space 0 0 1 1 1
-1F 2x2F Vertical Print" -10.25 46.5 3.7 1 0 49 Letters/-space 0 0 1 1 1
-1F 1x1F Vertical Print" -60.75 11.25 1.7 2 0 49 Letters/-space 0 0 1 1 1
-1F 1x2F Vertical Print" -21.75 50.25 1.9 2 0 47 2x2f/blank 0 0 1 1 1
+1F 2x2F Vertical Print" 20.75 4.5 1.5 1 0 49 Letters/-space 0 0 1 1 1
+1x1F Vertical Edge Print" -20.25 -41.75 3.5 2 0 49 Letters/-space 0 0 1 1 1
+1x1F Vertical Edge Print" -20.25 -41.25 3.5 3 0 49 Letters/-space 0 0 1 1 1
+1x1F Vertical Edge Print" -16.75 -41.25 3.5 0 0 49 Letters/-space 0 0 1 1 1
+1x1F Vertical Edge Print" -16.75 -41.75 3.5 1 0 49 Letters/-space 0 0 1 1 1
+1x1F Vertical Edge Print" -24.25 -41.75 3.5 2 0 49 Letters/-space 0 0 1 1 1
+1x1F Vertical Edge Print" -24.25 -41.25 3.5 3 0 49 Letters/-space 0 0 1 1 1
+1x1F Vertical Edge Print" -20.75 -41.25 3.5 0 0 49 Letters/-space 0 0 1 1 1
+1x1F Vertical Edge Print" -20.75 -41.75 3.5 1 0 49 Letters/-space 0 0 1 1 1
+1F 2x2F Vertical Print" -67.75 52.5 2.3 1 0 51 Letters/-space 0 0 1 1 1
+2x4F" -55.5 59.5 1.5 1 0 29  0 0 1 0 1
+2x4" -18.5 -41.5 3.3 1 0 36  0 0 1 1 1
 1x3F" 7.25 -51.25 2.1 3 0 49  0 0 0 0 0
 1F 2x2F Vertical Print" -11.5 27.25 3.7 2 0 49 Letters/-space 0 0 1 1 1
 1F 1x2F Vertical Print" -24.75 4.25 1.9 3 0 47 2x2f/blank 0 0 1 1 1
@@ -8723,7 +8880,7 @@ Locker Door" -0.25 -78.75 2.1 1 0 34  0 0 1 1 1
 1F 1x2F Vertical Print" -51.25 33.25 1.9 2 0 47 2x2f/blank 0 0 1 1 1
 1F 1x2F Vertical Print" -69.75 50.25 1.9 2 0 47 2x2f/blank 0 0 1 1 1
 1F 1x1F Vertical Print" -64.25 14.25 1.7 1 0 49 Letters/-space 0 0 1 1 1
-1F 1x1F Vertical Print" -71.75 19.75 1.7 0 0 49 Letters/-space 0 0 1 1 1
+1F 1x1F Vertical Print" 12.25 -55.25 2.1 3 0 47 2x2f/blank 0 0 1 1 1
 3x4F" 28 -51.25 0.9 3 0 51  0 0 1 1 1
 2x4F" 10 -62 1.7 2 0 29  0 0 1 0 1
 1F 1x1F Vertical Print" -73.75 11.25 1.7 2 0 49 Letters/-space 0 0 1 1 1
@@ -8734,7 +8891,7 @@ Locker Door" -0.25 -78.75 2.1 1 0 34  0 0 1 1 1
 1F 1x1F Vertical Print" 20.75 16.75 1.7 0 0 49 Letters/-space 0 0 1 1 1
 1F 2x2F Vertical Print" -46.75 36.5 3.7 3 0 49 Letters/-space 0 0 1 1 1
 1F 1x1F Vertical Print" 28.25 16.75 1.7 3 0 49 Letters/-space 0 0 1 1 1
-2x2F Vertical Double Print" -26.25 -40.5 4.1 3 0 18 Letters/-space 0 0 1 1 1
+1F 1x2F Vertical Print" -21.75 50.25 1.9 2 0 47 2x2f/blank 0 0 1 1 1
 2x2F Vertical Double Print" -27 -39.75 4.1 2 0 18 Letters/-space 0 0 1 1 1
 1F 1x1F Vertical Print" -75.75 2.25 1.7 3 0 49 Letters/-space 0 0 1 1 1
 1F 1x2F Vertical Print" -53.75 50.25 1.9 2 0 47 2x2f/blank 0 0 1 1 1
@@ -8820,21 +8977,18 @@ Locker Door" -0.25 -78.75 2.1 1 0 34  0 0 1 1 1
 1F 1x2F Vertical Print" -6.75 -40.25 4.1 0 0 52 Letters/-space 0 0 1 1 1
 1F 1x1F Vertical Print" -68.25 11.25 1.7 1 0 49 Letters/-space 0 0 1 1 1
 1F 1x1F Vertical Print" -71.75 19.25 1.7 1 0 49 Letters/-space 0 0 1 1 1
-1F 1x1F Vertical Print" 12.25 -55.25 2.1 3 0 47 2x2f/blank 0 0 1 1 1
-1F 2x2F Vertical Print" -81 8.75 1.9 0 0 49 Letters/-space 0 0 1 1 1
-1x1F Vertical Edge Print" -20.75 -41.25 4.7 0 0 49 Letters/-space 0 0 1 1 1
-1x2F" -22 -0.25 3.9 3 0 49  0 0 0 0 0
-1F 2x2F Vertical Print" -60.75 3.5 1.9 3 0 49 Letters/-space 0 0 1 1 1
-1F 2x2F Vertical Print" -75.75 2 1.9 3 0 49 Letters/-space 0 0 1 1 1
-1F 1x1F Vertical Print" -21.75 -0.25 3.5 3 0 49 Letters/-space 0 0 1 1 1
-+-EVENT	0	1	onRelay	0	Self		fireRelayWest				
-1F 2x2F Vertical Print" -71.75 19.5 1.9 1 0 49 Letters/-space 0 0 1 1 1
-1F 1x1F Vertical Print" -42.25 46.75 3.5 0 0 49 Letters/-space 0 0 1 1 1
-+-EVENT	0	1	onRelay	0	Self		fireRelayNorth				
-2x2F Round" -38 19.5 2.7 0 0 45  0 0 1 1 1
-1F 2x2F Vertical Print" -74.5 3.75 1.9 0 0 49 Letters/-space 0 0 1 1 1
-1F 1x1F Vertical Print" -11.25 11.25 3.5 1 0 49 Letters/-space 0 0 1 1 1
-+-EVENT	0	1	onRelay	0	Self		fireRelayEast				
+1F 1x1F Vertical Print" -71.75 19.75 1.7 0 0 49 Letters/-space 0 0 1 1 1
+1F 1x1F Vertical Print" -72.75 19.25 1.7 3 0 49 Letters/-space 0 0 1 1 1
+1x3F" -51.25 19.25 2.1 2 0 49  0 0 1 1 1
+1F 1x1F Vertical Print" -6.25 -40.25 4.1 3 0 52 Letters/-space 0 0 1 1 1
+1x3F" -51.25 16.75 2.1 2 0 49  0 0 1 1 1
+1F 1x1F Vertical Print" -68.25 7.75 1.7 0 0 49 Letters/-space 0 0 1 1 1
+1F 1x2F Vertical Print" -24.75 36.25 1.9 3 0 47 2x2f/blank 0 0 1 1 1
+1F 1x2F Vertical Print" -25.25 36.25 1.9 1 0 47 2x2f/blank 0 0 1 1 1
+1F 2x2F Vertical Print" -74.25 46.5 3.7 1 0 49 Letters/-space 0 0 1 1 1
+1F 2x2F Vertical Print" -10.25 46.5 3.7 1 0 49 Letters/-space 0 0 1 1 1
+1F 1x1F Vertical Print" -60.75 11.25 1.7 2 0 49 Letters/-space 0 0 1 1 1
+2x2F Vertical Double Print" -26.25 -40.5 4.1 3 0 18 Letters/-space 0 0 1 1 1
 1x2F" -11 11.25 3.9 1 0 49  0 0 0 0 0
 1F 1x1F Vertical Print" -11.25 27.25 3.5 1 0 49 Letters/-space 0 0 1 1 1
 +-EVENT	0	1	onRelay	0	Self		fireRelayEast				
@@ -8883,7 +9037,7 @@ Locker Door" -0.25 -78.75 2.1 1 0 34  0 0 1 1 1
 +-EVENT	0	1	onRelay	0	Self		fireRelaySouth				
 1x2F" -78.75 36 3.9 2 0 49  0 0 0 0 0
 1x1F Vertical Edge Print" -22.25 -36.25 4.7 2 0 49 Letters/-space 0 0 1 1 1
-1F 2x2F Vertical Print" -72.75 19 1.9 3 0 49 Letters/-space 0 0 1 1 1
+1F 2x2F Vertical Print" -73.5 11.25 1.9 2 0 49 Letters/-space 0 0 1 1 1
 1F 1x1F Vertical Print" 26.25 0.75 1.9 0 0 49 Letters/-space 0 0 1 1 1
 1F 2x2F Vertical Print" 28.25 12.5 1.9 3 0 49 Letters/-space 0 0 1 1 1
 1F 2x2F Vertical Print" 28.25 16.5 1.9 3 0 49 Letters/-space 0 0 1 1 1
@@ -8894,7 +9048,8 @@ Locker Door" -0.25 -78.75 2.1 1 0 34  0 0 1 1 1
 1x1F Vertical Edge Print" -24.25 -41.25 4.7 3 0 49 Letters/-space 0 0 1 1 1
 1x1F Vertical Edge Print" -24.25 -41.75 4.7 2 0 49 Letters/-space 0 0 1 1 1
 1x1F Vertical Edge Print" -16.75 -41.75 4.7 1 0 49 Letters/-space 0 0 1 1 1
-1x1F Vertical Edge Print" -16.75 -41.25 4.7 0 0 49 Letters/-space 0 0 1 1 1
+1F 1x1F Vertical Print" -11.25 11.25 3.5 1 0 49 Letters/-space 0 0 1 1 1
++-EVENT	0	1	onRelay	0	Self		fireRelayEast				
 1x1F Vertical Edge Print" -20.25 -41.25 4.7 3 0 49 Letters/-space 0 0 1 1 1
 1x1F Vertical Edge Print" -20.25 -41.75 4.7 2 0 49 Letters/-space 0 0 1 1 1
 1F 2x2F Vertical Print" 28.25 8.5 1.9 3 0 49 Letters/-space 0 0 1 1 1
@@ -8955,22 +9110,24 @@ Locker Door" -0.25 -78.75 2.1 1 0 34  0 0 1 1 1
 +-EVENT	0	1	onRelay	0	Self		fireRelayNorth				
 1x2F" -42.25 47 3.9 0 0 49  0 0 0 0 0
 1F 2x2F Vertical Print" -68.25 3.5 1.9 1 0 49 Letters/-space 0 0 1 1 1
-1F 2x2F Vertical Print" -73.5 11.25 1.9 2 0 49 Letters/-space 0 0 1 1 1
-2x2F Print" -13.5 -37 4.9 1 0 36 Letters/-minus 0 0 1 1 1
-2x2F Print" -13.5 -36 4.9 1 0 36 Letters/-minus 0 0 1 1 1
-2x2F Print" -22.5 -41.5 4.9 2 0 36 Letters/-minus 0 0 1 1 1
-1x1F" -10.25 47.25 3.7 0 0 49  0 0 0 0 0
-1F 1x2F Vertical Print" 11.75 -55.25 2.1 0 0 47 2x2f/blank 0 0 1 1 1
-1F 1x1F Vertical Print" 7.25 -51.25 2.5 2 0 45 Letters/-space 0 0 1 1 1
-1x2F Print" 12.25 -54.5 2.5 1 0 51 Letters/-space 0 0 1 1 1
-1x2F Print" 12.25 -55.5 2.5 1 0 51 Letters/-space 0 0 1 1 1
-1x1F" -58.25 47.25 3.7 0 0 49  0 0 0 0 0
-1x1F" -22.25 15.75 3.7 3 0 49  0 0 0 0 0
-1x1F" -22.25 31.75 3.7 3 0 49  0 0 0 0 0
+1F 2x2F Vertical Print" -72.75 19 1.9 3 0 49 Letters/-space 0 0 1 1 1
+1F 2x2F Vertical Print" -81 8.75 1.9 0 0 49 Letters/-space 0 0 1 1 1
+1x1F Vertical Edge Print" -20.75 -41.25 4.7 0 0 49 Letters/-space 0 0 1 1 1
+1x2F" -22 -0.25 3.9 3 0 49  0 0 0 0 0
+1F 2x2F Vertical Print" -60.75 3.5 1.9 3 0 49 Letters/-space 0 0 1 1 1
+1F 2x2F Vertical Print" -75.75 2 1.9 3 0 49 Letters/-space 0 0 1 1 1
+1F 1x1F Vertical Print" -21.75 -0.25 3.5 3 0 49 Letters/-space 0 0 1 1 1
++-EVENT	0	1	onRelay	0	Self		fireRelayWest				
+1F 2x2F Vertical Print" -71.75 19.5 1.9 1 0 49 Letters/-space 0 0 1 1 1
+1F 1x1F Vertical Print" -42.25 46.75 3.5 0 0 49 Letters/-space 0 0 1 1 1
++-EVENT	0	1	onRelay	0	Self		fireRelayNorth				
+2x2F Round" -38 19.5 2.7 0 0 45  0 0 1 1 1
+1F 2x2F Vertical Print" -74.5 3.75 1.9 0 0 49 Letters/-space 0 0 1 1 1
+1x1F Vertical Edge Print" -16.75 -41.25 4.7 0 0 49 Letters/-space 0 0 1 1 1
 1x1F" -78.75 35.75 3.7 2 0 49  0 0 0 0 0
 1F 1x1F Vertical Print" 6.75 -51.25 2.5 0 0 45 Letters/-space 0 0 1 1 1
 1x1F" -10.75 11.25 3.7 1 0 49  0 0 0 0 0
-16x32 Base" -16.5 13.5 4.5 2 0 36  0 0 1 1 1
+1x1F Round" 7.75 -51.25 2.5 3 0 18  0 0 1 1 1
 2x8F Tile" -13.5 -32.5 5.3 1 0 49  0 0 1 1 1
 2x8F Tile" -13.5 -36.5 5.3 1 0 49  0 0 1 1 1
 2x8F Tile" -22 -34.5 5.3 1 0 49  0 0 1 1 1
@@ -8981,7 +9138,7 @@ Locker Door" -0.25 -78.75 2.1 1 0 34  0 0 1 1 1
 2x8F Tile" -27.5 -36.5 5.3 3 0 49  0 0 1 1 1
 2x8F Tile" -27.5 -32.5 5.3 3 0 49  0 0 1 1 1
 1x1F" -94.25 31.75 3.7 3 0 49  0 0 0 0 0
-1F 2x2F Vertical Print" 26.25 0.5 2.1 1 0 49 Letters/-space 0 0 1 1 1
+1x1F" -22.25 31.75 3.7 3 0 49  0 0 0 0 0
 1x1F" -10.75 27.25 3.7 1 0 49  0 0 0 0 0
 1x1F" -94.25 47.75 3.7 3 0 49  0 0 0 0 0
 1x1F" -26.25 47.25 3.7 0 0 49  0 0 0 0 0
@@ -8995,18 +9152,18 @@ Locker Door" -0.25 -78.75 2.1 1 0 34  0 0 1 1 1
 1x1F" -42.25 47.25 3.7 0 0 49  0 0 0 0 0
 1x1F" -62.75 35.75 3.7 2 0 49  0 0 0 0 0
 1F 1x2F Vertical Print" 11.75 -54.75 2.1 2 0 47 2x2f/blank 0 0 1 1 1
-1x1F Round" 7.75 -51.25 2.5 3 0 18  0 0 1 1 1
-1x1F Vertical Edge Print" -21.75 -32.75 5.9 0 0 49 Letters/-space 0 0 1 1 1
-1x1F Vertical Edge Print" -18.75 -36.25 5.9 1 0 49 Letters/-space 0 0 1 1 1
-1x1F Vertical Edge Print" -22.25 -36.25 5.9 2 0 49 Letters/-space 0 0 1 1 1
-1x1F Vertical Edge Print" -21.75 -36.25 5.9 1 0 49 Letters/-space 0 0 1 1 1
-1x1F Vertical Edge Print" -19.25 -36.25 5.9 2 0 49 Letters/-space 0 0 1 1 1
-1x1F Vertical Edge Print" -13.25 -34.75 5.9 0 0 49 Letters/-space 0 0 1 1 1
-1x1F Vertical Edge Print" -13.75 -34.75 5.9 3 0 49 Letters/-space 0 0 1 1 1
-1x1F Vertical Edge Print" -13.75 -38.25 5.9 2 0 49 Letters/-space 0 0 1 1 1
-1x1F Vertical Edge Print" -13.25 -38.25 5.9 1 0 49 Letters/-space 0 0 1 1 1
-1x1F Vertical Edge Print" -19.25 -32.75 5.9 3 0 49 Letters/-space 0 0 1 1 1
-1x1F Vertical Edge Print" -13.25 -30.75 5.9 0 0 49 Letters/-space 0 0 1 1 1
+16x32 Base" -16.5 13.5 4.5 2 0 36  0 0 1 1 1
+2x2F Print" -13.5 -37 4.9 1 0 36 Letters/-minus 0 0 1 1 1
+2x2F Print" -13.5 -36 4.9 1 0 36 Letters/-minus 0 0 1 1 1
+2x2F Print" -22.5 -41.5 4.9 2 0 36 Letters/-minus 0 0 1 1 1
+1x1F" -10.25 47.25 3.7 0 0 49  0 0 0 0 0
+1F 1x2F Vertical Print" 11.75 -55.25 2.1 0 0 47 2x2f/blank 0 0 1 1 1
+1F 1x1F Vertical Print" 7.25 -51.25 2.5 2 0 45 Letters/-space 0 0 1 1 1
+1x2F Print" 12.25 -54.5 2.5 1 0 51 Letters/-space 0 0 1 1 1
+1x2F Print" 12.25 -55.5 2.5 1 0 51 Letters/-space 0 0 1 1 1
+1x1F" -58.25 47.25 3.7 0 0 49  0 0 0 0 0
+1x1F" -22.25 15.75 3.7 3 0 49  0 0 0 0 0
+1F 2x2F Vertical Print" 26.25 0.5 2.1 1 0 49 Letters/-space 0 0 1 1 1
 1x1F Vertical Edge Print" -13.75 -30.75 5.9 3 0 49 Letters/-space 0 0 1 1 1
 1x1F Vertical Edge Print" -13.75 -34.25 5.9 2 0 49 Letters/-space 0 0 1 1 1
 1x1F Vertical Edge Print" -13.25 -34.25 5.9 1 0 49 Letters/-space 0 0 1 1 1
@@ -9096,7 +9253,13 @@ Locker Door" -0.25 -78.75 2.1 1 0 34  0 0 1 1 1
 +-EVENT	2	1	onRelay	0	Self		toggleEventEnabled	0 1 3			
 +-EVENT	3	0	onRelay	0	Self		setEmitter	-1			
 +-EMITTER NONE" 1
-1x1F Vertical Edge Print" -22.25 -32.75 5.9 3 0 49 Letters/-space 0 0 1 1 1
+1x1F Print" -42.25 47.25 3.5 0 0 44 Letters/-space 0 0 0 0 0
++-NTOBJECTNAME _Faucet
++-EVENT	0	1	onRelay	0	Self		setEmitter	swirlPaintEmitter			
++-EVENT	1	1	onRelay	0	Self		playSound	lightOnSound			
++-EVENT	2	1	onRelay	0	Self		toggleEventEnabled	0 1 3			
++-EVENT	3	0	onRelay	0	Self		setEmitter	-1			
++-EMITTER NONE" 1
 1x1F Round" 7.75 -51.25 2.7 3 0 18  0 0 1 1 1
 1x1F Print" -22.25 31.75 3.5 3 0 44 Letters/-space 0 0 0 0 0
 +-NTOBJECTNAME _Faucet
@@ -9129,7 +9292,7 @@ Locker Door" -0.25 -78.75 2.1 1 0 34  0 0 1 1 1
 +-EVENT	3	0	onRelay	0	Self		setEmitter	-1			
 1x1F Vertical Edge Print" -16.75 -41.25 5.9 0 0 49 Letters/-space 0 0 1 1 1
 1x1F Vertical Edge Print" -27.25 -38.25 5.9 1 0 49 Letters/-space 0 0 1 1 1
-1x1F Vertical Edge Print" -27.25 -34.75 5.9 0 0 49 Letters/-space 0 0 1 1 1
+1x1F Vertical Edge Print" -13.25 -30.75 5.9 0 0 49 Letters/-space 0 0 1 1 1
 1x1F Vertical Edge Print" -27.75 -34.75 5.9 3 0 49 Letters/-space 0 0 1 1 1
 1x1F Vertical Edge Print" -27.75 -38.25 5.9 2 0 49 Letters/-space 0 0 1 1 1
 1x1F Vertical Edge Print" -27.75 -30.75 5.9 3 0 49 Letters/-space 0 0 1 1 1
@@ -9138,63 +9301,68 @@ Locker Door" -0.25 -78.75 2.1 1 0 34  0 0 1 1 1
 1x1F Vertical Edge Print" -24.25 -41.25 5.9 3 0 49 Letters/-space 0 0 1 1 1
 1x1F Vertical Edge Print" -24.25 -41.75 5.9 2 0 49 Letters/-space 0 0 1 1 1
 1x1F Vertical Edge Print" -16.75 -41.75 5.9 1 0 49 Letters/-space 0 0 1 1 1
-1x1F Print" -42.25 47.25 3.5 0 0 44 Letters/-space 0 0 0 0 0
-+-NTOBJECTNAME _Faucet
-+-EVENT	0	1	onRelay	0	Self		setEmitter	swirlPaintEmitter			
-+-EVENT	1	1	onRelay	0	Self		playSound	lightOnSound			
-+-EVENT	2	1	onRelay	0	Self		toggleEventEnabled	0 1 3			
-+-EVENT	3	0	onRelay	0	Self		setEmitter	-1			
-+-EMITTER NONE" 1
 1x1F Vertical Edge Print" -27.25 -30.75 5.9 0 0 49 Letters/-space 0 0 1 1 1
 1x1F Vertical Edge Print" -20.25 -41.25 5.9 3 0 49 Letters/-space 0 0 1 1 1
 1x1F Vertical Edge Print" -20.25 -41.75 5.9 2 0 49 Letters/-space 0 0 1 1 1
 1x1F Vertical Edge Print" -27.25 -34.25 5.9 1 0 49 Letters/-space 0 0 1 1 1
 1x1F Vertical Edge Print" -27.75 -34.25 5.9 2 0 49 Letters/-space 0 0 1 1 1
-1x 1x2F Vertical Print" 12.25 -55.75 3.5 2 0 51 2x2f/blank 0 0 1 1 1
-16x32 Base" -16.5 29.5 4.5 2 0 36  0 0 1 1 1
-1x2F Ceiling Print Plate" 12.25 -54.5 4.5 1 0 51 Letters/-space 0 0 1 1 1
-32x32 Base" -68.5 -18.5 4.5 1 0 36  0 0 1 1 1
-1x 1x2F Vertical Print" 12.25 -54.25 4.1 0 0 51 2x2f/blank 0 0 1 1 1
-1F 1x1F Vertical Print" -26.75 -37.25 1.7 2 0 61 Letters/-space 0 0 1 1 1
-1F 1x1F Vertical Print" -26.75 -36.75 1.7 3 0 61 Letters/-space 0 0 1 1 1
-2x2F Print" -13.5 -37.5 6.1 1 0 36 Letters/-minus 0 0 1 1 1
-2x2F Print" -13.5 -36.5 6.1 1 0 36 Letters/-minus 0 0 1 1 1
-1x2x3" -22 -32.75 7.3 1 0 43  0 0 0 1 0
-1x2x3" -19 -32.75 7.3 1 0 43  0 0 0 1 0
+1x1F Vertical Edge Print" -22.25 -32.75 5.9 3 0 49 Letters/-space 0 0 1 1 1
+1x1F Vertical Edge Print" -21.75 -32.75 5.9 0 0 49 Letters/-space 0 0 1 1 1
+1x1F Vertical Edge Print" -18.75 -36.25 5.9 1 0 49 Letters/-space 0 0 1 1 1
+1x1F Vertical Edge Print" -22.25 -36.25 5.9 2 0 49 Letters/-space 0 0 1 1 1
+1x1F Vertical Edge Print" -21.75 -36.25 5.9 1 0 49 Letters/-space 0 0 1 1 1
+1x1F Vertical Edge Print" -19.25 -36.25 5.9 2 0 49 Letters/-space 0 0 1 1 1
+1x1F Vertical Edge Print" -27.25 -34.75 5.9 0 0 49 Letters/-space 0 0 1 1 1
+1x1F Vertical Edge Print" -13.25 -34.75 5.9 0 0 49 Letters/-space 0 0 1 1 1
+1x1F Vertical Edge Print" -13.75 -34.75 5.9 3 0 49 Letters/-space 0 0 1 1 1
+1x1F Vertical Edge Print" -13.75 -38.25 5.9 2 0 49 Letters/-space 0 0 1 1 1
+1x1F Vertical Edge Print" -13.25 -38.25 5.9 1 0 49 Letters/-space 0 0 1 1 1
+1x1F Vertical Edge Print" -19.25 -32.75 5.9 3 0 49 Letters/-space 0 0 1 1 1
 1x2x3" -19 -36.25 7.3 1 0 43  0 0 0 1 0
 1x2x3" -22 -36.25 7.3 1 0 43  0 0 0 1 0
 2x2F Print" -23.5 -41.5 6.1 2 0 36 Letters/-minus 0 0 1 1 1
 2x2F Print" -22.5 -41.5 6.1 2 0 36 Letters/-minus 0 0 1 1 1
 2x2F Print" -27.5 -32.5 6.1 3 0 36 Letters/-minus 0 0 1 1 1
+2x2F Print" -27.5 -33.5 6.1 3 0 36 Letters/-minus 0 0 1 1 1
 2x2F Print" -13.5 -33.5 6.1 1 0 36 Letters/-minus 0 0 1 1 1
 2x2F Print" -13.5 -32.5 6.1 1 0 36 Letters/-minus 0 0 1 1 1
 1x 1x2F Vertical Print" 12.25 -55.75 4.1 2 0 51 2x2f/blank 0 0 1 1 1
 1x 1x2F Vertical Print" 12.25 -54.25 3.5 0 0 51 2x2f/blank 0 0 1 1 1
 1x2F Ceiling Print Plate" 12.25 -55.5 4.5 1 0 51 Letters/-space 0 0 1 1 1
-2x2F Print" -27.5 -33.5 6.1 3 0 36 Letters/-minus 0 0 1 1 1
-2x2F" -16.5 37.5 4.7 0 0 36  0 0 1 1 1
+1x 1x2F Vertical Print" 12.25 -55.75 3.5 2 0 51 2x2f/blank 0 0 1 1 1
+16x32 Base" -16.5 29.5 4.5 2 0 36  0 0 1 1 1
+1x2F Ceiling Print Plate" 12.25 -54.5 4.5 1 0 51 Letters/-space 0 0 1 1 1
+32x32 Base" -68.5 -18.5 4.5 1 0 36  0 0 1 1 1
+1x 1x2F Vertical Print" 12.25 -54.25 4.1 0 0 51 2x2f/blank 0 0 1 1 1
+1F 1x1F Vertical Print" -26.75 -36.75 1.7 3 0 61 Letters/-space 0 0 1 1 1
+2x2F Print" -13.5 -37.5 6.1 1 0 36 Letters/-minus 0 0 1 1 1
+2x2F Print" -13.5 -36.5 6.1 1 0 36 Letters/-minus 0 0 1 1 1
+1x2x3" -22 -32.75 7.3 1 0 43  0 0 0 1 0
+1x2x3" -19 -32.75 7.3 1 0 43  0 0 0 1 0
+1F 1x1F Vertical Print" -26.75 -37.25 1.7 2 0 61 Letters/-space 0 0 1 1 1
+2x4" -14 -33 6.5 0 0 36  0 0 1 1 1
 2x2F" -76.5 -18.5 4.7 1 0 36  0 0 1 1 1
 1F 1x1F Vertical Corner Print" -26.75 -36.75 1.5 0 0 61 Letters/-space 0 0 1 1 1
-2x4" -14 -33 6.5 0 0 36  0 0 1 1 1
+2x2F" -16.5 37.5 4.7 0 0 36  0 0 1 1 1
 1F 1x1F Vertical Corner Print" -26.75 -37.25 1.5 3 0 61 Letters/-space 0 0 1 1 1
-16x32 Base" -20.5 41.5 4.5 1 0 36  0 0 1 1 1
-2x2F Print" -14 -33.5 6.9 1 0 36 Letters/-minus 0 0 1 1 1
-32x32 Base" -84.5 -18.5 4.5 2 0 36  0 0 1 1 1
+1F 1x1F Vertical Print" -26.75 -36.75 1.3 3 0 61 Letters/-space 0 0 1 1 1
 2x2F Print" -14 -32.5 6.9 1 0 36 Letters/-minus 0 0 1 1 1
 1F 1x1F Vertical Print" -26.75 -37.25 1.3 2 0 61 Letters/-space 0 0 1 1 1
-1F 1x1F Vertical Print" -26.75 -36.75 1.3 3 0 61 Letters/-space 0 0 1 1 1
-2x2F" -28.5 41.5 4.7 3 0 36  0 0 1 1 1
+32x32 Base" -84.5 -18.5 4.5 2 0 36  0 0 1 1 1
+16x32 Base" -20.5 41.5 4.5 1 0 36  0 0 1 1 1
+2x2F Print" -14 -33.5 6.9 1 0 36 Letters/-minus 0 0 1 1 1
 2x2F" -88.5 -10.5 4.7 2 0 36  0 0 1 1 1
+2x2F" -28.5 41.5 4.7 3 0 36  0 0 1 1 1
 16x32 Base" -36.5 41.5 4.5 1 0 36  0 0 1 1 1
 16x32 Base" -88.5 -2.5 4.5 2 0 36  0 0 1 1 1
-2x2F" -44.5 41.5 4.7 3 0 36  0 0 1 1 1
 2x2F" -88.5 5.5 4.7 2 0 36  0 0 1 1 1
-16x32 Base" -52.5 41.5 4.5 1 0 36  0 0 1 1 1
+2x2F" -44.5 41.5 4.7 3 0 36  0 0 1 1 1
 16x32 Base" -88.5 13.5 4.5 0 0 36  0 0 1 1 1
-2x2F" -88.5 21.5 4.7 2 0 36  0 0 1 1 1
+16x32 Base" -52.5 41.5 4.5 1 0 36  0 0 1 1 1
 2x2F" -60.5 41.5 4.7 3 0 36  0 0 1 1 1
+2x2F" -88.5 21.5 4.7 2 0 36  0 0 1 1 1
 16x32 Base" -88.5 29.5 4.5 0 0 36  0 0 1 1 1
 16x32 Base" -68.5 41.5 4.5 1 0 36  0 0 1 1 1
-2x2F" -76.5 41.5 4.7 3 0 36  0 0 1 1 1
 2x2F" -88.5 37.5 4.7 2 0 36  0 0 1 1 1
+2x2F" -76.5 41.5 4.7 3 0 36  0 0 1 1 1
 16x32 Base" -84.5 41.5 4.5 1 0 36  0 0 1 1 1

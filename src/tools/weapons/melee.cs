@@ -1,0 +1,1 @@
+//This is where the base "melee" weapon would be defined for all other melee weapons to inherit from.

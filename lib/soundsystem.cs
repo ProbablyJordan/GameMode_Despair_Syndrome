@@ -10,12 +10,13 @@ function GameConnection::playGameSound(%this, %profile, %position) //If position
 	if (isObject(%this.player)) //INSTEAD, we should check for soundproof zones
 	{
 		%foundZone = getZoneFromPos(%position);
-		if (isObject(%foundZone) && %foundZone.isSoundProof && (!isObject(%this.player.currentZone) || %this.player.currentZone != %foundZone))
+		%playerZone = getZoneFromPos(%this.player.getEyePoint());
+		if (isObject(%foundZone) && %foundZone.isSoundProof && (!isObject(%playerZone) || %playerZone != %foundZone))
 		{
 			// talk("The sound was made in soundproof zone. Player" SPC %this.getPlayerName() SPC "didn't hear it!");
 			return;
 		}
-		if (isObject(%this.player.currentZone) && %this.player.currentZone.isSoundProof && (!isObject(%foundZone) || %foundZone != %this.player.currentZone))
+		if (isObject(%playerZone) && %playerZone.isSoundProof && (!isObject(%foundZone) || %foundZone != %playerZone))
 		{
 			// talk("The player is in a soundproof zone. Player" SPC %this.getPlayerName() SPC "didn't hear it!");
 			return;
