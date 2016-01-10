@@ -3,7 +3,6 @@ ADDON GameMode_Despair_Syndrome
 
 //Useful add-ons for gamemode functionality
 ADDON Event_Zones
-ADDON Brick_ZoneBricks
 
 //Default Add-Ons
 ADDON Brick_Arch 
