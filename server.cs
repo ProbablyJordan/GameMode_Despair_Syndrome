@@ -11,13 +11,8 @@ exec("./lib/sfx.cs");
 exec("./lib/Support_Raycasts.cs");
 exec("./lib/text.cs");
 exec("./lib/items.cs");
-//src/tools
-exec("./src/tools/bucket.cs");
-exec("./src/tools/mop.cs");
-exec("./src/tools/key.cs");
-//src/tools/weapons
-exec("./src/tools/weapons/testsword.cs");
 //src
+exec("./src/overwrite.cs");
 exec("./src/events.cs");
 exec("./src/player.cs");
 exec("./src/sounds.cs");
@@ -27,3 +22,9 @@ exec("./src/footsteps.cs");
 exec("./src/blood.cs");
 exec("./src/health.cs");
 exec("./src/game.cs");
+//src/tools
+exec("./src/tools/bucket.cs");
+exec("./src/tools/mop.cs");
+exec("./src/tools/key.cs");
+//src/tools/weapons
+exec("./src/tools/weapons/testsword.cs");

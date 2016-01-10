@@ -93,73 +93,42 @@ datablock ShapeBaseImageData(AdvSwordImage)
 
 	stateName[0]					= "Activate";
 	stateAllowImageChange[0]		= 0;
-	stateTimeoutValue[0]			= 0.4;
+	stateTimeoutValue[0]			= 0.01;
 	stateTransitionOnTimeout[0]		= "Ready";
 
 	stateName[1]					= "Ready";
-	stateTransitionOnTriggerDown[1] = "PreFire";
+	stateTransitionOnTriggerDown[1] = "CheckFire";
 	stateSequence[1]				= "root";
 	stateScript[1]					= "Ready";
 	stateAllowImageChange[1]		= 1;
 
-	stateName[2]					= "PreFire";
-	stateScript[2]					= "onPreFire";
-	stateTimeoutValue[2]			= 0.1;
-	stateTransitionOnTimeout[2]		= "Fire";
-	stateAllowImageChange[2]		= false;
+	stateName[2]					= "CheckFire";
+	stateScript[2]					= "onCheckFire";
+	stateTransitionOnAmmo[2]		= "PreFire";
+	stateTransitionOnNoAmmo[2]		= "Release";
 
-	stateName[3]					= "Fire";
-	stateTransitionOnTimeout[3]		= "Charge";
+	stateName[3]					= "PreFire";
+	stateScript[3]					= "onPreFire";
 	stateTimeoutValue[3]			= 0.1;
-	stateFire[3]					= true;
+	stateTransitionOnTimeout[3]		= "Fire";
 	stateAllowImageChange[3]		= false;
-	stateSequence[3]				= "Fire";
-	stateScript[3]					= "onFire";
-	stateWaitForTimeout[3]			= true;
 
-	stateName[4]					= "Charge";
-	stateSequence[4]				= "Charge";
-	stateTransitionOnTriggerUp[4]	= "Ready";
-	stateTransitionOnTimeout[4]		= "ChargeReady";
-	stateTimeoutValue[4]			= 0.5; // short shorts
-	stateScript[4]					= "onCharge";
-	stateWaitForTimeout[4]			= false;
+	stateName[4]					= "Fire";
+	stateTransitionOnTimeOut[4]		= "Release";
+	stateTimeoutValue[4]			= 0.1;
+	stateFire[4]					= true;
+	stateAllowImageChange[4]		= false;
+	stateSequence[4]				= "Fire";
+	stateScript[4]					= "onFire";
+	stateWaitForTimeout[4]			= true;
 
-	stateName[5]					= "ChargeReady";
-	stateTransitionOnTriggerUp[5]	= "FireSlash";
-	stateSequence[5]				= "chargeSlash";
-	stateTransitionOnTimeout[5]		= "ChargeStabReady";
-	stateTimeoutValue[5]			= 1;
-	stateScript[5]					= "onChargeReady";
-	stateWaitForTimeout[5]			= false;
-
-	stateName[6]					= "FireSlash";
-	stateTransitionOnTimeout[6]		= "Ready";
-	stateTimeoutValue[6]			= 0.3;
-	stateFire[6]					= true;
-	stateAllowImageChange[6]		= false;
-	stateSequence[6]				= "slash";
-	stateScript[6]					= "onSlash";
-	stateWaitForTimeout[6]			= true;
-
-	stateName[7]					= "ChargeStabReady";
-	stateTransitionOnTriggerUp[7]	= "FireStab";
-	stateSequence[7]				= "chargeStab";
-	stateScript[7]					= "onChargeStabReady";
-	stateWaitForTimeout[7]			= false;
-
-	stateName[8]					= "FireStab";
-	stateTransitionOnTimeout[8]		= "Ready";
-	stateTimeoutValue[8]			= 0.3;
-	stateFire[8]					= true;
-	stateAllowImageChange[8]		= false;
-	stateSequence[8]				= "stab";
-	stateWaitForTimeout[8]			= true;
-	stateScript[8]					= "onStab";
+	stateName[5]					= "Release";
+	stateTransitionOnTriggerUp[5]	= "Ready";
+	stateScript[5]					= "EndFire";
 
 	raycastEnabled = 1;
-	raycastRange = 2.5;
-
+	raycastRange = 4;
+	raycastFromEye = true;
 	directDamage = 20;
 	directDamageType = $DamageType::AdvSword;
 	raycastHitExplosion = SwordProjectile;
@@ -168,21 +137,14 @@ datablock ShapeBaseImageData(AdvSwordImage)
 function AdvSwordImage::onMount(%this, %obj, %slot)
 {
 	%obj.playThread(1, root);
+	if (%obj.getEnergyLevel() < 20)
+		%obj.setImageAmmo(0, 0);
+	else
+		%obj.setImageAmmo(0, 1);
 }
 
 function AdvSwordImage::onUnMount(%this, %obj, %slot)
 {
-	%obj.swordState = "";
-}
-
-function AdvSwordImage::onActivate(%this, %obj, %slot)
-{
-	%obj.playThread(1, "rotCW");
-}
-
-function AdvSwordImage::onExit(%this, %obj, %slot)
-{
-	%obj.playThread(1, "rotCCW");
 }
 
 function AdvSwordImage::onPreFire(%this, %obj, %slot)
@@ -191,49 +153,34 @@ function AdvSwordImage::onPreFire(%this, %obj, %slot)
 	%obj.playThread(2, activate);
 }
 
+function AdvSwordImage::EndFire(%this, %obj, %slot)
+{
+	%obj.playThread(1, root);
+}
+
 function AdvSwordImage::Ready(%this, %obj, %slot)
 {	
 	%obj.playThread(1, root);
-	%obj.swordState = "";
+	if (%obj.getEnergyLevel() < 20)
+		%obj.setImageAmmo(0, 0);
+	else
+		%obj.setImageAmmo(0, 1);
 }
 
-function AdvSwordImage::onCharge(%this, %obj, %slot)
+function AdvSwordImage::onCheckFire(%this, %obj, %slot)
 {
-	//Don't do anything yet
-}
-
-function AdvSwordImage::onChargeReady(%this, %obj, %slot) //Slash is ready
-{
-	%obj.playThread(2, plant);
-	serverPlay3D(brickPlantSound, %obj.getHackPosition());
-}
-
-function AdvSwordImage::onChargeStabReady(%this, %obj, %slot)
-{
-	%obj.playThread(1, root);
-	%obj.playThread(2, plant);
-	serverPlay3D(brickPlantSound, %obj.getHackPosition());
+	if (%obj.getEnergyLevel() < 20)
+		%obj.setImageAmmo(0, 0);
+	else
+		%obj.setImageAmmo(0, 1);
 }
 
 function AdvSwordImage::onFire(%this, %obj, %slot)
 {
 	if(%obj.getDamagePercent() < 1.0)
 		%obj.playThread(2, shiftTo);
-	
-}
-
-function AdvSwordImage::onSlash(%this, %obj, %slot)
-{
-	%obj.playThread(2, shiftLeft);
-	%obj.swordState = "slash";
-	
-}
-
-function AdvSwordImage::onStab(%this, %obj, %slot)
-{
-	%obj.playThread(1, armReadyRight);
-	%obj.swordState = "stab";
-	
+	%obj.setEnergyLevel(%obj.getEnergyLevel() - 20);
+	parent::onFire(%this, %obj, %slot);
 }
 
 datablock ShapeBaseImageData(AdvSwordBlockImage : AdvSwordImage)
@@ -242,7 +189,7 @@ datablock ShapeBaseImageData(AdvSwordBlockImage : AdvSwordImage)
 	rotation = eulerToMatrix("0 -45 0");
 
 	stateName[0]					= "Activate";
-	stateTimeoutValue[0]			= 0.1;
+	stateTimeoutValue[0]			= 0.01;
 	stateTransitionOnTimeout[0]		= "Ready";
 
 	stateName[1]					= "Ready";
@@ -313,28 +260,21 @@ package AdvSwordPackage
 		if(%obj.isBlocking && vectorDot(%obj.getForwardVector(), %vector) < 0)
 		{
 			%time = ($Sim::Time - %obj.lastBlockTime) / 5;
-			%damage = %damage * mClampF(%time, 0, 1);
+			%drain = 60*mClampF(%time, 0, 1);
 			%quality = %time < 0.25 ? "Good" : (%time < 0.75 ? "Decent" : "Bad");
+			if (%obj.getEnergyLevel() < %drain)
+				%quality = "Bad";
+			%obj.setEnergyLevel(%obj.getEnergyLevel() - %drain);
+			if (%quality $= "Good")
+				%time = 0;
+			%damage = %damage * mClampF(%time, 0, 1);
 			serverPlay3D(AdvSwordBlockSound @ %quality, %pos);
-			//If quality is "bad", throw the sword outta the user's hands!
 		}
 
-		else if (%coeff = vectorDot(%obj.getForwardVector(), %src.getForwardVector()) > 0)
-		{
-			if(%src.swordState $= "stab") //Backstab
-				%damage = %damage * (4 + %coeff); //Lods of damage
-			else
-				%damage = %damage * (1 + %coeff);
-		}
-
-		if(%src.swordState $= "stab")
-		{
-			//Do stuff
-		}
-		if(%src.swordState $= "slash")
-		{
-			//Do stuff
-		}
+		// else if (%coeff = vectorDot(%obj.getForwardVector(), %src.getForwardVector()) > 0)
+		// {
+		// 	%damage = %damage * (2 + %coeff);
+		// }
 
 		// if(%type == $DamageType::AdvSword)
 		// {

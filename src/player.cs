@@ -61,9 +61,9 @@ datablock PlayerData(PlayerDSArmor : PlayerStandardArmor)
 	// speedDamageScale = 2.3;
 	// speedDamageScale = 1.6;
 
-	jumpEnergyDrain = 50;
-	minJumpEnergy = 50;
-
+	jumpEnergyDrain = 40;
+	minJumpEnergy = 40;
+	ShowEnergyBar = true;
 	jumpForce = 1200;
 };
 
@@ -74,18 +74,24 @@ function Player::monitorEnergyLevel(%this, %last)
 	if (%this.getState() $= "Dead" || !isObject(%this.client))
 		return;
 
-	if (%this.running)
+	if (%this.getMountedImage(0))
+	{
+		%this.running = false;
+		%this.setMaxForwardSpeed(%this.getDataBlock().maxForwardSpeed);
+	}
+
+	if (%this.running && vectorLen(%this.getVelocity()) > %this.getDataBlock().maxForwardSpeed)
 	{
 		%this.setEnergyLevel(%this.getEnergyLevel() - 2);
 
 		if (%this.getEnergyLevel() < 2)
-			%this.setMaxForwardSpeed(%this.getDataBlock().maxForwardSpeed * 0.75);
+			%this.setMaxForwardSpeed(%this.getDataBlock().maxForwardSpeed * 0.5);
 	}
 
-	%show = %this.getEnergyLevel() < %this.getDataBlock().maxEnergy;
+	// %show = %this.getEnergyLevel() < %this.getDataBlock().maxEnergy;
 
-	if (%show != %last)
-		commandToClient(%this.client, 'ShowEnergyBar', %show);
+	// if (%show != %last)
+	// 	commandToClient(%this.client, 'ShowEnergyBar', %show);
 
 	%this.monitorEnergyLevel = %this.schedule(32, monitorEnergyLevel, %show);
 }
