@@ -27,6 +27,22 @@ function BloodDripProjectile::onCollision(%this, %obj, %col, %pos, %fade, %norma
 	%obj.explode();
 }
 
+function BloodDripProjectile::onCollision(%this, %obj, %col, %fade, %pos, %normal)
+{
+	%decal = spawnDecal(pegprintDecal, %pos, %normal);
+	%decal.setScale("1 1 1");
+	%decal.setTransform(vectorAdd(%decal.getPosition(), "0 0 0.01"));
+
+	%decal.color = "0.7 0 0" SPC 0.6;
+	%decal.setNodeColor("ALL", %decal.color);
+	%decal.isBlood = true;
+	%decal.sourceClient = %obj.client;
+	%decal.spillTime = $Sim::Time;
+	%decal.freshness = 0.5; //freshness < 1 means can't get bloody footprints from it
+	%obj.explode();
+	return;
+}
+
 function BloodDripProjectile::onExplode(%this, %obj, %pos)
 {
 	ServerPlay3D(bloodDripSound @ getRandom(1, 4), %pos);
@@ -91,7 +107,7 @@ function Player::doDripBlood(%this, %force, %start, %end) {
 	if (%end $= "") {
 		%end = vectorSub(%this.position, "0 0 0.1");
 	}
-		
+
 	%ray = containerRayCast(%start, %end, $TypeMasks::FxBrickObjectType | $TypeMasks::TerrainObjectType);
 
 	%this.lastBloodDrip = $Sim::Time;
@@ -107,9 +123,9 @@ function Player::doDripBlood(%this, %force, %start, %end) {
 	}
 
 	return true;
-	
+
 	%this.lastBloodDrip = $Sim::Time;
-	
+
 	%x = getRandom() * 6 - 3;
 	%y = getRandom() * 6 - 3;
 	%z = 0 - (20 + getRandom() * 40);
@@ -148,7 +164,7 @@ function Player::doSplatterBlood(%this, %amount, %pos) {
 			// serverPlay3d(bloodSpillSound, getWords(%ray, 1, 3));
 			createBloodExplosion(getWords(%ray, 1, 3), vectorNormalize(%this.getVelocity()), %scale SPC %scale SPC %scale);
 			if(vectorDot("0 0 -1", %decal.normal) >= 0.5 && !isEventPending(%decal.ceilingBloodSchedule)) {
-				if(getRandom(0, 3) == 3) 
+				if(getRandom(0, 3) == 3)
 				{
 					%decal.ceilingBloodSchedule = schedule(getRandom(16, 500), 0, ceilingBloodLoop, %decal, getWords(%ray, 1, 3));
 				}
@@ -157,19 +173,36 @@ function Player::doSplatterBlood(%this, %amount, %pos) {
 	}
 }
 
+function GameConnection::period(%this)
+{
+	messageAll('', '\c3%1 \c5is on their period.', %this.character.name);
+	%this.player.period();
+}
+
+function Player::period(%this)
+{
+	cancel(%this.period);
+
+	if (%this.getState() $= "Dead")
+		return;
+
+	%this.doSplatterBlood(1);
+	%this.period = %this.schedule(25, "period");
+}
+
 function Player::doBloodyFootprint(%this, %ray, %foot, %alpha) {
 	if(%alpha $= "")
 		%alpha = 1;
 	if(%alpha <= 0)
 		return;
 	%datablock = footprintDecal;
-	if(isObject(%this.client))
-	{
-		if(%foot)
-			%datablock = %this.client.lleg ? pegprintDecal : footprintDecal;
-		else
-			%datablock = %this.client.rleg ? pegprintDecal : footprintDecal;
-	}
+	// if(isObject(%this.client))
+	// {
+	// 	if(%foot)
+	// 		%datablock = %this.client.lleg ? pegprintDecal : footprintDecal;
+	// 	else
+	// 		%datablock = %this.client.rleg ? pegprintDecal : footprintDecal;
+	// }
 	%decal = spawnDecalFromRay(%ray, %datablock, 0.3);
 	%decal.setScale("1 1 1");
 	%set = vectorAdd(%decal.getTransform(), "0 0 0.05");
@@ -349,7 +382,7 @@ datablock ParticleEmitterData(bloodEmitter)
 	ejectionOffset = 0;
 
 	thetaMin         = 0.0;
-	thetaMax         = 90.0;  
+	thetaMax         = 90.0;
 
 	particles = bloodParticle;
 
@@ -437,7 +470,7 @@ datablock ParticleEmitterData(bloodEmitter2)
 	ejectionOffset = 0;
 
 	thetaMin         = 0.0;
-	thetaMax         = 90.0;  
+	thetaMax         = 90.0;
 
 	particles = bloodParticle2;
 
@@ -523,7 +556,7 @@ datablock ParticleEmitterData(bloodDripEmitter)
 	ejectionOffset = 0;
 
 	thetaMin         = 0.0;
-	thetaMax         = 90.0;  
+	thetaMax         = 90.0;
 
 	particles = bloodDripParticle;
 

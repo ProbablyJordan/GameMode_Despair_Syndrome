@@ -8,6 +8,11 @@ if (!isObject(GameCharacters))
 
 package DespairSyndromePackage
 {
+	function GameConnection::inDefaultGame(%this)
+	{
+		return isObject($DefaultMiniGame) && %this.miniGame == $DefaultMiniGame;
+	}
+
 	function Armor::onDisabled(%this, %obj)
 	{
 		if (isObject(%obj.client) && %obj.client.miniGame == $DefaultMiniGame && isObject(GameRoundCleanup))
@@ -66,16 +71,23 @@ package DespairSyndromePackage
 
 		Parent::reset(%this, %client);
 
+		%this.messageAll('', '\c5A new round is starting.');
+
 		// Close *all* doors
 		%count = BrickGroup_888888.getCount();
 
 		for (%i = 0; %i < %count; %i++)
 		{
 			%brick = BrickGroup_888888.getObject(%i);
+			%brick.respawn();
+
 			%data = %brick.getDataBlock();
 
 			if (%data.isDoor)
+			{
+				%brick.doorHits = 0;
 				%brick.setDataBlock(%brick.isCCW ? %data.closedCCW : %data.closedCW);
+			}
 		}
 
 		%freeCount = $DS::RoomCount;
@@ -119,7 +131,10 @@ package DespairSyndromePackage
 			GameCharacters.add(%character);
 			%member.character = %character;
 
-			%character.name = getRandomName(%character.gender);
+			if (%member.isSuperAdmin) // oh god
+				%character.name = "One Punch" SPC %character.gender;
+			else
+				%character.name = getRandomName(%character.gender);
 			%character.appearance = getRandomAppearance(%character.gender);
 
 			%member.applyBodyParts();
@@ -132,9 +147,18 @@ package DespairSyndromePackage
 			%player.setShapeName(%character.name, 8564862);
 
 			if (%character.gender $= "female")
-				%player.setShapeNameColor("1 0.1 0.9");
+			{
+				%nameTextColor = "ff11cc";
+				// %player.setShapeNameColor("1 0.1 0.9");
+				%player.setShapeNameColor("1 0.15 0.8");
+			}
 			else if (%character.gender $= "male")
+			{
+				%nameTextColor = "22ccff";
 				%player.setShapeNameColor("0.1 0.8 1");
+			}
+			else
+				%nameTextColor = "ffff00";
 
 			// Give them a key to their room
 			%props = KeyItem.newItemProps(%player, 0);
@@ -142,6 +166,11 @@ package DespairSyndromePackage
 			%props.id = "R" @ %room;
 
 			%player.addTool(KeyItem, %props);
+
+			messageClient(%member, '', '\c6You are <color:%1>%2\c6, and you have been assigned to \c3Room #%3\c6.',
+				%nameTextColor,
+				%character.name,
+				%room);
 		}
 	}
 

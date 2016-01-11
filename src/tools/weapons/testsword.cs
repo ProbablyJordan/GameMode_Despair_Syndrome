@@ -80,7 +80,7 @@ datablock ShapeBaseImageData(AdvSwordImage)
 	// When firing from a point offset from the eye, muzzle correction
 	// will adjust the muzzle vector to point to the eye LOS point.
 	// Since this weapon doesn't actually fire from the muzzle point,
-	// we need to turn this off.  
+	// we need to turn this off.
 	correctMuzzleVector = false;
 
 	// eyeOffset = "0.7 1.2 -0.25";
@@ -177,7 +177,7 @@ function AdvSwordImage::EndFire(%this, %obj, %slot)
 }
 
 function AdvSwordImage::Ready(%this, %obj, %slot)
-{	
+{
 	%obj.playThread(1, root);
 	if (%obj.getEnergyLevel() < 15)
 		%obj.setImageAmmo(0, 0);
@@ -199,6 +199,26 @@ function AdvSwordImage::onFire(%this, %obj, %slot)
 		%obj.playThread(2, shiftTo);
 	%obj.setEnergyLevel(%obj.getEnergyLevel() - 15);
 	parent::onFire(%this, %obj, %slot);
+}
+
+function AdvSwordImage::onRaycastCollision(%this, %obj, %col, %pos, %normal, %vec)
+{
+	Parent::onRaycastCollision(%this, %obj, %col, %pos, %normal, %vec);
+
+	if (!(%col.getType() & $TypeMasks::FxBrickObjectType))
+		return;
+
+	%data = %col.getDataBlock();
+
+	if (!%data.isDoor)
+		return;
+
+	%random = getRandom(9);
+
+	%col.doorHits += %random < 2 ? 0 : (%random < 9 ? 1 : 2);
+
+	if (%col.doorHits >= 6)
+		%col.fakeKillBrick("10 10 0", -1);
 }
 
 datablock ShapeBaseImageData(AdvSwordBlockImage : AdvSwordImage)

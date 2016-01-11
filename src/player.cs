@@ -196,7 +196,7 @@ function Item::carryTick(%this)
 	%center = %this.getWorldBoxCenter();
 	%target = vectorAdd(%eyePoint, vectorScale(%eyeVector, 3));
 
-	if (vectorDist(%center, %target) > 6)
+	if (vectorDist(%center, %target) > 5)
 	{
 		%this.carryPlayer = 0;
 		%player.carryItem = 0;
