@@ -22,15 +22,20 @@ package ChatPackage
 		if (%text $= "")
 			return;
 
-		// messageAll('', '<color:ffaa44>%1<color:ffffff>: %2',
-		// 	%client.character.name, %text);
+		
+		%structure = '<color:ffaa44>%1<color:ffffff> says, \"%2\"';
 		%count = ClientGroup.getCount();
-
 		for (%i = 0; %i < %count; %i++)
 		{
 			%other = ClientGroup.getObject(%i);
 
-			if (%other.miniGame == $DefaultMiniGame && isObject(%other.player))
+			if (!isObject(%client.player)) //dead chat
+			{
+				%structure = '<color:444444>[DEAD] %1<color:aaaaaa>: %2';
+				if(isObject(%other.player)) //Listener's player is alive. Don't transmit the message to them.
+					continue;
+			}
+			else if (%other.inDefaultGame() && isObject(%other.player))
 			{
 				%playerZone = getZoneFromPos(%other.player.getEyePoint());
 				%otherZone = getZoneFromPos(%client.player.getEyePoint());
@@ -49,17 +54,28 @@ package ChatPackage
 					continue;
 			}
 
-			messageClient(%other, '', '<color:ffaa44>%1<color:ffffff>: %2',
+			messageClient(%other, '', %structure,
 								%client.character.name, %text);
 		}
 	}
 
-	function serverCmdTeamMessageSent(%client, %text)
+	function serverCmdTeamMessageSent(%client, %text) //OOC
 	{
 		if (!%client.inDefaultGame())
 			return Parent::serverCmdMessageSent(%client, %text);
 
-		messageClient(%client, '', '\c5Team chat does nothing right now.');
+		%text = trim(stripMLControlChars(%text));
+
+		if (%text $= "")
+			return;
+		%structure = '<color:4444FF>[OOC] %1<color:aaaaFF>: %2';
+		%count = ClientGroup.getCount();
+		for (%i = 0; %i < %count; %i++)
+		{
+			%other = ClientGroup.getObject(%i);
+			messageClient(%other, '', %structure,
+								%client.getPlayerName(), %text);
+		}
 	}
 };
 
