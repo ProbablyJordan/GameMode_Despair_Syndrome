@@ -23,6 +23,7 @@ exec("./src/blood.cs");
 exec("./src/health.cs");
 exec("./src/game.cs");
 exec("./src/chat.cs");
+exec("./src/admin.cs");
 //src/tools
 exec("./src/tools/bucket.cs");
 exec("./src/tools/mop.cs");

@@ -14,7 +14,7 @@ package ChatPackage
 
 	function serverCmdMessageSent(%client, %text)
 	{
-		if ((!%client.inDefaultGame() && %client.hasSpawnedOnce) || isEventPending(%client.miniGame.resetSchedule))
+		if (!%client.inDefaultGame() || isEventPending(%client.miniGame.resetSchedule))
 			return Parent::serverCmdMessageSent(%client, %text);
 
 		%text = trim(stripMLControlChars(%text));

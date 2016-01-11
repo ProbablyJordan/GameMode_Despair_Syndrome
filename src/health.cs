@@ -124,21 +124,6 @@ package DSHealthPackage
 			Parent::damage(%this, %obj, %src, %position, %this.maxDamage * 4, %type);
 		}
 	}
-
-	function serverCmdSuicide(%this, %bypass)
-	{
-		if (%bypass)
-			return parent::serverCmdSuicide(%this);
-		%message = "<h2>Are you SURE you want to commit suicide?</h2>You will be dead for the rest of the round!";
-		%message = parseCustomTML(%message);
-		commandToClient(%this, 'messageBoxYesNo', "", %message, 'suicideAccept');
-	}
 };
-
-function serverCmdSuicideAccept(%this)
-{
-	serverCmdSuicide(%this, 1);
-}
-
 if ($GameModeArg $= ($DS::Path @ "gamemode.txt"))
 	activatePackage("DSHealthPackage");

@@ -102,6 +102,10 @@ function Player::monitorEnergyLevel(%this)
 	%this.monitorEnergyLevel = %this.schedule(32, monitorEnergyLevel);
 }
 
+function PlayerDSArmor::onCollision(%this, %obj, %col, %vec, %speed)
+{
+}
+
 function PlayerDSArmor::onTrigger(%this, %obj, %slot, %state)
 {
 	Parent::onTrigger(%this, %obj, %slot, %state);
