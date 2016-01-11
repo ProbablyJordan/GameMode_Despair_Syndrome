@@ -1,15 +1,8 @@
-//Gamemode
-ADDON GameMode_Despair_Syndrome
-
 //Default Add-Ons
 ADDON Brick_Arch 
 ADDON Brick_Large_Cubes 
 
-ADDON Brick_V15 
-ADDON Emote_Alarm 
-ADDON Emote_Confusion 
-ADDON Emote_Hate 
-ADDON Emote_Love 
+ADDON Brick_V15
 ADDON Light_Animated 
 ADDON Light_Basic 
 ADDON Particle_Basic 
@@ -122,6 +115,9 @@ ADDON Event_WaterBrickEvents
 ADDON Light_Eksi
 ADDON Light_Toxic
 ADDON Light_Ambient
+
+//Gamemode
+ADDON GameMode_Despair_Syndrome
 
 // Environment
 $EnvGuiServer::SimpleMode 1

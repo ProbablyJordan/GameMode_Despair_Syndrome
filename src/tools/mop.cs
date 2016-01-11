@@ -14,7 +14,17 @@ datablock ItemData(mopItem)
 	colorShiftColor = "0.4 0.6 0.8";
 
 	image = mopImage;
+
+	itemPropsClass = "MopProps";
+	maxBlood = 15;
+
+	canDrop = true;
 };
+
+function MopProps::onAdd(%this)
+{
+	%this.blood = 0;
+}
 
 datablock ShapeBaseImageData(mopImage)
 {
@@ -88,15 +98,18 @@ function mopImage::onMount(%this, %obj, %slot)
 //		Most likely will have to use ItemProps for this.
 function mopImage::onFire(%this, %obj, %slot)
 {
+	%props = %obj.getItemProps();
+
 	%obj.playThread(2, shiftAway);
-	%point = %obj.getMuzzlePoint(%slot);
-	%vector = %obj.getMuzzleVector(%slot);
+	%point = %obj.getEyePoint();
+	%vector = %obj.getEyeVector();
 	%stop = vectorAdd(%point, vectorScale(%vector, 7));
 
 	%ray = containerRayCast(%point, %stop,
 		$TypeMasks::FxBrickObjectType |
 		$TypeMasks::ShapeBaseObjectType |
-		$TypeMasks::TerrainObjectType,
+		$TypeMasks::TerrainObjectType |
+		$TypeMasks::ItemObjectType,
 		%obj
 	);
 
@@ -106,22 +119,68 @@ function mopImage::onFire(%this, %obj, %slot)
 	else {
 		%pos = %stop;
 	}
+	if (%ray && %ray.getClassName() $= "Item" && %ray.getDataBlock() == BucketItem.getID())
+	{
+		%bucketProps = %ray.getItemProps();
 
-	initContainerRadiusSearch(
-		%pos, 0.75,
-		$TypeMasks::ShapeBaseObjectType
-	);
+		if (%bucketProps.blood >= BucketItem.maxBlood)
+		{
+			if (isObject(%obj.client))
+				%obj.client.centerPrint("\c6This bucket is too bloody.", 2);
 
-	while (isObject( %col = containerSearchNext())) {
-		if (%col.isBlood || %col.isPaint) {
-			%col.freshness -= 0.9;
-			%col.color = getWords(%col.color, 0, 2) SPC getWord(%col.color, 3) * 0.5;
-			%col.setNodeColor("ALL", %col.color);
-			%col.setScale(vectorScale(%col.getScale(), 0.8));
-			if (%col.freshness <= 0)
-				%col.delete();
+			return;
+		}
+
+		if (%props.blood <= 0)
+		{
+			%obj.client.centerPrint("\c6You dip the mop in the bucket, despite it being completely clean.", 2);
+			return;
+		}
+
+		%availableClean = getMin(%props.blood, BucketItem.maxBlood - %bucketProps.blood);
+		%bucketProps.blood += %availableClean;
+		%props.blood -= %availableClean;
+
+		if (%props.blood > 0)
+		{
+			if (isObject(%obj.client))
+				%obj.client.centerPrint("\c6You partially clean the mop in the bucket.", 2);
+		}
+		else if (isObject(%obj.client))
+			%obj.client.centerPrint("\c6You clean the mop in the bucket.", 2);
+
+		return;
+	}
+
+	initContainerRadiusSearch(%pos, 0.75,
+		$TypeMasks::ShapeBaseObjectType);
+
+	while (isObject(%col = containerSearchNext()))
+	{
+		if (!%col.isBlood && !%col.isPaint)
+			continue;
+
+		%clean = getMin(getMin(%col.freshness, 0.9), MopItem.maxBlood - %props.blood);
+		if (%col.freshness <= 0)
+		{
+			%col.delete();
 			continue;
 		}
+		if (%clean <= 0)
+			continue;
+		%col.freshness -= %clean;
+		%props.blood += %clean;
+		%col.color = getWords(%col.color, 0, 2) SPC getWord(%col.color, 3) * 0.5;
+		%col.setNodeColor("ALL", %col.color);
+		%col.setScale(vectorScale(%col.getScale(), 0.8));
+	}
+
+	if (%props.blood >= MopItem.maxBlood)
+	{
+		// TODO: spawn/add to blood splats?
+		
+		if (isObject(%obj.client))
+			%obj.client.centerPrint("\c6The mop is too bloody.", 2);
 	}
 }
 

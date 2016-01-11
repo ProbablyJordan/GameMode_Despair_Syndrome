@@ -142,7 +142,7 @@ function Armor::onFootstep(%this, %obj, %foot)
 		initContainerRadiusSearch(getWords(%ray, 1, 3), 0.4, $TypeMasks::ShapeBaseObjectType);
 		while (%col = containerSearchNext())
 		{
-			if (%col.isBlood && %col.freshness > 0 && !%col.isFootprint)// && %col.sourceClient != %obj.client)
+			if (%col.isBlood && %col.freshness >= 1)// && %col.sourceClient != %obj.client)
 			{
 				%obj.setBloodyFootprints(getMin(%obj.bloodyFootprints + %col.freshness * 3, $FOOTSTEPS_MAXBLOODSTEPS), %col.sourceClient); //Default freshness for splatter blood is 3, so 15 footsteps for fresh step.
 				%col.freshness--; //Decrease blood freshness

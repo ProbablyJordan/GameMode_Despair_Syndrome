@@ -129,9 +129,14 @@ package DSHealthPackage
 			return parent::serverCmdSuicide(%this);
 		%message = "<h2>Are you SURE you want to commit suicide?</h2>You will be dead for the rest of the round!";
 		%message = parseCustomTML(%message);
-		messageBoxYesNo("", %message, "serverCmdSuicide(" @ %this @ ", 1);");
+		commandToClient(%this, 'messageBoxYesNo', "", %message, 'suicideAccept');
 	}
 };
+
+function serverCmdSuicideAccept(%this)
+{
+	serverCmdSuicide(%this, 1);
+}
 
 if ($GameModeArg $= ($DS::Path @ "gamemode.txt"))
 	activatePackage("DSHealthPackage");

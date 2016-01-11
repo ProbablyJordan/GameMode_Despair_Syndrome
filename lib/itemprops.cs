@@ -10,13 +10,20 @@ function Player::getItemProps(%this, %slot)
 
 	if (!isObject(%this.tool[%slot]))
 		return 0;
-
 	if (!isObject(%this.itemProps[%slot]))
 		%this.itemProps[%slot] = %this.tool[%slot].newItemProps(%this, %slot);
 	else if (%this.itemProps[%slot].sourceItemData != %this.tool[%slot])
 		announce("BUG ALERT BUG ALERT: " @ %this.tool[%slot].getName() @ " has props for " @ %this.itemProps[%slot].sourceItemData.getName());
 
 	return %this.itemProps[%slot];
+}
+
+function Item::getItemProps(%this)
+{
+	if (!isObject(%this.itemProps))
+		%this.itemProps = %this.getDataBlock().newItemProps();
+
+	return %this.itemProps;
 }
 
 function ItemData::newItemProps(%this, %player, %slot)
@@ -26,13 +33,12 @@ function ItemData::newItemProps(%this, %player, %slot)
 		class = %this.itemPropsClass;
 		superClass = "ItemProps";
 
-		sourceItemData = %this;
+		sourceItemData = %this.getId();
 		sourcePlayer = %player;
 		sourceClient = %player.client;
 
 		itemSlot = %slot;
 	};
-
 	%props.onOwnerChange(%player);
 	return %props;
 }
@@ -67,7 +73,7 @@ package ItemPropsPackage
 		if (%this.getMountedImage(%slot).item.itemPropsAlways)
 			%this.getItemProps(%this.getMountedImage(%slot), %slot);
 
-		//%this.debugWeapon();
+		// %this.debugWeapon();
 	}
 
 	function Armor::onRemove(%this, %player)
@@ -121,87 +127,87 @@ package ItemPropsPackage
 		}
 	}
 
-	function Armor::onCollision(%this, %obj, %col, %velocity, %speed)
-	{
-		if (%obj.getState() !$= "Dead" && %obj.getDamagePercent() < 1 &&
-			%col.getClassName() $= "Item" && (isObject(%col.itemProps) || %col.getDataBlock().customPickupAlways))
-		{
-			if (%col.canPickup == 0)
-				return;
+	// function Armor::onCollision(%this, %obj, %col, %velocity, %speed)
+	// {
+	// 	if (%obj.getState() !$= "Dead" && %obj.getDamagePercent() < 1 &&
+	// 		%col.getClassName() $= "Item" && (isObject(%col.itemProps) || %col.getDataBlock().customPickupAlways))
+	// 	{
+	// 		if (%col.canPickup == 0)
+	// 			return;
 
-			%client = %obj.client;
-			%data = %col.getDataBlock();
+	// 		%client = %obj.client;
+	// 		%data = %col.getDataBlock();
 
-			if (!isObject(%client))
-				return;
+	// 		if (!isObject(%client))
+	// 			return;
 
-			%miniGame = %client.miniGame;
+	// 		%miniGame = %client.miniGame;
 
-			if (isObject(%miniGame) && %miniGame.WeaponDamage == 1)
-			{
-				if (getSimTime() - %client.lastF8Time < 5000)
-					return;
-			}
+	// 		if (isObject(%miniGame) && %miniGame.WeaponDamage == 1)
+	// 		{
+	// 			if (getSimTime() - %client.lastF8Time < 5000)
+	// 				return;
+	// 		}
 
-			for (%i = 0; %i < %this.maxTools; %i++)
-			{
-				if (!isObject(%obj.tool[%i]))
-					break;
+	// 		for (%i = 0; %i < %this.maxTools; %i++)
+	// 		{
+	// 			if (!isObject(%obj.tool[%i]))
+	// 				break;
 
-				if (!%data.customPickupMultiple && %obj.tool[%i] == %data)
-					return;
-			}
+	// 			if (!%data.customPickupMultiple && %obj.tool[%i] == %data)
+	// 				return;
+	// 		}
 
-			if (%i == %this.maxTools)
-				return;
+	// 		if (%i == %this.maxTools)
+	// 			return;
 
-			if (miniGameCanUse(%obj, %col) == 0)
-			{
-				if (isObject(%col.spawnBrick))
-					%ownerName = %col.spawnBrick.getGroup().name;
+	// 		if (miniGameCanUse(%obj, %col) == 0)
+	// 		{
+	// 			if (isObject(%col.spawnBrick))
+	// 				%ownerName = %col.spawnBrick.getGroup().name;
 
-				if ($lastError == $LastError::MiniGameDifferent)
-				{
-					if (isObject(%client.miniGame))
-						%msg = "This item is not part of the mini-game.";
-					else
-						%msg = "This item is part of a mini-game.";
-				}
-				else if ($lastError == $LastError::MiniGameNotYours)
-					%msg = "You do not own this item.";
-				else if ($lastError == $LastError::NotInMiniGame)
-					%msg = "This item is not part of the mini-game.";
-				else
-					%msg = %ownerName @ " does not trust you enough to use this item.";
+	// 			if ($lastError == $LastError::MiniGameDifferent)
+	// 			{
+	// 				if (isObject(%client.miniGame))
+	// 					%msg = "This item is not part of the mini-game.";
+	// 				else
+	// 					%msg = "This item is part of a mini-game.";
+	// 			}
+	// 			else if ($lastError == $LastError::MiniGameNotYours)
+	// 				%msg = "You do not own this item.";
+	// 			else if ($lastError == $LastError::NotInMiniGame)
+	// 				%msg = "This item is not part of the mini-game.";
+	// 			else
+	// 				%msg = %ownerName @ " does not trust you enough to use this item.";
 
-				commandToClient(%client, 'CenterPrint', %msg, 1);
-				return;
-			}
+	// 			commandToClient(%client, 'CenterPrint', %msg, 1);
+	// 			return;
+	// 		}
 
-			%obj.tool[%i] = %data;
+	// 		%obj.tool[%i] = %data;
 
-			if (isObject(%col.itemProps))
-			{
-				%obj.itemProps[%i] = %col.itemProps;
+	// 		if (isObject(%col.itemProps))
+	// 		{
+	// 			%obj.itemProps[%i] = %col.itemProps;
 
-				// improve this later
-				%col.itemProps.itemSlot = %i;
-				%col.itemProps.onOwnerChange(%obj);
-				%col.itemProps = "";
-			}
+	// 			// improve this later
+	// 			%col.itemProps.itemSlot = %i;
+	// 			%col.itemProps.onOwnerChange(%obj);
+	// 			%col.itemProps = "";
+	// 		}
 
-			messageClient(%client, 'MsgItemPickup', '', %i, %data);
+	// 		messageClient(%client, 'MsgItemPickup', '', %i, %data);
 
-			if (%col.isStatic())
-				%col.Respawn();
-			else
-				%col.delete();
+	// 		if (%col.isStatic())
+	// 			%col.Respawn();
+	// 		else
+	// 			%col.delete();
 
-			return;
-		}
+	// 		return;
+	// 	}
 
-		Parent::onCollision(%this, %obj, %col, %velocity, %speed);
-	}
+	// 	Parent::onCollision(%this, %obj, %col, %velocity, %speed);
+	// }
 
 	function serverCmdUseTool(%client, %index)
 	{

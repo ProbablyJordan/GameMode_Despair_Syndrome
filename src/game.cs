@@ -1,4 +1,4 @@
-$DS::RoomCount = 0;
+$DS::RoomCount = 16;
 
 if (!isObject(GameRoundCleanup))
 	new SimSet(GameRoundCleanup);
@@ -35,7 +35,12 @@ package DespairSyndromePackage
 
 	function MiniGameSO::addMember(%this, %member)
 	{
+		%empty = %this.numMembers < 1;
 		Parent::addMember(%this, %member);
+		if (%empty)
+		{
+			%this.reset(0);
+		}
 	}
 
 	function MiniGameSO::removeMember(%this, %member)
@@ -48,6 +53,10 @@ package DespairSyndromePackage
 		if (%this.owner != 0)
 			return Parent::reset(%this, %client);
 
+		// Play nice with the default rate limiting.
+		if (getSimTime() - %this.lastResetTime < 5000)
+			return;
+
 		if (isObject(GameRoundCleanup))
 			GameRoundCleanup.deleteAll();
 		if (isObject(GameCharacters))
@@ -56,9 +65,6 @@ package DespairSyndromePackage
 			DecalGroup.deleteAll();
 
 		Parent::reset(%this, %client);
-
-		%this.allowPickup = false;
-		schedule(60000,0,allowpickup);
 
 		// Close *all* doors
 		%count = BrickGroup_888888.getCount();
@@ -69,7 +75,7 @@ package DespairSyndromePackage
 			%data = %brick.getDataBlock();
 
 			if (%data.isDoor)
-				%obj.setDataBlock(%brick.isCCW ? %data.closedCCW : %data.closedCW);
+				%brick.setDataBlock(%brick.isCCW ? %data.closedCCW : %data.closedCW);
 		}
 
 		%freeCount = $DS::RoomCount;
@@ -78,6 +84,10 @@ package DespairSyndromePackage
 		{
 			%room = %i + 1;
 			%freeRoom[%i] = %room;
+			%roomDoor = BrickGroup_888888.NTObject["_door_r" @ %room, 0];
+			%roomDoor.lockId = "R"@%room;
+			%roomDoor.lockState = true;
+			%roomSpawn = BrickGroup_888888.NTObject["_" @ %room, 0];
 		}
 
 		// Give everyone rooms, names, appearances, roles, etc
@@ -92,7 +102,6 @@ package DespairSyndromePackage
 			%freeCount--;
 			%freeIndex = getRandom(%freeCount);
 			%room = %freeRoom[%freeIndex];
-
 			for (%j = %freeIndex; %j < %freeCount; %j++)
 				%freeRoom[%j] = %freeRoom[%j + 1];
 
@@ -111,20 +120,28 @@ package DespairSyndromePackage
 			%member.character = %character;
 
 			%character.name = getRandomName(%character.gender);
+			%character.appearance = getRandomAppearance(%character.gender);
 
-			%roomDoor = BrickGroup_888888.NTObject_room_r["_door_r" @ %room, 0];
-			%roomSpawn = BrickGroup_888888.NTObject_room_r["_" @ %room, 0];
+			%member.applyBodyParts();
+			%member.applyBodyColors();
+
+			%roomDoor = BrickGroup_888888.NTObject["_door_r" @ %room, 0];
+			%roomSpawn = BrickGroup_888888.NTObject["_" @ %room, 0];
 
 			%player.setTransform(%roomSpawn.getTransform());
-			%roomDoor.eventEnabled0 = true;
-		}
+			%player.setShapeName(%character.name, 8564862);
 
-		for (%i = 0; %i < %freeCount; %i++)
-		{
-			%room = %freeRoom[%i];
-			%roomDoor = BrickGroup_888888.NTObject_room_r["_door_r" @ %room, 0];
-			%roomSpawn = BrickGroup_888888.NTObject_room_r["_" @ %room, 0];
-			%roomDoor.eventEnabled0 = false;
+			if (%character.gender $= "female")
+				%player.setShapeNameColor("1 0.1 0.9");
+			else if (%character.gender $= "male")
+				%player.setShapeNameColor("0.1 0.8 1");
+
+			// Give them a key to their room
+			%props = KeyItem.newItemProps(%player, 0);
+			%props.name = "Room #" @ %room @ " Key";
+			%props.id = "R" @ %room;
+
+			%player.addTool(KeyItem, %props);
 		}
 	}
 
@@ -217,90 +234,7 @@ package DespairSyndromePackage
 	function Armor::onCollision(%this, %obj, %col, %vec, %speed)
 	{
 	}
-
-	function Armor::onTrigger(%this, %obj, %slot, %state)
-	{
-		Parent::onTrigger(%this, %obj, %slot, %state);
-
-		if (%slot != 0)
-			return;
-
-		%item = %obj.carryItem;
-
-		if (isObject(%item) && isEventPending(%item.carrySchedule) && %item.carryPlayer $= %obj)
-		{
-			%time = $Sim::Time - %item.carryStart;
-			cancel(%item.carrySchedule);
-			%item.carryPlayer = 0;
-			%obj.carryItem = 0;
-			%obj.playThread(2, "root");
-		}
-		if (%obj.getMountedImage(0))
-			return;
-		if (%state)
-		{
-			%a = %obj.getEyePoint();
-			%b = vectorAdd(%a, vectorScale(%obj.getEyeVector(), 6));
-
-			%mask =
-				$TypeMasks::FxBrickObjectType |
-				$TypeMasks::PlayerObjectType |
-				$TypeMasks::ItemObjectType;
-
-			%ray = containerRayCast(%a, %b, %mask, %obj);
-
-			if (%ray && %ray.getClassName() $= "Item")// && !isEventPending(%ray.carrySchedule))
-			{
-				if (isEventPending(%ray.carrySchedule) && isObject(%ray.carryPlayer))
-					%ray.carryPlayer.playThread(2, "root");
-
-				%obj.carryItem = getWord(%ray, 0);
-				%ray.carryPlayer.carryItem = 0;
-				%ray.carryPlayer = %obj;
-				%ray.carryStart = $Sim::Time;
-				%ray.static = false;
-				%ray.carryTick();
-				%obj.playThread(2, "armReadyBoth");
-			}
-		}
-		else if (isObject(%item) && %time < 0.15 && $DefaultMinigame.allowPickup && %item.canPickUp)
-		{
-			%obj.addItem(%item.GetDatablock());
-			%item.delete();
-		}
-	}
 };
-
-function allowpickup()
-{
-	$defaultminigame.allowpickup=true;
-	messageall('',"\c6The weapon can now be picked up with a quick left click!");
-}
-
-function Item::carryTick(%this)
-{
-	cancel(%this.carrySchedule);
-
-	%player = %this.carryPlayer;
-
-	if (!isObject(%player) || %player.getState() $= "Dead" || %player.getMountedImage(0))
-		return;
-
-	%eyePoint = %player.getEyePoint();
-	%eyeVector = %player.getEyeVector();
-
-	%center = %this.getWorldBoxCenter();
-	%target = vectorAdd(%eyePoint, vectorScale(%eyeVector, 3));
-
-	if (vectorDist(%center, %target) > 6)
-	{
-		%player.playThread(2, "root");
-		return;
-	}
-
-	%this.setVelocity(vectorScale(vectorSub(%target, %center), 8 / %this.GetDatablock().mass));
-	%this.carrySchedule = %this.schedule(1, "carryTick");
-}
 
 if ($GameModeArg $= ($DS::Path @ "gamemode.txt"))
 	activatePackage("DespairSyndromePackage");

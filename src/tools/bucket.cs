@@ -16,4 +16,18 @@ datablock ItemData(BucketItem) {
 	elasticity = 0.2;
 	friction = 0.6;
 	emap = true;
+
+	itemPropsClass = "BucketProps";
+	maxBlood = 100;
 };
+
+function BucketItem::onAdd(%this, %obj)
+{
+	Parent::onAdd(%this, %obj);
+	// Stuff
+}
+
+function BucketProps::onAdd(%this)
+{
+	%this.blood = 0;
+}

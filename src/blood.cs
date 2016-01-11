@@ -102,7 +102,7 @@ function Player::doDripBlood(%this, %force, %start, %end) {
 		%decal.setNodeColor("ALL", %decal.color);
 		%decal.sourceClient = %this.client;
 		%decal.spillTime = $Sim::Time;
-		%decal.freshness = 1; //Basically amount of times someone can step in blood
+		%decal.freshness = 0.5;
 		%decal.bloodDryingSchedule = schedule($DS::Blood::dryTime, 0, bloodDryingLoop, %decal);
 	}
 
@@ -184,7 +184,7 @@ function Player::doBloodyFootprint(%this, %ray, %foot, %alpha) {
 	else
 		%decal.sourceClient = %this.client;
 	%decal.spillTime = $Sim::Time;
-	%decal.freshness = 0; //Basically amount of times someone can step in blood
+	%decal.freshness = 0.5; //freshness < 1 means can't get bloody footprints from it
 	%decal.bloodDryingSchedule = schedule($DS::Blood::dryTime, 0, bloodDryingLoop, %decal);
 	%decal.isFootprint = true;
 }
@@ -259,11 +259,6 @@ function createBloodExplosion(%position, %velocity, %scale) {
 //Datablocks below
 //
 
-datablock AudioDescription( AudioSilent3d : AudioClose3d )
-{
-	maxDistance = 15;
-	referenceDistange = 5;
-};
 datablock AudioProfile(BloodSpillSound) {
 	fileName = $DS::Path @ "res/sounds/physics/blood_Spill.wav";
 	description = AudioSilent3D;
