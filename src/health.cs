@@ -100,6 +100,7 @@ package DSHealthPackage
 		%obj.doSplatterBlood(3);
 		if (%source.getClassName() $= "Player") //rather good chance of getting blood on yourself
 		{
+			%dot = vectorDot(%obj.getForwardVector(),%source.getForwardVector());
 			if (getRandom(1, 3) == 1)
 			{
 				%source.bloody["rhand"] = true; //Both hands get bloodified atm
@@ -110,11 +111,12 @@ package DSHealthPackage
 			}
 			if (getRandom(1, 2) == 1)
 			{
-				%dot = vectorDot(%obj.getForwardVector(),%source.getForwardVector());
 				%obj.bloody["chest_" @ (%dot > 0 ? "back" : "front")] = true; //TODO: take sides into account, too
 				if (isObject(%obj.client))
 					%obj.client.applyBodyParts();
 			}
+			if (%dot > 0) //Backstab
+				%damage *= 2 + %dot; //Double it (or triple, potentially)
 		}
 		if (%obj.health <= 0)
 		{

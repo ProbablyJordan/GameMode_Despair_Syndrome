@@ -155,7 +155,7 @@ datablock ShapeBaseImageData(AdvSwordImage)
 function AdvSwordImage::onMount(%this, %obj, %slot)
 {
 	%obj.playThread(1, root);
-	if (%obj.getEnergyLevel() < 15)
+	if (%obj.getEnergyLevel() < 12)
 		%obj.setImageAmmo(0, 0);
 	else
 		%obj.setImageAmmo(0, 1);
@@ -179,7 +179,7 @@ function AdvSwordImage::EndFire(%this, %obj, %slot)
 function AdvSwordImage::Ready(%this, %obj, %slot)
 {
 	%obj.playThread(1, root);
-	if (%obj.getEnergyLevel() < 15)
+	if (%obj.getEnergyLevel() < 12)
 		%obj.setImageAmmo(0, 0);
 	else
 		%obj.setImageAmmo(0, 1);
@@ -187,7 +187,7 @@ function AdvSwordImage::Ready(%this, %obj, %slot)
 
 function AdvSwordImage::onCheckFire(%this, %obj, %slot)
 {
-	if (%obj.getEnergyLevel() < 15)
+	if (%obj.getEnergyLevel() < 12)
 		%obj.setImageAmmo(0, 0);
 	else
 		%obj.setImageAmmo(0, 1);
@@ -197,7 +197,7 @@ function AdvSwordImage::onFire(%this, %obj, %slot)
 {
 	if(%obj.getDamagePercent() < 1.0)
 		%obj.playThread(2, shiftTo);
-	%obj.setEnergyLevel(%obj.getEnergyLevel() - 15);
+	%obj.setEnergyLevel(%obj.getEnergyLevel() - 12);
 	parent::onFire(%this, %obj, %slot);
 }
 
