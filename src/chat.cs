@@ -14,7 +14,7 @@ package ChatPackage
 
 	function serverCmdMessageSent(%client, %text)
 	{
-		if (!%client.inDefaultGame() || !isObject(%client.character) || isEventPending(%client.miniGame.resetSchedule))
+		if ((!%client.inDefaultGame() && %client.hasSpawnedOnce) || isEventPending(%client.miniGame.resetSchedule))
 			return Parent::serverCmdMessageSent(%client, %text);
 
 		%text = trim(stripMLControlChars(%text));
@@ -22,7 +22,9 @@ package ChatPackage
 		if (%text $= "")
 			return;
 
-		
+		%name = %client.getPlayerName();
+		if (isObject(%client.character))
+			%name = %client.character.name;
 		%structure = '<color:ffaa44>%1<color:ffffff> says, \"%2\"';
 		%count = ClientGroup.getCount();
 		for (%i = 0; %i < %count; %i++)
@@ -55,7 +57,7 @@ package ChatPackage
 			}
 
 			messageClient(%other, '', %structure,
-								%client.character.name, %text);
+								%name, %text);
 		}
 	}
 
