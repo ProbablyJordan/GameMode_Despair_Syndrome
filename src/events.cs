@@ -1,53 +1,54 @@
-//ZoneBricks stuff
-if (!isObject(ZoneSet))
-	new SimSet(ZoneSet);
+//soundproof zone funtime
+if (!isObject(ZoneGroup))
+	new SimSet(ZoneGroup);
 
-registerOutputEvent(fxDTSBrick, setZoneSoundProof, "bool 0" , 1);
-registerOutputEvent(fxDTSBrick, adjustZoneSize, "list Set 0 Add 1" TAB "vector 40000 -40000 0" , 1);
-function fxDTSBrick::setZoneSoundProof(%brick,%val,%client)
+registerOutputEvent(fxDTSBrick, removeZone);
+registerOutputEvent(fxDTSBrick, createZoneUp, "string 5 32" TAB "string 5 32", 1);
+registerOutputEvent(fxDTSBrick, setZoneSoundProof, "bool 0", 1);
+function fxDTSBrick::setZoneSoundProof(%this,%val,%client)
 {
-	if(%brick.isZoneBrick == 1)
-		%brick.physicalZone.isSoundProof = %val;
+	if(isObject(%this.zone))
+		%this.zone.isSoundProof = %val;
 }
-function fxDTSBrick::adjustZoneSize(%brick, %type, %vector, %client) //Broken event, do not use. Needs fixing.
+function FxDTSBrick::createZoneUp(%this, %height, %margin)
 {
-	if(!isObject(%brick.physicalZone))
-		return;
+	if (!isObject(%this.zone))
+	{
+		%this.zone = new ScriptObject();
+		ZoneGroup.add(%this.zone);
+	}
 
-	%x = %type ? getWord(%brick.physicalZone.getScale(), 0) : 0;
-	%y = %type ? getWord(%brick.physicalZone.getScale(), 1) : 0;
-	%z = %type ? getWord(%brick.physicalZone.getScale(), 2) : 0;
-	talk(%x SPC %y SPC %z SPC "/" SPC %vector);
-	%brick.physicalZone.setScale(%x + getWord(%vector, 0) SPC %y + getWord(%vector, 1) SPC %z + getWord(%vector, 2));
-	talk(%brick.physicalZone.getTransform());
-	%brick.physicalZone.setTransform(vectorAdd(getWords(%brick.getWorldBox(), 0, 2), %brick.physicalZone.getScale()) SPC getWords(%brick.physicalZone.getTransform(), 3, 6));
-	talk(%brick.physicalZone.getTransform());
+	%box = %this.getWorldBox();
+
+	%this.zone.bounds =
+		getWord(%box, 3) - getWord(%box, 0) - %margin SPC
+		getWord(%box, 4) - getWord(%box, 1) - %margin SPC
+		%height;
+
+	%this.zone.center =
+		(getWord(%box, 0) + getWord(%box, 3)) / 2 SPC
+		(getWord(%box, 1) + getWord(%box, 4)) / 2 SPC
+		getWord(%box, 5) + %height / 2;
 }
 
-
+function fxDTSBrick::removeZone(%this)
+{
+	if (isObject(%this.zone))
+		%this.zone.delete();
+}
 package DSEventPackage
 {
-	function fxDTSBrick::setZone(%brick, %dir, %Addition, %vector, %client)
+	function fxDTSBrick::onDeath(%this)
 	{
-		parent::setZone(%brick, %dir, %Addition, %vector, %client);
-		if(isObject(%brick.physicalZone))
-			ZoneSet.add(%brick.physicalZone);
+		if (isObject(%this.zone))
+			%this.zone.delete();
+		Parent::onDeath(%this);
 	}
-	function zoneTrigger::onEnterTrigger(%this,%trigger,%obj)
+	function fxDTSBrick::onRemove(%this)
 	{
-		if (%obj.getClassName() $= "Player")
-		{
-			%obj.currentZone = %trigger.triggerBrick.physicalZone;
-		}
-		parent::onEnterTrigger(%this,%trigger,%obj);
-	}
-	function zoneTrigger::onLeaveTrigger(%this,%trigger,%obj)
-	{
-		if (%obj.getClassName() $= "Player")
-		{
-			%obj.currentZone = "";
-		}
-		parent::onLeaveTrigger(%this,%trigger,%obj);
+		if (isObject(%this.zone))
+			%this.zone.delete();
+		Parent::onRemove(%this);
 	}
 };
 activatePackage(DSEventPackage);

@@ -30,26 +30,28 @@ function GameConnection::playGameSound(%this, %profile, %position) //If position
 
 function getZoneFromPos(%position)
 {
-	%count = ZoneSet.getCount();
+	%x = getWord(%position, 0);
+	%y = getWord(%position, 1);
+	%z = getWord(%position, 2);
+	
+	%count = ZoneGroup.getCount();
+	
 	for (%i = 0; %i < %count; %i++)
 	{
-		%zone = ZoneSet.getObject(%i);
-		%zoneCenter = %zone.getWorldBoxCenter();
-		%zoneScale = %zone.getScale();
-		%minX = getWord(%zoneCenter, 0) - getWord(%zoneScale, 0) / 2;
-		%minY = getWord(%zoneCenter, 1) - getWord(%zoneScale, 1) / 2;
-		%minZ = getWord(%zoneCenter, 2) - getWord(%zoneScale, 2) / 2;
-		%maxX = getWord(%zoneCenter, 0) + getWord(%zoneScale, 0) / 2;
-		%maxY = getWord(%zoneCenter, 1) + getWord(%zoneScale, 1) / 2;
-		%maxZ = getWord(%zoneCenter, 2) + getWord(%zoneScale, 2) / 2;
-		%x = getWord(%position, 0);
-		%y = getWord(%position, 1);
-		%z = getWord(%position, 2);
-		if ((%x >= %minX && %x <= %maxX) && (%y >= %minY && %y <= %maxY) && (%z >= %minZ && %z <= %maxZ))
+		%zone = ZoneGroup.getObject(%i);
+		%minX = getWord(%zone.center, 0) - getWord(%zone.bounds, 0) / 2;
+		%minY = getWord(%zone.center, 1) - getWord(%zone.bounds, 1) / 2;
+		%minZ = getWord(%zone.center, 2) - getWord(%zone.bounds, 2) / 2;
+		%maxX = getWord(%zone.center, 0) + getWord(%zone.bounds, 0) / 2;
+		%maxY = getWord(%zone.center, 1) + getWord(%zone.bounds, 1) / 2;
+		%maxZ = getWord(%zone.center, 2) + getWord(%zone.bounds, 2) / 2;
+		if (%x >= %minX && %x <= %maxX && %y >= %minY && %y <= %maxY && %z >= %minZ && %z <= %maxZ)
 			return %zone;
 	}
+	
 	return 0;
 }
+
 
 package DSSoundReplacePackage
 {

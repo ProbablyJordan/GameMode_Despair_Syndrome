@@ -1,6 +1,3 @@
-//Useful add-ons for gamemode functionality
-ADDON Event_Zones
-
 //Default Add-Ons
 ADDON Brick_Arch 
 ADDON Brick_Large_Cubes 
