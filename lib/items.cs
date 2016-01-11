@@ -10,14 +10,16 @@ function Player::addTool(%this, %data, %props)
 
 		if (!%data.customPickupMultiple && %this.tool[%i] == %data)
 		{
-			%props.delete();
+			if (isObject(%props))
+				%props.delete();
 			return -1;
 		}
 	}
 
 	if (%i == %maxTools)
 	{
-		%props.delete();
+		if (isObject(%props))
+			%props.delete();
 		return -1;
 	}
 

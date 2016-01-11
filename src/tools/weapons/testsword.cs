@@ -155,7 +155,7 @@ datablock ShapeBaseImageData(AdvSwordImage)
 function AdvSwordImage::onMount(%this, %obj, %slot)
 {
 	%obj.playThread(1, root);
-	if (%obj.getEnergyLevel() < 20)
+	if (%obj.getEnergyLevel() < 15)
 		%obj.setImageAmmo(0, 0);
 	else
 		%obj.setImageAmmo(0, 1);
@@ -179,7 +179,7 @@ function AdvSwordImage::EndFire(%this, %obj, %slot)
 function AdvSwordImage::Ready(%this, %obj, %slot)
 {	
 	%obj.playThread(1, root);
-	if (%obj.getEnergyLevel() < 20)
+	if (%obj.getEnergyLevel() < 15)
 		%obj.setImageAmmo(0, 0);
 	else
 		%obj.setImageAmmo(0, 1);
@@ -187,7 +187,7 @@ function AdvSwordImage::Ready(%this, %obj, %slot)
 
 function AdvSwordImage::onCheckFire(%this, %obj, %slot)
 {
-	if (%obj.getEnergyLevel() < 20)
+	if (%obj.getEnergyLevel() < 15)
 		%obj.setImageAmmo(0, 0);
 	else
 		%obj.setImageAmmo(0, 1);
@@ -197,7 +197,7 @@ function AdvSwordImage::onFire(%this, %obj, %slot)
 {
 	if(%obj.getDamagePercent() < 1.0)
 		%obj.playThread(2, shiftTo);
-	%obj.setEnergyLevel(%obj.getEnergyLevel() - 20);
+	%obj.setEnergyLevel(%obj.getEnergyLevel() - 15);
 	parent::onFire(%this, %obj, %slot);
 }
 
@@ -278,8 +278,8 @@ package AdvSwordPackage
 		if(%obj.isBlocking && vectorDot(%obj.getForwardVector(), %vector) < 0)
 		{
 			%time = ($Sim::Time - %obj.lastBlockTime) / 5;
-			%drain = 60*mClampF(%time, 0, 1);
-			%quality = %time < 0.25 ? "Good" : (%time < 0.75 ? "Decent" : "Bad");
+			%drain = getMax(20, 100*mClampF(%time, 0, 1));
+			%quality = %time < 0.1 ? "Good" : (%time < 0.5 ? "Decent" : "Bad");
 			if (%obj.getEnergyLevel() < %drain)
 				%quality = "Bad";
 			%obj.setEnergyLevel(%obj.getEnergyLevel() - %drain);

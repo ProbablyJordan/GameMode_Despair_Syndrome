@@ -61,13 +61,15 @@ datablock PlayerData(PlayerDSArmor : PlayerStandardArmor)
 	// speedDamageScale = 2.3;
 	// speedDamageScale = 1.6;
 
-	jumpEnergyDrain = 40;
-	minJumpEnergy = 40;
+	jumpEnergyDrain = 30;
+	minJumpEnergy = 30;
 	ShowEnergyBar = true;
 	jumpForce = 1200;
+
+	rechargeRate = 0;
 };
 
-function Player::monitorEnergyLevel(%this, %last)
+function Player::monitorEnergyLevel(%this)
 {
 	cancel(%this.monitorEnergyLevel);
 
@@ -82,10 +84,14 @@ function Player::monitorEnergyLevel(%this, %last)
 
 	if (%this.running && vectorLen(%this.getVelocity()) > %this.getDataBlock().maxForwardSpeed)
 	{
-		%this.setEnergyLevel(%this.getEnergyLevel() - 2);
+		%this.setEnergyLevel(%this.getEnergyLevel() - 1);
 
-		if (%this.getEnergyLevel() < 2)
+		if (%this.getEnergyLevel() < 1)
 			%this.setMaxForwardSpeed(%this.getDataBlock().maxForwardSpeed * 0.5);
+	}
+	else //idle
+	{
+		%this.setEnergyLevel(%this.getEnergyLevel() + 0.5);
 	}
 
 	// %show = %this.getEnergyLevel() < %this.getDataBlock().maxEnergy;
@@ -93,13 +99,63 @@ function Player::monitorEnergyLevel(%this, %last)
 	// if (%show != %last)
 	// 	commandToClient(%this.client, 'ShowEnergyBar', %show);
 
-	%this.monitorEnergyLevel = %this.schedule(32, monitorEnergyLevel, %show);
+	%this.monitorEnergyLevel = %this.schedule(32, monitorEnergyLevel);
 }
 
 function PlayerDSArmor::onTrigger(%this, %obj, %slot, %state)
 {
 	Parent::onTrigger(%this, %obj, %slot, %state);
+	//Item carrying/picking up
+	if(%slot == 0)
+	{
+		%item = %obj.carryItem;
 
+		if (isObject(%item) && isEventPending(%item.carrySchedule) && %item.carryPlayer $= %obj)
+		{
+			%time = $Sim::Time - %item.carryStart;
+			cancel(%item.carrySchedule);
+			%item.carryPlayer = 0;
+			%obj.carryItem = 0;
+			%obj.playThread(2, "root");
+		}
+		if (%obj.getMountedImage(0))
+			return;
+		if (%state)
+		{
+			%a = %obj.getEyePoint();
+			%b = vectorAdd(%a, vectorScale(%obj.getEyeVector(), 6));
+
+			%mask =
+				$TypeMasks::FxBrickObjectType |
+				$TypeMasks::PlayerObjectType |
+				$TypeMasks::ItemObjectType;
+
+			%ray = containerRayCast(%a, %b, %mask, %obj);
+
+			if (%ray && %ray.getClassName() $= "Item")// && !isEventPending(%ray.carrySchedule))
+			{
+				if (isEventPending(%ray.carrySchedule) && isObject(%ray.carryPlayer))
+					%ray.carryPlayer.playThread(2, "root");
+
+				%obj.carryItem = getWord(%ray, 0);
+				%ray.carryPlayer.carryItem = 0;
+				%ray.carryPlayer = %obj;
+				%ray.carryStart = $Sim::Time;
+				%ray.static = false;
+				%ray.carryTick();
+				%obj.playThread(2, "armReadyBoth");
+			}
+		}
+		else if (isObject(%item) && %time < 0.15 && %item.canPickUp)
+		{
+			if (%obj.addTool(%item.GetDatablock(), %item.itemProps) != -1)
+			{
+				%item.itemProps = "";
+				%item.delete();
+			}
+		}
+	}
+	//Sprinting
 	if (%slot == 4)
 	{
 		if (%state && %obj.getEnergyLevel() >= 2)
@@ -115,4 +171,39 @@ function PlayerDSArmor::onTrigger(%this, %obj, %slot, %state)
 			%obj.monitorEnergyLevel();
 		}
 	}
+}
+
+function Item::carryTick(%this)
+{
+	cancel(%this.carrySchedule);
+
+	%player = %this.carryPlayer;
+
+	if (!isObject(%player) || %player.getState() $= "Dead")
+	{
+		%this.carryPlayer = 0;
+		return;
+	}
+	if (%player.getMountedImage(0))
+	{
+		%this.carryPlayer = 0;
+		%player.carryItem = 0;
+		return;
+	}
+	%eyePoint = %player.getEyePoint();
+	%eyeVector = %player.getEyeVector();
+
+	%center = %this.getWorldBoxCenter();
+	%target = vectorAdd(%eyePoint, vectorScale(%eyeVector, 3));
+
+	if (vectorDist(%center, %target) > 6)
+	{
+		%this.carryPlayer = 0;
+		%player.carryItem = 0;
+		%player.playThread(2, "root");
+		return;
+	}
+
+	%this.setVelocity(vectorScale(vectorSub(%target, %center), 8 / %this.GetDatablock().mass));
+	%this.carrySchedule = %this.schedule(1, "carryTick");
 }

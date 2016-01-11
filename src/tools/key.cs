@@ -22,8 +22,8 @@ datablock ItemData(KeyItem)
 
 	canDrop = true;
 
-	collisionSFX = KeyImpactSFX;
-	collisionThreshold = 3;
+	// collisionSFX = KeyImpactSFX;
+	// collisionThreshold = 3;
 };
 
 function KeyProps::onAdd(%this)
@@ -58,7 +58,10 @@ package KeyPackage
 	function FxDTSBrick::door(%this, %state, %client)
 	{
 		if (%this.lockId !$= "" && %this.lockState)
+		{
 			%client.centerPrint("\c2The door is locked.", 2);
+			serverPlay3d(DoorJiggleSound, %this.getWorldBoxCenter(), 1);
+		}
 		else
 			Parent::door(%this, %state, %client);
 	}
@@ -84,42 +87,46 @@ package KeyPackage
 
 		%props = %obj.getItemProps();
 
-		if (%ray.lockId !$= %props.id)
-		{
-			if (isObject(%obj.client))
-				%obj.client.centerPrint("\c6The key doesn't fit.", 2);
-
-			return;
-		}
-
 		%data = %ray.getDataBlock();
 
-		if (%data.isDoor && "is_open_somehow")
+		if (%data.isDoor && %data.isOpen)
 			return;
 
 		if (%slot == 0) // Unlock
 		{
-			if (%ray.lockState)
+			if (%ray.lockState && %ray.lockId $= %props.id)
 			{
 				%ray.lockState = false;
-
+				serverPlay3d(DoorUnlockSound, %ray.getWorldBoxCenter(), 1);
+				%obj.playThread(2, "rotCW");
 				if (isObject(%obj.client))
 					%obj.client.centerPrint("\c6You unlock the door.", 2);
 			}
-			else if (isObject(%obj.client))
-				%obj.client.centerPrint("\c6The key refuses to turn. The door is already unlocked.", 2);
+			else
+			{
+				serverPlay3d(DoorJiggleSound, %ray.getWorldBoxCenter(), 1);
+				%obj.playThread(2, "shiftRight");
+				if (isObject(%obj.client))
+					%obj.client.centerPrint(%ray.lockId $= %props.id ? "\c6The door is already unlocked." : "\c6The key doesn't fit.", 2);
+			}
 		}
 		else if (%slot == 4) // Lock
 		{
-			if (!%ray.lockState)
+			if (!%ray.lockState && %ray.lockId $= %props.id)
 			{
 				%ray.lockState = true;
-
+				serverPlay3d(DoorLockSound, %ray.getWorldBoxCenter(), 1);
+				%obj.playThread(2, "rotCCW");
 				if (isObject(%obj.client))
 					%obj.client.centerPrint("\c6You lock the door.", 2);
 			}
-			else if (isObject(%obj.client))
-				%obj.client.centerPrint("\c6The key refuses to turn. The door is already locked.", 2);
+			else
+			{
+				serverPlay3d(DoorJiggleSound, %ray.getWorldBoxCenter(), 1);
+				%obj.playThread(2, "shiftLeft");
+				if (isObject(%obj.client))
+					%obj.client.centerPrint(%ray.lockId $= %props.id ? "\c6The door is already locked." : "\c6The key doesn't fit.", 2);
+			}
 		}
 	}
 };

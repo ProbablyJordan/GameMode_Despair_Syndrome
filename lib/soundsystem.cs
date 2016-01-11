@@ -1,5 +1,10 @@
 //This is a sound system designed to allow us to have "soundproof" objects! Woo.
-function GameConnection::playGameSound(%this, %profile, %position) //If position is null it'll be 2d
+//Variables:
+//profile - audio profile
+//position - source of sound
+//IgnoreSrcSZ - Source's soundZone won't be taken into account. Means the sound will be heard outside the soundzone containing sound.
+//IgnorePlayerSZ - Player's soundzone won't be taken into account. Means the sound will be heard by players in different soundzones (?)
+function GameConnection::playGameSound(%this, %profile, %position, %ignoreSrcSZ, %ignorePlayerSZ)
 {
 	if (%position $= "") //No position provided? Skip the pleasantries and play it as 2d no matter what.
 	{
@@ -7,16 +12,16 @@ function GameConnection::playGameSound(%this, %profile, %position) //If position
 		return;
 	}
 	%description = %profile.description;
-	if (isObject(%this.player)) //INSTEAD, we should check for soundproof zones
+	if (isObject(%this.player)) //Check for soundproof zones
 	{
 		%foundZone = getZoneFromPos(%position);
 		%playerZone = getZoneFromPos(%this.player.getEyePoint());
-		if (isObject(%foundZone) && %foundZone.isSoundProof && (!isObject(%playerZone) || %playerZone != %foundZone))
+		if (!%ignoreSrcSZ && isObject(%foundZone) && %foundZone.isSoundProof && (!isObject(%playerZone) || %playerZone != %foundZone))
 		{
 			// talk("The sound was made in soundproof zone. Player" SPC %this.getPlayerName() SPC "didn't hear it!");
 			return;
 		}
-		if (isObject(%playerZone) && %playerZone.isSoundProof && (!isObject(%foundZone) || %foundZone != %playerZone))
+		if (!%ignorePlayerSZ && isObject(%playerZone) && %playerZone.isSoundProof && (!isObject(%foundZone) || %foundZone != %playerZone))
 		{
 			// talk("The player is in a soundproof zone. Player" SPC %this.getPlayerName() SPC "didn't hear it!");
 			return;
@@ -55,12 +60,12 @@ function getZoneFromPos(%position)
 
 package DSSoundReplacePackage
 {
-	function serverPlay3d(%profile, %position) //Replace serverPlay3d
+	function serverPlay3d(%profile, %position, %ignoreSrcSZ, %ignorePlayerSZ) //Replace serverPlay3d
 	{
 		%count = ClientGroup.getCount();
 
 		for (%i = 0; %i < %count; %i++)
-			ClientGroup.getObject(%i).playGameSound(%profile, %position);
+			ClientGroup.getObject(%i).playGameSound(%profile, %position, %ignoreSrcSZ, %ignorePlayerSZ);
 	}
 };
 activatePackage("DSSoundReplacePackage");

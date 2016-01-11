@@ -66,9 +66,6 @@ package DespairSyndromePackage
 
 		Parent::reset(%this, %client);
 
-		%this.allowPickup = false;
-		schedule(60000,0,allowpickup);
-
 		// Close *all* doors
 		%count = BrickGroup_888888.getCount();
 
@@ -237,91 +234,7 @@ package DespairSyndromePackage
 	function Armor::onCollision(%this, %obj, %col, %vec, %speed)
 	{
 	}
-
-	function Armor::onTrigger(%this, %obj, %slot, %state)
-	{
-		Parent::onTrigger(%this, %obj, %slot, %state);
-
-		if (%slot != 0)
-			return;
-
-		%item = %obj.carryItem;
-
-		if (isObject(%item) && isEventPending(%item.carrySchedule) && %item.carryPlayer $= %obj)
-		{
-			%time = $Sim::Time - %item.carryStart;
-			cancel(%item.carrySchedule);
-			%item.carryPlayer = 0;
-			%obj.carryItem = 0;
-			%obj.playThread(2, "root");
-		}
-		if (%obj.getMountedImage(0))
-			return;
-		if (%state)
-		{
-			%a = %obj.getEyePoint();
-			%b = vectorAdd(%a, vectorScale(%obj.getEyeVector(), 6));
-
-			%mask =
-				$TypeMasks::FxBrickObjectType |
-				$TypeMasks::PlayerObjectType |
-				$TypeMasks::ItemObjectType;
-
-			%ray = containerRayCast(%a, %b, %mask, %obj);
-
-			if (%ray && %ray.getClassName() $= "Item")// && !isEventPending(%ray.carrySchedule))
-			{
-				if (isEventPending(%ray.carrySchedule) && isObject(%ray.carryPlayer))
-					%ray.carryPlayer.playThread(2, "root");
-
-				%obj.carryItem = getWord(%ray, 0);
-				%ray.carryPlayer.carryItem = 0;
-				%ray.carryPlayer = %obj;
-				%ray.carryStart = $Sim::Time;
-				%ray.static = false;
-				%ray.carryTick();
-				%obj.playThread(2, "armReadyBoth");
-			}
-		}
-		else if (isObject(%item) && %time < 0.15 && $DefaultMinigame.allowPickup && %item.canPickUp)
-		{
-			%obj.addTool(%item.GetDatablock(), %item.itemProps);	
-			%item.itemProps = "";
-			%item.delete();
-		}
-	}
 };
-
-function allowpickup()
-{
-	$defaultminigame.allowpickup=true;
-	messageall('',"\c6The weapon can now be picked up with a quick left click!");
-}
-
-function Item::carryTick(%this)
-{
-	cancel(%this.carrySchedule);
-
-	%player = %this.carryPlayer;
-
-	if (!isObject(%player) || %player.getState() $= "Dead" || %player.getMountedImage(0))
-		return;
-
-	%eyePoint = %player.getEyePoint();
-	%eyeVector = %player.getEyeVector();
-
-	%center = %this.getWorldBoxCenter();
-	%target = vectorAdd(%eyePoint, vectorScale(%eyeVector, 3));
-
-	if (vectorDist(%center, %target) > 6)
-	{
-		%player.playThread(2, "root");
-		return;
-	}
-
-	%this.setVelocity(vectorScale(vectorSub(%target, %center), 8 / %this.GetDatablock().mass));
-	%this.carrySchedule = %this.schedule(1, "carryTick");
-}
 
 if ($GameModeArg $= ($DS::Path @ "gamemode.txt"))
 	activatePackage("DespairSyndromePackage");

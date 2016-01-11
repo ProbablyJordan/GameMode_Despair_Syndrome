@@ -36,6 +36,41 @@ function fxDTSBrick::removeZone(%this)
 	if (isObject(%this.zone))
 		%this.zone.delete();
 }
+
+//Clean-up event
+registerOutputEvent(Player, cleanPlayer, "list ALL 0 chest 1 hands 2 shoes 3", 1);
+function Player::cleanPlayer(%this, %type, %client)
+{
+	switch(%type)
+	{
+		case 1:
+			%this.bloody["chest_front"] = false;
+			%this.bloody["chest_back"] = false;
+			%this.bloody["chest_lside"] = false;
+			%this.bloody["chest_rside"] = false;
+		case 2:
+			%this.bloody["lhand"] = false;
+			%this.bloody["rhand"] = false;
+		case 3:
+			%this.bloody["lshoe"] = false;
+			%this.bloody["rshoe"] = false;
+		default:
+			%this.bloody["lshoe"] = false;
+			%this.bloody["rshoe"] = false;
+			%this.bloody["lhand"] = false;
+			%this.bloody["rhand"] = false;
+			%this.bloody["chest_front"] = false;
+			%this.bloody["chest_back"] = false;
+			%this.bloody["chest_lside"] = false;
+			%this.bloody["chest_rside"] = false;
+	}
+	if (isObject(%client))
+	{
+		%client.applyBodyParts();
+		%client.applyBodyColors();
+	}
+}
+
 package DSEventPackage
 {
 	function fxDTSBrick::onDeath(%this)

@@ -9,25 +9,90 @@ function getRandomAppearance(%gender)
 		shirtColor = getRandomGenericColor();
 		pantsColor = getRandomPantsColor();
 		shoesColor = getRandomPantsColor();
-		hairColor = getRandomGenericColor();
+		hairColor = getRandomHairColor();
 	};
 	return %appearance;
 }
 
 function getRandomSkinColor()
 {
-	%index = getRandom(3);
-
-	%color[0] = "0.956863 0.878431 0.784314";
-	%color[1] = "1 0.878431 0.611765";
-	%color[2] = "1 0.603922 0.423529";
-	%color[3] = "0.392157 0.196078 0";
-
-	%r = max(min(getWord(%color[%index], 0) + 0.05 - getRandom() * 0.1, 1), 0);
-	%g = max(min(getWord(%color[%index], 1) + 0.05 - getRandom() * 0.1, 1), 0);
-	%b = max(min(getWord(%color[%index], 2) + 0.05 - getRandom() * 0.1, 1), 0);
+	%index = -1;
+	%color[%index++] = "0.956863 0.878431 0.784314";
+	%color[%index++] = "1 0.878431 0.611765";
+	%color[%index++] = "1 0.603922 0.423529";
+	if (getRandom(1, 10) == 1) //rare color
+		%color[%index++] = "0.392157 0.196078 0";
+	%pick = getRandom(%index);
+	%r = max(min(getWord(%color[%pick], 0) + 0.05 - getRandom() * 0.1, 1), 0);
+	%g = max(min(getWord(%color[%pick], 1) + 0.05 - getRandom() * 0.1, 1), 0);
+	%b = max(min(getWord(%color[%pick], 2) + 0.05 - getRandom() * 0.1, 1), 0);
 
 	return %r SPC %g SPC %b SPC 1;
+}
+
+function getRandomHairColor()
+{
+	//Natural colors
+	//Grays/"blues"
+	%i = -1;
+	%color[%i++] = "0.753 0.816 0.816";
+	%color[%i++] = "0.439 0.502 0.565";
+	%color[%i++] = "0.251 0.251 0.376";
+	%color[%i++] = "0.125 0.063 0.188";
+	//Browns (light)
+	%color[%i++] = "0.816 0.816 0.69";
+	%color[%i++] = "0.627 0.502 0.376";
+	%color[%i++] = "0.376 0.251 0.251";
+	%color[%i++] = "0.251 0.125 0.125";
+	//Browns
+	%color[%i++] = "0.878 0.69 0.376";
+	%color[%i++] = "0.753 0.502 0.251";
+	%color[%i++] = "0.627 0.314 0.125";
+	%color[%i++] = "0.251 0 0";
+	//Orange
+	%color[%i++] = "1 0.502 0.251";
+	%color[%i++] = "0.753 0.251 0";
+	%color[%i++] = "0.502 0.125 0";
+	%color[%i++] = "0.251 0.063 0";
+	//Blonde
+	%color[%i++] = "1 1 0.627";
+	%color[%i++] = "1 0.753 0.251";
+	%color[%i++] = "0.753 0.502 0";
+	%color[%i++] = "0.502 0.251 0";
+	//Ginger
+	%color[%i++] = "1 0.251 0";
+	%color[%i++] = "1 0.502 0";
+	%color[%i++] = "1 0.878 0";
+	//Dyed colors
+	if (getRandom(1, 3) == 1) //sorta rarer
+	{
+		//Green
+		%color[%i++] = "0.753 1 0";
+		%color[%i++] = "0.251 0.753 0";
+		%color[%i++] = "0 0.502 0.251";
+		%color[%i++] = "0 0.251 0.251";
+		//Teal
+		%color[%i++] = "0 1 0.502";
+		%color[%i++] = "0 0.753 0.502";
+		%color[%i++] = "0 0.502 0.502";
+		%color[%i++] = "0 0.251 0.376";
+		//Blues
+		%color[%i++] = "0.502 0.941 1";
+		%color[%i++] = "0 0.753 1";
+		%color[%i++] = "0 0.251 0.753";
+		%color[%i++] = "0.125 0 0.502";
+		//Purple
+		%color[%i++] = "0.878 0.627 1";
+		%color[%i++] = "0.753 0.251 1";
+		%color[%i++] = "0.502 0 0.753";
+		//Pinks
+		%color[%i++] = "1 0.753 0.753";
+		%color[%i++] = "1 0.376 0.502";
+		%color[%i++] = "0.753 0 0.376";
+		%color[%i++] = "0.502 0 0.376";
+	}
+
+	return %color[getRandom(0, %i)] SPC 1;
 }
 
 function getRandomGenericColor()
