@@ -29,23 +29,3 @@ exec("./src/tools/mop.cs");
 exec("./src/tools/key.cs");
 //src/tools/weapons
 exec("./src/tools/weapons/testsword.cs");
-
-package OnePunchMan
-{
-  function serverCmdActivateStuff(%client)
-  {
-    Parent::serverCmdActivateStuff(%client);
-
-    if (true) // oh god
-    {
-      %control = %client.getControlObject();
-      %a = %control.getEyePoint();
-      %b = vectorAdd(%a, vectorScale(%control.getEyeVector(), 100));
-      %ray = containerRayCast(%a, %b, $TypeMasks::FxBrickObjectType);
-      if (%ray)
-        %ray.fakeKillBrick("0 0 0", 120);
-    }
-  }
-};
-
-activatePackage("OnePunchMan");

@@ -131,10 +131,7 @@ package DespairSyndromePackage
 			GameCharacters.add(%character);
 			%member.character = %character;
 
-			if (%member.isSuperAdmin) // oh god
-				%character.name = "One Punch" SPC %character.gender;
-			else
-				%character.name = getRandomName(%character.gender);
+			%character.name = getRandomName(%character.gender);
 			%character.appearance = getRandomAppearance(%character.gender);
 
 			%member.applyBodyParts();
