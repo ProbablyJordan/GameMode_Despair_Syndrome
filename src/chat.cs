@@ -19,9 +19,6 @@ package ChatPackage
 
 		%text = trim(stripMLControlChars(%text));
 
-		if (%text $= "")
-			return;
-
 		%name = %client.getPlayerName();
 		if (isObject(%client.character))
 			%name = %client.character.name;
@@ -42,6 +39,8 @@ package ChatPackage
 			%range = 8;
 		}
 
+		if (%text $= "")
+			return;
 		%count = ClientGroup.getCount();
 		for (%i = 0; %i < %count; %i++)
 		{
