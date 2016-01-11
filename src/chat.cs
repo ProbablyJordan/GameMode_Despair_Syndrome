@@ -28,12 +28,12 @@ package ChatPackage
 
 		%structure = '<color:ffaa44>%1<color:ffffff> %3, \"%2\"';
 		%does = "says";
-		%range = 48;
+		%range = 32;
 		if (getSubStr(%text, 0, 1) $= "!") //shouting
 		{
 			%text = getSubStr(%text, 1, strLen(%text));
 			%does = "shouts";
-			%range = 80;
+			%range = 64;
 		}
 		else if(getSubStr(%text, 0, 1) $= "@") //Whispering
 		{
