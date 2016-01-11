@@ -1,4 +1,4 @@
-function getRandomGender(%gender)
+function getRandomGender()
 {
 	if (getRandom(1))
 		return "male";
