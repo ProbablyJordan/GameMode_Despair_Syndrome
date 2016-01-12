@@ -72,8 +72,9 @@ datablock PlayerData(PlayerDSArmor : PlayerStandardArmor)
 function PlayerDSArmor::onNewDataBlock(%this, %obj)
 {
 	Parent::onNewDataBlock(%this, %obj);
-	%obj.monitorEnergyLevel();
+	%obj.regenStaminaDefault = %this.regenStamina;
 	%obj.regenStamina = %this.regenStamina;
+	%obj.monitorEnergyLevel();
 }
 
 function Player::monitorEnergyLevel(%this)
@@ -86,7 +87,7 @@ function Player::monitorEnergyLevel(%this)
 	if (%this.getMountedImage(0))
 	{
 		%this.running = false;
-		%this.regenStamina = %this.getDataBlock().regenStamina;
+		%this.regenStamina = %this.regenStaminaDefault;
 		%this.setMaxForwardSpeed(%this.getDataBlock().maxForwardSpeed);
 	}
 
@@ -183,7 +184,7 @@ function PlayerDSArmor::onTrigger(%this, %obj, %slot, %state)
 		else
 		{
 			%obj.running = false;
-			%obj.regenStamina = %this.regenStamina;
+			%obj.regenStamina = %obj.regenStaminaDefault;
 			%obj.setMaxForwardSpeed(%this.maxForwardSpeed);
 			%obj.monitorEnergyLevel();
 		}

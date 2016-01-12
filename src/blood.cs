@@ -44,7 +44,7 @@ function BloodDripProjectile::onCollision(%this, %obj, %col, %fade, %pos, %norma
 		{
 			%decal = %found;
 			%decal.alpha = getMin(%decal.alpha + 0.01, 1);
-			%decal.setScale(vectorMin(vectorAdd(%decal.getScale(), "0.05 0.05 0.05"), "5 5 5"));
+			%decal.setScale(vectorAdd(%decal.getScale(), "0.05 0.05 0.05"));//vectorMin(vectorAdd(%decal.getScale(), "0.05 0.05 0.05"),"5 5 5"));
 			%decal.freshness += 0.05;
 		}
 		else
@@ -307,7 +307,7 @@ function createBloodExplosion(%position, %velocity, %scale) {
 
 	MissionCleanup.add(%obj);
 
-	%obj.setScale(%scale);
+	%obj.setScale(vectorMin(%scale, "1 1 1"));
 	%obj.explode();
 }
 

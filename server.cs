@@ -21,9 +21,13 @@ exec("./src/character.cs");
 exec("./src/footsteps.cs");
 exec("./src/blood.cs");
 exec("./src/health.cs");
-exec("./src/game.cs");
 exec("./src/chat.cs");
+exec("./src/gamemodes.cs");
+exec("./src/game.cs");
 exec("./src/admin.cs");
+//src/gamemodes
+exec("./src/gamemodes/default.cs");
+exec("./src/gamemodes/killer.cs");
 //src/tools
 exec("./src/tools/bucket.cs");
 exec("./src/tools/mop.cs");

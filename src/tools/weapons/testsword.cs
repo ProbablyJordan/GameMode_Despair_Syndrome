@@ -245,7 +245,7 @@ function AdvSwordBlockImage::onUnMount(%this, %obj, %slot)
 	%obj.playThread(1, root);
 	%obj.setArmThread(look);
 	%obj.isBlocking = false;
-	%obj.regenStamina = %obj.getDataBlock().regenStamina;
+	%obj.regenStamina = %obj.regenStaminaDefault;
 }
 
 package AdvSwordPackage

@@ -37,7 +37,6 @@ package DespairSyndromePackage
 		if (%obj.isBody)
 			%obj.playThread(3, "death1");
 	}
-
 	function MiniGameSO::addMember(%this, %member)
 	{
 		%empty = %this.numMembers < 1;
@@ -47,12 +46,10 @@ package DespairSyndromePackage
 			%this.reset(0);
 		}
 	}
-
 	function MiniGameSO::removeMember(%this, %member)
 	{
 		Parent::removeMember(%this, %member);
 	}
-
 	function MiniGameSO::Reset(%this, %client)
 	{
 		if (%this.owner != 0)
@@ -69,106 +66,13 @@ package DespairSyndromePackage
 		if (isObject(DecalGroup))
 			DecalGroup.deleteAll();
 
+		if (!isObject($DS::GameMode))
+			$DS::GameMode = DSGameMode_Default;
+
+		%this.gameMode = $DS::GameMode;
+
 		Parent::reset(%this, %client);
-
-		%this.messageAll('', '\c5A new round is starting.');
-
-		// Close *all* doors
-		%count = BrickGroup_888888.getCount();
-
-		for (%i = 0; %i < %count; %i++)
-		{
-			%brick = BrickGroup_888888.getObject(%i);
-			%brick.respawn();
-
-			%data = %brick.getDataBlock();
-
-			if (%data.isDoor)
-			{
-				%brick.doorHits = 0;
-				%brick.setDataBlock(%brick.isCCW ? %data.closedCCW : %data.closedCW);
-			}
-		}
-
-		%freeCount = $DS::RoomCount;
-
-		for (%i = 0; %i < %freeCount; %i++)
-		{
-			%room = %i + 1;
-			%freeRoom[%i] = %room;
-			%roomDoor = BrickGroup_888888.NTObject["_door_r" @ %room, 0];
-			%roomDoor.lockId = "R"@%room;
-			%roomDoor.lockState = true;
-			%roomSpawn = BrickGroup_888888.NTObject["_" @ %room, 0];
-		}
-
-		// Give everyone rooms, names, appearances, roles, etc
-		for (%i = 0; %i < %this.numMembers && %freeCount; %i++)
-		{
-			%member = %this.member[%i];
-			%player = %member.player;
-
-			if (!isObject(%player))
-				continue;
-
-			%freeCount--;
-			%freeIndex = getRandom(%freeCount);
-			%room = %freeRoom[%freeIndex];
-			for (%j = %freeIndex; %j < %freeCount; %j++)
-				%freeRoom[%j] = %freeRoom[%j + 1];
-
-			%freeRoom[%freeCount] = "";
-
-			%character = new ScriptObject()
-			{
-				client = %member;
-				clientName = %member.getPlayerName();
-				player = %player;
-				gender = getRandomGender();
-				room = %room;
-			};
-
-			GameCharacters.add(%character);
-			%member.character = %character;
-
-			%character.name = getRandomName(%character.gender);
-			%character.appearance = getRandomAppearance(%character.gender);
-
-			%member.applyBodyParts();
-			%member.applyBodyColors();
-
-			%roomDoor = BrickGroup_888888.NTObject["_door_r" @ %room, 0];
-			%roomSpawn = BrickGroup_888888.NTObject["_" @ %room, 0];
-
-			%player.setTransform(%roomSpawn.getTransform());
-			%player.setShapeName(%character.name, 8564862);
-
-			if (%character.gender $= "female")
-			{
-				%nameTextColor = "ff11cc";
-				// %player.setShapeNameColor("1 0.1 0.9");
-				%player.setShapeNameColor("1 0.15 0.8");
-			}
-			else if (%character.gender $= "male")
-			{
-				%nameTextColor = "22ccff";
-				%player.setShapeNameColor("0.1 0.8 1");
-			}
-			else
-				%nameTextColor = "ffff00";
-
-			// Give them a key to their room
-			%props = KeyItem.newItemProps(%player, 0);
-			%props.name = "Room #" @ %room @ " Key";
-			%props.id = "R" @ %room;
-
-			%player.addTool(KeyItem, %props);
-
-			messageClient(%member, '', '\c6You are <color:%1>%2\c6, and you have been assigned to \c3Room #%3\c6.',
-				%nameTextColor,
-				%character.name,
-				%room);
-		}
+		%this.gameMode.onStart(%this);
 	}
 
 	function MiniGameSO::checkLastManStanding(%this)
@@ -177,8 +81,8 @@ package DespairSyndromePackage
 			return Parent::checkLastManStanding(%this);
 		if (%this.numMembers < 1 || isEventPending(%this.scheduleReset))
 			return 0;
-		//Do game end checks if needed
-		return Parent::checkLastManStanding(%this);
+		%this.gameMode.checkLastManStanding(%this);
+		return 0;
 	}
 
 	function GameConnection::onDeath(%client, %sourceObject, %sourceClient, %damageType, %damLoc)
