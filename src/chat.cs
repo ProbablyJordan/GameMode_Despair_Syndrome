@@ -1,3 +1,34 @@
+$MaxLinkLength = 32;
+
+function linkify(%text)
+{
+	%count = getWordCount(%text);
+
+	for (%i = 0; %i < %count; %i++)
+	{
+		%word = getWord(%text, %i);
+
+		if (getSubStr(%word, 0, 7) $= "http://")
+			%link = getSubStr(%word, 7, strlen(%word));
+		else if (getSubStr(%word, 0, 8) $= "https://")
+			%link = getSubStr(%word, 8, strlen(%word));
+		else
+			continue;
+
+		if (%link $= "" || strpos(%link, ":") != -1)
+			continue; // this is illegal you know
+
+		if (strlen(%link) > $MaxLinkLength)
+			%show = getSubStr(%link, 0, $MaxLinkLength - 3) @ "...";
+		else
+			%show = %link;
+
+		%text = setWord(%text, %i, "<a:" @ %link @ ">" @ %show @ "</a>");
+	}
+
+	return %text;
+}
+
 package ChatPackage
 {
 	function serverCmdStartTalking(%client)
@@ -14,7 +45,7 @@ package ChatPackage
 
 	function serverCmdMessageSent(%client, %text)
 	{
-		if (!%client.inDefaultGame() || isEventPending(%client.miniGame.resetSchedule))
+		if ((!%client.inDefaultGame() && %client.hasSpawnedOnce) || isEventPending(%client.miniGame.resetSchedule))
 			return Parent::serverCmdMessageSent(%client, %text);
 
 		%text = trim(stripMLControlChars(%text));
@@ -41,6 +72,12 @@ package ChatPackage
 
 		if (%text $= "")
 			return;
+
+		if (isObject(%client.player))
+		{
+			%client.player.playThread(0, "talk");
+			%client.player.schedule(strLen(%text) * 35, "playThread", 0, "root");
+		}
 		%count = ClientGroup.getCount();
 		for (%i = 0; %i < %count; %i++)
 		{
@@ -49,6 +86,8 @@ package ChatPackage
 			if (!isObject(%client.player)) //dead chat
 			{
 				%structure = '<color:444444>[DEAD] %1<color:aaaaaa>: %2';
+				if (!%client.hasSpawnedOnce)
+					%structure = '<color:444444>[SPEC] %1<color:aaaaaa>: %2';
 				if(isObject(%other.player)) //Listener's player is alive. Don't transmit the message to them.
 					continue;
 			}
@@ -69,7 +108,6 @@ package ChatPackage
 
 				if (vectorDist(%client.player.getEyePoint(), %other.player.getEyePoint()) > %range) //Out of range
 					continue;
-				%other.player.emote(localChatProjectile, 1);
 			}
 
 			messageClient(%other, '', %structure,
@@ -81,9 +119,11 @@ package ChatPackage
 	{
 		if (!%client.inDefaultGame())
 			return Parent::serverCmdMessageSent(%client, %text);
+		if (isEventPending(%client.miniGame.resetSchedule))
+			return serverCmdMessageSent(%client, %text);
 
 		%text = trim(stripMLControlChars(%text));
-
+		%text = linkify(%text);
 		if (%text $= "")
 			return;
 		%structure = '<color:4444FF>[OOC] %1<color:aaaaFF>: %2';
@@ -98,75 +138,3 @@ package ChatPackage
 };
 
 activatePackage("ChatPackage");
-//Datablocks
-//LocalChat emote ripped straight from bluezone, i'm srry
-datablock ParticleData(localChatParticle : painMidParticle)
-{
-	dragCoefficient		= 0.0;
-	windCoefficient		= 0.0;
-	gravityCoefficient	= 0.0;
-	inheritedVelFactor	= 0.0;
-	constantAcceleration	= 0.0;
-	lifetimeMS		= 800;
-	lifetimeVarianceMS	= 0;
-	spinSpeed		= 0.0;
-	spinRandomMin		= -0.0;
-	spinRandomMax		= 0.0;
-	useInvAlpha		= true;
-	animateTexture		= false;
-
-	textureName		= "base/data/particles/star1";
-	
-	colors[0]	= "0.2 0.6 1 0.5";
-	colors[1]	= "0.2 0.6 1 0.5";
-	colors[2]	= "0.2 0.6 1 0.5";
-	sizes[0]	= 0.4;
-	sizes[1]	= 0.8;
-	sizes[2]	= 0.0;
-	times[0]	= 0.0;
-	times[1]	= 0.8;
-	times[2]	= 1.0;
-};
-
-datablock ParticleEmitterData(localChatEmitter : painMidEmitter)
-{
-	ejectionPeriodMS = 5;
-	periodVarianceMS = 0;
-	ejectionVelocity = 0;
-	velocityVariance = 0;
-	ejectionOffset	= 1;
-	thetaMin			= 0;
-	thetaMax			= 0;
-	phiReferenceVel  = 0;
-	phiVariance		= 0;
-	overrideAdvance = false;
-
-	particles = localChatParticle;
-
-	uiName = "Local Chat";
-};
-
-datablock ExplosionData(localChatExplosion)
-{
-	lifeTimeMS = 100;
-
-	particleEmitter = localChatEmitter;
-	particleDensity = 10;
-	particleRadius = 0;
-
-	faceViewer	  = false;
-	explosionScale = "1 1 1";
-
-	shakeCamera = false;
-
-	hasLight	 = false;
-	lightStartRadius = 0;
-	lightEndRadius = 0;
-	lightStartColor = "0.8 0.4 0.2";
-	lightEndColor = "0.8 0.4 0.2";
-};
-
-datablock ProjectileData(localChatProjectile : bsdProjectile)
-{
-	explosion = localChatExplosion;
-};

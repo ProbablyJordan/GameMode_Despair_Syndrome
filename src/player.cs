@@ -65,9 +65,16 @@ datablock PlayerData(PlayerDSArmor : PlayerStandardArmor)
 	minJumpEnergy = 30;
 	ShowEnergyBar = true;
 	jumpForce = 1200;
-
+	regenStamina = 0.5;
 	rechargeRate = 0;
 };
+
+function PlayerDSArmor::onNewDataBlock(%this, %obj)
+{
+	Parent::onNewDataBlock(%this, %obj);
+	%obj.monitorEnergyLevel();
+	%obj.regenStamina = %this.regenStamina;
+}
 
 function Player::monitorEnergyLevel(%this)
 {
@@ -79,6 +86,7 @@ function Player::monitorEnergyLevel(%this)
 	if (%this.getMountedImage(0))
 	{
 		%this.running = false;
+		%this.regenStamina = %this.getDataBlock().regenStamina;
 		%this.setMaxForwardSpeed(%this.getDataBlock().maxForwardSpeed);
 	}
 
@@ -91,7 +99,7 @@ function Player::monitorEnergyLevel(%this)
 	}
 	else //idle
 	{
-		%this.setEnergyLevel(%this.getEnergyLevel() + 0.5);
+		%this.setEnergyLevel(%this.getEnergyLevel() + %this.regenStamina);
 	}
 
 	// %show = %this.getEnergyLevel() < %this.getDataBlock().maxEnergy;
@@ -160,17 +168,22 @@ function PlayerDSArmor::onTrigger(%this, %obj, %slot, %state)
 		}
 	}
 	//Sprinting
+	if (%obj.getMountedImage(0))
+		return;
 	if (%slot == 4)
 	{
-		if (%state && %obj.getEnergyLevel() >= 2)
+		if (%state && %obj.getEnergyLevel() >= 10)
 		{
+			%obj.setEnergyLevel(%obj.getEnergyLevel() - 10);
 			%obj.running = true;
+			%obj.regenStamina = 0;
 			%obj.setMaxForwardSpeed(%this.maxForwardSpeed * 1.75);
 			%obj.monitorEnergyLevel();
 		}
 		else
 		{
 			%obj.running = false;
+			%obj.regenStamina = %this.regenStamina;
 			%obj.setMaxForwardSpeed(%this.maxForwardSpeed);
 			%obj.monitorEnergyLevel();
 		}

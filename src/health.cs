@@ -56,6 +56,11 @@ function Player::getMaxHealth(%this)
 
 package DSHealthPackage
 {
+	function Player::playPain(%this)
+	{
+		parent::playPain(%this);
+	}
+
 	function Armor::onNewDataBlock(%this, %obj)
 	{
 		Parent::onNewDataBlock(%this, %obj);
@@ -66,7 +71,16 @@ package DSHealthPackage
 
 	function Armor::onDisabled(%this, %obj, %state)
 	{
-		parent::onDisabled(%this, %obj, %state); //TODO: replace this function with custom one so we can manipulate the bodies better
+		parent::onDisabled(%this, %obj, %state);
+		%obj.playThread(0, "root");
+		%obj.playThread(1, "root");
+		%obj.playThread(2, "root");
+		if (%obj.attackDot[%obj.attackCount] > 0)
+		{
+			%obj.playThread(2, "jump");
+			%obj.playThread(3, "crouch");
+			%obj.schedule(100, playThread, 2, "plant");
+		}
 	}
 
 	function Armor::damage(%this, %obj, %src, %pos, %damage, %type)
@@ -87,24 +101,23 @@ package DSHealthPackage
 			return;
 		}
 
+		%dot = vectorDot(%obj.getForwardVector(),%source.getForwardVector());
 		%obj.attackCount++;
 		%obj.attackRegion[%obj.attackCount] = %obj.getRegion(%pos);
 		%obj.attackType[%obj.attackCount] = %type;
+		%obj.attackDot[%obj.attackCount] = %dot;
 		%obj.attacker[%obj.attackCount] = %source.getClassName() $= "GameConnection" ? %source : %source.client;
 		// echo("HARM:" SPC %obj.attackCount SPC %obj.attackRegion[%obj.attackCount] SPC %obj.attackType[%obj.attackCount] SPC %obj.attacker[%obj.attackCount].GetPlayerName());
 
 		%obj.setDamageFlash(getMax(0.25, %damage / %obj.maxHealth));
 		%obj.playPain();
-
-		%obj.setHealth(%obj.health - %damage);
 		%obj.doSplatterBlood(3);
 		if (%source.getClassName() $= "Player") //rather good chance of getting blood on yourself
 		{
-			%dot = vectorDot(%obj.getForwardVector(),%source.getForwardVector());
 			if (getRandom(1, 3) == 1)
 			{
-				%source.bloody["rhand"] = true; //Both hands get bloodified atm
-				%source.bloody["lhand"] = true;
+				%source.bloody["rhand"] = true;
+				// %source.bloody["lhand"] = true; //Idea: bloodify the other hand if player tries to carry the body!
 				%source.bloody["chest_front"] = true; //you filthy murderer, get blood on your chest.
 				if (isObject(%source.client))
 					%source.client.applyBodyParts();
@@ -116,8 +129,11 @@ package DSHealthPackage
 					%obj.client.applyBodyParts();
 			}
 			if (%dot > 0) //Backstab
-				%damage *= 2 + %dot; //Double it (or triple, potentially)
+			{
+				%damage *= 1 + %dot; //Double it (or triple, potentially)
+			}
 		}
+		%obj.setHealth(%obj.health - %damage);
 		if (%obj.health <= 0)
 		{
 			%obj.doSplatterBlood(10);

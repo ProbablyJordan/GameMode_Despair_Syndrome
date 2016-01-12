@@ -88,7 +88,7 @@ Linecount 8415
 32x32 Base" -100.5 45.5 0.1 1 1 47  0 0 1 1 1
 +-OWNER 29019
 +-NTOBJECTNAME _room15
-+-EVENT	0	1	onBrickLoaded	0	Self		createZoneUp	4.5	0.5		
++-EVENT	0	1	onBrickLoaded	0	Self		createZoneUp	4.5	0.35		
 +-EVENT	1	1	onBrickLoaded	0	Self		setZoneSoundProof	1			
 +-EVENT	2	1	onRelay	0	Self		toggleEventEnabled	3 4			
 +-EVENT	3	0	onRelay	0	Self		setZoneSoundProof	0			
@@ -99,7 +99,7 @@ Linecount 8415
 32x32 Base" -100.5 29.5 0.1 1 1 47  0 0 1 1 1
 +-OWNER 29019
 +-NTOBJECTNAME _room16
-+-EVENT	0	1	onBrickLoaded	0	Self		createZoneUp	4.5	0.5		
++-EVENT	0	1	onBrickLoaded	0	Self		createZoneUp	4.5	0.35		
 +-EVENT	1	1	onBrickLoaded	0	Self		setZoneSoundProof	1			
 +-EVENT	2	1	onRelay	0	Self		toggleEventEnabled	3 4			
 +-EVENT	3	0	onRelay	0	Self		setZoneSoundProof	0			
@@ -157,7 +157,7 @@ Linecount 8415
 +-OWNER 29019
 16x16 Base" 22 33 0.1 0 1 29  0 0 1 1 1
 +-OWNER 29019
-+-EVENT	0	1	onBrickLoaded	0	Self		createZoneUp	4.5	0.5		
++-EVENT	0	1	onBrickLoaded	0	Self		createZoneUp	4.5	0.35		
 +-EVENT	1	1	onBrickLoaded	0	Self		setZoneSoundProof	1			
 16x32 Base" 24.5 10.5 0.1 0 1 18  0 0 1 1 1
 +-OWNER 29019
@@ -168,7 +168,7 @@ Linecount 8415
 32x32 Base" -4.5 -2.5 0.1 3 1 47  0 0 1 1 1
 +-OWNER 29019
 +-NTOBJECTNAME _room2
-+-EVENT	0	1	onBrickLoaded	0	Self		createZoneUp	4.5	0.5		
++-EVENT	0	1	onBrickLoaded	0	Self		createZoneUp	4.5	0.35		
 +-EVENT	1	1	onBrickLoaded	0	Self		setZoneSoundProof	1			
 +-EVENT	2	1	onRelay	0	Self		toggleEventEnabled	3 4			
 +-EVENT	3	0	onRelay	0	Self		setZoneSoundProof	0			
@@ -181,7 +181,7 @@ Linecount 8415
 32x32 Base" -28.5 -2.5 0.1 1 1 47  0 0 1 1 1
 +-OWNER 29019
 +-NTOBJECTNAME _room1
-+-EVENT	0	1	onBrickLoaded	0	Self		createZoneUp	4.5	0.5		
++-EVENT	0	1	onBrickLoaded	0	Self		createZoneUp	4.5	0.35		
 +-EVENT	1	1	onBrickLoaded	0	Self		setZoneSoundProof	1			
 +-EVENT	2	1	onRelay	0	Self		toggleEventEnabled	3 4			
 +-EVENT	3	0	onRelay	0	Self		setZoneSoundProof	0			
@@ -232,7 +232,7 @@ Linecount 8415
 32x32 Base" -76.5 29.5 0.1 0 1 47  0 0 1 1 1
 +-OWNER 29019
 +-NTOBJECTNAME _room13
-+-EVENT	0	1	onBrickLoaded	0	Self		createZoneUp	4.5	0.5		
++-EVENT	0	1	onBrickLoaded	0	Self		createZoneUp	4.5	0.35		
 +-EVENT	1	1	onBrickLoaded	0	Self		setZoneSoundProof	1			
 +-EVENT	2	1	onRelay	0	Self		toggleEventEnabled	3 4			
 +-EVENT	3	0	onRelay	0	Self		setZoneSoundProof	0			
@@ -243,7 +243,7 @@ Linecount 8415
 32x32 Base" -60.5 29.5 0.1 0 1 47  0 0 1 1 1
 +-OWNER 29019
 +-NTOBJECTNAME _room11
-+-EVENT	0	1	onBrickLoaded	0	Self		createZoneUp	4.5	0.5		
++-EVENT	0	1	onBrickLoaded	0	Self		createZoneUp	4.5	0.35		
 +-EVENT	1	1	onBrickLoaded	0	Self		setZoneSoundProof	1			
 +-EVENT	2	1	onRelay	0	Self		toggleEventEnabled	3 4			
 +-EVENT	3	0	onRelay	0	Self		setZoneSoundProof	0			
@@ -254,7 +254,7 @@ Linecount 8415
 32x32 Base" -44.5 29.5 0.1 0 1 47  0 0 1 1 1
 +-OWNER 29019
 +-NTOBJECTNAME _room9
-+-EVENT	0	1	onBrickLoaded	0	Self		createZoneUp	4.5	0.5		
++-EVENT	0	1	onBrickLoaded	0	Self		createZoneUp	4.5	0.35		
 +-EVENT	1	1	onBrickLoaded	0	Self		setZoneSoundProof	1			
 +-EVENT	2	1	onRelay	0	Self		toggleEventEnabled	3 4			
 +-EVENT	3	0	onRelay	0	Self		setZoneSoundProof	0			
@@ -265,7 +265,7 @@ Linecount 8415
 32x32 Base" -76.5 53.5 0.1 2 1 47  0 0 1 1 1
 +-OWNER 29019
 +-NTOBJECTNAME _room14
-+-EVENT	0	1	onBrickLoaded	0	Self		createZoneUp	4.5	0.5		
++-EVENT	0	1	onBrickLoaded	0	Self		createZoneUp	4.5	0.35		
 +-EVENT	1	1	onBrickLoaded	0	Self		setZoneSoundProof	1			
 +-EVENT	2	1	onRelay	0	Self		toggleEventEnabled	3 4			
 +-EVENT	3	0	onRelay	0	Self		setZoneSoundProof	0			
@@ -276,7 +276,7 @@ Linecount 8415
 32x32 Base" -60.5 53.5 0.1 2 1 47  0 0 1 1 1
 +-OWNER 29019
 +-NTOBJECTNAME _room12
-+-EVENT	0	1	onBrickLoaded	0	Self		createZoneUp	4.5	0.5		
++-EVENT	0	1	onBrickLoaded	0	Self		createZoneUp	4.5	0.35		
 +-EVENT	1	1	onBrickLoaded	0	Self		setZoneSoundProof	1			
 +-EVENT	2	1	onRelay	0	Self		toggleEventEnabled	3 4			
 +-EVENT	3	0	onRelay	0	Self		setZoneSoundProof	0			
@@ -287,7 +287,7 @@ Linecount 8415
 32x32 Base" -44.5 53.5 0.1 2 1 47  0 0 1 1 1
 +-OWNER 29019
 +-NTOBJECTNAME _room10
-+-EVENT	0	1	onBrickLoaded	0	Self		createZoneUp	4.5	0.5		
++-EVENT	0	1	onBrickLoaded	0	Self		createZoneUp	4.5	0.35		
 +-EVENT	1	1	onBrickLoaded	0	Self		setZoneSoundProof	1			
 +-EVENT	2	1	onRelay	0	Self		toggleEventEnabled	3 4			
 +-EVENT	3	0	onRelay	0	Self		setZoneSoundProof	0			
@@ -298,7 +298,7 @@ Linecount 8415
 32x32 Base" -12.5 53.5 0.1 2 1 47  0 0 1 1 1
 +-OWNER 29019
 +-NTOBJECTNAME _room7
-+-EVENT	0	1	onBrickLoaded	0	Self		createZoneUp	4.5	0.5		
++-EVENT	0	1	onBrickLoaded	0	Self		createZoneUp	4.5	0.35		
 +-EVENT	1	1	onBrickLoaded	0	Self		setZoneSoundProof	1			
 +-EVENT	2	1	onRelay	0	Self		toggleEventEnabled	3 4			
 +-EVENT	3	0	onRelay	0	Self		setZoneSoundProof	0			
@@ -309,7 +309,7 @@ Linecount 8415
 32x32 Base" -28.5 53.5 0.1 2 1 47  0 0 1 1 1
 +-OWNER 29019
 +-NTOBJECTNAME _room8
-+-EVENT	0	1	onBrickLoaded	0	Self		createZoneUp	4.5	0.5		
++-EVENT	0	1	onBrickLoaded	0	Self		createZoneUp	4.5	0.35		
 +-EVENT	1	1	onBrickLoaded	0	Self		setZoneSoundProof	1			
 +-EVENT	2	1	onRelay	0	Self		toggleEventEnabled	3 4			
 +-EVENT	3	0	onRelay	0	Self		setZoneSoundProof	0			
@@ -320,7 +320,7 @@ Linecount 8415
 32x32 Base" -28.5 29.5 0.1 1 1 47  0 0 1 1 1
 +-OWNER 29019
 +-NTOBJECTNAME _room5
-+-EVENT	0	1	onBrickLoaded	0	Self		createZoneUp	4.5	0.5		
++-EVENT	0	1	onBrickLoaded	0	Self		createZoneUp	4.5	0.35		
 +-EVENT	1	1	onBrickLoaded	0	Self		setZoneSoundProof	1			
 +-EVENT	2	1	onRelay	0	Self		toggleEventEnabled	3 4			
 +-EVENT	3	0	onRelay	0	Self		setZoneSoundProof	0			
@@ -331,7 +331,7 @@ Linecount 8415
 32x32 Base" -28.5 13.5 0.1 1 1 47  0 0 1 1 1
 +-OWNER 29019
 +-NTOBJECTNAME _room3
-+-EVENT	0	1	onBrickLoaded	0	Self		createZoneUp	4.5	0.5		
++-EVENT	0	1	onBrickLoaded	0	Self		createZoneUp	4.5	0.35		
 +-EVENT	1	1	onBrickLoaded	0	Self		setZoneSoundProof	1			
 +-EVENT	2	1	onRelay	0	Self		toggleEventEnabled	3 4			
 +-EVENT	3	0	onRelay	0	Self		setZoneSoundProof	0			
@@ -344,7 +344,7 @@ Linecount 8415
 32x32 Base" -4.5 29.5 0.1 3 1 47  0 0 1 1 1
 +-OWNER 29019
 +-NTOBJECTNAME _room6
-+-EVENT	0	1	onBrickLoaded	0	Self		createZoneUp	4.5	0.5		
++-EVENT	0	1	onBrickLoaded	0	Self		createZoneUp	4.5	0.35		
 +-EVENT	1	1	onBrickLoaded	0	Self		setZoneSoundProof	1			
 +-EVENT	2	1	onRelay	0	Self		toggleEventEnabled	3 4			
 +-EVENT	3	0	onRelay	0	Self		setZoneSoundProof	0			
@@ -355,7 +355,7 @@ Linecount 8415
 32x32 Base" -4.5 13.5 0.1 3 1 47  0 0 1 1 1
 +-OWNER 29019
 +-NTOBJECTNAME _room4
-+-EVENT	0	1	onBrickLoaded	0	Self		createZoneUp	4.5	0.5		
++-EVENT	0	1	onBrickLoaded	0	Self		createZoneUp	4.5	0.35		
 +-EVENT	1	1	onBrickLoaded	0	Self		setZoneSoundProof	1			
 +-EVENT	2	1	onRelay	0	Self		toggleEventEnabled	3 4			
 +-EVENT	3	0	onRelay	0	Self		setZoneSoundProof	0			

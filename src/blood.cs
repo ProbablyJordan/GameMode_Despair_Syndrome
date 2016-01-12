@@ -29,16 +29,38 @@ function BloodDripProjectile::onCollision(%this, %obj, %col, %pos, %fade, %norma
 
 function BloodDripProjectile::onCollision(%this, %obj, %col, %fade, %pos, %normal)
 {
-	%decal = spawnDecal(pegprintDecal, %pos, %normal);
-	%decal.setScale("1 1 1");
-	%decal.setTransform(vectorAdd(%decal.getPosition(), "0 0 0.01"));
+	if (%col.getType() & ($TypeMasks::FxBrickObjectType | $TypeMasks::TerrainObjectType))
+	{
+		initContainerRadiusSearch(%pos, 0.1,
+			$TypeMasks::ShapeBaseObjectType);
 
-	%decal.color = "0.7 0 0" SPC 0.6;
-	%decal.setNodeColor("ALL", %decal.color);
-	%decal.isBlood = true;
-	%decal.sourceClient = %obj.client;
-	%decal.spillTime = $Sim::Time;
-	%decal.freshness = 0.5; //freshness < 1 means can't get bloody footprints from it
+		while (isObject(%col = containerSearchNext()))
+		{
+			if (!%col.isBlood || %col.getDataBlock() != pegprintDecal.getId())
+				continue;
+			%found = %col;
+		}
+		if (%found)
+		{
+			%decal = %found;
+			%decal.alpha = getMin(%decal.alpha + 0.01, 1);
+			%decal.setScale(vectorMin(vectorAdd(%decal.getScale(), "0.05 0.05 0.05"), "5 5 5"));
+			%decal.freshness += 0.05;
+		}
+		else
+		{
+			%decal = spawnDecal(pegprintDecal, %pos, %normal);
+			%decal.setScale("1 1 1");
+			%decal.setTransform(vectorAdd(%decal.getPosition(), "0 0 0.01"));
+			%decal.alpha = 0.6;
+			%decal.isBlood = true;
+			%decal.sourceClient = %obj.client;
+			%decal.spillTime = $Sim::Time;
+			%decal.freshness = 0.5; //freshness < 1 means can't get bloody footprints from it
+		}
+		%decal.color = "0.7 0 0" SPC getMin(%decal.alpha, 1);
+		%decal.setNodeColor("ALL", %decal.color);
+	}
 	%obj.explode();
 	return;
 }
@@ -58,6 +80,7 @@ function createBloodDripProjectile(%position, %size, %paint) {
 	};
 
 	MissionCleanup.add(%obj);
+	GameRoundCleanup.add(%obj);
 
 	if (%size !$= "") {
 		%obj.setScale(%size SPC %size SPC %size);

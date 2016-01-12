@@ -251,7 +251,7 @@ package DespairSyndromePackage
 		// removed mini-game checks here
 		// removed death message print here
 		// removed %message and %sourceClientName arguments
-		messageClient(%client, 'MsgYourDeath', '', %clientName, '', %client.miniGame.respawnTime);
+		messageClient(%client, 'MsgYourDeath', '', %clientName, '', '');//%client.miniGame.respawnTime);
 
 		commandToClient(%client, 'CenterPrint', '', 1);
 		%client.miniGame.checkLastManStanding();

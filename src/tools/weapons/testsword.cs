@@ -28,13 +28,6 @@ datablock ProjectileData(advSwordProjectile : swordProjectile)
 	explosion = advSwordExplosion;
 };
 
-function advSwordProjectile::onExplode(%this, %obj, %pos)
-{
-	ServerPlay3D(swordHitSound, %pos);
-	parent::onExplode(%this, %obj, %pos);
-}
-
-
 //////////
 // item //
 //////////
@@ -204,7 +197,7 @@ function AdvSwordImage::onFire(%this, %obj, %slot)
 function AdvSwordImage::onRaycastCollision(%this, %obj, %col, %pos, %normal, %vec)
 {
 	Parent::onRaycastCollision(%this, %obj, %col, %pos, %normal, %vec);
-
+	ServerPlay3D(swordHitSound, %pos, %col.getDataBlock().isDoor ? 1 : 0);
 	if (!(%col.getType() & $TypeMasks::FxBrickObjectType))
 		return;
 
@@ -243,7 +236,8 @@ function AdvSwordBlockImage::onMount(%this, %obj, %slot)
 	%obj.setArmThread(armAttack);
 	%obj.isBlocking = true;
 	%obj.lastBlockTime = $Sim::Time;
-	serverPlay3D(SwordEquipSound, %obj.getHackPosition());
+	%obj.regenStamina = 0;
+	// serverPlay3D(SwordEquipSound, %obj.getHackPosition());
 }
 function AdvSwordBlockImage::onUnMount(%this, %obj, %slot)
 {
@@ -251,6 +245,7 @@ function AdvSwordBlockImage::onUnMount(%this, %obj, %slot)
 	%obj.playThread(1, root);
 	%obj.setArmThread(look);
 	%obj.isBlocking = false;
+	%obj.regenStamina = %obj.getDataBlock().regenStamina;
 }
 
 package AdvSwordPackage
@@ -312,19 +307,6 @@ package AdvSwordPackage
 			%damage = %damage * mClampF(%time, 0, 1);
 			serverPlay3D(AdvSwordBlockSound @ %quality, %pos);
 		}
-
-		// else if (%coeff = vectorDot(%obj.getForwardVector(), %src.getForwardVector()) > 0)
-		// {
-		// 	%damage = %damage * (2 + %coeff);
-		// }
-
-		// if(%type == $DamageType::AdvSword)
-		// {
-		// 	%factor = getMin(%factor + %damage / 4, 12);
-		// 	%obj.setVelocity(vectorAdd(%obj.getVelocity(), vectorScale(%src.getForwardVector(), %factor)));
-		// 	%obj.setVelocity(vectorAdd(%obj.getVelocity(), "0 0" SPC %factor));
-		// }
-		// talk(%damage);
 		Parent::damage(%this, %obj, %src, %pos, %damage, %type);
 	}
 };
