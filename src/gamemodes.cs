@@ -114,7 +114,7 @@ function DSGameMode::onEnd(%this, %miniGame, %winner)
 	{
 		%endtext = "\c3" @ %winner.getPlayerName() @ (isObject(%winner.character) ? " (" @ %winner.character.name @ ")" : "") SPC "is the only survivor!";
 	}
-	%miniGame.messageAll('', %endtext SPC "\c5A new game will begin in 15 sceonds.");
+	%miniGame.messageAll('', %endtext SPC "\c5A new game will begin in 10 sceonds.");
 	%miniGame.scheduleReset(10000);
 }
 function DSGameMode::checkLastManStanding(%this, %miniGame)

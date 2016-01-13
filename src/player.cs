@@ -84,11 +84,14 @@ function Player::monitorEnergyLevel(%this)
 	if (%this.getState() $= "Dead" || !isObject(%this.client))
 		return;
 
-	if (%this.getMountedImage(0))
+	%carryingCorpse = isObject(%this.carryObject) && %this.carryObject.getType() & $TypeMasks::CorpseObjectType;
+	if (%this.getMountedImage(0) || %carryingCorpse) //Weapon out or carrying body
 	{
 		%this.running = false;
 		%this.regenStamina = %this.regenStaminaDefault;
 		%this.setMaxForwardSpeed(%this.getDataBlock().maxForwardSpeed);
+		%this.setMaxSideSpeed(%this.getDataBlock().maxSideSpeed);
+		%this.setMaxBackwardSpeed(%this.getDataBlock().maxBackwardSpeed);
 	}
 
 	if (%this.running && vectorLen(%this.getVelocity()) > %this.getDataBlock().maxForwardSpeed)
@@ -96,7 +99,11 @@ function Player::monitorEnergyLevel(%this)
 		%this.setEnergyLevel(%this.getEnergyLevel() - 1);
 
 		if (%this.getEnergyLevel() < 1)
+		{
 			%this.setMaxForwardSpeed(%this.getDataBlock().maxForwardSpeed * 0.5);
+			%this.setMaxSideSpeed(%this.getDataBlock().maxSideSpeed * 0.5);
+			%this.setMaxBackwardSpeed(%this.getDataBlock().maxBackwardSpeed * 0.5);
+		}
 	}
 	else //idle
 	{
@@ -121,14 +128,14 @@ function PlayerDSArmor::onTrigger(%this, %obj, %slot, %state)
 	//Item carrying/picking up
 	if(%slot == 0)
 	{
-		%item = %obj.carryItem;
+		%item = %obj.carryObject;
 
 		if (isObject(%item) && isEventPending(%item.carrySchedule) && %item.carryPlayer $= %obj)
 		{
 			%time = $Sim::Time - %item.carryStart;
 			cancel(%item.carrySchedule);
 			%item.carryPlayer = 0;
-			%obj.carryItem = 0;
+			%obj.carryObject = 0;
 			%obj.playThread(2, "root");
 		}
 		if (%obj.getMountedImage(0))
@@ -150,16 +157,52 @@ function PlayerDSArmor::onTrigger(%this, %obj, %slot, %state)
 				if (isEventPending(%ray.carrySchedule) && isObject(%ray.carryPlayer))
 					%ray.carryPlayer.playThread(2, "root");
 
-				%obj.carryItem = getWord(%ray, 0);
-				%ray.carryPlayer.carryItem = 0;
+				%obj.carryObject = getWord(%ray, 0);
+				%ray.carryPlayer.carryObject = 0;
 				%ray.carryPlayer = %obj;
 				%ray.carryStart = $Sim::Time;
 				%ray.static = false;
 				%ray.carryTick();
 				%obj.playThread(2, "armReadyBoth");
 			}
+			else //Body carrying
+			{
+				if (isObject(firstWord(%ray)))
+					%pos = getWords( %ray, 1, 3 );
+				else
+					%pos = %stop;
+				initContainerRadiusSearch(%pos, 0.2,
+					$TypeMasks::CorpseObjectType);
+
+				while (isObject(%col = containerSearchNext()))
+				{
+					if (%col.isBody)
+					{
+						%found = %col;
+						break;
+					}
+				}
+				if (isObject(%found))
+				{
+					if (isEventPending(%col.carrySchedule) && isObject(%col.carryPlayer))
+						%col.carryPlayer.playThread(2, "root");
+					%obj.carryObject = %col;
+					%col.carryPlayer.carryObject = 0;
+					%col.carryPlayer = %obj;
+					%col.carryStart = $Sim::Time;
+					%col.carryTick();
+					%obj.bloody["rhand"] = true;
+					%obj.bloody["lhand"] = true;
+					if (isObject(%obj.client))
+					{
+						%obj.client.applyBodyParts();
+						%obj.client.applyBodyColors();
+					}
+					%obj.playThread(2, "armReadyBoth");
+				}
+			}
 		}
-		else if (isObject(%item) && %time < 0.15 && %item.canPickUp)
+		else if (isObject(%item) && (%item.getType() & $TypeMasks::ItemObjectType) && %time < 0.15 && %item.canPickUp)
 		{
 			if (%obj.addTool(%item.GetDatablock(), %item.itemProps) != -1)
 			{
@@ -169,7 +212,7 @@ function PlayerDSArmor::onTrigger(%this, %obj, %slot, %state)
 		}
 	}
 	//Sprinting
-	if (%obj.getMountedImage(0))
+	if (%obj.getMountedImage(0) || (isObject(%obj.carryObject) && %obj.carryObject.getType() & $TypeMasks::CorpseObjectType))
 		return;
 	if (%slot == 4)
 	{
@@ -205,7 +248,7 @@ function Item::carryTick(%this)
 	if (%player.getMountedImage(0))
 	{
 		%this.carryPlayer = 0;
-		%player.carryItem = 0;
+		%player.carryObject = 0;
 		return;
 	}
 	%eyePoint = %player.getEyePoint();
@@ -217,11 +260,49 @@ function Item::carryTick(%this)
 	if (vectorDist(%center, %target) > 5)
 	{
 		%this.carryPlayer = 0;
-		%player.carryItem = 0;
+		%player.carryObject = 0;
 		%player.playThread(2, "root");
 		return;
 	}
 
 	%this.setVelocity(vectorScale(vectorSub(%target, %center), 8 / %this.GetDatablock().mass));
+	%this.carrySchedule = %this.schedule(1, "carryTick");
+}
+function Player::carryTick(%this)
+{
+	cancel(%this.carrySchedule);
+	if (!%this.isBody)
+	{
+		%this.carryPlayer = 0;
+		return;
+	}
+	%player = %this.carryPlayer;
+
+	if (!isObject(%player) || %player.getState() $= "Dead")
+	{
+		%this.carryPlayer = 0;
+		return;
+	}
+	if (%player.getMountedImage(0))
+	{
+		%this.carryPlayer = 0;
+		%player.carryObject = 0;
+		return;
+	}
+	%eyePoint = %player.getEyePoint();
+	%eyeVector = %player.getEyeVector();
+
+	%center = %this.getPosition();
+	%target = vectorAdd(%eyePoint, vectorScale(%eyeVector, 3));
+
+	if (vectorDist(%center, %target) > 5)
+	{
+		%this.carryPlayer = 0;
+		%player.carryObject = 0;
+		%player.playThread(2, "root");
+		return;
+	}
+
+	%this.setVelocity(vectorScale(vectorSub(%target, %center), 4));
 	%this.carrySchedule = %this.schedule(1, "carryTick");
 }
