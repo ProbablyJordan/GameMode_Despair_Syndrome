@@ -33,4 +33,11 @@ exec("./src/tools/bucket.cs");
 exec("./src/tools/mop.cs");
 exec("./src/tools/key.cs");
 //src/tools/weapons
+exec("./src/tools/weapons/melee.cs"); //should probably move this to lib but eh
 exec("./src/tools/weapons/testsword.cs");
+exec("./src/tools/weapons/umbrella.cs");
+exec("./src/tools/weapons/cane.cs");
+exec("./src/tools/weapons/wrench.cs");
+exec("./src/tools/weapons/pan.cs");
+exec("./src/tools/weapons/knife.cs");
+swordExplosion.soundProfile = "";

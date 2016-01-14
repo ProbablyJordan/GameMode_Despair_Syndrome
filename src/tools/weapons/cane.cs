@@ -1,10 +1,13 @@
-datablock ItemData(AdvSwordItem)
+////////////////////////////////////////////////////////
+
+datablock ItemData(CaneItem)
 {
 	category = "Weapon";  // Mission editor category
 	className = "Weapon"; // For inventory system
 
 	 // Basic Item Properties
-	shapeFile = $DS::Path @ "res/shapes/tools/sword.dts";
+	shapeFile = $DS::Path @ "res/shapes/tools/Cane.dts";
+	rotate = false;
 	mass = 1;
 	density = 0.2;
 	elasticity = 0.2;
@@ -12,66 +15,55 @@ datablock ItemData(AdvSwordItem)
 	emap = true;
 
 	//gui stuff
-	uiName = "Test Sword";
-	iconName = "add-ons/Weapon_Sword/icon_Sword";
-	doColorShift = true;
-	colorShiftColor = "0.471 0.471 0.471 1.000";
+	uiName = "Cane";
+	iconName = $DS::Path @ "res/icons/icon_Cane";
+	doColorShift = false;
+	colorShiftColor = "0.100 0.500 0.250 1.000";
 
 	 // Dynamic properties defined by the scripts
-	image = AdvSwordImage;
+	image = CaneImage;
+	canDrop = true;
 	canBlock = true; //Can you block w/ rightclick using this weapon?
-	blockImage = AdvSwordBlockImage; //Image to use when blocking
-	blockSound["good"] = MeleeBlockSoundGood;
+	blockImage = CaneBlockImage; //Image to use when blocking
+	blockSound["good"] = MeleeBlockSoundGood; //TODO: Weapon-specific block sounds
 	blockSound["decent"] = MeleeBlockSoundDecent;
 	blockSound["bad"] = MeleeBlockSoundBad;
 	blockBaseDrain = 15; //What stamina drain do you get on best possible block
 	blockMaxDrain = 100; //How much stamina can be possibly drained from you at worst block
 	blockEnemyDrain = 44; //How much stamina to drain from opponent on succesful block
-	canDrop = true;
 };
 
-datablock ShapeBaseImageData(AdvSwordImage)
+////////////////////////////////////////////////////////
+//weapon image//////////////////////////////////////////
+////////////////////////////////////////////////////////
+
+datablock ShapeBaseImageData(CaneImage)
 {
 	// Basic Item properties
-	shapeFile = $DS::Path @ "res/shapes/tools/sword.dts";
+	shapeFile = $DS::Path @ "res/shapes/tools/Cane.dts";
 	emap = true;
-	item = AdvSwordItem;
-	// Specify mount point & offset for 3rd person, and eye offset
-	// for first person rendering.
+
 	mountPoint = 0;
 	offset = "0 0 0";
+	eyeOffset = 0;
+	rotation = eulerToMatrix( "0 0 0" );
 
-	// When firing from a point offset from the eye, muzzle correction
-	// will adjust the muzzle vector to point to the eye LOS point.
-	// Since this weapon doesn't actually fire from the muzzle point,
-	// we need to turn this off.
-	correctMuzzleVector = false;
+	correctMuzzleVector = true;
 
-	// eyeOffset = "0.7 1.2 -0.25";
-
-	// Add the WeaponImage namespace as a parent, WeaponImage namespace
-	// provides some hooks into the inventory system.
 	className = "WeaponImage";
 
-	//melee particles shoot from eye node for consistancy
+	item = CaneItem;
+	ammo = " ";
+	projectile = CaneProjectile;
+	projectileType = Projectile;
+
 	melee = true;
-	doRetraction = false;
-	//raise your arm up or not
-	armReady = false;
+	armReady = true;
 
-	//casing = " ";
-	doColorShift = true;
-	colorShiftColor = "0.471 0.471 0.471 1.000";
-
-	// Images have a state system which controls how the animations
-	// are run, which sounds are played, script callbacks, etc. This
-	// state system is downloaded to the client so that clients can
-	// predict state changes and animate accordingly.  The following
-	// system supports basic ready->fire->reload transitions as
-	// well as a no-ammo->dryfire idle state.
+	doColorShift = false;
+	colorShiftColor = CaneItem.colorShiftColor;//"0.400 0.196 0 1.000";
 
 	// Initial start up state
-
 	stateName[0]					= "Activate";
 	stateAllowImageChange[0]		= 0;
 	stateTimeoutValue[0]			= 0.01;
@@ -90,13 +82,13 @@ datablock ShapeBaseImageData(AdvSwordImage)
 
 	stateName[3]					= "PreFire";
 	stateScript[3]					= "onPreFire";
-	stateTimeoutValue[3]			= 0.2;
+	stateTimeoutValue[3]			= 0.25;
 	stateTransitionOnTimeout[3]		= "Fire";
 	stateAllowImageChange[3]		= false;
 
 	stateName[4]					= "Fire";
 	stateTransitionOnTimeOut[4]		= "Release";
-	stateTimeoutValue[4]			= 0.2;
+	stateTimeoutValue[4]			= 0.1;
 	stateFire[4]					= true;
 	stateAllowImageChange[4]		= false;
 	stateSequence[4]				= "Fire";
@@ -112,12 +104,12 @@ datablock ShapeBaseImageData(AdvSwordImage)
 	raycastEnabled = 1;
 	raycastRange = 3;
 	raycastFromEye = true;
-	directDamage = 25;
-	directDamageType = $DamageType::Sharp;
-	raycastHitExplosion = SwordProjectile;
+	directDamage = 40;
+	directDamageType = $DamageType::Stamina; //Only drains stamina on hit
+	raycastHitExplosion = hammerProjectile;
 };
 
-function AdvSwordImage::onMount(%this, %obj, %slot)
+function CaneImage::onMount(%this, %obj, %slot)
 {
 	%obj.playThread(1, root);
 	if (%obj.getEnergyLevel() < %this.staminaDrain)
@@ -126,19 +118,19 @@ function AdvSwordImage::onMount(%this, %obj, %slot)
 		%obj.setImageAmmo(0, 1);
 }
 
-function AdvSwordImage::onPreFire(%this, %obj, %slot)
+function CaneImage::onPreFire(%this, %obj, %slot)
 {
 	%obj.playThread(1, armReadyRight);
 	%obj.playThread(2, activate);
-	// ServerPlay3D(meleeKnifeSwingSound, %pos);
+	ServerPlay3D(MeleeSwingSound, %obj.getHackPosition());
 }
 
-function AdvSwordImage::EndFire(%this, %obj, %slot)
+function CaneImage::EndFire(%this, %obj, %slot)
 {
 	%obj.playThread(1, root);
 }
 
-function AdvSwordImage::Ready(%this, %obj, %slot)
+function CaneImage::Ready(%this, %obj, %slot)
 {
 	%obj.playThread(1, root);
 	if (%obj.getEnergyLevel() < %this.staminaDrain)
@@ -147,7 +139,7 @@ function AdvSwordImage::Ready(%this, %obj, %slot)
 		%obj.setImageAmmo(0, 1);
 }
 
-function AdvSwordImage::onCheckFire(%this, %obj, %slot)
+function CaneImage::onCheckFire(%this, %obj, %slot)
 {
 	if (%obj.getEnergyLevel() < %this.staminaDrain)
 		%obj.setImageAmmo(0, 0);
@@ -155,7 +147,7 @@ function AdvSwordImage::onCheckFire(%this, %obj, %slot)
 		%obj.setImageAmmo(0, 1);
 }
 
-function AdvSwordImage::onFire(%this, %obj, %slot)
+function CaneImage::onFire(%this, %obj, %slot)
 {
 	if(%obj.getDamagePercent() < 1.0)
 		%obj.playThread(2, shiftTo);
@@ -163,30 +155,16 @@ function AdvSwordImage::onFire(%this, %obj, %slot)
 	parent::onFire(%this, %obj, %slot);
 }
 
-function AdvSwordImage::onRaycastCollision(%this, %obj, %col, %pos, %normal, %vec)
+function CaneImage::onRaycastCollision(%this, %obj, %col, %pos, %normal, %vec)
 {
 	Parent::onRaycastCollision(%this, %obj, %col, %pos, %normal, %vec);
-	ServerPlay3D(swordHitSound, %pos, %col.getDataBlock().isDoor ? 1 : 0);
-	if (!(%col.getType() & $TypeMasks::FxBrickObjectType))
-		return;
-
-	%data = %col.getDataBlock();
-
-	if (!%data.isDoor)
-		return;
-
-	%random = getRandom(9);
-
-	%col.doorHits += %random < 2 ? 0 : (%random < 9 ? 1 : 2);
-
-	if (%col.doorHits >= 6)
-		%col.fakeKillBrick("10 10 0", -1);
+	ServerPlay3D(%col.getType() & $TypeMasks::playerObjectType ? UmbrellaHit1Sound : UmbrellaHit2Sound, %pos);
 }
-
-datablock ShapeBaseImageData(AdvSwordBlockImage : AdvSwordImage)
+//Block image
+datablock ShapeBaseImageData(CaneBlockImage : CaneImage)
 {
 	offset = "0 0 0";
-	rotation = eulerToMatrix("0 -45 0");
+	rotation = eulerToMatrix("0 90 0"); //due to cane
 
 	stateName[0]					= "Activate";
 	stateTimeoutValue[0]			= 0.01;
@@ -197,23 +175,20 @@ datablock ShapeBaseImageData(AdvSwordBlockImage : AdvSwordImage)
 	stateAllowImageChange[1]		= true;
 	stateSequence[1]				= "Ready";
 };
-
-function AdvSwordBlockImage::onMount(%this, %obj, %slot)
+function CaneBlockImage::onMount(%this, %obj, %slot)
 {
 	Parent::onMount(%this,%obj,%slot);
-	%obj.playThread(1, armReadyRight);
-	%obj.playThread(3, shiftLeft);
-	%obj.setArmThread(armAttack);
+	%obj.playThread(1, armReadyBoth);
+	// %obj.setArmThread(look);
 	%obj.isBlocking = true;
 	%obj.lastBlockTime = $Sim::Time;
 	%obj.regenStamina = 0;
-	// serverPlay3D(SwordEquipSound, %obj.getHackPosition());
 }
-function AdvSwordBlockImage::onUnMount(%this, %obj, %slot)
+function CaneBlockImage::onUnMount(%this, %obj, %slot)
 {
 	Parent::onUnMount(%this,%obj,%slot);
 	%obj.playThread(1, root);
-	%obj.setArmThread(look);
+	// %obj.setArmThread(look);
 	%obj.isBlocking = false;
 	%obj.regenStamina = %obj.regenStaminaDefault;
 }

@@ -1,3 +1,7 @@
+AddDamageType("Stamina",	'knocked out %1',	'%2 knocked out %1',0.75,1);
+AddDamageType("Blunt",		'bashed %1',	'%2 bashed %1',0.75,1);
+AddDamageType("Sharp",		'stabbed %1',	'%2 stabbed %1',0.75,1);
+
 //Health
 function Player::updateHealth(%this)
 {
@@ -60,7 +64,10 @@ package DSHealthPackage
 	{
 		parent::playPain(%this);
 	}
-
+	function Player::playDeathCry(%this)
+	{
+		//parent::playDeathCry(%this);
+	}
 	function Armor::onNewDataBlock(%this, %obj)
 	{
 		Parent::onNewDataBlock(%this, %obj);
@@ -101,20 +108,31 @@ package DSHealthPackage
 			return;
 		}
 
-		%dot = vectorDot(%obj.getForwardVector(),%source.getForwardVector());
+		if(%src.getType() & $TypeMasks::PlayerObjectType)
+		{
+			%vector = %src.getForwardVector();
+		}
+		else
+		{
+			%vector = vectorScale(%src.normal, -1);
+		}
+
+		%dot = vectorDot(%obj.getForwardVector(),%vector);
 		%obj.attackCount++;
 		%obj.attackRegion[%obj.attackCount] = %obj.getRegion(%pos);
-		%obj.attackType[%obj.attackCount] = %type;
+		%obj.attackType[%obj.attackCount] = $DamageType_Array[%type];
 		%obj.attackDot[%obj.attackCount] = %dot;
 		%obj.attacker[%obj.attackCount] = %source.getClassName() $= "GameConnection" ? %source : %source.client;
-		// echo("HARM:" SPC %obj.attackCount SPC %obj.attackRegion[%obj.attackCount] SPC %obj.attackType[%obj.attackCount] SPC %obj.attacker[%obj.attackCount].GetPlayerName());
-
+		echo("HARM:" SPC %obj.attackCount SPC %obj.attackRegion[%obj.attackCount] SPC %obj.attackType[%obj.attackCount] SPC %obj.attacker[%obj.attackCount].GetPlayerName());
 		%obj.setDamageFlash(getMax(0.25, %damage / %obj.maxHealth));
+
+		%blood = %type != $DamageType::Stamina && %type != $DamageType::Suicide;
 		%obj.playPain();
-		%obj.doSplatterBlood(3);
+		if (%blood)
+			%obj.doSplatterBlood(3);
 		if (%source.getClassName() $= "Player") //rather good chance of getting blood on yourself
 		{
-			if (getRandom(1, 3) == 1)
+			if (getRandom(1, 3) == 1 && %blood)
 			{
 				%source.bloody["rhand"] = true;
 				// %source.bloody["lhand"] = true; //Idea: bloodify the other hand if player tries to carry the body!
@@ -122,7 +140,7 @@ package DSHealthPackage
 				if (isObject(%source.client))
 					%source.client.applyBodyParts();
 			}
-			if (getRandom(1, 2) == 1)
+			if (getRandom(1, 2) == 1 && %blood)
 			{
 				%obj.bloody["chest_" @ (%dot > 0 ? "back" : "front")] = true; //TODO: take sides into account, too
 				if (isObject(%obj.client))
@@ -133,10 +151,14 @@ package DSHealthPackage
 				%damage *= 1 + %dot; //Double it (or triple, potentially)
 			}
 		}
+		// if (%type & $DamageType::Stamina)
+		// 	%obj.setEnergyLevel(%obj.getEnergyLevel() - %damage);
+		// else
 		%obj.setHealth(%obj.health - %damage);
 		if (%obj.health <= 0)
 		{
-			%obj.doSplatterBlood(10);
+			if (%blood)
+				%obj.doSplatterBlood(10);
 			Parent::damage(%this, %obj, %src, %position, %this.maxDamage * 4, %type);
 		}
 	}

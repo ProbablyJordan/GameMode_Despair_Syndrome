@@ -1,10 +1,27 @@
-datablock ItemData(AdvSwordItem)
+//audio
+datablock AudioProfile(PanHit1Sound)
+{
+	filename    = $DS::Path @ "res/sounds/tools/melee_pan1.wav";
+	description = AudioClose3d;
+	preload = true;
+};
+datablock AudioProfile(PanHit2Sound)
+{
+	filename    = $DS::Path @ "res/sounds/tools/melee_pan2.wav";
+	description = AudioClose3d;
+	preload = true;
+};
+
+////////////////////////////////////////////////////////
+
+datablock ItemData(PanItem)
 {
 	category = "Weapon";  // Mission editor category
 	className = "Weapon"; // For inventory system
 
 	 // Basic Item Properties
-	shapeFile = $DS::Path @ "res/shapes/tools/sword.dts";
+	shapeFile = $DS::Path @ "res/shapes/tools/frying_pan.dts";
+	rotate = false;
 	mass = 1;
 	density = 0.2;
 	elasticity = 0.2;
@@ -12,66 +29,55 @@ datablock ItemData(AdvSwordItem)
 	emap = true;
 
 	//gui stuff
-	uiName = "Test Sword";
-	iconName = "add-ons/Weapon_Sword/icon_Sword";
-	doColorShift = true;
-	colorShiftColor = "0.471 0.471 0.471 1.000";
+	uiName = "Pan";
+	iconName = $DS::Path @ "res/icons/icon_Pan";
+	doColorShift = false;
+	colorShiftColor = "0.100 0.500 0.250 1.000";
 
 	 // Dynamic properties defined by the scripts
-	image = AdvSwordImage;
+	image = PanImage;
+	canDrop = true;
 	canBlock = true; //Can you block w/ rightclick using this weapon?
-	blockImage = AdvSwordBlockImage; //Image to use when blocking
-	blockSound["good"] = MeleeBlockSoundGood;
+	blockImage = PanBlockImage; //Image to use when blocking
+	blockSound["good"] = MeleeBlockSoundGood; //TODO: Weapon-specific block sounds
 	blockSound["decent"] = MeleeBlockSoundDecent;
 	blockSound["bad"] = MeleeBlockSoundBad;
-	blockBaseDrain = 15; //What stamina drain do you get on best possible block
-	blockMaxDrain = 100; //How much stamina can be possibly drained from you at worst block
-	blockEnemyDrain = 44; //How much stamina to drain from opponent on succesful block
-	canDrop = true;
+	blockBaseDrain = 30; //What stamina drain do you get on best possible block
+	blockMaxDrain = 200; //How much stamina can be possibly drained from you at worst block
+	blockEnemyDrain = 22; //How much stamina to drain from opponent on succesful block
 };
 
-datablock ShapeBaseImageData(AdvSwordImage)
+////////////////////////////////////////////////////////
+//weapon image//////////////////////////////////////////
+////////////////////////////////////////////////////////
+
+datablock ShapeBaseImageData(PanImage)
 {
 	// Basic Item properties
-	shapeFile = $DS::Path @ "res/shapes/tools/sword.dts";
+	shapeFile = $DS::Path @ "res/shapes/tools/frying_pan.dts";
 	emap = true;
-	item = AdvSwordItem;
-	// Specify mount point & offset for 3rd person, and eye offset
-	// for first person rendering.
+
 	mountPoint = 0;
 	offset = "0 0 0";
+	eyeOffset = 0;
+	rotation = eulerToMatrix( "0 0 0" );
 
-	// When firing from a point offset from the eye, muzzle correction
-	// will adjust the muzzle vector to point to the eye LOS point.
-	// Since this weapon doesn't actually fire from the muzzle point,
-	// we need to turn this off.
-	correctMuzzleVector = false;
+	correctMuzzleVector = true;
 
-	// eyeOffset = "0.7 1.2 -0.25";
-
-	// Add the WeaponImage namespace as a parent, WeaponImage namespace
-	// provides some hooks into the inventory system.
 	className = "WeaponImage";
 
-	//melee particles shoot from eye node for consistancy
+	item = PanItem;
+	ammo = " ";
+	projectile = PanProjectile;
+	projectileType = Projectile;
+
 	melee = true;
-	doRetraction = false;
-	//raise your arm up or not
-	armReady = false;
+	armReady = true;
 
-	//casing = " ";
-	doColorShift = true;
-	colorShiftColor = "0.471 0.471 0.471 1.000";
-
-	// Images have a state system which controls how the animations
-	// are run, which sounds are played, script callbacks, etc. This
-	// state system is downloaded to the client so that clients can
-	// predict state changes and animate accordingly.  The following
-	// system supports basic ready->fire->reload transitions as
-	// well as a no-ammo->dryfire idle state.
+	doColorShift = false;
+	colorShiftColor = PanItem.colorShiftColor;//"0.400 0.196 0 1.000";
 
 	// Initial start up state
-
 	stateName[0]					= "Activate";
 	stateAllowImageChange[0]		= 0;
 	stateTimeoutValue[0]			= 0.01;
@@ -90,7 +96,7 @@ datablock ShapeBaseImageData(AdvSwordImage)
 
 	stateName[3]					= "PreFire";
 	stateScript[3]					= "onPreFire";
-	stateTimeoutValue[3]			= 0.2;
+	stateTimeoutValue[3]			= 0.15;
 	stateTransitionOnTimeout[3]		= "Fire";
 	stateAllowImageChange[3]		= false;
 
@@ -113,11 +119,11 @@ datablock ShapeBaseImageData(AdvSwordImage)
 	raycastRange = 3;
 	raycastFromEye = true;
 	directDamage = 25;
-	directDamageType = $DamageType::Sharp;
-	raycastHitExplosion = SwordProjectile;
+	directDamageType = $DamageType::Stamina; //Only drains stamina on hit
+	raycastHitExplosion = hammerProjectile;
 };
 
-function AdvSwordImage::onMount(%this, %obj, %slot)
+function PanImage::onMount(%this, %obj, %slot)
 {
 	%obj.playThread(1, root);
 	if (%obj.getEnergyLevel() < %this.staminaDrain)
@@ -126,19 +132,19 @@ function AdvSwordImage::onMount(%this, %obj, %slot)
 		%obj.setImageAmmo(0, 1);
 }
 
-function AdvSwordImage::onPreFire(%this, %obj, %slot)
+function PanImage::onPreFire(%this, %obj, %slot)
 {
 	%obj.playThread(1, armReadyRight);
 	%obj.playThread(2, activate);
-	// ServerPlay3D(meleeKnifeSwingSound, %pos);
+	ServerPlay3D(MeleeSwingSound, %obj.getHackPosition());
 }
 
-function AdvSwordImage::EndFire(%this, %obj, %slot)
+function PanImage::EndFire(%this, %obj, %slot)
 {
 	%obj.playThread(1, root);
 }
 
-function AdvSwordImage::Ready(%this, %obj, %slot)
+function PanImage::Ready(%this, %obj, %slot)
 {
 	%obj.playThread(1, root);
 	if (%obj.getEnergyLevel() < %this.staminaDrain)
@@ -147,7 +153,7 @@ function AdvSwordImage::Ready(%this, %obj, %slot)
 		%obj.setImageAmmo(0, 1);
 }
 
-function AdvSwordImage::onCheckFire(%this, %obj, %slot)
+function PanImage::onCheckFire(%this, %obj, %slot)
 {
 	if (%obj.getEnergyLevel() < %this.staminaDrain)
 		%obj.setImageAmmo(0, 0);
@@ -155,7 +161,7 @@ function AdvSwordImage::onCheckFire(%this, %obj, %slot)
 		%obj.setImageAmmo(0, 1);
 }
 
-function AdvSwordImage::onFire(%this, %obj, %slot)
+function PanImage::onFire(%this, %obj, %slot)
 {
 	if(%obj.getDamagePercent() < 1.0)
 		%obj.playThread(2, shiftTo);
@@ -163,27 +169,13 @@ function AdvSwordImage::onFire(%this, %obj, %slot)
 	parent::onFire(%this, %obj, %slot);
 }
 
-function AdvSwordImage::onRaycastCollision(%this, %obj, %col, %pos, %normal, %vec)
+function PanImage::onRaycastCollision(%this, %obj, %col, %pos, %normal, %vec)
 {
 	Parent::onRaycastCollision(%this, %obj, %col, %pos, %normal, %vec);
-	ServerPlay3D(swordHitSound, %pos, %col.getDataBlock().isDoor ? 1 : 0);
-	if (!(%col.getType() & $TypeMasks::FxBrickObjectType))
-		return;
-
-	%data = %col.getDataBlock();
-
-	if (!%data.isDoor)
-		return;
-
-	%random = getRandom(9);
-
-	%col.doorHits += %random < 2 ? 0 : (%random < 9 ? 1 : 2);
-
-	if (%col.doorHits >= 6)
-		%col.fakeKillBrick("10 10 0", -1);
+	ServerPlay3D(%col.getType() & $TypeMasks::playerObjectType ? PanHit1Sound : PanHit2Sound, %pos);
 }
-
-datablock ShapeBaseImageData(AdvSwordBlockImage : AdvSwordImage)
+//Block image
+datablock ShapeBaseImageData(PanBlockImage : PanImage)
 {
 	offset = "0 0 0";
 	rotation = eulerToMatrix("0 -45 0");
@@ -197,8 +189,7 @@ datablock ShapeBaseImageData(AdvSwordBlockImage : AdvSwordImage)
 	stateAllowImageChange[1]		= true;
 	stateSequence[1]				= "Ready";
 };
-
-function AdvSwordBlockImage::onMount(%this, %obj, %slot)
+function PanBlockImage::onMount(%this, %obj, %slot)
 {
 	Parent::onMount(%this,%obj,%slot);
 	%obj.playThread(1, armReadyRight);
@@ -207,9 +198,8 @@ function AdvSwordBlockImage::onMount(%this, %obj, %slot)
 	%obj.isBlocking = true;
 	%obj.lastBlockTime = $Sim::Time;
 	%obj.regenStamina = 0;
-	// serverPlay3D(SwordEquipSound, %obj.getHackPosition());
 }
-function AdvSwordBlockImage::onUnMount(%this, %obj, %slot)
+function PanBlockImage::onUnMount(%this, %obj, %slot)
 {
 	Parent::onUnMount(%this,%obj,%slot);
 	%obj.playThread(1, root);

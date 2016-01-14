@@ -169,6 +169,11 @@ package DespairSyndromePackage
 		%message = parseCustomTML(%message);
 		commandToClient(%this, 'messageBoxYesNo', "", %message, 'suicideAccept');
 	}
+
+	function serverCmdAlarm(%this)
+	{
+		//Todo: make this "scream" hotkey
+	}
 };
 
 function serverCmdSuicideAccept(%this)

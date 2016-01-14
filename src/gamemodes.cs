@@ -37,6 +37,19 @@ function DSGameMode::onStart(%this, %miniGame)
 		%roomDoor.lockState = true;
 		%roomSpawn = BrickGroup_888888.NTObject["_" @ %room, 0];
 	}
+	// Random items!
+	%name = "_lootSpawn_storage";
+	%choices = "CaneItem UmbrellaItem MonkeyWrenchItem PanItem KnifeItem AdvSwordItem";
+
+	%count = BrickGroup_888888.NTObjectCount[%name];
+
+	for (%i = 0; %i < %count; %i++)
+	{
+		%brick = BrickGroup_888888.NTObject[%name, %i];
+		%pick = getWord(%choices, getRandom(0, getWordCount(%choices) - 1));
+		talk(%pick);
+		%brick.setItem(%pick);
+	}
 	// Give everyone rooms, names, appearances, roles, etc
 	for (%i = 0; %i < %miniGame.numMembers && %freeCount; %i++)
 	{

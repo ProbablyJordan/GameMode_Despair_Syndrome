@@ -152,7 +152,7 @@ function PlayerDSArmor::onTrigger(%this, %obj, %slot, %state)
 
 			%ray = containerRayCast(%a, %b, %mask, %obj);
 
-			if (%ray && %ray.getClassName() $= "Item")// && !isEventPending(%ray.carrySchedule))
+			if (%ray && %ray.getClassName() $= "Item" && !%item.static)// && !isEventPending(%ray.carrySchedule))
 			{
 				if (isEventPending(%ray.carrySchedule) && isObject(%ray.carryPlayer))
 					%ray.carryPlayer.playThread(2, "root");
@@ -161,7 +161,7 @@ function PlayerDSArmor::onTrigger(%this, %obj, %slot, %state)
 				%ray.carryPlayer.carryObject = 0;
 				%ray.carryPlayer = %obj;
 				%ray.carryStart = $Sim::Time;
-				%ray.static = false;
+				// %ray.static = false;
 				%ray.carryTick();
 				%obj.playThread(2, "armReadyBoth");
 			}

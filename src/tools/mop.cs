@@ -9,7 +9,7 @@ datablock ItemData(mopItem)
 	friction = 0.6;
 
 	uiName = "Mop";
-	iconName = $DS::Path @ "res/shapes/icons/icon_Mop";
+	iconName = $DS::Path @ "res/icons/icon_Mop";
 	doColorShift = true;
 	colorShiftColor = "0.4 0.6 0.8";
 

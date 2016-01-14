@@ -1,4 +1,9 @@
 //Default Add-Ons
+ADDON Emote_Alarm
+ADDON Emote_Confusion
+ADDON Emote_Hate
+ADDON Emote_Love
+
 ADDON Brick_Arch 
 ADDON Brick_Large_Cubes 
 

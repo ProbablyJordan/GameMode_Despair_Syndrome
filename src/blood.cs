@@ -382,7 +382,7 @@ datablock ParticleData(bloodParticle)
 	animateTexture		= false;
 	//framesPerSec		= 1;
 
-	textureName		= $DS::Path @ "res/shapes/particles/blood2.png";
+	textureName		= $DS::Path @ "res/particles/blood2.png";
 	//animTexName		= " ";
 
 	// Interpolation variables
@@ -470,7 +470,7 @@ datablock ParticleData(bloodParticle2)
 	animateTexture		= false;
 	//framesPerSec		= 1;
 
-	textureName		= $DS::Path @ "res/shapes/particles/blood3.png";
+	textureName		= $DS::Path @ "res/particles/blood3.png";
 	//animTexName		= " ";
 
 	// Interpolation variables
