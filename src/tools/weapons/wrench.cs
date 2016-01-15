@@ -29,7 +29,7 @@ datablock ItemData(MonkeyWrenchItem)
 	emap = true;
 
 	//gui stuff
-	uiName = "Wrench";
+	uiName = "Monkey Wrench";
 	iconName = $DS::Path @ "res/icons/icon_Wrench";
 	doColorShift = false;
 	colorShiftColor = "0.100 0.500 0.250 1.000";
@@ -165,6 +165,8 @@ function MonkeyWrenchImage::onFire(%this, %obj, %slot)
 {
 	if(%obj.getDamagePercent() < 1.0)
 		%obj.playThread(2, shiftTo);
+	else
+		return; //dead, don't damage
 	%obj.setEnergyLevel(%obj.getEnergyLevel() - %this.staminaDrain);
 	parent::onFire(%this, %obj, %slot);
 }

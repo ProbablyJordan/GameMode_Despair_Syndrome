@@ -1,10 +1,27 @@
 $DS::RoomCount = 16;
+$DS::Time::DayLength = 300; //5 mins
+$DS::Time::NightLength = 150; //2.5 mins
 
 if (!isObject(GameRoundCleanup))
 	new SimSet(GameRoundCleanup);
 
 if (!isObject(GameCharacters))
 	new SimSet(GameCharacters);
+
+function MiniGameSO::DayTimeSchedule(%this)
+{
+	cancel(%this.DayTimeSchedule);
+	if (isEventPending(%this.scheduleReset))
+		return;
+	%this.currtime = %this.currTime $= "Day" ? "Night" : "Day";
+	%time = %this.currTime $= "Day" ? $DS::Time::DayLength : $DS::Time::NightLength;
+	%this.messageAll('', '\c5It is now \c3%1\c5.', %this.currTime);
+	if (%this.currTime $= "Day")
+		%this.gameMode.onDay(%this);
+	else
+		%this.gameMode.onNight(%this);
+	%this.DayTimeSchedule = %this.schedule(%time * 1000, "DayTimeSchedule");
+}
 
 package DespairSyndromePackage
 {
@@ -68,11 +85,11 @@ package DespairSyndromePackage
 
 		if (!isObject($DS::GameMode))
 			$DS::GameMode = DSGameMode_Default;
-
 		%this.gameMode = $DS::GameMode;
-
 		Parent::reset(%this, %client);
 		%this.gameMode.onStart(%this);
+		%this.currTime = "";
+		%this.DayTimeSchedule();
 	}
 
 	function MiniGameSO::checkLastManStanding(%this)
@@ -107,8 +124,8 @@ package DespairSyndromePackage
 				%player.tempBrick.delete();
 				%player.tempBrick = 0;
 			}
-
 			%player.isBody = true;
+			%player.character = %client.character;
 			%player.client = 0;
 		}
 		else
@@ -173,6 +190,11 @@ package DespairSyndromePackage
 	function serverCmdAlarm(%this)
 	{
 		//Todo: make this "scream" hotkey
+	}
+
+	function serverCmdLight(%this)
+	{
+		//Todo: make this something else
 	}
 };
 

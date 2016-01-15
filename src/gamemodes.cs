@@ -146,3 +146,35 @@ function DSGameMode::checkLastManStanding(%this, %miniGame)
 		%this.onEnd(%miniGame, %winner);
 	}
 }
+function DSGameMode::onDay(%this, %miniGame)
+{
+	setEnvironment("fogDistance", 100);
+	setEnvironment("visibleDistance", 100);
+	setEnvironment("fogColor", "0.85 0.71 0.575");
+	%miniGame.messageAll('', '\c5All water in the building has resumed function. Cafeteria has been unlocked.');
+	%name = "_sink";
+	%count = BrickGroup_888888.NTObjectCount[%name];
+	for (%i = 0; %i < %count; %i++)
+	{
+		%brick = BrickGroup_888888.NTObject[%name, %i];
+		%brick.eventEnabled0 = true;
+		%brick.eventEnabled1 = true;
+		%brick.eventEnabled2 = false;
+	}
+}
+function DSGameMode::onNight(%this, %miniGame)
+{
+	setEnvironment("fogDistance", 0);
+	setEnvironment("visibleDistance", 10);
+	setEnvironment("fogColor", "0 0 0.2");
+	%miniGame.messageAll('', '\c5All water in the building has been disabled for the night. Cafeteria will be off-limits in 30 seconds.');
+	%name = "_sink";
+	%count = BrickGroup_888888.NTObjectCount[%name];
+	for (%i = 0; %i < %count; %i++)
+	{
+		%brick = BrickGroup_888888.NTObject[%name, %i];
+		%brick.eventEnabled0 = false;
+		%brick.eventEnabled1 = false;
+		%brick.eventEnabled2 = true;
+	}
+}

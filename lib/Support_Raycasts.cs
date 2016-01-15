@@ -142,7 +142,7 @@ function WeaponImage::onRaycastCollision(%this, %obj, %col, %pos, %normal, %vec)
 			datablock = %this.raycastHitExplosion;
 
 			initialPosition = %pos;
-			initialVelocity = 0;
+			initialVelocity = %normal;
 		};
 
 		MissionCleanup.add(%explosion);

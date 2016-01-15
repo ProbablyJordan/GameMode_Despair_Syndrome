@@ -3,6 +3,7 @@ $DS::Path = filePath(expandFileName("./description.txt")) @ "/";
 //lib
 exec("./lib/colors.cs");
 exec("./lib/decals.cs");
+exec("./lib/environment.cs");
 exec("./lib/itemprops.cs");
 exec("./lib/math-angles-vectors.cs");
 exec("./lib/player-hit-region.cs");

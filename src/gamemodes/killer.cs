@@ -17,7 +17,7 @@ function DSGameMode_Killer::onStart(%this, %miniGame)
 	echo(%this.killer.getPlayerName());
 	%this.killer.player.addTool(AdvSwordItem);
 	%this.killer.player.regenStaminaDefault *= 2;
-	messageClient(%this.killer, '', '\c3You are the killer!\c6 You have been given a sword and faster stamina regen. Kill everyone to win!');
+	messageClient(%this.killer, '', '<font:impact:30>You are the killer! You have been given a sword and faster stamina regen. Kill everyone to win!');
 }
 function DSGameMode_Killer::onEnd(%this, %miniGame, %winner)
 {
@@ -39,9 +39,9 @@ function DSGameMode_Killer::checkLastManStanding(%this, %miniGame)
 			%alivePlayers[%count++] = %member;
 	}
 	%winner = "";
-	if (%count <= 1 && %alivePlayers[%count] == %this.killer)
+	if (%count <= 1 && %alivePlayers[%count] $= %this.killer)
 	{
-		%winner = %alivePlayers[%count];
+		%this.onEnd(%miniGame, %alivePlayers[%count]);
 	}
 	else if (!isObject(%this.killer.player))
 		%this.onEnd(%miniGame, %winner);	

@@ -29,6 +29,42 @@ function linkify(%text)
 	return %text;
 }
 
+
+function serverCmdMe(%client, %m1, %m2, %m3, %m4, %m5, %m6, %m7, %m8, %m9, %m10, %m11, %m12, %m13, %m14, %m15, %m16, %m17, %m18, %m19, %m20, %m20, %m22, %m23, %m24)
+{
+	if (!isObject(%client.player))
+		return;
+	%text = %m1;
+	for (%i=2; %i<=24; %i++)
+		%text = %text SPC %m[%i];
+	%text = trim(stripMLControlChars(%text));
+	if (%text $= "")
+		return;
+	%name = %client.getPlayerName();
+	if (isObject(%client.character))
+		%name = %client.character.name;
+
+	%count = ClientGroup.getCount();
+	for (%i = 0; %i < %count; %i++)
+	{
+		%other = ClientGroup.getObject(%i);
+		if (%other.inDefaultGame() && isObject(%other.player))
+		{
+			%a = %other.player.getEyePoint();
+			%b = %client.player.getEyePoint();
+			%mask = $TypeMasks::All ^ $TypeMasks::FxBrickAlwaysObjectType;
+			%ray = containerRayCast(%a, %b, %mask, %client.player);
+			if (%ray && %ray.getClassName() !$= "Player") //Can't see emote
+				continue;
+			if (vectorDist(%client.player.getEyePoint(), %other.player.getEyePoint()) > 24) //Out of range
+				continue;
+		}
+
+		messageClient(%other, '', '<color:ffaa44>%1<color:ffcc66> %2',
+							%name, %text);
+	}
+}
+
 package ChatPackage
 {
 	function serverCmdStartTalking(%client)
@@ -56,18 +92,18 @@ package ChatPackage
 
 		%structure = '<color:ffaa44>%1<color:ffffff> %3, \"%2\"';
 		%does = "says";
-		%range = 32;
+		%range = 24;
 		if (getSubStr(%text, 0, 1) $= "!") //shouting
 		{
 			%text = getSubStr(%text, 1, strLen(%text));
 			%does = "shouts";
-			%range = 64;
+			%range = 50;
 		}
 		else if(getSubStr(%text, 0, 1) $= "@") //Whispering
 		{
 			%text = getSubStr(%text, 1, strLen(%text));
 			%does = "whispers";
-			%range = 8;
+			%range = 4;
 		}
 
 		if (%text $= "")
@@ -83,7 +119,7 @@ package ChatPackage
 		{
 			%other = ClientGroup.getObject(%i);
 
-			if (!isObject(%client.player)) //dead chat
+			if (!isObject(%client.player) || !%client.inDefaultGame()) //dead chat
 			{
 				%structure = '<color:444444>[DEAD] %1<color:aaaaaa>: %2';
 				if (!%client.hasSpawnedOnce)
@@ -95,12 +131,12 @@ package ChatPackage
 			{
 				%playerZone = getZoneFromPos(%other.player.getEyePoint());
 				%otherZone = getZoneFromPos(%client.player.getEyePoint());
-				if (!%ignoreSrcSZ && isObject(%playerZone) && %playerZone.isSoundProof && (!isObject(%otherZone) || %otherZone != %playerZone))
+				if (isObject(%playerZone) && %playerZone.isSoundProof && (!isObject(%otherZone) || %otherZone != %playerZone))
 				{
 					// talk("The sound was made in soundproof zone. Player" SPC %client.getPlayerName() SPC "didn't hear it!");
 					continue;
 				}
-				if (!%ignorePlayerSZ && isObject(%otherZone) && %otherZone.isSoundProof && (!isObject(%playerZone) || %playerZone != %otherZone))
+				if (isObject(%otherZone) && %otherZone.isSoundProof && (!isObject(%playerZone) || %playerZone != %otherZone))
 				{
 					// talk("The player is in a soundproof zone. Player" SPC %client.getPlayerName() SPC "didn't hear it!");
 					continue;
@@ -137,4 +173,5 @@ package ChatPackage
 	}
 };
 
-activatePackage("ChatPackage");
+if ($GameModeArg $= ($DS::Path @ "gamemode.txt"))
+	activatePackage("ChatPackage");

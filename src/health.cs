@@ -62,7 +62,8 @@ package DSHealthPackage
 {
 	function Player::playPain(%this)
 	{
-		parent::playPain(%this);
+		//parent::playPain(%this);
+		serverPlay3d(painSound, %this.getHackPosition());
 	}
 	function Player::playDeathCry(%this)
 	{
@@ -123,10 +124,10 @@ package DSHealthPackage
 		%obj.attackType[%obj.attackCount] = $DamageType_Array[%type];
 		%obj.attackDot[%obj.attackCount] = %dot;
 		%obj.attacker[%obj.attackCount] = %source.getClassName() $= "GameConnection" ? %source : %source.client;
-		echo("HARM:" SPC %obj.attackCount SPC %obj.attackRegion[%obj.attackCount] SPC %obj.attackType[%obj.attackCount] SPC %obj.attacker[%obj.attackCount].GetPlayerName());
+		// echo("HARM:" SPC %obj.attackCount SPC %obj.attackRegion[%obj.attackCount] SPC %obj.attackType[%obj.attackCount] SPC %obj.attacker[%obj.attackCount].GetPlayerName());
 		%obj.setDamageFlash(getMax(0.25, %damage / %obj.maxHealth));
 
-		%blood = %type != $DamageType::Stamina && %type != $DamageType::Suicide;
+		%blood = %type != $DamageType::Suicide;//&& %type != $DamageType::Stamina;
 		%obj.playPain();
 		if (%blood)
 			%obj.doSplatterBlood(3);

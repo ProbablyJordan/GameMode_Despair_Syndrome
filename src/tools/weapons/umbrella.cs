@@ -165,6 +165,8 @@ function UmbrellaImage::onFire(%this, %obj, %slot)
 {
 	if(%obj.getDamagePercent() < 1.0)
 		%obj.playThread(2, shiftTo);
+	else
+		return; //dead, don't damage
 	%obj.setEnergyLevel(%obj.getEnergyLevel() - %this.staminaDrain);
 	parent::onFire(%this, %obj, %slot);
 }

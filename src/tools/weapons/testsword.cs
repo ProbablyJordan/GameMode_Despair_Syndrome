@@ -1,3 +1,10 @@
+datablock AudioProfile(WoodHitSound)
+{
+	filename = $DS::Path @ "res/sounds/physics/woodhit.wav";
+	description = AudioClosest3d;
+	preload = true;
+};
+
 datablock ItemData(AdvSwordItem)
 {
 	category = "Weapon";  // Mission editor category
@@ -159,6 +166,8 @@ function AdvSwordImage::onFire(%this, %obj, %slot)
 {
 	if(%obj.getDamagePercent() < 1.0)
 		%obj.playThread(2, shiftTo);
+	else
+		return; //dead, don't damage
 	%obj.setEnergyLevel(%obj.getEnergyLevel() - %this.staminaDrain);
 	parent::onFire(%this, %obj, %slot);
 }
@@ -166,7 +175,7 @@ function AdvSwordImage::onFire(%this, %obj, %slot)
 function AdvSwordImage::onRaycastCollision(%this, %obj, %col, %pos, %normal, %vec)
 {
 	Parent::onRaycastCollision(%this, %obj, %col, %pos, %normal, %vec);
-	ServerPlay3D(swordHitSound, %pos, %col.getDataBlock().isDoor ? 1 : 0);
+	ServerPlay3D(%col.getType() & $TypeMasks::FxBrickObjectType ? woodHitSound : swordHitSound, %pos, %col.getDataBlock().isDoor ? 1 : 0);
 	if (!(%col.getType() & $TypeMasks::FxBrickObjectType))
 		return;
 

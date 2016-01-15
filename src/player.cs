@@ -1,5 +1,5 @@
 //NOTE TO SELF: TSShapeConstructor has to be done BEFORE player datablock.
-datablock TSShapeConstructor(m_despairsyndromeDts) {
+datablock TSShapeConstructor(mDespairsyndromeDts) {
 	baseShape = "base/data/shapes/player/m_despairsyndrome.dts";
 	sequence0 = "base/data/shapes/player/m_root.dsq root";
 	sequence1 = "base/data/shapes/player/m_run.dsq run";
@@ -129,7 +129,6 @@ function PlayerDSArmor::onTrigger(%this, %obj, %slot, %state)
 	if(%slot == 0)
 	{
 		%item = %obj.carryObject;
-
 		if (isObject(%item) && isEventPending(%item.carrySchedule) && %item.carryPlayer $= %obj)
 		{
 			%time = $Sim::Time - %item.carryStart;
@@ -148,6 +147,7 @@ function PlayerDSArmor::onTrigger(%this, %obj, %slot, %state)
 			%mask =
 				$TypeMasks::FxBrickObjectType |
 				$TypeMasks::PlayerObjectType |
+				$TypeMasks::CorpseObjectType |
 				$TypeMasks::ItemObjectType;
 
 			%ray = containerRayCast(%a, %b, %mask, %obj);
@@ -182,23 +182,34 @@ function PlayerDSArmor::onTrigger(%this, %obj, %slot, %state)
 						break;
 					}
 				}
-				if (isObject(%found))
+				if (isObject(%found) && vectorDist(%found.getPosition(), %pos) < 2)
 				{
-					if (isEventPending(%col.carrySchedule) && isObject(%col.carryPlayer))
-						%col.carryPlayer.playThread(2, "root");
-					%obj.carryObject = %col;
-					%col.carryPlayer.carryObject = 0;
-					%col.carryPlayer = %obj;
-					%col.carryStart = $Sim::Time;
-					%col.carryTick();
-					%obj.bloody["rhand"] = true;
-					%obj.bloody["lhand"] = true;
-					if (isObject(%obj.client))
+					if ($Sim::Time - %obj.lastBodyClick < 0.3) //Double-click to carry bodies
 					{
-						%obj.client.applyBodyParts();
-						%obj.client.applyBodyColors();
+						if (isEventPending(%col.carrySchedule) && isObject(%col.carryPlayer))
+							%col.carryPlayer.playThread(2, "root");
+						%obj.carryObject = %col;
+						%col.carryPlayer.carryObject = 0;
+						%col.carryPlayer = %obj;
+						%col.carryStart = $Sim::Time;
+						%col.carryTick();
+						%obj.bloody["rhand"] = true;
+						%obj.bloody["lhand"] = true;
+						if (isObject(%obj.client))
+						{
+							%obj.client.applyBodyParts();
+							%obj.client.applyBodyColors();
+						}
+						%obj.playThread(2, "armReadyBoth");
 					}
-					%obj.playThread(2, "armReadyBoth");
+					else
+					{
+						%text = "\c6This is" SPC (isObject(%found.character) ? %found.character.name : "Unknown") @ "'s corpse.";
+						%text = %text SPC "\n\c3Click twice to carry.";
+						if (isObject(%obj.client))
+							%obj.client.centerPrint(%text, 3);
+					}
+					%obj.lastBodyClick = $Sim::Time;
 				}
 			}
 		}
@@ -228,7 +239,9 @@ function PlayerDSArmor::onTrigger(%this, %obj, %slot, %state)
 		{
 			%obj.running = false;
 			%obj.regenStamina = %obj.regenStaminaDefault;
-			%obj.setMaxForwardSpeed(%this.maxForwardSpeed);
+			%obj.setMaxForwardSpeed(%obj.getDataBlock().maxForwardSpeed);
+			%obj.setMaxSideSpeed(%obj.getDataBlock().maxSideSpeed);
+			%obj.setMaxBackwardSpeed(%obj.getDataBlock().maxBackwardSpeed);
 			%obj.monitorEnergyLevel();
 		}
 	}

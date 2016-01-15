@@ -85,13 +85,14 @@ datablock ShapeBaseImageData(CaneImage)
 	stateTimeoutValue[3]			= 0.25;
 	stateTransitionOnTimeout[3]		= "Fire";
 	stateAllowImageChange[3]		= false;
+	stateSequence[3]				= "attackA";
 
 	stateName[4]					= "Fire";
 	stateTransitionOnTimeOut[4]		= "Release";
 	stateTimeoutValue[4]			= 0.1;
 	stateFire[4]					= true;
 	stateAllowImageChange[4]		= false;
-	stateSequence[4]				= "Fire";
+	stateSequence[4]				= "attackB";
 	stateScript[4]					= "onFire";
 	stateWaitForTimeout[4]			= true;
 
@@ -151,6 +152,8 @@ function CaneImage::onFire(%this, %obj, %slot)
 {
 	if(%obj.getDamagePercent() < 1.0)
 		%obj.playThread(2, shiftTo);
+	else
+		return; //dead, don't damage
 	%obj.setEnergyLevel(%obj.getEnergyLevel() - %this.staminaDrain);
 	parent::onFire(%this, %obj, %slot);
 }
