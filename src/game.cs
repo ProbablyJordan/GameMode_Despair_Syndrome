@@ -47,6 +47,13 @@ package DespairSyndromePackage
 			Parent::removeBody(%this);
 	}
 
+	function Player::mountImage(%this, %image, %slot, %loaded, %skinTag)
+	{
+		if (isObject(%this.client) && %this.client.inDefaultGame() && (%image.isWeapon && $DefaultMiniGame.noWeapons))
+			return;
+		parent::mountImage(%this, %image, %slot, %loaded, %skinTag);
+	}
+
 	function Armor::onUnMount(%this, %obj, %slot)
 	{
 		Parent::onUnMount(%data, %obj, %slot);
@@ -176,6 +183,7 @@ package DespairSyndromePackage
 
 		commandToClient(%client, 'CenterPrint', '', 1);
 		%client.miniGame.checkLastManStanding();
+		%client.miniGame.gameMode.onDeath(%miniGame, %client, %sourceObject, %sourceClient, %damageType, %damLoc);
 	}
 
 	function serverCmdSuicide(%this, %bypass)

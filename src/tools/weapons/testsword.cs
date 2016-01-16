@@ -116,6 +116,7 @@ datablock ShapeBaseImageData(AdvSwordImage)
 
 	staminaDrain = 15;
 
+	isWeapon = true;
 	raycastEnabled = 1;
 	raycastRange = 3;
 	raycastFromEye = true;
@@ -175,7 +176,7 @@ function AdvSwordImage::onFire(%this, %obj, %slot)
 function AdvSwordImage::onRaycastCollision(%this, %obj, %col, %pos, %normal, %vec)
 {
 	Parent::onRaycastCollision(%this, %obj, %col, %pos, %normal, %vec);
-	ServerPlay3D(%col.getType() & $TypeMasks::FxBrickObjectType ? woodHitSound : swordHitSound, %pos, %col.getDataBlock().isDoor ? 1 : 0);
+	ServerPlay3D((%col.getType() & $TypeMasks::FxBrickObjectType) ? woodHitSound : swordHitSound, %pos, %col.getDataBlock().isDoor ? 1 : 0);
 	if (!(%col.getType() & $TypeMasks::FxBrickObjectType))
 		return;
 

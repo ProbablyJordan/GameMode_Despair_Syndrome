@@ -113,8 +113,9 @@ datablock ShapeBaseImageData(UmbrellaImage)
 	stateTransitionOnTriggerUp[5]	= "Ready";
 	stateScript[5]					= "EndFire";
 
-	staminaDrain = 15;
+	staminaDrain = 25;
 
+	isWeapon = true;
 	raycastEnabled = 1;
 	raycastRange = 3;
 	raycastFromEye = true;

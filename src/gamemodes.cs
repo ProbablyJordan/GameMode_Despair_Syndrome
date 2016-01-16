@@ -8,6 +8,7 @@ function DSGameMode::onAdd(%this)
 }
 function DSGameMode::onStart(%this, %miniGame)
 {
+	$DefaultMiniGame.noWeapons = false;
 	%miniGame.messageAll('', '\c5A new round has started. Current mode is: %1! %2', %this.name, %this.desc);
 
 	// Close *all* doors
@@ -57,7 +58,7 @@ function DSGameMode::onStart(%this, %miniGame)
 		%player = %member.player;
 
 		if (!isObject(%player))
-			return;
+			continue;
 
 		%freeCount--;
 		%freeIndex = getRandom(%freeCount);
@@ -87,8 +88,9 @@ function DSGameMode::onStart(%this, %miniGame)
 
 		%roomDoor = BrickGroup_888888.NTObject["_door_r" @ %room, 0];
 		%roomSpawn = BrickGroup_888888.NTObject["_" @ %room, 0];
-
-		%player.setTransform(%roomSpawn.getTransform());
+		%point = %roomSpawn.getTransform();
+		%point = setWord(%point, 2, getWord(%brick.getWorldBox(), 5) + 0.1);
+		%player.setTransform(%point);
 		%player.setShapeName(%character.name, 8564862);
 
 		if (%character.gender $= "female")
@@ -177,4 +179,7 @@ function DSGameMode::onNight(%this, %miniGame)
 		%brick.eventEnabled1 = false;
 		%brick.eventEnabled2 = true;
 	}
+}
+function DSGameMode::onDeath(%this, %miniGame, %client, %sourceObject, %sourceClient, %damageType, %damLoc)
+{
 }

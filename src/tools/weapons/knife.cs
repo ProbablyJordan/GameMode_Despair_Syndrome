@@ -134,6 +134,7 @@ datablock ShapeBaseImageData(KnifeImage)
 
 	staminaDrain = 12;
 
+	isWeapon = true;
 	raycastEnabled = 1;
 	raycastRange = 2.5;
 	raycastFromEye = true;
