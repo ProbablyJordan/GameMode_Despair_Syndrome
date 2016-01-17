@@ -209,15 +209,28 @@ function PlayerDSArmor::onTrigger(%this, %obj, %slot, %state)
 					{
 						%text = "\c6This is" SPC (isObject(%found.character) ? %found.character.name : "Unknown") @ "'s corpse.";
 						//Unfinished body examination flavortext below
-						// for (%i=1;%i<=%found.attackCount;%i++)
+						//"Their head has 2 cuts and 1 bruises from behind, 1 cut from the side and 1 cut from the front." -- Intended results
+						// %affectedLimbs = "";
+						for (%i=1;%i<=%found.attackCount;%i++) //Parse attack logs for info
+						{
+							// if (strPos(%affectedLimbs, %found.attackRegion[%i]) == -1)
+							// 	%affectedLimbs = getWordCount(%affectedLimbs) > 0 ? %affectedLimbs SPC %found.attackRegion[%i] : %found.attackRegion[%i];
+							// %limbDamageCount[%found.attackRegion[%i]]++;
+							%damageCount[%found.attackDot[%i] > 0 ? "back" : "front"]++;
+						}
+						// for (%i=0;%i<getWordCount(%affectedLimbs);%i++) //Parse affected limbs
 						// {
-						// 	%text = "Their" SPC getLimbName(%found.attackRegion[%found.attackCount]) "is bruised/cut/whateverthefuck"
-						// 	%found.attackType[%found.attackCount]
-						// 	%found.attackDot[%found.attackCount]
+						// 	%limb = getWord(%affectedLimbs, %i);
+						// 	%text = %text @ "\n\c6Their" SPC %limb SPC "has";
+						// 	%text = %text SPC %limbDamageCount[%limb] SPC "wounds.";
 						// }
-						%text = %text SPC "\n\c3Click twice to carry.";
+						if (%damageCount["back"] > 0)
+							%text = %text @ "\n\c6They have" SPC %damageCount["back"] SPC "wounds from behind.";
+						if (%damageCount["front"] > 0)
+							%text = %text @ "\n\c6They have" SPC %damageCount["front"] SPC "wounds from the front.";
+						%text = %text @ "\n\n\c3Click twice to carry.";
 						if (isObject(%obj.client))
-							%obj.client.centerPrint(%text, 3);
+							%obj.client.centerPrint(%text, 6);
 					}
 					%obj.lastBodyClick = $Sim::Time;
 				}

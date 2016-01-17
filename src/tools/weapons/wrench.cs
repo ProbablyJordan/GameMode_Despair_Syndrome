@@ -175,7 +175,25 @@ function MonkeyWrenchImage::onFire(%this, %obj, %slot)
 function MonkeyWrenchImage::onRaycastCollision(%this, %obj, %col, %pos, %normal, %vec)
 {
 	Parent::onRaycastCollision(%this, %obj, %col, %pos, %normal, %vec);
-	ServerPlay3D(%col.getType() & $TypeMasks::playerObjectType ? WrenchHit1Sound : WrenchHit2Sound, %pos);
+	ServerPlay3D(%col.getType() & $TypeMasks::playerObjectType ? WrenchHit1Sound : WrenchHit2Sound, %pos, %col.getDataBlock().isDoor ? 1 : 0);
+	if (!(%col.getType() & $TypeMasks::FxBrickObjectType))
+		return;
+
+	%data = %col.getDataBlock();
+
+	if (!%data.isDoor)
+		return;
+
+	%random = getRandom(9);
+
+	%col.doorHits += %random < 2 ? 0 : (%random < 9 ? 1 : 2);
+
+	if (%col.doorHits >= 6)
+	{
+		%col.doorOpen(%col.isCCW, %obj.client);
+		%col.lockState = false;
+		%col.broken = true;
+	}
 }
 //Block image
 datablock ShapeBaseImageData(WrenchBlockImage : MonkeyWrenchImage)

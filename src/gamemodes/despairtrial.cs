@@ -12,14 +12,15 @@ if (!isObject(DSGameMode_Trial))
 function DSGameMode_Trial::onStart(%this, %miniGame)
 {
 	parent::onStart(%this, %miniGame);
-	activatepackage(DSTrialPackge);
-	%miniGame.messageAll('', '<font:impact:20>\c3DO NOT MURDER WITHOUT REASON THIS ROUND UNLESS YOU\'RE THE KILLER!!');
-	%this.killer = %miniGame.member[getRandom(0, %miniGame.numMembers - 1)];
-	%this.killer.player.regenStaminaDefault *= 2;
 	%this.deathCount = 0;
-	%msg = '<font:impact:20>You are plotting murder against someone! Kill them and do it in such a way that nobody finds out it\'s you!!';
-	messageClient(%this.killer, '', %msg);
-	%this.killer.bottomPrint(%msg, 10);
+	%this.vote = false;
+	cancel(%this.trialSchedule);
+	activatepackage(DSTrialPackge);
+	%miniGame.messageAll('', '\c5The culprit will be decided on by night. The first day doesn\'t have a killer, so use this time to study each other\'s behaviours.');
+	%miniGame.messageAll('', '\c5The lore is that everyone was dragged into a murder game by a psycho mastermind. Nobody knows who the mastermind is...');
+	%miniGame.messageAll('', '\c5Rules are: The culprit kills someone and has to get away with it. Once bodies are found, investigation period starts, and after that, the vote.');
+	%miniGame.messageAll('', '\c5If you guys vote the CORRECT CULPRIT, everyone survives and culprit dies. HOWEVER, if you guys are WRONG, the culprit lives and EVERYONE ELSE DIES.');
+	%miniGame.messageAll('', '<font:impact:30>\c3DO NOT MURDER WITHOUT REASON THIS ROUND UNLESS YOU\'RE THE CULPRIT!!');
 }
 function DSGameMode_Trial::onEnd(%this, %miniGame, %winner)
 {
@@ -27,8 +28,6 @@ function DSGameMode_Trial::onEnd(%this, %miniGame, %winner)
 		return;
 	cancel(%this.trialSchedule);
 	deactivatepackage(DSTrialPackge);
-	if (isObject(%this.ballot))
-		%this.ballot.delete();
 	%this.vote = false;
 	%endtext = isObject(%winner) && %winner == %this.killer ? "\c3The killer wins!" : "\c3The killer loses!";
 	%endtext = %endtext SPC %this.killer.getPlayerName() @ (isObject(%this.killer.character) ? " (" @ %this.killer.character.name @ ")" : "") SPC "was the killer this round.";
@@ -73,6 +72,13 @@ function DSGameMode_Trial::onNight(%this, %miniGame)
 		%miniGame.messageAll('', '\c5Picking the right murderer will mean that you guys win! However, if you guys pick the WRONG culprit... \c0EVERYONE DIES!');
 		%this.trialSchedule = %this.schedule(300000, "trialStart", %miniGame);
 		%miniGame.DisableWeapons();
+	}
+	if (!isObject(%this.killer))
+	{
+		%this.killer = isObject($DS::ForceKiller) ? $DS::ForceKiller : %miniGame.member[getRandom(0, %miniGame.numMembers - 1)];
+		%msg = "<font:impact:30>You are plotting murder against someone! Kill them and do it in such a way that nobody finds out it\'s you!";
+		messageClient(%this.killer, '', %msg);
+		%this.killer.bottomPrint(%msg, 60);
 	}
 }
 function DSGameMode_Trial::trialStart(%this, %miniGame)
@@ -129,6 +135,14 @@ package DSTrialPackge
 		%search = trim(%a SPC %b);
 		%miniGame = %client.miniGame;
 		if (!%miniGame.gameMode.vote) return;
+		for (%i = 1; %i <= %miniGame.gameMode.voteCount; %i++)
+		{
+			if (%miniGame.gameMode.voters[%i] == %client)
+			{
+				messageClient(%client, '', '\c6You already voted!');
+				return;
+			}
+		}
 		%a = 0;
 		for (%i = 0; %i < %miniGame.numMembers; %i++)
 		{

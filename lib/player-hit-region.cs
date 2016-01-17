@@ -51,7 +51,7 @@ function Player::getRegion(%this, %position, %clamp)
 function getLimbName(%region)
 {
 	%r = %region;
-	switch (%region)
+	switch$ (%region)
 	{
 		case "head": %r = "Head";
 		case "chest": %r = "Chest";
@@ -60,5 +60,6 @@ function getLimbName(%region)
 		case "lleg": %r = "Left leg";
 		case "rarm": %r = "Right Arm";
 		case "larm": %r = "Left Arm";
+		default: %r = "Error";
 	}
 }

@@ -57,7 +57,11 @@ package KeyPackage
 {
 	function FxDTSBrick::door(%this, %state, %client)
 	{
-		if (%this.lockId !$= "" && %this.lockState)
+		if (%this.broken)
+		{
+			%client.centerPrint("\c2The door lock is broken...", 2);
+		}
+		else if (%this.lockId !$= "" && %this.lockState)
 		{
 			%client.centerPrint("\c2The door is locked.", 2);
 			serverPlay3d(DoorJiggleSound, %this.getWorldBoxCenter(), 1);
