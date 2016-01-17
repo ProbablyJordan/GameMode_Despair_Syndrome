@@ -17,7 +17,9 @@ function DSGameMode_Trial::onStart(%this, %miniGame)
 	%this.killer = %miniGame.member[getRandom(0, %miniGame.numMembers - 1)];
 	%this.killer.player.regenStaminaDefault *= 2;
 	%this.deathCount = 0;
-	messageClient(%this.killer, '', '<font:impact:20>You are plotting murder against someone! Kill them and do it in such a way that nobody finds out it\'s you!!');
+	%msg = '<font:impact:20>You are plotting murder against someone! Kill them and do it in such a way that nobody finds out it\'s you!!';
+	messageClient(%this.killer, '', %msg);
+	%this.killer.bottomPrint(%msg, 10);
 }
 function DSGameMode_Trial::onEnd(%this, %miniGame, %winner)
 {
@@ -45,6 +47,7 @@ function DSGameMode_Trial::onDeath(%this, %miniGame, %client, %sourceObject, %so
 	else if (%this.killer != %sourceClient) //Freekill?
 	{
 		//Maybe penalize?
+		echo("\c2" SPC %sourceClient.getPlayerName() SPC "just killed" SPC %client.getPlayerName() SPC "as a non-killer.");
 		return;
 	}
 
@@ -55,19 +58,10 @@ function DSGameMode_Trial::onDay(%this, %miniGame)
 	parent::onDay(%this, %miniGame);
 	if (%this.deathCount > 0 && !isEventPending(%this.trialSchedule) && !%this.vote)
 	{
-		%miniGame.messageAll('', '\c5One or more bodies have been discovered on school premises! You guys have 5 minutes to investigate them before voting period starts.');
+		%miniGame.messageAll('', '\c0One or more bodies have been discovered on school premises! \c5You guys have 5 minutes to investigate them before voting period starts.');
 		%miniGame.messageAll('', '\c5Picking the right murderer will mean that you guys win! However, if you guys pick the WRONG culprit... \c0EVERYONE DIES!');
 		%this.trialSchedule = %this.schedule(300000, "trialStart", %miniGame);
-		%miniGame.noWeapons = true;
-		for (%i = 0; %i < %miniGame.numMembers; %i++)
-		{
-			%member = %miniGame.member[%i];
-			%player = %member.player;
-			if (!isObject(%player))
-				continue;
-			if (%player.getMountedImage(0) && %player.getMountedImage(0).isWeapon)
-				%player.unMountImage(0);
-		}
+		%miniGame.DisableWeapons();
 	}
 }
 function DSGameMode_Trial::onNight(%this, %miniGame)
@@ -75,19 +69,10 @@ function DSGameMode_Trial::onNight(%this, %miniGame)
 	parent::onNight(%this, %miniGame);
 	if (%this.deathCount > 0 && !isEventPending(%this.trialSchedule) && !%this.vote)
 	{
-		%miniGame.messageAll('', '\c5One or more bodies have been discovered on school premises! You guys have 5 minutes to investigate them before voting period starts.');
+		%miniGame.messageAll('', '\c0One or more bodies have been discovered on school premises! \c5You guys have 5 minutes to investigate them before voting period starts.');
 		%miniGame.messageAll('', '\c5Picking the right murderer will mean that you guys win! However, if you guys pick the WRONG culprit... \c0EVERYONE DIES!');
 		%this.trialSchedule = %this.schedule(300000, "trialStart", %miniGame);
-		%miniGame.noWeapons = true;
-		for (%i = 0; %i < %miniGame.numMembers; %i++)
-		{
-			%member = %miniGame.member[%i];
-			%player = %member.player;
-			if (!isObject(%player))
-				continue;
-			if (%player.getMountedImage(0) && %player.getMountedImage(0).isWeapon)
-				%player.unMountImage(0);
-		}
+		%miniGame.DisableWeapons();
 	}
 }
 function DSGameMode_Trial::trialStart(%this, %miniGame)

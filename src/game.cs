@@ -22,6 +22,19 @@ function MiniGameSO::DayTimeSchedule(%this)
 		%this.gameMode.onNight(%this);
 	%this.DayTimeSchedule = %this.schedule(%time * 1000, "DayTimeSchedule");
 }
+function MiniGameSO::DisableWeapons(%this)
+{
+	%this.noWeapons = true;
+	for (%i = 0; %i < %this.numMembers; %i++)
+	{
+		%member = %this.member[%i];
+		%player = %member.player;
+		if (!isObject(%player))
+			continue;
+		if (%player.getMountedImage(0) && %player.getMountedImage(0).isWeapon)
+			%player.unMountImage(0);
+	}
+}
 
 package DespairSyndromePackage
 {
@@ -176,6 +189,7 @@ package DespairSyndromePackage
 		else
 			%sourceClientName = "";
 
+		echo("\c4" SPC %sourceClientName SPC "killed" SPC %clientName);
 		// removed mini-game checks here
 		// removed death message print here
 		// removed %message and %sourceClientName arguments

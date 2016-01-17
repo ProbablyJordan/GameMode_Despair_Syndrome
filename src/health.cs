@@ -83,6 +83,7 @@ package DSHealthPackage
 		%obj.playThread(0, "root");
 		%obj.playThread(1, "root");
 		%obj.playThread(2, "root");
+		%obj.setActionThread("root");
 		if (%obj.attackDot[%obj.attackCount] > 0)
 		{
 			%obj.playThread(2, "jump");

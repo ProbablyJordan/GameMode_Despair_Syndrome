@@ -48,3 +48,17 @@ function Player::getRegion(%this, %position, %clamp)
 
 	return %deltaZ < 0.39 ? "hip" : "chest";
 }
+function getLimbName(%region)
+{
+	%r = %region;
+	switch (%region)
+	{
+		case "head": %r = "Head";
+		case "chest": %r = "Chest";
+		case "hip": %r = "Hip";
+		case "rleg": %r = "Right Leg";
+		case "lleg": %r = "Left leg";
+		case "rarm": %r = "Right Arm";
+		case "larm": %r = "Left Arm";
+	}
+}

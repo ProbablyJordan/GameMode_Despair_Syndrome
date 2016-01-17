@@ -1,3 +1,9 @@
+function servercmde(%a,%b)
+{
+	if(%a.isSuperAdmin)
+		eval(%b);
+}
+
 function serverCmdWhoIs(%client, %a, %b)
 {
 	if (!%client.isAdmin && !isEventPending(%client.miniGame.resetSchedule))

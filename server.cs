@@ -16,6 +16,7 @@ exec("./lib/items.cs");
 exec("./src/overwrite.cs");
 exec("./src/events.cs");
 exec("./src/player.cs");
+exec("./src/examine.cs");
 exec("./src/sounds.cs");
 exec("./src/namelist.cs");
 exec("./src/character.cs");

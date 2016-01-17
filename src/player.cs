@@ -193,8 +193,11 @@ function PlayerDSArmor::onTrigger(%this, %obj, %slot, %state)
 						%col.carryPlayer = %obj;
 						%col.carryStart = $Sim::Time;
 						%col.carryTick();
-						%obj.bloody["rhand"] = true;
-						%obj.bloody["lhand"] = true;
+						if (%col.bloody["chest_front"] || %col.bloody["chest_back"])
+						{
+							%obj.bloody["rhand"] = true;
+							%obj.bloody["lhand"] = true;
+						}
 						if (isObject(%obj.client))
 						{
 							%obj.client.applyBodyParts();
@@ -205,6 +208,13 @@ function PlayerDSArmor::onTrigger(%this, %obj, %slot, %state)
 					else
 					{
 						%text = "\c6This is" SPC (isObject(%found.character) ? %found.character.name : "Unknown") @ "'s corpse.";
+						//Unfinished body examination flavortext below
+						// for (%i=1;%i<=%found.attackCount;%i++)
+						// {
+						// 	%text = "Their" SPC getLimbName(%found.attackRegion[%found.attackCount]) "is bruised/cut/whateverthefuck"
+						// 	%found.attackType[%found.attackCount]
+						// 	%found.attackDot[%found.attackCount]
+						// }
 						%text = %text SPC "\n\c3Click twice to carry.";
 						if (isObject(%obj.client))
 							%obj.client.centerPrint(%text, 3);
