@@ -1,4 +1,5 @@
 // Default Killer GameMode.
+$DS::GameMode::Trial::InvestigationPeriod = 300; //Measured in seconds
 if (!isObject(DSGameMode_Trial))
 {
 	new ScriptObject(DSGameMode_Trial)
@@ -14,6 +15,7 @@ function DSGameMode_Trial::onStart(%this, %miniGame)
 	parent::onStart(%this, %miniGame);
 	%this.deathCount = 0;
 	%this.vote = false;
+	%this.bodyDiscoveries = 0;
 	cancel(%this.trialSchedule);
 	activatepackage(DSTrialPackge);
 	%miniGame.messageAll('', '\c5The culprit will be decided on by night. The first day doesn\'t have a killer, so use this time to study each other\'s behaviours.');
@@ -55,30 +57,41 @@ function DSGameMode_Trial::onDeath(%this, %miniGame, %client, %sourceObject, %so
 function DSGameMode_Trial::onDay(%this, %miniGame)
 {
 	parent::onDay(%this, %miniGame);
-	if (%this.deathCount > 0 && !isEventPending(%this.trialSchedule) && !%this.vote)
-	{
-		%miniGame.messageAll('', '\c0One or more bodies have been discovered on school premises! \c5You guys have 5 minutes to investigate them before voting period starts.');
-		%miniGame.messageAll('', '\c5Picking the right murderer will mean that you guys win! However, if you guys pick the WRONG culprit... \c0EVERYONE DIES!');
-		%this.trialSchedule = %this.schedule(300000, "trialStart", %miniGame);
-		%miniGame.DisableWeapons();
-	}
+	%this.checkInvestigationStart(%miniGame);
 }
 function DSGameMode_Trial::onNight(%this, %miniGame)
 {
 	parent::onNight(%this, %miniGame);
-	if (%this.deathCount > 0 && !isEventPending(%this.trialSchedule) && !%this.vote)
-	{
-		%miniGame.messageAll('', '\c0One or more bodies have been discovered on school premises! \c5You guys have 5 minutes to investigate them before voting period starts.');
-		%miniGame.messageAll('', '\c5Picking the right murderer will mean that you guys win! However, if you guys pick the WRONG culprit... \c0EVERYONE DIES!');
-		%this.trialSchedule = %this.schedule(300000, "trialStart", %miniGame);
-		%miniGame.DisableWeapons();
-	}
+
 	if (!isObject(%this.killer))
 	{
-		%this.killer = isObject($DS::ForceKiller) ? $DS::ForceKiller : %miniGame.member[getRandom(0, %miniGame.numMembers - 1)];
-		%msg = "<font:impact:30>You are plotting murder against someone! Kill them and do it in such a way that nobody finds out it\'s you!";
+		%this.killer = $DS::GameMode::ForceKiller !$= "" ? $DS::GameMode::ForceKiller : %miniGame.member[getRandom(0, %miniGame.numMembers - 1)];
+		%msg = "<font:impact:30><color:FF0000>You are plotting murder against someone! Kill them and do it in such a way that nobody finds out it\'s you!";
 		messageClient(%this.killer, '', %msg);
-		%this.killer.bottomPrint(%msg, 60);
+		%this.killer.bottomPrint(%msg, 150);
+		commandToClient(%this.killer, 'messageBoxOK', "MURDER TIME!", %msg);
+	}
+}
+function DSGameMode_Trial::onBodyExamine(%this, %miniGame, %client)
+{
+	for (%i=1; %i <= %this.bodyDiscoveries; %i++) //Check if the client had already discovered the body
+	{
+		if (%this.bodyDiscovered[%i] $= %client)
+			return;
+	}
+	%this.bodyDiscovered[%this.bodyDiscoveries++] = %client;
+	if (%this.bodyDiscoveries >= 3)
+		%this.checkInvestigationStart(%miniGame);
+}
+function DSGameMode_Trial::checkInvestigationStart(%this, %miniGame)
+{
+	if (%this.deathCount >= 2) //Only disable weapons when there are 2 murders max
+		%miniGame.DisableWeapons();
+	if (%this.deathCount > 0 && !isEventPending(%this.trialSchedule) && !%this.vote)
+	{
+		%miniGame.messageAll('', '\c0One or more bodies have been discovered on school premises! \c5You guys have %1 minutes to investigate them before voting period starts.', $DS::GameMode::Trial::InvestigationPeriod/60);
+		%miniGame.messageAll('', '\c5Picking the right murderer will mean that you guys win! However, if you guys pick the WRONG culprit... \c0EVERYONE DIES!');
+		%this.trialSchedule = %this.schedule($DS::GameMode::Trial::InvestigationPeriod*1000, "trialStart", %miniGame);
 	}
 }
 function DSGameMode_Trial::trialStart(%this, %miniGame)

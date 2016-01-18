@@ -93,7 +93,7 @@ function DSGameMode::onStart(%this, %miniGame)
 		%point = setWord(%point, 2, getWord(%brick.getWorldBox(), 5) + 0.1);
 		%player.setTransform(%point);
 		%player.setShapeName(%character.name, 8564862);
-
+		%player.setShapeNameDistance(13.5);
 		if (%character.gender $= "female")
 		{
 			%nameTextColor = "ff11cc";

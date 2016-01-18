@@ -25,17 +25,17 @@ package DSExaminePackage
 
 		if (%ray.tool[%ray.currTool].uiName !$= "")
 		{
-			%text = %text @ "\n\c6They're holding a \c3" @ %ray.tool[%ray.currTool].uiName @ "\c6.\n";
+			%text = %text @ "\n\c6They're holding a \c3" @ %ray.tool[%ray.currTool].uiName @ "\c6.";
 		}
 
 		%health = %ray.getHealth() / %ray.getMaxHealth();
 
 		if (%health <= 0.35)
-			%text = %text @ "<color:ff66aa>They look badly injured.\n";
+			%text = %text @ "\n<color:ff66aa>They look badly injured.\n";
 		else if (%health <= 0.7)
-			%text = %text @ "<color:ffaa66>They look injured.\n";
+			%text = %text @ "\n<color:ffaa66>They look injured.\n";
 		else if (%health < 1)
-			%text = %text @ "\c6They're slightly injured.\n";
+			%text = %text @ "\n\c6They're slightly injured.\n";
 
 		%client.centerPrint(%text, 3);
 	}

@@ -204,8 +204,7 @@ package DespairSyndromePackage
 	{
 		if (%bypass)
 			return parent::serverCmdSuicide(%this);
-		%message = "<h2>Are you SURE you want to commit suicide?</h2>You will be dead for the rest of the round!";
-		%message = parseCustomTML(%message);
+		%message = "\c2Are you SURE you want to commit suicide?\nYou will be dead for the rest of the round!";
 		commandToClient(%this, 'messageBoxYesNo', "", %message, 'suicideAccept');
 	}
 
@@ -214,9 +213,31 @@ package DespairSyndromePackage
 		//Todo: make this "scream" hotkey
 	}
 
-	function serverCmdLight(%this)
+	function serverCmdLight(%this) //Another "interact" key for inventory stuff and other things
 	{
-		//Todo: make this something else
+		%player = %this.player;
+		if (!%this.inDefaultGame() || !isObject(%this.player) || %this.player.getState() $= "Dead")
+			return parent::serverCmdLight(%this);
+
+		%start = %player.getEyePoint();
+		%end = vectorAdd(%start, vectorScale(%player.getEyeVector(), 6));
+
+		%mask = $TypeMasks::All ^ $TypeMasks::FxBrickAlwaysObjectType;
+		%ray = containerRayCast(%start, %end, %mask, %player);
+
+		if (!%ray)
+			return;
+
+		if (%ray.getType() & $TypeMasks::fxBrickObjectType)
+		{
+			%data = %ray.getDataBlock();
+
+			if (%data.isDoor) //Knock knock
+			{
+				%player.playThread(2, "shiftAway");
+				serverPlay3d(DoorKnockSound, %ray.getWorldBoxCenter(), 1);
+			}
+		}
 	}
 };
 

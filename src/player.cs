@@ -170,7 +170,7 @@ function PlayerDSArmor::onTrigger(%this, %obj, %slot, %state)
 				if (isObject(firstWord(%ray)))
 					%pos = getWords( %ray, 1, 3 );
 				else
-					%pos = %stop;
+					%pos = %b;
 				initContainerRadiusSearch(%pos, 0.2,
 					$TypeMasks::CorpseObjectType);
 
@@ -216,7 +216,7 @@ function PlayerDSArmor::onTrigger(%this, %obj, %slot, %state)
 							// if (strPos(%affectedLimbs, %found.attackRegion[%i]) == -1)
 							// 	%affectedLimbs = getWordCount(%affectedLimbs) > 0 ? %affectedLimbs SPC %found.attackRegion[%i] : %found.attackRegion[%i];
 							// %limbDamageCount[%found.attackRegion[%i]]++;
-							%damageCount[%found.attackDot[%i] > 0 ? "back" : "front"]++;
+							%damageCount[(%found.attackDot[%i] > 0 ? "back" : "front") SPC (%found.attackType[%i] $= "Sharp" ? "cut" : "bruise")]++;
 						}
 						// for (%i=0;%i<getWordCount(%affectedLimbs);%i++) //Parse affected limbs
 						// {
@@ -224,13 +224,25 @@ function PlayerDSArmor::onTrigger(%this, %obj, %slot, %state)
 						// 	%text = %text @ "\n\c6Their" SPC %limb SPC "has";
 						// 	%text = %text SPC %limbDamageCount[%limb] SPC "wounds.";
 						// }
-						if (%damageCount["back"] > 0)
-							%text = %text @ "\n\c6They have" SPC %damageCount["back"] SPC "wounds from behind.";
-						if (%damageCount["front"] > 0)
-							%text = %text @ "\n\c6They have" SPC %damageCount["front"] SPC "wounds from the front.";
+						if (%damageCount["back cut"] > 0 || %damageCount["back bruise"] > 0)
+						{
+							%bruise = %damageCount["back bruise"];
+							%cut = %damageCount["back cut"];
+							%text = %text @ "\n\c6They have" SPC (%bruise > 0 ? (%bruise SPC "bruises") : "") @ (%cut > 0 ? ((%bruise > 0 ? " and" : "") SPC %cut SPC "cuts") : "") SPC "from behind.";
+						}
+						if (%damageCount["front cut"] > 0 || %damageCount["front bruise"] > 0)
+						{
+							%bruise = %damageCount["front bruise"];
+							%cut = %damageCount["front cut"];
+							%text = %text @ "\n\c6They have" SPC (%bruise > 0 ? (%bruise SPC "bruises") : "") @ (%cut > 0 ? ((%bruise > 0 ? " and" : "") SPC %cut SPC "cuts") : "") SPC "from the front.";
+						}
 						%text = %text @ "\n\n\c3Click twice to carry.";
 						if (isObject(%obj.client))
 							%obj.client.centerPrint(%text, 6);
+
+						//Hardcode central below
+						if (isObject(%obj.client) && isObject(%obj.client.miniGame.gameMode) && isFunction(%obj.client.miniGame.gameMode, "onBodyExamine"))
+							%obj.client.miniGame.gameMode.onBodyExamine(%obj.client.miniGame, %obj.client);
 					}
 					%obj.lastBodyClick = $Sim::Time;
 				}

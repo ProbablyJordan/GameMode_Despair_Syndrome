@@ -1,4 +1,4 @@
-datablock AudioDescription( AudioSilent3d : AudioClose3d )
+datablock AudioDescription( audioSilent3d : audioClose3D )
 {
 	maxDistance = 15;
 	referenceDistange = 5;
@@ -28,6 +28,12 @@ datablock AudioProfile(DoorUnlockSound) {
 	preload = true;
 };
 
+datablock AudioProfile(WoodHitSound)
+{
+	filename = $DS::Path @ "res/sounds/physics/woodhit.wav";
+	description = audioClose3D;
+	preload = true;
+};
 
 //SFX -- not yet adapted to new soundsystem
 // new ScriptObject(GenericShellSFX)
