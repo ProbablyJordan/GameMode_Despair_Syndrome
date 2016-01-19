@@ -184,7 +184,10 @@ function MonkeyWrenchImage::onRaycastCollision(%this, %obj, %col, %pos, %normal,
 	if (!%data.isDoor)
 		return;
 	if (%col.lockID $= "")
+	{
+		%col.doorOpen(%col.isCCW, %obj.client);
 		return;
+	}
 	%random = getRandom(9);
 
 	%col.doorHits += %random < 2 ? 0 : (%random < 9 ? 1 : 2);

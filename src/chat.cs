@@ -157,7 +157,11 @@ package ChatPackage
 			return Parent::serverCmdMessageSent(%client, %text);
 		if (isEventPending(%client.miniGame.resetSchedule))
 			return serverCmdMessageSent(%client, %text);
-
+		if ($defaultMiniGame.muteOOC)
+		{
+			messageClient(%client, '', "OOC is muted!");
+			return;
+		}
 		%text = trim(stripMLControlChars(%text));
 		%text = linkify(%text);
 		if (%text $= "")

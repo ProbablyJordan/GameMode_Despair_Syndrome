@@ -216,6 +216,11 @@ function PlayerDSArmor::onTrigger(%this, %obj, %slot, %state)
 							// if (strPos(%affectedLimbs, %found.attackRegion[%i]) == -1)
 							// 	%affectedLimbs = getWordCount(%affectedLimbs) > 0 ? %affectedLimbs SPC %found.attackRegion[%i] : %found.attackRegion[%i];
 							// %limbDamageCount[%found.attackRegion[%i]]++;
+							if (%found.attackType[%i] $= "Suicide")
+							{
+								%suicide = true;
+								continue;
+							}
 							%damageCount[(%found.attackDot[%i] > 0 ? "back" : "front") SPC (%found.attackType[%i] $= "Sharp" ? "cut" : "bruise")]++;
 						}
 						// for (%i=0;%i<getWordCount(%affectedLimbs);%i++) //Parse affected limbs
@@ -224,6 +229,8 @@ function PlayerDSArmor::onTrigger(%this, %obj, %slot, %state)
 						// 	%text = %text @ "\n\c6Their" SPC %limb SPC "has";
 						// 	%text = %text SPC %limbDamageCount[%limb] SPC "wounds.";
 						// }
+						if (%suicide)
+							%text = %text @ "\n\c5It appears to be suicide...";
 						if (%damageCount["back cut"] > 0 || %damageCount["back bruise"] > 0)
 						{
 							%bruise = %damageCount["back bruise"];

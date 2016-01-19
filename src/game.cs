@@ -225,10 +225,7 @@ package DespairSyndromePackage
 		%mask = $TypeMasks::All ^ $TypeMasks::FxBrickAlwaysObjectType;
 		%ray = containerRayCast(%start, %end, %mask, %player);
 
-		if (!%ray)
-			return;
-
-		if (%ray.getType() & $TypeMasks::fxBrickObjectType)
+		if (%ray && %ray.getType() & $TypeMasks::fxBrickObjectType)
 		{
 			%data = %ray.getDataBlock();
 
@@ -236,6 +233,28 @@ package DespairSyndromePackage
 			{
 				%player.playThread(2, "shiftAway");
 				serverPlay3d(DoorKnockSound, %ray.getWorldBoxCenter(), 1);
+			}
+		}
+		if (%ray)
+			%pos = getWords(%ray, 1, 3);
+		else
+			%pos = %b;
+		initContainerRadiusSearch(%pos, 0.2,
+			$TypeMasks::CorpseObjectType);
+
+		while (isObject(%col = containerSearchNext()))
+		{
+			if (%col.isBody)
+			{
+				%found = %col;
+				break;
+			}
+		}
+		if (isObject(%found) && vectorDist(%found.getPosition(), %pos) < 2)
+		{
+			if (%player.tool[%player.currTool] >= 0) //Tool selected
+			{
+				
 			}
 		}
 	}

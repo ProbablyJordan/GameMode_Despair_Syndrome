@@ -30,8 +30,14 @@ datablock AudioProfile(DoorUnlockSound) {
 
 datablock AudioProfile(WoodHitSound)
 {
-	filename = $DS::Path @ "res/sounds/physics/woodhit.wav";
+	fileName = $DS::Path @ "res/sounds/physics/woodhit.wav";
 	description = audioClose3D;
+	preload = true;
+};
+
+datablock AudioProfile(AnnouncementJingleSound) {
+	fileName = $DS::Path @ "res/sounds/jingle.wav";
+	description = audio2D;
 	preload = true;
 };
 

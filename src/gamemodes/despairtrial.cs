@@ -16,6 +16,7 @@ function DSGameMode_Trial::onStart(%this, %miniGame)
 	%this.deathCount = 0;
 	%this.vote = false;
 	%this.bodyDiscoveries = 0;
+	%this.killer = "";
 	cancel(%this.trialSchedule);
 	activatepackage(DSTrialPackge);
 	%miniGame.messageAll('', '\c5The culprit will be decided on by night. The first day doesn\'t have a killer, so use this time to study each other\'s behaviours.');
@@ -48,11 +49,14 @@ function DSGameMode_Trial::onDeath(%this, %miniGame, %client, %sourceObject, %so
 	else if (%this.killer != %sourceClient) //Freekill?
 	{
 		//Maybe penalize?
-		echo("\c2" SPC %sourceClient.getPlayerName() SPC "just killed" SPC %client.getPlayerName() SPC "as a non-killer.");
+		%log = "\c2" SPC %sourceClient.getPlayerName() SPC "just killed" SPC %client.getPlayerName() SPC "as a non-killer.";
+		echo(%log);
 		return;
 	}
 
 	%this.deathCount++;
+	if (%this.deathCount >= 3) //This is one kill more than the voting check.
+		%miniGame.DisableWeapons();
 }
 function DSGameMode_Trial::onDay(%this, %miniGame)
 {
@@ -62,7 +66,7 @@ function DSGameMode_Trial::onDay(%this, %miniGame)
 function DSGameMode_Trial::onNight(%this, %miniGame)
 {
 	parent::onNight(%this, %miniGame);
-
+	%this.checkInvestigationStart(%miniGame);
 	if (!isObject(%this.killer))
 	{
 		%this.killer = $DS::GameMode::ForceKiller !$= "" ? $DS::GameMode::ForceKiller : %miniGame.member[getRandom(0, %miniGame.numMembers - 1)];
@@ -89,6 +93,7 @@ function DSGameMode_Trial::checkInvestigationStart(%this, %miniGame)
 		%miniGame.DisableWeapons();
 	if (%this.deathCount > 0 && !isEventPending(%this.trialSchedule) && !%this.vote)
 	{
+		serverPlay2d(AnnouncementJingleSound);
 		%miniGame.messageAll('', '\c0One or more bodies have been discovered on school premises! \c5You guys have %1 minutes to investigate them before voting period starts.', $DS::GameMode::Trial::InvestigationPeriod/60);
 		%miniGame.messageAll('', '\c5Picking the right murderer will mean that you guys win! However, if you guys pick the WRONG culprit... \c0EVERYONE DIES!');
 		%this.trialSchedule = %this.schedule($DS::GameMode::Trial::InvestigationPeriod*1000, "trialStart", %miniGame);
@@ -96,6 +101,7 @@ function DSGameMode_Trial::checkInvestigationStart(%this, %miniGame)
 }
 function DSGameMode_Trial::trialStart(%this, %miniGame)
 {
+	cancel(%this.trialSchedule);
 	%this.vote = true;
 	%miniGame.messageAll('', '\c5Time\'s up! Cast your vote via /vote *firstname* *lastname*!');
 	%miniGame.messageAll('', '\c5You have \c360\c5 seconds to cast your votes.');
@@ -182,5 +188,16 @@ package DSTrialPackge
 		%miniGame.GameMode.voters[%miniGame.GameMode.voteCount++] = %client;
 		%miniGame.GameMode.votes[%miniGame.GameMode.voteCount] = %pick[1];
 		messageClient(%client, '', '\c6You have cast your vote for %1.', %pick[1].character.name);
+	}
+
+	function serverCmdForceVote(%client)
+	{
+		if (!%client.isAdmin)
+			return;
+		%gameMode = $defaultMiniGame.gameMode;
+		if (!isObject(%gameMode))
+			return;
+		if (%gameMode.deathCount > 0 && !%gameMode.vote)
+			%gameMode.trialStart($defaultMiniGame);
 	}
 };

@@ -39,20 +39,22 @@ function DSGameMode::onStart(%this, %miniGame)
 		%roomDoor.lockState = true;
 		%roomSpawn = BrickGroup_888888.NTObject["_" @ %room, 0];
 	}
-	// // Random items!
-	// %name = "_lootSpawn_storage";
-	// %choices = "CaneItem UmbrellaItem MonkeyWrenchItem PanItem KnifeItem AdvSwordItem";
+	// Random items!
+	%name = "_randomlootspawn";
+	%choices = "CaneItem UmbrellaItem MonkeyWrenchItem PanItem KnifeItem bucketItem mopItem";
 
-	// %count = BrickGroup_888888.NTObjectCount[%name];
+	%count = BrickGroup_888888.NTObjectCount[%name];
 
-	// for (%i = 0; %i < %count; %i++)
-	// {
-	// 	%brick = BrickGroup_888888.NTObject[%name, %i];
-	// 	%pick = getWord(%choices, getRandom(0, getWordCount(%choices) - 1));
-	// 	talk(%pick);
-	// 	%brick.setItem(%pick);
-	// }
-	// Give everyone rooms, names, appearances, roles, etc
+	%maxItems = %miniGame.numMembers * 0.8; //Since we already have some "static" weapons
+	for (%i = 0; %i < %count; %i++)
+	{
+		%brick = BrickGroup_888888.NTObject[%name, %i];
+		%pick = getWord(%choices, getRandom(0, getWordCount(%choices) - 1));
+		if (%i >= %maxItems)
+			%pick = 0;
+		%brick.setItem(%pick);
+	}
+	//Give everyone rooms, names, appearances, roles, etc
 	for (%i = 0; %i < %miniGame.numMembers && %freeCount; %i++)
 	{
 		%member = %miniGame.member[%i];
@@ -115,7 +117,32 @@ function DSGameMode::onStart(%this, %miniGame)
 
 		%player.addTool(KeyItem, %props);
 
-		messageClient(%member, '', '\c6You are <color:%1>%2\c6, and you have been assigned to \c3Room #%3\c6.',
+		// Give them a good look at their brand new character
+		%camera = %member.camera;
+		//aim the camera at the target
+		%pos = vectorAdd(%player.getEyePoint(), vectorScale(%player.getForwardVector(), 3));
+		%delta = vectorSub(%player.getEyePoint(), %pos);
+		%deltaX = getWord(%delta, 0);
+		%deltaY = getWord(%delta, 1);
+		%deltaZ = getWord(%delta, 2);
+		%deltaXYHyp = vectorLen(%deltaX SPC %deltaY SPC 0);
+
+		%rotZ = mAtan(%deltaX, %deltaY) * -1; 
+		%rotX = mAtan(%deltaZ, %deltaXYHyp);
+
+		%aa = eulerRadToMatrix(%rotX SPC 0 SPC %rotZ); //this function should be called eulerToAngleAxis...
+
+		%camera.setTransform(%pos SPC %aa);
+		%camera.setFlyMode();
+		%camera.mode = "Observer";
+		%member.setControlObject(%camera);
+		%camera.setControlObject(%member.dummyCamera);
+		%member.schedule(5000, "setControlObject", %player); //5 seconds of looking at urself
+		%member.schedule(1000, messageClient, %member, '', '\c6You are <color:%1>%2\c6, and you have been assigned to \c3Room #%3\c6.',
+			%nameTextColor,
+			%character.name,
+			%room);
+		%member.schedule(1000, messageClient, %member, 'bottomPrint', '\c6You are <color:%1>%2\c6, and you have been assigned to \c3Room #%3\c6.',
 			%nameTextColor,
 			%character.name,
 			%room);
