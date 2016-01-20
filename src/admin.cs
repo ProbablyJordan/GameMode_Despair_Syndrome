@@ -83,3 +83,12 @@ function serverCmdReport(%this, %m1, %m2, %m3, %m4, %m5, %m6, %m7, %m8, %m9, %m1
 	}
 	%this.lastReport = getSimTime();
 }
+function serverCmdGetKiller(%client)
+{
+	if (!%client.isAdmin && !isEventPending(%client.miniGame.resetSchedule))
+		return;
+
+	%miniGame = $defaultMiniGame;
+	if (isObject(%miniGame.gameMode) && isObject(%miniGame.gameMode.killer))
+		messageClient(%client, '', '\c6The killer is \c0%1 (%2)', %miniGame.gameMode.killer.character.name, %miniGame.gameMode.killer.getPlayerName());
+}

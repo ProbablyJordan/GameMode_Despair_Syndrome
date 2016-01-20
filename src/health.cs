@@ -64,7 +64,6 @@ function Player::KnockOut(%this, %duration)
 	%client = %this.client;
 	if (isObject(%client) && isObject(%client.camera))
 	{
-		%client.muted = true;
 		messageClient(%client, '', 'You have been knocked out for %1 seconds.', %duration / 1000);
 		if (%client.getControlObject() != %client.camera)
 		{
@@ -87,7 +86,6 @@ function Player::WakeUp(%this)
 	%client = %this.client;
 	if (isObject(%client) && isObject(%client.camera))
 	{
-		%client.muted = false;
 		%client.camera.setMode("Player", %this);
 		%client.camera.setControlObject(%client);
 		%client.setControlObject(%this);
@@ -142,6 +140,7 @@ package DSHealthPackage
 		%obj.playThread(0, "root");
 		%obj.playThread(1, "root");
 		%obj.playThread(2, "root");
+		%obj.playThread(3, "death1");
 		%obj.setActionThread("root");
 		if (%obj.attackDot[%obj.attackCount] > 0)
 		{

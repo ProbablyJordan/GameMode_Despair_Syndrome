@@ -139,6 +139,8 @@ package DespairSyndromePackage
 
 		if (isObject(%player))
 		{
+			%player.changeDatablock(PlayerCorpseArmor); //Doing this before client is nullified is important for appearance stuff
+			%player.getDataBlock().onDisabled(%player); //...still call onDisabled because datablock switch fucks with anims
 			%player.setShapeName("", 8564862);
 			%player.unconscious = false;
 			if (isObject(%player.tempBrick))

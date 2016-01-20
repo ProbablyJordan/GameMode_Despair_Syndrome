@@ -53,7 +53,7 @@ datablock PlayerData(PlayerDSArmor : PlayerStandardArmor)
 
 	canJet = 0;
 	mass = 120;
-
+	maxTools = 4;
 	isDSPlayer = 1;
 
 	//minImpactSpeed = 15;
@@ -76,6 +76,7 @@ datablock PlayerData(PlayerDSFrozenArmor : PlayerStandardArmor)
 	canJet = 0;
 	jumpForce = 0;
 	runForce = 0;
+	maxTools = 4;
 };
 
 datablock PlayerData(PlayerCorpseArmor : PlayerStandardArmor)
@@ -86,6 +87,7 @@ datablock PlayerData(PlayerCorpseArmor : PlayerStandardArmor)
 	boundingBox = "2.5 2.5 4";
 	crouchBoundingBox = "2.5 2.5 4";
 	firstPersonOnly = 1;
+	maxTools = 4;
 };
 
 

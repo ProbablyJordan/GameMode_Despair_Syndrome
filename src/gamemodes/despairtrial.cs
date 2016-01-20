@@ -52,8 +52,15 @@ function DSGameMode_Trial::onDeath(%this, %miniGame, %client, %sourceObject, %so
 	else if (%this.killer != %sourceClient) //Freekill?
 	{
 		//Maybe penalize?
-		%log = "\c2" SPC %sourceClient.getPlayerName() SPC "just killed" SPC %client.getPlayerName() SPC "as a non-killer.";
-		echo(%log);
+		%log = %sourceClient.getPlayerName() SPC "just killed" SPC %client.getPlayerName() SPC "as a non-killer.";
+		echo("\c2" SPC %log);
+		%count = ClientGroup.getCount();
+		for (%i = 0; %i < %count; %i++)
+		{
+			%other = ClientGroup.getObject(%i);
+			if (%other.isAdmin)
+				messageClient(%other, '', "FREEKILL:" SPC %log);
+		}
 		%client.corpse.ignore = true;
 		return;
 	}
@@ -104,6 +111,8 @@ function DSGameMode_Trial::onBodyExamine(%this, %miniGame, %client, %body)
 	if (!%body.ignore && !%suicide && !%body.unconscious)
 	{
 		%body.Discovered[%body.bodyDiscoveries++] = %client;
+		%client.play2d(bodyDiscoveryNoise);
+		messageClient(%client, '', "<font:impact:22>You have discovered a body!");
 		if (%body.bodyDiscoveries >= 2 && !%body.announced)
 		{
 			%body.announced = true;
@@ -160,15 +169,14 @@ function DSGameMode_Trial::trialStart(%this, %miniGame)
 		%player.setTransform(vectorAdd(getWords(%stand.getTransform(), 0, 2), "0 0 0.3"));
 		%player.setVelocity("0 0 0"); //Prevents sliding around
 		%player.setShapeNameDistance(120);
+		%player.wakeUp();
 		%player.changeDataBlock(PlayerDSFrozenArmor);
 	}
 	%miniGame.DisableWeapons();
 	%miniGame.messageAll('', '\c5Investigation period is now OVER! Everyone will be teleported to the courtroom.');
 	%miniGame.messageAll('', '\c5You guys have %1 minutes until the voting period starts. This is a good time to discuss who the killer is with everyone present!', $DS::GameMode::Trial::TrialPeriod/60);
 	%miniGame.messageAll('', '\c5Picking the right murderer will mean that you guys win! However, if you guys pick the WRONG culprit... \c0EVERYONE DIES!');
-	setEnvironment("fogDistance", 100);
-	setEnvironment("visibleDistance", 100);
-	setEnvironment("fogColor", "0.85 0.71 0.575");
+	loadEnvironment($DS::Path @ "data/env/day.txt");
 	cancel(%miniGame.DayTimeSchedule);
 	cancel(%this.trialSchedule);
 	%this.trialSchedule = %this.schedule($DS::GameMode::Trial::TrialPeriod*1000, "voteStart", %miniGame);
@@ -222,6 +230,7 @@ function DSGameMode_Trial::checkVotes(%this, %miniGame)
 
 	%this.onEnd(%miniGame, !%win ? %this.killer : "");
 }
+
 package DSTrialPackge
 {
 	function serverCmdVote(%client, %a, %b)

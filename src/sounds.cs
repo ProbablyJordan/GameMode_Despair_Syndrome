@@ -53,6 +53,12 @@ datablock AudioProfile(VotingTimeSound) {
 	preload = true;
 };
 
+datablock AudioProfile(BodyDiscoveryNoise) {
+	fileName = $DS::Path @ "res/sounds/BodyDiscoveryNoise.wav";
+	description = audio2D;
+	preload = true;
+};
+
 //SFX -- not yet adapted to new soundsystem
 // new ScriptObject(GenericShellSFX)
 // {

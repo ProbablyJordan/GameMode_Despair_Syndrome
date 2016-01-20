@@ -180,10 +180,7 @@ function DSGameMode::checkLastManStanding(%this, %miniGame)
 }
 function DSGameMode::onDay(%this, %miniGame)
 {
-	setEnvironment("fogDistance", 100);
-	setEnvironment("visibleDistance", 100);
-	setEnvironment("fogColor", "0.85 0.71 0.575");
-	setEnvironment("skyColor", "1 1 1");
+	loadEnvironment($DS::Path @ "data/env/day.txt");
 	%miniGame.messageAll('', '\c5All water in the building has resumed function. Cafeteria has been unlocked.');
 	%name = "_sink";
 	%count = BrickGroup_888888.NTObjectCount[%name];
@@ -197,10 +194,7 @@ function DSGameMode::onDay(%this, %miniGame)
 }
 function DSGameMode::onNight(%this, %miniGame)
 {
-	setEnvironment("fogDistance", 0);
-	setEnvironment("visibleDistance", 10);
-	setEnvironment("fogColor", "0 0 0");
-	setEnvironment("skyColor", "0 0 0");
+	loadEnvironment($DS::Path @ "data/env/night.txt");
 	%miniGame.messageAll('', '\c5All water in the building has been disabled for the night. Cafeteria will be off-limits in 30 seconds.');
 	%name = "_sink";
 	%count = BrickGroup_888888.NTObjectCount[%name];
