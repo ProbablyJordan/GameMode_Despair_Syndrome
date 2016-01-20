@@ -1,5 +1,6 @@
 // Default Killer GameMode.
-$DS::GameMode::Trial::InvestigationPeriod = 300; //Measured in seconds
+$DS::GameMode::Trial::InvestigationPeriod = 300; //5 mins
+$DS::GameMode::Trial::TrialPeriod = 180; //3 mins
 if (!isObject(DSGameMode_Trial))
 {
 	new ScriptObject(DSGameMode_Trial)
@@ -17,6 +18,7 @@ function DSGameMode_Trial::onStart(%this, %miniGame)
 	%this.vote = false;
 	%this.bodyDiscoveries = 0;
 	%this.killer = "";
+	%this.announcements = 0;
 	cancel(%this.trialSchedule);
 	activatepackage(DSTrialPackge);
 	%miniGame.messageAll('', '\c5The culprit will be decided on by night. The first day doesn\'t have a killer, so use this time to study each other\'s behaviours.');
@@ -44,13 +46,15 @@ function DSGameMode_Trial::onDeath(%this, %miniGame, %client, %sourceObject, %so
 	if (%this.killer $= %client)
 	{
 		%this.killer = %sourceClient;
-		messageClient(%this.killer, '', '<font:impact:20>You ended up killing someone. Self defence? Murder? Doesn\'t matter. Now you have to get away with it. Nobody must know.');
+		%this.killer.play2d(KillerJingleSound);
+		messageClient(%this.killer, '', '<font:impact:30>You ended up killing someone. Self defence? Murder? Doesn\'t matter. Now you have to get away with it. Nobody must know.');
 	}
 	else if (%this.killer != %sourceClient) //Freekill?
 	{
 		//Maybe penalize?
 		%log = "\c2" SPC %sourceClient.getPlayerName() SPC "just killed" SPC %client.getPlayerName() SPC "as a non-killer.";
 		echo(%log);
+		%client.corpse.ignore = true;
 		return;
 	}
 
@@ -69,39 +73,111 @@ function DSGameMode_Trial::onNight(%this, %miniGame)
 	%this.checkInvestigationStart(%miniGame);
 	if (!isObject(%this.killer))
 	{
-		%this.killer = $DS::GameMode::ForceKiller !$= "" ? $DS::GameMode::ForceKiller : %miniGame.member[getRandom(0, %miniGame.numMembers - 1)];
-		%msg = "<font:impact:30><color:FF0000>You are plotting murder against someone! Kill them and do it in such a way that nobody finds out it\'s you!";
-		messageClient(%this.killer, '', %msg);
-		%this.killer.bottomPrint(%msg, 150);
+		%count = 0;
+		for (%i = 0; %i < %miniGame.numMembers; %i++)
+		{
+			%member = %miniGame.member[%i];
+
+			if (isObject(%member.player))
+				%alivePlayers[%count++] = %member;
+		}
+		%this.killer = $DS::GameMode::ForceKiller !$= "" ? $DS::GameMode::ForceKiller : %alivePlayers[getRandom(1, %count)];
+		%this.killer.player.regenStaminaDefault *= 2;
+		%this.killer.play2d(KillerJingleSound);
+		%msg = "<color:FF0000>You are plotting murder against someone! Kill them and do it in such a way that nobody finds out it\'s you!";
+		messageClient(%this.killer, '', "<font:impact:30>" @ %msg);
 		commandToClient(%this.killer, 'messageBoxOK', "MURDER TIME!", %msg);
 	}
 }
-function DSGameMode_Trial::onBodyExamine(%this, %miniGame, %client)
+function DSGameMode_Trial::onBodyExamine(%this, %miniGame, %client, %body)
 {
-	for (%i=1; %i <= %this.bodyDiscoveries; %i++) //Check if the client had already discovered the body
+	for (%i=1; %i <= %body.bodyDiscoveries; %i++) //Check if the client had already discovered the body
 	{
-		if (%this.bodyDiscovered[%i] $= %client)
+		if (%body.Discovered[%i] $= %client)
 			return;
 	}
-	%this.bodyDiscovered[%this.bodyDiscoveries++] = %client;
-	if (%this.bodyDiscoveries >= 3)
-		%this.checkInvestigationStart(%miniGame);
+	for (%i=1;%i<=%body.attackCount;%i++) //Parse attack logs for info
+	{
+		if (%body.attackType[%i] $= "Suicide")
+			%suicide = true;
+	}
+	if (!%body.ignore && !%suicide && !%body.unconscious)
+	{
+		%body.Discovered[%body.bodyDiscoveries++] = %client;
+		if (%body.bodyDiscoveries >= 2 && !%body.announced)
+		{
+			%body.announced = true;
+			%this.checkInvestigationStart(%miniGame, 1);
+			%this.makeBodyAnnouncement(%miniGame);
+		}
+	}
 }
-function DSGameMode_Trial::checkInvestigationStart(%this, %miniGame)
+function DSGameMode_Trial::makeBodyAnnouncement(%this, %miniGame, %multiple)
+{
+	serverPlay2d(AnnouncementJingleSound);
+	if (!%multiple)
+		%this.announcements++;
+	%miniGame.messageAll('', '\c0%2 on school premises! \c5You guys have %1 minutes to investigate them before the trial starts.',
+		MCeil((%this.investigationStart - $Sim::Time)/60), %multiple ? "There are corpses to be found" : (%this.announcements > 1 ? "Another body has been discovered" : "A body has been discovered"));
+}
+function DSGameMode_Trial::checkInvestigationStart(%this, %miniGame, %no_announce)
 {
 	if (%this.deathCount >= 2) //Only disable weapons when there are 2 murders max
 		%miniGame.DisableWeapons();
 	if (%this.deathCount > 0 && !isEventPending(%this.trialSchedule) && !%this.vote)
 	{
-		serverPlay2d(AnnouncementJingleSound);
-		%miniGame.messageAll('', '\c0One or more bodies have been discovered on school premises! \c5You guys have %1 minutes to investigate them before voting period starts.', $DS::GameMode::Trial::InvestigationPeriod/60);
-		%miniGame.messageAll('', '\c5Picking the right murderer will mean that you guys win! However, if you guys pick the WRONG culprit... \c0EVERYONE DIES!');
+		%this.investigationStart = $Sim::Time + $DS::GameMode::Trial::InvestigationPeriod;
+		if (!%no_announce)
+			%this.makeBodyAnnouncement(%miniGame, %this.deathCount > 0);
 		%this.trialSchedule = %this.schedule($DS::GameMode::Trial::InvestigationPeriod*1000, "trialStart", %miniGame);
 	}
 }
 function DSGameMode_Trial::trialStart(%this, %miniGame)
 {
+	for (%i = 0; %i < %miniGame.numMembers; %i++)
+	{
+		%member = %miniGame.member[%i];
+		%player = %member.player;
+		if (!isObject(%member.character))
+			continue;
+
+		%character = %member.character;
+		%stand = BrickGroup_888888.NTObject["_courtstand_" @ %character.room, 0];
+		%center = BrickGroup_888888.NTObject["_courtroom_center", 0];
+		if (!isObject(%player))
+		{
+			%sign = new Item() {
+				dataBlock = hammerItem;
+				position = vectorAdd(getWords(%stand.getTransform(), 0, 2), "0 0 2");
+				static = true;
+			};
+			missionCleanUp.add(%sign);
+			GameRoundCleanup.add(%sign);
+			%sign.setShapeName(%character.name SPC "(DEAD)");
+			%sign.setShapeNameColor("0.5 0.5 0.5");
+			continue;
+		}
+		%player.setTransform(vectorAdd(getWords(%stand.getTransform(), 0, 2), "0 0 0.3"));
+		%player.setVelocity("0 0 0"); //Prevents sliding around
+		%player.setShapeNameDistance(120);
+		%player.changeDataBlock(PlayerDSFrozenArmor);
+	}
+	%miniGame.DisableWeapons();
+	%miniGame.messageAll('', '\c5Investigation period is now OVER! Everyone will be teleported to the courtroom.');
+	%miniGame.messageAll('', '\c5You guys have %1 minutes until the voting period starts. This is a good time to discuss who the killer is with everyone present!', $DS::GameMode::Trial::TrialPeriod/60);
+	%miniGame.messageAll('', '\c5Picking the right murderer will mean that you guys win! However, if you guys pick the WRONG culprit... \c0EVERYONE DIES!');
+	setEnvironment("fogDistance", 100);
+	setEnvironment("visibleDistance", 100);
+	setEnvironment("fogColor", "0.85 0.71 0.575");
+	cancel(%miniGame.DayTimeSchedule);
 	cancel(%this.trialSchedule);
+	%this.trialSchedule = %this.schedule($DS::GameMode::Trial::TrialPeriod*1000, "voteStart", %miniGame);
+}
+
+function DSGameMode_Trial::voteStart(%this, %miniGame)
+{
+	cancel(%this.trialSchedule);
+	serverPlay2d(votingTimeSound);
 	%this.vote = true;
 	%miniGame.messageAll('', '\c5Time\'s up! Cast your vote via /vote *firstname* *lastname*!');
 	%miniGame.messageAll('', '\c5You have \c360\c5 seconds to cast your votes.');
@@ -190,7 +266,7 @@ package DSTrialPackge
 		messageClient(%client, '', '\c6You have cast your vote for %1.', %pick[1].character.name);
 	}
 
-	function serverCmdForceVote(%client)
+	function serverCmdForceTrial(%client)
 	{
 		if (!%client.isAdmin)
 			return;
@@ -199,5 +275,16 @@ package DSTrialPackge
 			return;
 		if (%gameMode.deathCount > 0 && !%gameMode.vote)
 			%gameMode.trialStart($defaultMiniGame);
+	}
+
+	function serverCmdForceVote(%client)
+	{
+		if (!%client.isAdmin)
+			return;
+		%gameMode = $defaultMiniGame.gameMode;
+		if (!isObject(%gameMode))
+			return;
+		if (%gameMode.deathCount > 0 && !%gameMode.vote)
+			%gameMode.voteStart($defaultMiniGame);
 	}
 };

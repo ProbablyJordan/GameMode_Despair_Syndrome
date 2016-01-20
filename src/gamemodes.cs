@@ -41,17 +41,19 @@ function DSGameMode::onStart(%this, %miniGame)
 	}
 	// Random items!
 	%name = "_randomlootspawn";
-	%choices = "CaneItem UmbrellaItem MonkeyWrenchItem PanItem KnifeItem bucketItem mopItem";
+	%choices = "CaneItem UmbrellaItem MonkeyWrenchItem PanItem KnifeItem mopItem";
 
 	%count = BrickGroup_888888.NTObjectCount[%name];
 
-	%maxItems = %miniGame.numMembers * 0.8; //Since we already have some "static" weapons
+	%maxItems = mCeil(%miniGame.numMembers * 2); //Adjust this number when we add more non-weapon items
+	echo(%maxItems);
 	for (%i = 0; %i < %count; %i++)
 	{
 		%brick = BrickGroup_888888.NTObject[%name, %i];
 		%pick = getWord(%choices, getRandom(0, getWordCount(%choices) - 1));
 		if (%i >= %maxItems)
-			%pick = 0;
+			break;
+		echo(%pick);
 		%brick.setItem(%pick);
 	}
 	//Give everyone rooms, names, appearances, roles, etc
@@ -92,7 +94,6 @@ function DSGameMode::onStart(%this, %miniGame)
 		%roomDoor = BrickGroup_888888.NTObject["_door_r" @ %room, 0];
 		%roomSpawn = BrickGroup_888888.NTObject["_" @ %room, 0];
 		%point = %roomSpawn.getTransform();
-		%point = setWord(%point, 2, getWord(%brick.getWorldBox(), 5) + 0.1);
 		%player.setTransform(%point);
 		%player.setShapeName(%character.name, 8564862);
 		%player.setShapeNameDistance(13.5);
@@ -120,8 +121,8 @@ function DSGameMode::onStart(%this, %miniGame)
 		// Give them a good look at their brand new character
 		%camera = %member.camera;
 		//aim the camera at the target
-		%pos = vectorAdd(%player.getEyePoint(), vectorScale(%player.getForwardVector(), 3));
-		%delta = vectorSub(%player.getEyePoint(), %pos);
+		%pos = vectorAdd(%player.getHackPosition(), vectorScale(%player.getForwardVector(), 2));
+		%delta = vectorSub(%player.getHackPosition(), %pos);
 		%deltaX = getWord(%delta, 0);
 		%deltaY = getWord(%delta, 1);
 		%deltaZ = getWord(%delta, 2);
@@ -137,12 +138,13 @@ function DSGameMode::onStart(%this, %miniGame)
 		%camera.mode = "Observer";
 		%member.setControlObject(%camera);
 		%camera.setControlObject(%member.dummyCamera);
+		%camera.schedule(5000, "setControlObject", %member);
 		%member.schedule(5000, "setControlObject", %player); //5 seconds of looking at urself
-		%member.schedule(1000, messageClient, %member, '', '\c6You are <color:%1>%2\c6, and you have been assigned to \c3Room #%3\c6.',
+		schedule(1000, 0, messageClient, %member, '', '\c6You are <color:%1>%2\c6, and you have been assigned to \c3Room #%3\c6.',
 			%nameTextColor,
 			%character.name,
 			%room);
-		%member.schedule(1000, messageClient, %member, 'bottomPrint', '\c6You are <color:%1>%2\c6, and you have been assigned to \c3Room #%3\c6.',
+		%member.schedule(1000, 0, bottomPrint, '\c6You are <color:%1>%2\c6, and you have been assigned to \c3Room #%3\c6.',
 			%nameTextColor,
 			%character.name,
 			%room);
@@ -181,6 +183,7 @@ function DSGameMode::onDay(%this, %miniGame)
 	setEnvironment("fogDistance", 100);
 	setEnvironment("visibleDistance", 100);
 	setEnvironment("fogColor", "0.85 0.71 0.575");
+	setEnvironment("skyColor", "1 1 1");
 	%miniGame.messageAll('', '\c5All water in the building has resumed function. Cafeteria has been unlocked.');
 	%name = "_sink";
 	%count = BrickGroup_888888.NTObjectCount[%name];
@@ -196,7 +199,8 @@ function DSGameMode::onNight(%this, %miniGame)
 {
 	setEnvironment("fogDistance", 0);
 	setEnvironment("visibleDistance", 10);
-	setEnvironment("fogColor", "0 0 0.2");
+	setEnvironment("fogColor", "0 0 0");
+	setEnvironment("skyColor", "0 0 0");
 	%miniGame.messageAll('', '\c5All water in the building has been disabled for the night. Cafeteria will be off-limits in 30 seconds.');
 	%name = "_sink";
 	%count = BrickGroup_888888.NTObjectCount[%name];

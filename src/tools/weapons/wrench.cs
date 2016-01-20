@@ -185,7 +185,7 @@ function MonkeyWrenchImage::onRaycastCollision(%this, %obj, %col, %pos, %normal,
 		return;
 	if (%col.lockID $= "")
 	{
-		%col.doorOpen(%col.isCCW, %obj.client);
+		// %col.doorOpen(%col.isCCW, %obj.client);
 		return;
 	}
 	%random = getRandom(9);

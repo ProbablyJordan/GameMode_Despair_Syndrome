@@ -108,8 +108,10 @@ package DespairSyndromePackage
 		%this.gameMode = $DS::GameMode;
 		Parent::reset(%this, %client);
 		%this.gameMode.onStart(%this);
-		%this.currTime = "";
-		%this.DayTimeSchedule();
+		%this.currTime = "Day";
+		%this.gameMode.onDay(%this);
+		cancel(%this.DayTimeSchedule);
+		%this.DayTimeSchedule = %this.schedule(($DS::Time::DayLength/2) * 1000, "DayTimeSchedule");
 	}
 
 	function MiniGameSO::checkLastManStanding(%this)
@@ -138,7 +140,7 @@ package DespairSyndromePackage
 		if (isObject(%player))
 		{
 			%player.setShapeName("", 8564862);
-
+			%player.unconscious = false;
 			if (isObject(%player.tempBrick))
 			{
 				%player.tempBrick.delete();
@@ -197,7 +199,7 @@ package DespairSyndromePackage
 
 		commandToClient(%client, 'CenterPrint', '', 1);
 		%client.miniGame.checkLastManStanding();
-		%client.miniGame.gameMode.onDeath(%miniGame, %client, %sourceObject, %sourceClient, %damageType, %damLoc);
+		%client.miniGame.gameMode.onDeath(%client.miniGame, %client, %sourceObject, %sourceClient, %damageType, %damLoc);
 	}
 
 	function serverCmdSuicide(%this, %bypass)
@@ -235,26 +237,41 @@ package DespairSyndromePackage
 				serverPlay3d(DoorKnockSound, %ray.getWorldBoxCenter(), 1);
 			}
 		}
+
+		if (%ray && %ray.getType() & $TypeMasks::playerObjectType)
+		{
+			// %this.startViewingInventory(%ray);
+			// return;
+		}
+		//Corpse looting/planting
 		if (%ray)
 			%pos = getWords(%ray, 1, 3);
 		else
 			%pos = %b;
 		initContainerRadiusSearch(%pos, 0.2,
-			$TypeMasks::CorpseObjectType);
+			$TypeMasks::playerObjectType | $TypeMasks::CorpseObjectType);
 
 		while (isObject(%col = containerSearchNext()))
 		{
 			if (%col.isBody)
 			{
-				%found = %col;
+				%corpse = %col;
 				break;
 			}
 		}
-		if (isObject(%found) && vectorDist(%found.getPosition(), %pos) < 2)
+		if (isObject(%corpse) && vectorDist(%corpse.getPosition(), %pos) < 2)
 		{
-			if (%player.tool[%player.currTool] >= 0) //Tool selected
+			if (isObject(%player.tool[%player.currTool]) && %corpse.addTool(%player.tool[%player.currTool], %player.getItemProps(%player.currTool)) != -1) //Tool selected, plant on body
 			{
-				
+				%player.removeToolSlot(%player.currTool, 1);
+				%player.playThread(2, "shiftAway");
+				if (%this.isViewingInventory)
+					%this.updateInventoryView();
+			}
+			else
+			{
+				%this.startViewingInventory(%corpse);
+				%player.playThread(2, "activate2");
 			}
 		}
 	}

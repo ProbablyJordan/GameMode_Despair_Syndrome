@@ -58,12 +58,71 @@ function Player::getMaxHealth(%this)
 	return %this.getDataBlock().maxDamage;
 }
 
+function Player::KnockOut(%this, %duration)
+{
+	%this.changeDataBlock(PlayerCorpseArmor);
+	%client = %this.client;
+	if (isObject(%client) && isObject(%client.camera))
+	{
+		%client.muted = true;
+		messageClient(%client, '', 'You have been knocked out for %1 seconds.', %duration / 1000);
+		if (%client.getControlObject() != %client.camera)
+		{
+			%client.camera.setMode("Corpse", %this);
+			%client.setControlObject(%client.camera);
+		}
+	}
+	%this.setArmThread(land);
+	%this.getDataBlock().onDisabled(%this, 1);
+	%this.unconscious = true;
+	%this.isBody = true;
+	%this.wakeUpSchedule = %this.schedule(%duration, WakeUp);
+}
+
+function Player::WakeUp(%this)
+{
+	cancel(%this.wakeUpSchedule);
+	if (%this.getState() $= "Dead")
+		return;
+	%client = %this.client;
+	if (isObject(%client) && isObject(%client.camera))
+	{
+		%client.muted = false;
+		%client.camera.setMode("Player", %this);
+		%client.camera.setControlObject(%client);
+		%client.setControlObject(%this);
+	}
+	%this.setArmThread(look);
+	%this.unconscious = false;
+	%this.isBody = false;
+	%this.changeDataBlock(PlayerDSArmor);
+}
+
 package DSHealthPackage
 {
+	function Observer::onTrigger(%this, %obj, %slot, %state)
+	{
+		%client = %obj.getControllingClient();
+		if (isObject(%client.player) && %client.player.unconscious)
+			return;
+		Parent::onTrigger(%this, %obj, %slot, %state);
+	}
+	function serverCmdUseTool(%client, %slot)
+	{
+		if (isObject(%client.player) && %client.player.unconscious)
+			return;
+		parent::serverCmdUseTool(%client, %slot);
+	}
+	function serverCmdUnUseTool(%client, %slot)
+	{
+		if (isObject(%client.player) && %client.player.unconscious)
+			return;
+		parent::serverCmdUnUseTool(%client, %slot);
+	}
 	function Player::playPain(%this)
 	{
 		//parent::playPain(%this);
-		serverPlay3d(painSound, %this.getHackPosition());
+		//serverPlay3d(painSound, %this.getHackPosition());
 	}
 	function Player::playDeathCry(%this)
 	{
@@ -128,7 +187,7 @@ package DSHealthPackage
 		// echo("HARM:" SPC %obj.attackCount SPC %obj.attackRegion[%obj.attackCount] SPC %obj.attackType[%obj.attackCount] SPC %obj.attacker[%obj.attackCount].GetPlayerName());
 		%obj.setDamageFlash(getMax(0.25, %damage / %obj.maxHealth));
 
-		%blood = %type != $DamageType::Suicide;//&& %type != $DamageType::Stamina;
+		%blood = %type != $DamageType::Suicide && %type != $DamageType::Stamina;
 		%obj.playPain();
 		if (%blood)
 			%obj.doSplatterBlood(3);
@@ -150,13 +209,20 @@ package DSHealthPackage
 			}
 			if (%dot > 0) //Backstab
 			{
-				%damage *= 1 + %dot; //Double it (or triple, potentially)
+				%damage *= 1 + %dot; //double it
 			}
 		}
-		// if (%type & $DamageType::Stamina)
-		// 	%obj.setEnergyLevel(%obj.getEnergyLevel() - %damage);
-		// else
-		%obj.setHealth(%obj.health - %damage);
+		if (%type == $DamageType::Stamina)
+		{
+			%obj.setEnergyLevel(%obj.getEnergyLevel() - %damage);
+			if (%obj.getEnergyLevel() <= 10 && !%obj.unconscious)
+			{
+				%obj.KnockOut(30000); //KO'd for 30 seconds
+			}
+			return;
+		}
+		else
+			%obj.setHealth(%obj.health - %damage);
 		if (%obj.health <= 0)
 		{
 			if (%blood)

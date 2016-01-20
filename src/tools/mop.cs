@@ -16,7 +16,7 @@ datablock ItemData(mopItem)
 	image = mopImage;
 
 	itemPropsClass = "MopProps";
-	maxBlood = 15;
+	maxBlood = 30;
 
 	canDrop = true;
 };

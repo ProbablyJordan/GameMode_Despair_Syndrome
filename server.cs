@@ -6,6 +6,7 @@ exec("./lib/decals.cs");
 exec("./lib/environment.cs");
 exec("./lib/itemprops.cs");
 exec("./lib/math-angles-vectors.cs");
+exec("./lib/misc.cs");
 exec("./lib/player-hit-region.cs");
 exec("./lib/soundsystem.cs");
 exec("./lib/sfx.cs");
@@ -23,6 +24,7 @@ exec("./src/character.cs");
 exec("./src/footsteps.cs");
 exec("./src/blood.cs");
 exec("./src/health.cs");
+exec("./src/inventory.cs");
 exec("./src/chat.cs");
 exec("./src/gamemodes.cs");
 exec("./src/game.cs");
@@ -44,3 +46,6 @@ exec("./src/tools/weapons/wrench.cs");
 exec("./src/tools/weapons/pan.cs");
 exec("./src/tools/weapons/knife.cs");
 swordExplosion.soundProfile = "";
+
+if (!isObject($DS::GameMode))
+	$DS::GameMode = DSGameMode_Trial; //"Main" mode in works

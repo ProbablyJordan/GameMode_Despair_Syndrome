@@ -41,6 +41,18 @@ datablock AudioProfile(AnnouncementJingleSound) {
 	preload = true;
 };
 
+datablock AudioProfile(KillerJingleSound) {
+	fileName = $DS::Path @ "res/sounds/DUNDUN.wav";
+	description = audio2D;
+	preload = true;
+};
+
+datablock AudioProfile(VotingTimeSound) {
+	fileName = $DS::Path @ "res/sounds/VotingTime.wav";
+	description = audio2D;
+	preload = true;
+};
+
 //SFX -- not yet adapted to new soundsystem
 // new ScriptObject(GenericShellSFX)
 // {

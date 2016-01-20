@@ -69,6 +69,26 @@ datablock PlayerData(PlayerDSArmor : PlayerStandardArmor)
 	rechargeRate = 0;
 };
 
+datablock PlayerData(PlayerDSFrozenArmor : PlayerStandardArmor)
+{
+	shapeFile = "base/data/shapes/player/m_despairsyndrome.dts";
+	uiName = "Frozen Player";
+	canJet = 0;
+	jumpForce = 0;
+	runForce = 0;
+};
+
+datablock PlayerData(PlayerCorpseArmor : PlayerStandardArmor)
+{
+	shapeFile = "base/data/shapes/player/m_despairsyndrome.dts";
+	uiName = "Corpse Player";
+	canJet = 0;
+	boundingBox = "2.5 2.5 4";
+	crouchBoundingBox = "2.5 2.5 4";
+	firstPersonOnly = 1;
+};
+
+
 function PlayerDSArmor::onNewDataBlock(%this, %obj)
 {
 	Parent::onNewDataBlock(%this, %obj);
@@ -172,7 +192,7 @@ function PlayerDSArmor::onTrigger(%this, %obj, %slot, %state)
 				else
 					%pos = %b;
 				initContainerRadiusSearch(%pos, 0.2,
-					$TypeMasks::CorpseObjectType);
+					$TypeMasks::playerObjectType | $TypeMasks::CorpseObjectType);
 
 				while (isObject(%col = containerSearchNext()))
 				{
@@ -207,7 +227,9 @@ function PlayerDSArmor::onTrigger(%this, %obj, %slot, %state)
 					}
 					else
 					{
-						%text = "\c6This is" SPC (isObject(%found.character) ? %found.character.name : "Unknown") @ "'s corpse.";
+						%text = "\c6This is" SPC (isObject(%found.character) ? %found.character.name : "Unknown") @ "'s body.";
+						if (%found.unconscious)
+							%text = %text SPC "\c3They are unconscious.";
 						//Unfinished body examination flavortext below
 						//"Their head has 2 cuts and 1 bruises from behind, 1 cut from the side and 1 cut from the front." -- Intended results
 						// %affectedLimbs = "";
@@ -249,7 +271,7 @@ function PlayerDSArmor::onTrigger(%this, %obj, %slot, %state)
 
 						//Hardcode central below
 						if (isObject(%obj.client) && isObject(%obj.client.miniGame.gameMode) && isFunction(%obj.client.miniGame.gameMode, "onBodyExamine"))
-							%obj.client.miniGame.gameMode.onBodyExamine(%obj.client.miniGame, %obj.client);
+							%obj.client.miniGame.gameMode.onBodyExamine(%obj.client.miniGame, %obj.client, %found);
 					}
 					%obj.lastBodyClick = $Sim::Time;
 				}
