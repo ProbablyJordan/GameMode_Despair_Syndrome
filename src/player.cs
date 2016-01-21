@@ -1,3 +1,5 @@
+$DS::Player::ExhaustionTime = 300; //5 mins
+
 //NOTE TO SELF: TSShapeConstructor has to be done BEFORE player datablock.
 datablock TSShapeConstructor(mDespairsyndromeDts) {
 	baseShape = "base/data/shapes/player/m_despairsyndrome.dts";
@@ -96,7 +98,63 @@ function PlayerDSArmor::onNewDataBlock(%this, %obj)
 	Parent::onNewDataBlock(%this, %obj);
 	%obj.regenStaminaDefault = %this.regenStamina;
 	%obj.regenStamina = %this.regenStamina;
+	%obj.energyLimit = %this.maxEnergy;
 	%obj.monitorEnergyLevel();
+	%obj.exhaustion = 4;
+	%obj.exhaustionImmune = false;
+}
+
+function Player::setExhaustion(%this, %val)
+{
+	%this.exhaustion = MClamp(%val, 1, 4);
+	%this.energyLimit = %this.getDataBlock().maxEnergy * (%this.exhaustion/4); //4 bars = 100% stamina, 3 bars = 75%, 2 = 50%, 1 = 25%
+	if (isObject(%this.client))
+		%this.client.updateBottomPrint();
+}
+
+function Player::updateExhaustion(%this) //Call this every night
+{
+	if (%this.exhaustionImmune) //To be used for players assigned killer roles.
+		return;
+	if (%this.exhaustion $= "")
+		%this.setExhaustion(4);
+	if (!%this.unconscious)
+	{
+		%this.setExhaustion(%this.exhaustion--);
+		%msg = "You feel tired. You should probably get some sleep with \c3/sleep\c0.";
+		if (%this.exhaustion <= 2)
+			%msg = "You feel exhausted! You really need to get some sleep with \c3/sleep\c0.";
+		if (%this.exhaustion <= 1)
+			%msg = "You feel drained! If you don't sleep with \c3/sleep\c0, you might fall unconscious.";
+		if (%this.exhaustion <= 0)
+		{
+			%msg = "You got too exhausted and have fallen unconscious...";
+			%this.KnockOut(90000, 2); //1 minute 30 seconds KO. Regain 2 bars tho
+		}
+		if (isObject(%this.client))
+		{
+			messageClient(%this.client, '', %msg);
+		}
+	}
+}
+
+function serverCmdSleep(%this, %bypass)
+{
+	if(!isObject(%this.player))
+		return;
+	if (%bypass)
+	{
+		%this.player.KnockOut(60000, 2); //1 minute KO w/ 2 bars of exhaustion recovery
+		%this.updateBottomPrint();
+		return;
+	}
+	%message = "\c2Are you sure you want to sleep?\nYou will be unconscious for a minute!";
+	commandToClient(%this, 'messageBoxYesNo', "Sleep Prompt", %message, 'SleepAccept');
+}
+
+function serverCmdSleepAccept(%this)
+{
+	serverCmdSleep(%this, 1);
 }
 
 function Player::monitorEnergyLevel(%this)
@@ -129,9 +187,9 @@ function Player::monitorEnergyLevel(%this)
 	}
 	else //idle
 	{
-		%this.setEnergyLevel(%this.getEnergyLevel() + %this.regenStamina);
+		%this.setEnergyLevel(GetMin(%this.getEnergyLevel() + %this.regenStamina, %this.energyLimit)); //Energy Limit used for exhaustion stuffs
 	}
-
+	%this.client.updateBottomPrint();
 	// %show = %this.getEnergyLevel() < %this.getDataBlock().maxEnergy;
 
 	// if (%show != %last)
@@ -231,7 +289,7 @@ function PlayerDSArmor::onTrigger(%this, %obj, %slot, %state)
 					{
 						%text = "\c6This is" SPC (isObject(%found.character) ? %found.character.name : "Unknown") @ "'s body.";
 						if (%found.unconscious)
-							%text = %text SPC "\c3They are unconscious.";
+							%text = %text @ "\n\c3They are unconscious.";
 						//Unfinished body examination flavortext below
 						//"Their head has 2 cuts and 1 bruises from behind, 1 cut from the side and 1 cut from the front." -- Intended results
 						// %affectedLimbs = "";

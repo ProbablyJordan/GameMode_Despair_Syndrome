@@ -1,6 +1,6 @@
 // Default Killer GameMode.
 $DS::GameMode::Trial::InvestigationPeriod = 300; //5 mins
-$DS::GameMode::Trial::TrialPeriod = 180; //3 mins
+$DS::GameMode::Trial::TrialPeriod = 300; //5 mins
 if (!isObject(DSGameMode_Trial))
 {
 	new ScriptObject(DSGameMode_Trial)
@@ -16,9 +16,11 @@ function DSGameMode_Trial::onStart(%this, %miniGame)
 	parent::onStart(%this, %miniGame);
 	%this.deathCount = 0;
 	%this.vote = false;
-	%this.bodyDiscoveries = 0;
+	%this.trial = false;
 	%this.killer = "";
 	%this.announcements = 0;
+	%this.forceVoteCount = 0;
+	%this.forceTrialCount = 0;
 	cancel(%this.trialSchedule);
 	activatepackage(DSTrialPackge);
 	%miniGame.messageAll('', '\c5The culprit will be decided on by night. The first day doesn\'t have a killer, so use this time to study each other\'s behaviours.');
@@ -76,8 +78,6 @@ function DSGameMode_Trial::onDay(%this, %miniGame)
 }
 function DSGameMode_Trial::onNight(%this, %miniGame)
 {
-	parent::onNight(%this, %miniGame);
-	%this.checkInvestigationStart(%miniGame);
 	if (!isObject(%this.killer))
 	{
 		%count = 0;
@@ -90,11 +90,14 @@ function DSGameMode_Trial::onNight(%this, %miniGame)
 		}
 		%this.killer = $DS::GameMode::ForceKiller !$= "" ? $DS::GameMode::ForceKiller : %alivePlayers[getRandom(1, %count)];
 		%this.killer.player.regenStaminaDefault *= 2;
+		%this.killer.player.exhaustionImmune = true;
 		%this.killer.play2d(KillerJingleSound);
 		%msg = "<color:FF0000>You are plotting murder against someone! Kill them and do it in such a way that nobody finds out it\'s you!";
 		messageClient(%this.killer, '', "<font:impact:30>" @ %msg);
 		commandToClient(%this.killer, 'messageBoxOK', "MURDER TIME!", %msg);
 	}
+	parent::onNight(%this, %miniGame);
+	%this.checkInvestigationStart(%miniGame);
 }
 function DSGameMode_Trial::onBodyExamine(%this, %miniGame, %client, %body)
 {
@@ -111,7 +114,7 @@ function DSGameMode_Trial::onBodyExamine(%this, %miniGame, %client, %body)
 	if (!%body.ignore && !%suicide && !%body.unconscious)
 	{
 		%body.Discovered[%body.bodyDiscoveries++] = %client;
-		%client.play2d(bodyDiscoveryNoise);
+		%client.play2d(bodyDiscoveryNoise @ getRandom(1,2));
 		messageClient(%client, '', "<font:impact:22>You have discovered a body!");
 		if (%body.bodyDiscoveries >= 2 && !%body.announced)
 		{
@@ -172,6 +175,7 @@ function DSGameMode_Trial::trialStart(%this, %miniGame)
 		%player.wakeUp();
 		%player.changeDataBlock(PlayerDSFrozenArmor);
 	}
+	%this.trial = true;
 	%miniGame.DisableWeapons();
 	%miniGame.messageAll('', '\c5Investigation period is now OVER! Everyone will be teleported to the courtroom.');
 	%miniGame.messageAll('', '\c5You guys have %1 minutes until the voting period starts. This is a good time to discuss who the killer is with everyone present!', $DS::GameMode::Trial::TrialPeriod/60);
@@ -277,23 +281,104 @@ package DSTrialPackge
 
 	function serverCmdForceTrial(%client)
 	{
-		if (!%client.isAdmin)
-			return;
 		%gameMode = $defaultMiniGame.gameMode;
 		if (!isObject(%gameMode))
 			return;
-		if (%gameMode.deathCount > 0 && !%gameMode.vote)
-			%gameMode.trialStart($defaultMiniGame);
+		if (%gameMode.deathCount > 0 && !%gameMode.vote && !%gameMode.trial)
+		{
+			if (%client.inDefaultGame() && isObject(%client.player) && isObject(%client.character))
+			{
+				for (%i = 0; %i < $defaultMiniGame.numMembers; %i++)
+				{
+					%member = $defaultMiniGame.member[%i];
+					%player = %member.player;
+					if (!isObject(%player))
+						continue;
+					%alivePlayers++;
+				}
+				for (%i = 1; %i <= %gameMode.forceTrialCount; %i++)
+				{
+					%member = %gameMode.forceTrials[%i];
+
+					if (!isObject(%member) || !isObject(%member.character))
+						continue;
+					if (%member == %client)
+					{
+						messageClient(%client, '', '\c6You already voted!');
+						return;
+					}
+					%validvotes++;
+				}
+				%gameMode.forceTrials[%gameMode.forceTrialCount++] = %client;
+				%validvotes++;
+				if (%validvotes >= (MFloor(%alivePlayers * 0.9))) // if at least 90% of alive players voted
+				{
+					$defaultMiniGame.messageAll('', '\c3%1 has voted to start the trial early!\c6 There are enough votes to force the trial period.',
+						%client.character.name);
+					%start = true;
+				}
+				else
+				{
+					echo("ForceTrial Votes left:" SPC MFloor(%alivePlayers * 0.9) - %validvotes);
+					$defaultMiniGame.messageAll('', '\c3%1 has voted to start the trial early!\c6 Do /forcetrial to concur.', //No votes revealed due to meta possibilities
+						%client.character.name);
+				}
+			}
+			else if (%client.isAdmin) //"Admin" forcetrial only works outside minigame
+				%start = true;
+			if (%start)
+				%gameMode.trialStart($defaultMiniGame);
+		}
 	}
 
 	function serverCmdForceVote(%client)
 	{
-		if (!%client.isAdmin)
-			return;
 		%gameMode = $defaultMiniGame.gameMode;
 		if (!isObject(%gameMode))
 			return;
-		if (%gameMode.deathCount > 0 && !%gameMode.vote)
-			%gameMode.voteStart($defaultMiniGame);
+		if (%gameMode.deathCount > 0 && !%gameMode.vote && %gamemode.trial)
+		{
+			if (%client.inDefaultGame() && isObject(%client.player) && isObject(%client.character))
+			{
+				for (%i = 0; %i < $defaultMiniGame.numMembers; %i++)
+				{
+					%member = $defaultMiniGame.member[%i];
+					%player = %member.player;
+					if (!isObject(%player))
+						continue;
+					%alivePlayers++;
+				}
+				for (%i = 1; %i <= %gameMode.forceVoteCount; %i++)
+				{
+					%member = %gameMode.forceVotes[%i];
+
+					if (!isObject(%member) || !isObject(%member.character))
+						continue;
+					if (%member == %client)
+					{
+						messageClient(%client, '', '\c6You already voted!');
+						return;
+					}
+					%validVotes++;
+				}
+				%gameMode.forceVotes[%gameMode.forceVoteCount++] = %client;
+				%validVotes++;
+				if (%validVotes >= (MFloor(%alivePlayers * 0.9))) // if at least 90% of alive players voted
+				{
+					$defaultMiniGame.messageAll('', '\c3%1 has voted to start the vote early!\c6 There are enough votes to force the voting period.',
+						%client.character.name);
+					%start = true;
+				}
+				else
+				{
+					$defaultMiniGame.messageAll('', '\c3%1 has voted to start the vote early!\c6 Do /forcevote to concur. %2 votes left.',
+						%client.character.name, MFloor(%alivePlayers * 0.9) - %validVotes);
+				}
+			}
+			else if (%client.isAdmin) //"Admin" forcevote only works outside minigame
+				%start = true;
+			if (%start)
+				%gameMode.voteStart($defaultMiniGame);
+		}
 	}
 };

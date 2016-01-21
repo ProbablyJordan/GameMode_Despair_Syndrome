@@ -144,10 +144,7 @@ function DSGameMode::onStart(%this, %miniGame)
 			%nameTextColor,
 			%character.name,
 			%room);
-		%member.schedule(1000, 0, bottomPrint, '\c6You are <color:%1>%2\c6, and you have been assigned to \c3Room #%3\c6.',
-			%nameTextColor,
-			%character.name,
-			%room);
+		%member.updateBottomPrint();
 	}
 }
 function DSGameMode::onEnd(%this, %miniGame, %winner)
@@ -194,6 +191,17 @@ function DSGameMode::onDay(%this, %miniGame)
 }
 function DSGameMode::onNight(%this, %miniGame)
 {
+	//Exhaust all players
+	for (%i = 0; %i < %miniGame.numMembers; %i++)
+	{
+		%member = %miniGame.member[%i];
+		%player = %member.player;
+
+		if (!isObject(%player))
+			continue;
+
+		%player.updateExhaustion();
+	}
 	loadEnvironment($DS::Path @ "data/env/night.txt");
 	%miniGame.messageAll('', '\c5All water in the building has been disabled for the night. Cafeteria will be off-limits in 30 seconds.');
 	%name = "_sink";

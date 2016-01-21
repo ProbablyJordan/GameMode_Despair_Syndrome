@@ -31,8 +31,8 @@ function Player::setHealth(%this, %health)
 
 	%this.health = mClampF(%health, 0, %this.maxHealth);
 
-	// if (isObject(%this.client))
-	// 	%this.client.updateBottomPrint();
+	if (isObject(%this.client))
+		%this.client.updateBottomPrint();
 }
 
 function Player::addHealth(%this, %health)
@@ -58,19 +58,21 @@ function Player::getMaxHealth(%this)
 	return %this.getDataBlock().maxDamage;
 }
 
-function Player::KnockOut(%this, %duration)
+function Player::KnockOut(%this, %duration, %exRestore)
 {
 	%this.changeDataBlock(PlayerCorpseArmor);
 	%client = %this.client;
 	if (isObject(%client) && isObject(%client.camera))
 	{
-		messageClient(%client, '', 'You have been knocked out for %1 seconds.', %duration / 1000);
+		messageClient(%client, '', 'You will be unconscious for %1 seconds.', %duration / 1000);
 		if (%client.getControlObject() != %client.camera)
 		{
 			%client.camera.setMode("Corpse", %this);
 			%client.setControlObject(%client.camera);
 		}
 	}
+	if (%exRestore !$= "")
+		%this.setExhaustion(%this.exhaustion + %exRestore);
 	%this.setArmThread(land);
 	%this.getDataBlock().onDisabled(%this, 1);
 	%this.unconscious = true;
@@ -202,7 +204,7 @@ package DSHealthPackage
 			}
 			if (getRandom(1, 2) == 1 && %blood)
 			{
-				%obj.bloody["chest_" @ (%dot > 0 ? "back" : "front")] = true; //TODO: take sides into account, too
+				%obj.bloody["chest_" @ (%dot > 0 ? "back" : "front")] = true; //TODO: take sides into account, too. Maybe.
 				if (isObject(%obj.client))
 					%obj.client.applyBodyParts();
 			}
@@ -216,7 +218,7 @@ package DSHealthPackage
 			%obj.setEnergyLevel(%obj.getEnergyLevel() - %damage);
 			if (%obj.getEnergyLevel() <= 10 && !%obj.unconscious)
 			{
-				%obj.KnockOut(30000); //KO'd for 30 seconds
+				%obj.KnockOut(30000, 1); //KO'd for 30 seconds with 1 bar of exhaustion recovery
 			}
 			return;
 		}

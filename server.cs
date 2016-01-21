@@ -8,6 +8,7 @@ exec("./lib/inv_slots.cs");
 exec("./lib/itemprops.cs");
 exec("./lib/math-angles-vectors.cs");
 exec("./lib/misc.cs");
+exec("./lib/noObservers.cs");
 exec("./lib/player-hit-region.cs");
 exec("./lib/soundsystem.cs");
 exec("./lib/sfx.cs");
@@ -24,6 +25,7 @@ exec("./src/namelist.cs");
 exec("./src/character.cs");
 exec("./src/footsteps.cs");
 exec("./src/blood.cs");
+exec("./src/bottomPrint.cs");
 exec("./src/health.cs");
 exec("./src/inventory.cs");
 exec("./src/docs_commands.cs");
@@ -48,6 +50,7 @@ exec("./src/tools/weapons/wrench.cs");
 exec("./src/tools/weapons/pan.cs");
 exec("./src/tools/weapons/knife.cs");
 swordExplosion.soundProfile = "";
-
+hammerExplosion.lightStartRadius = 0;
+hammerExplosion.lightEndRadius = 0;
 if (!isObject($DS::GameMode))
 	$DS::GameMode = DSGameMode_Trial; //"Main" mode in works

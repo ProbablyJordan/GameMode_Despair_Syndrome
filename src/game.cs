@@ -45,10 +45,14 @@ package DespairSyndromePackage
 
 	function Armor::onDisabled(%this, %obj)
 	{
-		if (isObject(%obj.client) && %obj.client.miniGame == $DefaultMiniGame && isObject(GameRoundCleanup))
+		if (isObject(%obj.client))
 		{
-			%obj.inhibitRemoveBody = true;
-			GameRoundCleanup.add(%obj);
+			%obj.client.stopViewingInventory();
+			if (%obj.client.inDefaultGame() && isObject(GameRoundCleanup))
+			{
+				%obj.inhibitRemoveBody = true;
+				GameRoundCleanup.add(%obj);
+			}
 		}
 
 		Parent::onDisabled(%this, %obj);
@@ -222,6 +226,9 @@ package DespairSyndromePackage
 		%player = %this.player;
 		if (!%this.inDefaultGame() || !isObject(%this.player) || %this.player.getState() $= "Dead")
 			return parent::serverCmdLight(%this);
+
+		if (%player.unconscious) //Can't do stuff while unconscious bro
+			return;
 
 		%start = %player.getEyePoint();
 		%end = vectorAdd(%start, vectorScale(%player.getEyeVector(), 6));

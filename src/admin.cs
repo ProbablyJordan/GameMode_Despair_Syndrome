@@ -28,10 +28,28 @@ function serverCmdWhoIs(%client, %a, %b)
 
 function serverCmdToggleOOC(%this, %tog)
 {
+	if (!%this.isAdmin) return;
 	if (%tog $= "")
 		%tog = !$defaultMiniGame.muteOOC;
 	$defaultMiniGame.muteOOC = %tog ? 1 : 0; //This is to make sure that you can't set it to random gibberish, only boolean
 	$defaultMiniGame.chatMessageAll('', '\c5OOC has been globally %1.', $defaultMiniGame.muteOOC ? "muted" : "unmuted");
+}
+
+function serverCmdReset(%this, %do)
+{
+	if (!%this.isAdmin) return;
+	if (%do)
+	{
+		$defaultMiniGame.reset(0);
+		return;
+	}
+	%message = "\c2Are you sure you want to reset?";
+	commandToClient(%this, 'messageBoxYesNo', "Reset", %message, 'resetAccept');
+}
+function serverCmdResetAccept(%this)
+{
+	if (!%this.isAdmin) return;
+	$defaultMiniGame.reset(0);
 }
 
 function serverCmdPM(%this, %target, %m1, %m2, %m3, %m4, %m5, %m6, %m7, %m8, %m9, %m10, %m11, %m12, %m13, %m14, %m15, %m16, %m17, %m18, %m19, %m20, %m20, %m22, %m23, %m24, %m25, %m26, %m27, %m28, %m29, %m30, %m31, %m32)
