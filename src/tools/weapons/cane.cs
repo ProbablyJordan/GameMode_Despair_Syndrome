@@ -20,6 +20,8 @@ datablock ItemData(CaneItem)
 	doColorShift = false;
 	colorShiftColor = "0.100 0.500 0.250 1.000";
 
+	itemPropsClass = "MeleeProps";
+
 	 // Dynamic properties defined by the scripts
 	image = CaneImage;
 	canDrop = true;

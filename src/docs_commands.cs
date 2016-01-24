@@ -40,6 +40,7 @@ function serverCmdHelp(%this, %cat)
 			%text[%count++] = " \c6To navigate the inventory menu, use building controls (move brick forward/backward, brick plant key and cancel brick key)";
 			%text[%count++] = " \c3Double-click and hold\c6 to carry around a corpse. Hold click to carry an item. Fast click to pick up an item.";
 			%text[%count++] = " \c6Dormitory rooms are \c3SOUNDPROOF\c6, meaning all sound made inside the room is isolated. Nobody will hear you scream on the outside unless you leave the door open!";
+			%text[%count++] = " \c6To sleep, say \c3/sleep\c6. You will be unconscious for some time.";
 			%text[%count++] = " \c5Page Up to read the above.";
 		case "5" or "combat":
 			%text[%count++] = "\c3[COMBAT]";

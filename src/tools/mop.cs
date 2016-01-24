@@ -139,6 +139,7 @@ function mopImage::onFire(%this, %obj, %slot)
 
 		%availableClean = getMin(%props.blood, BucketItem.maxBlood - %bucketProps.blood);
 		%bucketProps.blood += %availableClean;
+		%ray.getDataBlock().updateLiquidColor(%ray);
 		%props.blood -= %availableClean;
 
 		if (%props.blood > 0)

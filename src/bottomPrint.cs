@@ -28,8 +28,21 @@ function GameConnection::updateBottomPrint(%this)
 		%maxstamina = %this.player.energyLimit;
 	}
 
+	%roleColor = "\c7";
+	%role = "Undecided";
+	if (%this.inDefaultGame() && isObject(%this.miniGame.gameMode.killer))
+	{
+		%roleColor = "\c2";
+		%role = "Innocent";
+		if (%this.miniGame.gameMode.killer == %this)
+		{
+			%roleColor = "\c0";
+			%role = "Killer";
+		}
+	}
+
 	%text = "\c6Health: \c0"@%health@"/"@%maxhealth@"<just:right>\c6Name: <color:"@%nameTextColor@">"@%character.name@"\c6 (\c3Room #"@%character.room@"\c6)";
-	%text = %text @ "<just:left><br>\c6Stamina: \c5"@%stamina@"/"@%maxstamina;
-	%text = %text @ "<br>\c6Exhaustion: \c5" @ %bar;
+	%text = %text @ "<just:left><br>\c6Stamina: \c5"@%stamina@"/"@%maxstamina @ "<just:right>\c6Role:" SPC %roleColor @ %role;
+	%text = %text @ "<just:left><br>\c6Exhaustion: \c5" @ %bar;
 	%this.bottomPrint(%text, 5, 0);
 }

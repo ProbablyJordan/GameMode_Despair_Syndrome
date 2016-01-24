@@ -99,6 +99,7 @@ function serverCmdReport(%this, %m1, %m2, %m3, %m4, %m5, %m6, %m7, %m8, %m9, %m1
 		if (%other.isAdmin)
 			messageClient(%other, '', '\c0REPORT from \c3%1\c6: %2', %this.getPlayerName(), %text);
 	}
+	messageClient(%this, '', '\c0Your report\c6: %1', %text);
 	%this.lastReport = getSimTime();
 }
 function serverCmdGetKiller(%client)

@@ -53,6 +53,8 @@ datablock ItemData(KnifeItem)
 	doColorShift = false;
 	colorShiftColor = "0.100 0.500 0.250 1.000";
 
+	itemPropsClass = "MeleeProps";
+
 	 // Dynamic properties defined by the scripts
 	image = KnifeImage;
 	canDrop = true;
@@ -65,6 +67,14 @@ datablock ItemData(KnifeItem)
 	// blockMaxDrain = 300; //How much stamina can be possibly drained from you at worst block
 	// blockEnemyDrain = 15; //How much stamina to drain from opponent on succesful block
 };
+
+function KnifeItem::onAdd(%this, %obj)
+{
+	Parent::onAdd(%this, %obj);
+	// %props = %obj.getItemProps();
+	// if (!%props.bloody)
+		%obj.hideNode("blood");
+}
 
 ////////////////////////////////////////////////////////
 //weapon image//////////////////////////////////////////
@@ -139,6 +149,7 @@ datablock ShapeBaseImageData(KnifeImage)
 	raycastRange = 2.5;
 	raycastFromEye = true;
 	directDamage = 15;
+	backstabMult = 3; //Rather huge backstab bonus
 	directDamageType = $DamageType::Sharp;
 	raycastHitExplosion = hammerProjectile;
 };

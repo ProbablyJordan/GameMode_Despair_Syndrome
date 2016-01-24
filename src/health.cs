@@ -76,6 +76,7 @@ function Player::KnockOut(%this, %duration, %exRestore)
 	%this.setArmThread(land);
 	%this.getDataBlock().onDisabled(%this, 1);
 	%this.unconscious = true;
+	%this.setShapeNameDistance(0);
 	%this.isBody = true;
 	%this.wakeUpSchedule = %this.schedule(%duration, WakeUp);
 }
@@ -95,6 +96,7 @@ function Player::WakeUp(%this)
 	%this.setArmThread(look);
 	%this.unconscious = false;
 	%this.isBody = false;
+	%this.setShapeNameDistance($defaultMinigame.shapeNameDistance);
 	%this.changeDataBlock(PlayerDSArmor);
 }
 
@@ -188,13 +190,18 @@ package DSHealthPackage
 		// echo("HARM:" SPC %obj.attackCount SPC %obj.attackRegion[%obj.attackCount] SPC %obj.attackType[%obj.attackCount] SPC %obj.attacker[%obj.attackCount].GetPlayerName());
 		%obj.setDamageFlash(getMax(0.25, %damage / %obj.maxHealth));
 
+		%randMax = %type == $DamageType::Sharp ? 2 : 3; //Sharp weapons have higher chance to cause blood
 		%blood = %type != $DamageType::Suicide && %type != $DamageType::Stamina;
 		%obj.playPain();
 		if (%blood)
-			%obj.doSplatterBlood(3);
+			%obj.doSplatterBlood(%randMax, %pos, %vector, %type == $DamageType::Sharp ? 45 : 180);
 		if (%source.getClassName() $= "Player") //rather good chance of getting blood on yourself
 		{
-			if (getRandom(1, 3) == 1 && %blood)
+			%image = %source.getMountedImage(0);
+			%props = %source.getItemProps();
+			if (%props.class $= "MeleeProps") //Can bloodify!
+				%props.bloody = true; //Always bloodify
+			if (getRandom(1, %randMax) == 1 && %blood)
 			{
 				%source.bloody["rhand"] = true;
 				// %source.bloody["lhand"] = true; //Idea: bloodify the other hand if player tries to carry the body!
@@ -202,7 +209,7 @@ package DSHealthPackage
 				if (isObject(%source.client))
 					%source.client.applyBodyParts();
 			}
-			if (getRandom(1, 2) == 1 && %blood)
+			if (getRandom(1, %randMax) == 1 && %blood)
 			{
 				%obj.bloody["chest_" @ (%dot > 0 ? "back" : "front")] = true; //TODO: take sides into account, too. Maybe.
 				if (isObject(%obj.client))
@@ -210,7 +217,7 @@ package DSHealthPackage
 			}
 			if (%dot > 0) //Backstab
 			{
-				%damage *= 1 + %dot; //double it
+				%damage *= getMin(1, %image.backstabMult) + %dot;
 			}
 		}
 		if (%type == $DamageType::Stamina)
@@ -227,7 +234,7 @@ package DSHealthPackage
 		if (%obj.health <= 0)
 		{
 			if (%blood)
-				%obj.doSplatterBlood(10);
+				%obj.doSplatterBlood(6, %pos, %vector, %type == $DamageType::Sharp ? 45 : 180);
 			Parent::damage(%this, %obj, %src, %position, %this.maxDamage * 4, %type);
 		}
 	}

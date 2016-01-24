@@ -43,3 +43,18 @@ function mAtan2(%x, %y)
 	%a = mAcos(%x / mSqrt(%x*%x + %y*%y));
 	return %y >= 0 ? %a : -%a;
 }
+
+function ShapeBase::PointAt(%this, %pos)
+{
+	%thispos = %this.getPosition();
+	%delta = VectorSub(%pos, %thispos);
+	%dX = getWord(%delta, 0);
+	%dY = getWord(%delta, 1);
+	%dZ = getWord(%delta, 2);
+	%hyp = VectorLen(%dX SPC %dY SPC 0);
+
+	%rotZ = mAtan(%dX, %dY) * -1;
+	%rotX = mAtan(%dZ, %hyp);
+
+	%this.setTransform(%thispos SPC eulerRadToMatrix(%rotX SPC 0 SPC %rotZ));
+}

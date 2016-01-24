@@ -11,6 +11,23 @@ if (!isObject(DSGameMode_Trial))
 	};
 }
 
+datablock ItemData(MemorialItem)
+{
+	canPickUp = false;
+	doColorShift = true;
+	colorShiftColor = "0.7 0.7 0.2 1";
+	shapeFile = $DS::Path @ "res/shapes/props/memorial.dts";
+
+	uiName = "Memorial";
+	canDrop = false;
+
+	mass = 2;
+	density = 0.2;
+	elasticity = 0.2;
+	friction = 0.6;
+	emap = true;
+};
+
 function DSGameMode_Trial::onStart(%this, %miniGame)
 {
 	parent::onStart(%this, %miniGame);
@@ -106,12 +123,7 @@ function DSGameMode_Trial::onBodyExamine(%this, %miniGame, %client, %body)
 		if (%body.Discovered[%i] $= %client)
 			return;
 	}
-	for (%i=1;%i<=%body.attackCount;%i++) //Parse attack logs for info
-	{
-		if (%body.attackType[%i] $= "Suicide")
-			%suicide = true;
-	}
-	if (!%body.ignore && !%suicide && !%body.unconscious)
+	if (!%body.ignore && !%body.suicide && !%body.unconscious)
 	{
 		%body.Discovered[%body.bodyDiscoveries++] = %client;
 		%client.play2d(bodyDiscoveryNoise @ getRandom(1,2));
@@ -146,33 +158,37 @@ function DSGameMode_Trial::checkInvestigationStart(%this, %miniGame, %no_announc
 }
 function DSGameMode_Trial::trialStart(%this, %miniGame)
 {
-	for (%i = 0; %i < %miniGame.numMembers; %i++)
+	for (%i = 0; %i < GameCharacters.getCount(); %i++)
 	{
-		%member = %miniGame.member[%i];
-		%player = %member.player;
-		if (!isObject(%member.character))
+		%character = GameCharacters.getObject(%i);
+		%player = %character.player;
+		if (!isObject(%character))
 			continue;
 
-		%character = %member.character;
 		%stand = BrickGroup_888888.NTObject["_courtstand_" @ %character.room, 0];
 		%center = BrickGroup_888888.NTObject["_courtroom_center", 0];
-		if (!isObject(%player))
+		if (!isObject(%player) || %player.getState() $= "Dead")
 		{
 			%sign = new Item() {
-				dataBlock = hammerItem;
-				position = vectorAdd(getWords(%stand.getTransform(), 0, 2), "0 0 2");
+				dataBlock = MemorialItem;
+				position = vectorAdd(getWords(%stand.getTransform(), 0, 2), "0 0 1.9");
 				static = true;
 			};
 			missionCleanUp.add(%sign);
 			GameRoundCleanup.add(%sign);
-			%sign.setShapeName(%character.name SPC "(DEAD)");
+			%sign.PointAt(getWords(%center.getTransform(), 0, 2));
+			%status = "(LEFT)";
+			if (isObject(%player))
+				%status = %player.ignore ? "(FREEKILL)" : (%player.suicide ? "(SUICIDE)" : "(DEAD)");
+			%sign.setShapeName(%character.name SPC %status);
 			%sign.setShapeNameColor("0.5 0.5 0.5");
 			continue;
 		}
 		%player.setTransform(vectorAdd(getWords(%stand.getTransform(), 0, 2), "0 0 0.3"));
+		%player.PointAt(getWords(%center.getTransform(), 0, 2));
 		%player.setVelocity("0 0 0"); //Prevents sliding around
-		%player.setShapeNameDistance(120);
 		%player.wakeUp();
+		%player.setShapeNameDistance(120);
 		%player.changeDataBlock(PlayerDSFrozenArmor);
 	}
 	%this.trial = true;
@@ -198,6 +214,7 @@ function DSGameMode_Trial::voteStart(%this, %miniGame)
 }
 function DSGameMode_Trial::checkVotes(%this, %miniGame)
 {
+	cancel(%this.trialSchedule);
 	%correct = 0;
 	%wrong = 0;
 	%miniGame.messageAll('', '\c5 There were \c3%1 votes in total!', %this.voteCount);

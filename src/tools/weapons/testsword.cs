@@ -17,6 +17,8 @@ datablock ItemData(AdvSwordItem)
 	doColorShift = true;
 	colorShiftColor = "0.471 0.471 0.471 1.000";
 
+	itemPropsClass = "MeleeProps";
+
 	 // Dynamic properties defined by the scripts
 	image = AdvSwordImage;
 	canBlock = true; //Can you block w/ rightclick using this weapon?

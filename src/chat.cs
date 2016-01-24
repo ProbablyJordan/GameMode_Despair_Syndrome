@@ -93,19 +93,21 @@ package ChatPackage
 		if (isObject(%client.character))
 			%name = %client.character.name;
 
-		%structure = '<color:ffaa44>%1<color:ffffff> %3, \"%2\"';
+		%structure = '<color:ffaa44>%1<color:ffffff> %3, %4\"%2\"';
 		%does = "says";
 		%range = 24;
 		if (getSubStr(%text, 0, 1) $= "!") //shouting
 		{
 			%text = getSubStr(%text, 1, strLen(%text));
 			%does = "shouts";
+			%font = "<font:Verdana:28>";
 			%range = 100;
 		}
 		else if(getSubStr(%text, 0, 1) $= "@") //Whispering
 		{
 			%text = getSubStr(%text, 1, strLen(%text));
 			%does = "whispers";
+			%font = "<font:segoe ui light:24>";
 			%range = 4;
 		}
 
@@ -150,13 +152,13 @@ package ChatPackage
 			}
 
 			messageClient(%other, '', %structure,
-								%name, %text, %does);
+								%name, %text, %does, %font);
 		}
 	}
 
 	function serverCmdTeamMessageSent(%client, %text) //OOC
 	{
-		if (!%client.inDefaultGame())
+		if (!%client.inDefaultGame() && %client.hasSpawnedOnce)
 			return Parent::serverCmdMessageSent(%client, %text);
 		if (isEventPending(%client.miniGame.resetSchedule))
 			return serverCmdMessageSent(%client, %text);

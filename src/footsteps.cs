@@ -1,4 +1,4 @@
-$FOOTSTEPS_INTERVAL = 150;
+$FOOTSTEPS_INTERVAL = 300;
 $FOOTSTEPS_MIN_LANDING = -1.5;
 $FOOTSTEPS_WALKING_FACTOR = 0.5;
 $FOOTSTEPS_BLOODYFOOTPRINTS = 1;
@@ -49,7 +49,7 @@ function Player::playFootsteps(%this, %foot)
 
 	%this.getDataBlock().onFootstep(%this, %foot);
 	// 290?
-	%this.playFootsteps = %this.schedule(300, "playFootsteps", !%foot);
+	%this.playFootsteps = %this.schedule($FOOTSTEPS_INTERVAL * (%this.running ? 0.75 : 1), "playFootsteps", !%foot);
 }
 
 function Player::getFootPosition(%this, %foot)

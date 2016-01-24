@@ -24,7 +24,14 @@ datablock ItemData(BucketItem) {
 function BucketItem::onAdd(%this, %obj)
 {
 	Parent::onAdd(%this, %obj);
-	// Stuff
+	// %obj.alpha = 0.5;
+	// %obj.setNodeColor("liquid", "0.2 0.8 1" SPC %obj.alpha);
+}
+
+function BucketItem::updateLiquidColor(%this, %obj)
+{
+	// %bucketProps = %obj.getItemProps();
+	// %obj.setNodeColor("liquid", BlendRGBA("0.2 0.8 1", "0.7 0 0" SPC %bucketProps.blood/%this.maxBlood) SPC getMax(%obj.alpha, %bucketProps.blood/%this.maxBlood));
 }
 
 function BucketProps::onAdd(%this)

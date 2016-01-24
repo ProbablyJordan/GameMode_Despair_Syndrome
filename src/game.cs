@@ -181,7 +181,10 @@ package DespairSyndromePackage
 		%message = '%2 killed %1';
 
 		if (%sourceClient == %client || %sourceClient == 0)
+		{
 			%message = $DeathMessage_Suicide[%damageType];
+			%client.corpse.suicide = true;
+		}
 		else
 			%message = $DeathMessage_Murder[%damageType];
 
@@ -272,7 +275,8 @@ package DespairSyndromePackage
 		{
 			if (isObject(%player.tool[%player.currTool]) && %corpse.addTool(%player.tool[%player.currTool], %player.getItemProps(%player.currTool)) != -1) //Tool selected, plant on body
 			{
-				%player.removeToolSlot(%player.currTool, 1);
+				%player.itemProps[%player.currTool] = "";
+				%player.removeToolSlot(%player.currTool);
 				%player.playThread(2, "shiftAway");
 				if (%this.isViewingInventory)
 					%this.updateInventoryView();

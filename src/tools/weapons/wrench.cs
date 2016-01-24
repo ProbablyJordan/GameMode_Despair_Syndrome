@@ -28,6 +28,8 @@ datablock ItemData(MonkeyWrenchItem)
 	friction = 0.6;
 	emap = true;
 
+	itemPropsClass = "MeleeProps";
+
 	//gui stuff
 	uiName = "Monkey Wrench";
 	iconName = $DS::Path @ "res/icons/icon_Wrench";

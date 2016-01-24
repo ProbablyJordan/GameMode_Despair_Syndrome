@@ -15,6 +15,8 @@ exec("./lib/sfx.cs");
 exec("./lib/Support_Raycasts.cs");
 exec("./lib/text.cs");
 exec("./lib/items.cs");
+exec("./lib/timedfiring.cs");
+exec("./lib/timedraycast.cs");
 //src
 exec("./src/overwrite.cs");
 exec("./src/events.cs");

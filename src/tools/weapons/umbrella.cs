@@ -28,6 +28,8 @@ datablock ItemData(UmbrellaItem)
 	friction = 0.6;
 	emap = true;
 
+	itemPropsClass = "MeleeProps";
+
 	//gui stuff
 	uiName = "Umbrella";
 	iconName = $DS::Path @ "res/icons/icon_Umbrella";

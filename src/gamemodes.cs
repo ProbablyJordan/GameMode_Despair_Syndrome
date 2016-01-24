@@ -9,6 +9,7 @@ function DSGameMode::onAdd(%this)
 function DSGameMode::onStart(%this, %miniGame)
 {
 	$DefaultMiniGame.noWeapons = false;
+	$DefaultMiniGame.shapeNameDistance = 13.5;
 	%miniGame.messageAll('', '\c5A new round has started. Current mode is: %1! %2', %this.name, %this.desc);
 
 	// Close *all* doors
@@ -96,7 +97,7 @@ function DSGameMode::onStart(%this, %miniGame)
 		%point = %roomSpawn.getTransform();
 		%player.setTransform(%point);
 		%player.setShapeName(%character.name, 8564862);
-		%player.setShapeNameDistance(13.5);
+		%player.setShapeNameDistance($DefaultMiniGame.shapeNameDistance);
 		if (%character.gender $= "female")
 		{
 			%nameTextColor = "ff11cc";
@@ -177,6 +178,16 @@ function DSGameMode::checkLastManStanding(%this, %miniGame)
 }
 function DSGameMode::onDay(%this, %miniGame)
 {
+	$DefaultMiniGame.shapeNameDistance = 13.5;
+	for (%i = 0; %i < %miniGame.numMembers; %i++)
+	{
+		%member = %miniGame.member[%i];
+		%player = %member.player;
+
+		if (!isObject(%player))
+			continue;
+		%player.setShapeNameDistance($DefaultMiniGame.shapeNameDistance); //Update shapenames
+	}
 	loadEnvironment($DS::Path @ "data/env/day.txt");
 	%miniGame.messageAll('', '\c5All water in the building has resumed function. Cafeteria has been unlocked.');
 	%name = "_sink";
@@ -191,6 +202,7 @@ function DSGameMode::onDay(%this, %miniGame)
 }
 function DSGameMode::onNight(%this, %miniGame)
 {
+	$DefaultMiniGame.shapeNameDistance = 5;
 	//Exhaust all players
 	for (%i = 0; %i < %miniGame.numMembers; %i++)
 	{
@@ -201,6 +213,7 @@ function DSGameMode::onNight(%this, %miniGame)
 			continue;
 
 		%player.updateExhaustion();
+		%player.setShapeNameDistance($DefaultMiniGame.shapeNameDistance); //Update shapenames
 	}
 	loadEnvironment($DS::Path @ "data/env/night.txt");
 	%miniGame.messageAll('', '\c5All water in the building has been disabled for the night. Cafeteria will be off-limits in 30 seconds.');

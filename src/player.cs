@@ -129,7 +129,7 @@ function Player::updateExhaustion(%this) //Call this every night
 		if (%this.exhaustion <= 0)
 		{
 			%msg = "You got too exhausted and have fallen unconscious...";
-			%this.KnockOut(90000, 2); //1 minute 30 seconds KO. Regain 2 bars tho
+			%this.KnockOut(120000, 2); //2 minute KO. Regain 2 bars tho
 		}
 		if (isObject(%this.client))
 		{
@@ -140,15 +140,15 @@ function Player::updateExhaustion(%this) //Call this every night
 
 function serverCmdSleep(%this, %bypass)
 {
-	if(!isObject(%this.player))
+	if(!isObject(%this.player) || !%this.inDefaultGame() || %this.miniGame.gameMode.trial)
 		return;
 	if (%bypass)
 	{
-		%this.player.KnockOut(60000, 2); //1 minute KO w/ 2 bars of exhaustion recovery
+		%this.player.KnockOut(90000, 2); //1.30 minute KO w/ 2 bars of exhaustion recovery
 		%this.updateBottomPrint();
 		return;
 	}
-	%message = "\c2Are you sure you want to sleep?\nYou will be unconscious for a minute!";
+	%message = "\c2Are you sure you want to sleep?\nYou will be unconscious for a minute and a half!";
 	commandToClient(%this, 'messageBoxYesNo', "Sleep Prompt", %message, 'SleepAccept');
 }
 
@@ -287,7 +287,11 @@ function PlayerDSArmor::onTrigger(%this, %obj, %slot, %state)
 					}
 					else
 					{
-						%text = "\c6This is" SPC (isObject(%found.character) ? %found.character.name : "Unknown") @ "'s body.";
+						if (isObject(%found.client))
+							%character = %found.client.character;
+						else
+							%character = %found.character;
+						%text = "\c6This is" SPC (isObject(%character) ? %character.name : "Unknown") @ "'s body.";
 						if (%found.unconscious)
 							%text = %text @ "\n\c3They are unconscious.";
 						//Unfinished body examination flavortext below
