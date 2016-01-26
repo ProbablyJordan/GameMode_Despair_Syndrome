@@ -34,6 +34,7 @@ function DSGameMode_Trial::onStart(%this, %miniGame)
 	%this.deathCount = 0;
 	%this.vote = false;
 	%this.trial = false;
+	%this.madekiller = false;
 	%this.killer = "";
 	%this.announcements = 0;
 	%this.forceVoteCount = 0;
@@ -66,7 +67,8 @@ function DSGameMode_Trial::onDeath(%this, %miniGame, %client, %sourceObject, %so
 	{
 		%this.killer = %sourceClient;
 		%this.killer.play2d(KillerJingleSound);
-		messageClient(%this.killer, '', '<font:impact:30>You ended up killing someone. Self defence? Murder? Doesn\'t matter. Now you have to get away with it. Nobody must know.');
+		messageClient(%this.killer, '', '<font:impact:30>YOU BECAME THE KILLER! Self defence? Murder? Doesn\'t matter. Now you have to get away with it. Nobody must know.');
+		%this.killer.centerPrint("<font:impact:30>YOU BECAME THE KILLER!", 3);
 	}
 	else if (%this.killer != %sourceClient) //Freekill?
 	{
@@ -88,6 +90,15 @@ function DSGameMode_Trial::onDeath(%this, %miniGame, %client, %sourceObject, %so
 	if (%this.deathCount >= 3) //This is one kill more than the voting check.
 		%miniGame.DisableWeapons();
 }
+function DSGameMode_Trial::checkLastManStanding(%this, %miniGame)
+{
+	parent::checkLastManStanding(%this, %miniGame);
+	if (!isObject(%this.killer) && %this.madekiller) //KILLER LEFT FUCK HIM
+	{
+		%miniGame.messageAll('', "\c5THE KILLER LEFT THE FUCKING GAME REEEEEEEEEEEEEEEEE");
+		%this.onEnd(%miniGame, ""); //It's in place so I don't have to reset round every time killer leaves myself.
+	}
+}
 function DSGameMode_Trial::onDay(%this, %miniGame)
 {
 	parent::onDay(%this, %miniGame);
@@ -105,6 +116,7 @@ function DSGameMode_Trial::onNight(%this, %miniGame)
 			if (isObject(%member.player))
 				%alivePlayers[%count++] = %member;
 		}
+		%this.madekiller = true;
 		%this.killer = $DS::GameMode::ForceKiller !$= "" ? $DS::GameMode::ForceKiller : %alivePlayers[getRandom(1, %count)];
 		%this.killer.player.regenStaminaDefault *= 2;
 		%this.killer.player.exhaustionImmune = true;

@@ -1,4 +1,4 @@
-function Player::addTool(%this, %data, %props)
+function Player::addTool(%this, %data, %props, %ignoreProps)
 {
 	%data = %data.getID();
 	%maxTools = %this.getDataBlock().maxTools;
@@ -10,7 +10,7 @@ function Player::addTool(%this, %data, %props)
 
 		if (!%data.customPickupMultiple && %this.tool[%i] == %data)
 		{
-			if (isObject(%props))
+			if (!%ignoreProps && isObject(%props))
 				%props.delete();
 			return -1;
 		}
@@ -18,7 +18,7 @@ function Player::addTool(%this, %data, %props)
 
 	if (%i == %maxTools)
 	{
-		if (isObject(%props))
+		if (!%ignoreProps && isObject(%props))
 			%props.delete();
 		return -1;
 	}

@@ -35,6 +35,7 @@ exec("./src/chat.cs");
 exec("./src/gamemodes.cs");
 exec("./src/game.cs");
 exec("./src/admin.cs");
+exec("./src/connection.cs");
 //src/gamemodes
 exec("./src/gamemodes/default.cs");
 exec("./src/gamemodes/killer.cs");
@@ -43,6 +44,7 @@ exec("./src/gamemodes/despairtrial.cs");
 exec("./src/tools/bucket.cs");
 exec("./src/tools/mop.cs");
 exec("./src/tools/key.cs");
+exec("./src/tools/lockpick.cs");
 //src/tools/weapons
 exec("./src/tools/weapons/melee.cs"); //should probably move this to lib but eh
 exec("./src/tools/weapons/testsword.cs");

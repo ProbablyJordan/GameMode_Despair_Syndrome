@@ -273,7 +273,7 @@ package DespairSyndromePackage
 		}
 		if (isObject(%corpse) && vectorDist(%corpse.getPosition(), %pos) < 2)
 		{
-			if (isObject(%player.tool[%player.currTool]) && %corpse.addTool(%player.tool[%player.currTool], %player.getItemProps(%player.currTool)) != -1) //Tool selected, plant on body
+			if (isObject(%player.tool[%player.currTool]) && %corpse.addTool(%player.tool[%player.currTool], %player.getItemProps(%player.currTool), 1) != -1) //Tool selected, plant on body
 			{
 				%player.itemProps[%player.currTool] = "";
 				%player.removeToolSlot(%player.currTool);

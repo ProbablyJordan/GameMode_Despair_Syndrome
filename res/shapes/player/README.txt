@@ -26,6 +26,7 @@ hair_freddie
 hair_greaser
 hair_headband
 hair_jewfro
+hair_maya
 hair_layered
 hair_messy
 hair_mohawk

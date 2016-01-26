@@ -236,6 +236,7 @@ function getRandomHairName(%gender)
 		%choice[%high++] = "hair_daphne";
 		%choice[%high++] = "hair_velma";
 		%choice[%high++] = "hair_wavey";
+		%choice[%high++] = "hair_maya";
 		// %choice[%high++] = "";
 	}
 

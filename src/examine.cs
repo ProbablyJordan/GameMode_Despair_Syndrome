@@ -2,6 +2,7 @@ package DSExaminePackage
 {
 	function Player::activateStuff(%this)
 	{
+		if (%this.unconscious) return; //boop
 		Parent::activateStuff(%this);
 		%client = %this.client;
 		if (!isObject(%client) || !%client.inDefaultGame())

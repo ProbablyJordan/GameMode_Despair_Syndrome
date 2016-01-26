@@ -42,7 +42,7 @@ function DSGameMode::onStart(%this, %miniGame)
 	}
 	// Random items!
 	%name = "_randomlootspawn";
-	%choices = "CaneItem UmbrellaItem MonkeyWrenchItem PanItem KnifeItem mopItem";
+	%choices = "CaneItem UmbrellaItem MonkeyWrenchItem PanItem KnifeItem mopItem lockpickItem";
 
 	%count = BrickGroup_888888.NTObjectCount[%name];
 
@@ -186,6 +186,7 @@ function DSGameMode::onDay(%this, %miniGame)
 
 		if (!isObject(%player))
 			continue;
+		if (%player.unconscious) continue;
 		%player.setShapeNameDistance($DefaultMiniGame.shapeNameDistance); //Update shapenames
 	}
 	loadEnvironment($DS::Path @ "data/env/day.txt");
@@ -213,6 +214,7 @@ function DSGameMode::onNight(%this, %miniGame)
 			continue;
 
 		%player.updateExhaustion();
+		if (%player.unconscious) continue;
 		%player.setShapeNameDistance($DefaultMiniGame.shapeNameDistance); //Update shapenames
 	}
 	loadEnvironment($DS::Path @ "data/env/night.txt");

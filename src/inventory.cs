@@ -135,8 +135,11 @@ package RPG_InventoryView
 			}
 			if (isobject(%player.inventoryTarget.tool[%player.inventorySlotIndex]))
 			{
-				if (%player.addTool(%player.inventoryTarget.tool[%player.inventorySlotIndex], %player.inventoryTarget.getItemProps(%player.inventorySlotIndex)) != -1)
+				if (%player.addTool(%player.inventoryTarget.tool[%player.inventorySlotIndex], %player.inventoryTarget.getItemProps(%player.inventorySlotIndex), 1) != -1)
+				{
 					%player.inventoryTarget.removeToolSlot(%player.inventorySlotIndex, 1);
+					%player.inventoryTarget.itemProps[%player.inventorySlotIndex] = "";
+				}
 			}
 			%player.playThread(2, "activate");
 			%client.updateInventoryView();
