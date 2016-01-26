@@ -74,7 +74,11 @@ function Player::KnockOut(%this, %duration, %exRestore)
 	if (%exRestore !$= "")
 		%this.setExhaustion(%this.exhaustion + %exRestore);
 	%this.setArmThread(land);
-	%this.getDataBlock().onDisabled(%this, 1);
+	%this.playThread(0, "root");
+	%this.playThread(1, "root");
+	%this.playThread(2, "root");
+	%this.playThread(3, "death1");
+	%this.setActionThread("root");
 	%this.unconscious = true;
 	%this.setShapeNameDistance(0);
 	%this.isBody = true;

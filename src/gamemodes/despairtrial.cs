@@ -95,7 +95,7 @@ function DSGameMode_Trial::checkLastManStanding(%this, %miniGame)
 	parent::checkLastManStanding(%this, %miniGame);
 	if (!isObject(%this.killer) && %this.madekiller) //KILLER LEFT FUCK HIM
 	{
-		%miniGame.messageAll('', "\c5THE KILLER LEFT THE FUCKING GAME REEEEEEEEEEEEEEEEE");
+		%miniGame.messageAll('', "\c5THE KILLER LEFT THE FUCKING GAME");
 		%this.onEnd(%miniGame, ""); //It's in place so I don't have to reset round every time killer leaves myself.
 	}
 }
@@ -315,8 +315,10 @@ package DSTrialPackge
 			return;
 		if (%gameMode.deathCount > 0 && !%gameMode.vote && !%gameMode.trial)
 		{
-			if (%client.inDefaultGame() && isObject(%client.player) && isObject(%client.character))
+			if (%client.inDefaultGame())
 			{
+				if (!isObject(%client.player) || !isObject(%client.character))
+					return;
 				for (%i = 0; %i < $defaultMiniGame.numMembers; %i++)
 				{
 					%member = $defaultMiniGame.member[%i];
@@ -367,8 +369,10 @@ package DSTrialPackge
 			return;
 		if (%gameMode.deathCount > 0 && !%gameMode.vote && %gamemode.trial)
 		{
-			if (%client.inDefaultGame() && isObject(%client.player) && isObject(%client.character))
+			if (%client.inDefaultGame())
 			{
+				if (!isObject(%client.player) || !isObject(%client.character))
+					return;
 				for (%i = 0; %i < $defaultMiniGame.numMembers; %i++)
 				{
 					%member = $defaultMiniGame.member[%i];

@@ -151,7 +151,7 @@ function WeaponImage::onRaycastCollision(%this, %obj, %col, %pos, %normal, %vec)
 		%explosion.explode();
 	}
 
-	if (%col.getType() & ($TypeMasks::PlayerObjectType | $TypeMasks::VehicleObjectType))
+	if (isObject(%col) && %col.getType() & ($TypeMasks::PlayerObjectType | $TypeMasks::VehicleObjectType))
 	{
 		if (isObject(%col.spawnBrick) && %col.spawnBrick.getGroup().client == %obj.client)
 		{

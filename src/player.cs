@@ -200,6 +200,27 @@ function Player::monitorEnergyLevel(%this)
 
 function PlayerDSArmor::onCollision(%this, %obj, %col, %vec, %speed)
 {
+	if (%col.getClassName() $= "Item")
+	{
+		if (!isObject(%col.carryPlayer) && isObject(%col.lastTosser))
+		{
+			if (vectorLen(%col.getVelocity()) > 5) //Enough force to register as a hit
+			{
+				// echo(vectorLen(%col.getVelocity()));
+				if (%col.getDataBlock().image.isWeapon)
+				{
+					%this.damage(%obj, %col.lastTosser, %col.getPosition(), %col.getDataBlock().image.directDamage * getMin(vectorLen(%col.getVelocity())/8, 1), %col.getDataBlock().image.directDamageType);
+					%col.getDataBlock().image.onRaycastCollision(%col.lastTosser, %obj, %col.getPosition(), vectorNormalize(vectorAdd(%obj.getHackPosition(), %col.getPosition()))); //haaaaaax
+				}
+				else
+				{
+					// %this.damage(%obj, %col.lastTosser, "", %col.getPosition(), vectorLen(%col.getVelocity()) * 3, $DamageType::Stamina); //Deal stamina damage -- no bucket bonking yet :(
+				}
+			}
+		}
+		return;
+	}
+	Parent::onCollision(%this, %obj, %col, %col, %vec, %speed);
 }
 
 function PlayerDSArmor::onTrigger(%this, %obj, %slot, %state)
@@ -350,11 +371,24 @@ function PlayerDSArmor::onTrigger(%this, %obj, %slot, %state)
 			}
 		}
 	}
-	//Sprinting
-	if (%obj.getMountedImage(0) || (isObject(%obj.carryObject) && %obj.carryObject.getType() & $TypeMasks::CorpseObjectType))
+	//Sprinting/tossing carried objects
+	if (%obj.getMountedImage(0) || (isObject(%obj.carryObject) && %obj.carryObject.getClassName() $= "Player"))
 		return;
 	if (%slot == 4)
 	{
+		%item = %obj.carryObject;
+		if (isObject(%item) && isEventPending(%item.carrySchedule) && %item.carryPlayer $= %obj)
+		{
+			%time = $Sim::Time - %item.carryStart;
+			cancel(%item.carrySchedule);
+			%item.carryPlayer = 0;
+			%obj.carryObject = 0;
+			%obj.playThread(2, "shiftUp");
+			%item.lastTosser = %obj;
+			%obj.setEnergyLevel(%obj.getEnergyLevel() - 20);
+			%item.setVelocity(vectorAdd(%item.getVelocity(), vectorScale(%obj.getEyeVector(), 20)));
+			return;
+		}
 		if (%state && %obj.getEnergyLevel() >= 10)
 		{
 			%obj.setEnergyLevel(%obj.getEnergyLevel() - 10);
