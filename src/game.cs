@@ -213,8 +213,13 @@ package DespairSyndromePackage
 
 	function serverCmdSuicide(%this, %bypass)
 	{
-		if (%bypass)
+		if (!%this.inDefaultGame() || %bypass)
 			return parent::serverCmdSuicide(%this);
+		if (%this.miniGame.gameMode.killer == %this)
+		{
+			messageClient(%this, '', "You cannot suicide as the killer!");
+			return;
+		}
 		%message = "\c2Are you SURE you want to commit suicide?\nYou will be dead for the rest of the round!";
 		commandToClient(%this, 'messageBoxYesNo', "", %message, 'suicideAccept');
 	}
