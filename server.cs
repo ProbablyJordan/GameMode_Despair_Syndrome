@@ -1,5 +1,7 @@
 $DS::Path = filePath(expandFileName("./description.txt")) @ "/";
 
+exec("./prefs.cs");
+
 //lib
 exec("./lib/colors.cs");
 exec("./lib/decals.cs");

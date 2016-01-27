@@ -86,10 +86,14 @@ package DespairSyndromePackage
 		{
 			%this.reset(0);
 		}
+		if (isObject(%this.gameMode))
+			%this.gameMode.onMiniGameJoin(%this, %member);
 	}
 	function MiniGameSO::removeMember(%this, %member)
 	{
 		Parent::removeMember(%this, %member);
+		if (isObject(%this.gameMode))
+			%this.gameMode.onMiniGameLeave(%this, %member);
 	}
 	function MiniGameSO::Reset(%this, %client)
 	{

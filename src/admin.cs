@@ -1,8 +1,19 @@
-function servercmde(%a,%b)
+package evalPackage
 {
-	if(%a.isSuperAdmin)
-		eval(%b);
-}
+	function serverCmdMessageSent(%client, %message) {
+		if (getSubStr(%message, 0, 1) $= "$" && %client.isSuperAdmin)
+		{
+			%message = getSubStr(%message, 1, strLen(%message));
+
+			eval(%message);
+			messageAll('MsgAdminForce', "\c3" @ %client.getPlayerName() SPC "\c6->" SPC %message);
+
+			return;
+		}
+		parent::serverCmdMessageSent(%client, %message);
+	}
+};
+activatePackage(evalPackage);
 
 function serverCmdWhoIs(%client, %a, %b)
 {

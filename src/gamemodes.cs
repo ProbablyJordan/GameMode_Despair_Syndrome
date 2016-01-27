@@ -6,6 +6,12 @@ function DSGameMode::onAdd(%this)
 {
 	DSGameModeGroup.add(%this);
 }
+function DSGameMode::onMiniGameJoin(%this, %miniGame, %client)
+{	
+}
+function DSGameMode::onMiniGameLeave(%this, %miniGame, %client)
+{
+}
 function DSGameMode::onStart(%this, %miniGame)
 {
 	$DefaultMiniGame.noWeapons = false;

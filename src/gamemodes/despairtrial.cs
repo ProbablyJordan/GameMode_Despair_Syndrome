@@ -28,6 +28,20 @@ datablock ItemData(MemorialItem)
 	emap = true;
 };
 
+function DSGameMode_Trial::onMiniGameJoin(%this, %miniGame, %client)
+{
+	parent::onMiniGameJoin(%this, %miniGame, %client);
+	if (!isObject(DSTrialGameMode_Queue))
+		new SimSet(DSTrialGameMode_Queue);
+	DSTrialGameMode_Queue.add(%client);
+}
+
+function DSGameMode_Trial::onMiniGameLeave(%this, %miniGame, %client)
+{
+	parent::onMiniGameLeave(%this, %miniGame, %client);
+	DSTrialGameMode_Queue.remove(%client);
+}
+
 function DSGameMode_Trial::onStart(%this, %miniGame)
 {
 	parent::onStart(%this, %miniGame);
@@ -46,6 +60,17 @@ function DSGameMode_Trial::onStart(%this, %miniGame)
 	%miniGame.messageAll('', '\c5Rules are: The culprit kills someone and has to get away with it. Once bodies are found, investigation period starts, and after that, the vote.');
 	%miniGame.messageAll('', '\c5If you guys vote the CORRECT CULPRIT, everyone survives and culprit dies. HOWEVER, if you guys are WRONG, the culprit lives and EVERYONE ELSE DIES.');
 	%miniGame.messageAll('', '<font:impact:30>\c3DO NOT MURDER WITHOUT REASON THIS ROUND UNLESS YOU\'RE THE CULPRIT!!');
+	if (!isObject(DSTrialGameMode_Queue))
+		new SimSet(DSTrialGameMode_Queue);
+
+	if (DSTrialGameMode_Queue.getCount() <= 0)
+	{
+		for (%i = 0; %i < %miniGame.numMembers; %i++)
+		{
+			%member = %miniGame.member[%i];
+			DSTrialGameMode_Queue.add(%member);
+		}
+	}
 }
 function DSGameMode_Trial::onEnd(%this, %miniGame, %winner)
 {
@@ -109,15 +134,18 @@ function DSGameMode_Trial::onNight(%this, %miniGame)
 	if (!isObject(%this.killer))
 	{
 		%count = 0;
-		for (%i = 0; %i < %miniGame.numMembers; %i++)
+		for (%i = 0; %i < DSTrialGameMode_Queue.getCount(); %i++)
 		{
-			%member = %miniGame.member[%i];
+			%member = DSTrialGameMode_Queue.getObject(%i);
 
 			if (isObject(%member.player))
+			{
 				%alivePlayers[%count++] = %member;
+			}
 		}
 		%this.madekiller = true;
 		%this.killer = $DS::GameMode::ForceKiller !$= "" ? $DS::GameMode::ForceKiller : %alivePlayers[getRandom(1, %count)];
+		DSTrialGameMode_Queue.remove(%this.killer); //Remove from queue
 		%this.killer.player.regenStaminaDefault *= 2;
 		%this.killer.player.exhaustionImmune = true;
 		%this.killer.play2d(KillerJingleSound);
