@@ -198,6 +198,7 @@ function DSGameMode_Trial::checkInvestigationStart(%this, %miniGame, %no_announc
 }
 function DSGameMode_Trial::trialStart(%this, %miniGame)
 {
+	setEnvironment("skyColor", "0 0 0"); //da void
 	for (%i = 0; %i < GameCharacters.getCount(); %i++)
 	{
 		%character = GameCharacters.getObject(%i);

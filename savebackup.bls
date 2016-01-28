@@ -66,11 +66,11 @@ where MAKING THIS HAPEN
 0.392157 0.192157 0.000000 1.000000
 0.584314 0.309804 0.039216 1.000000
 1.000000 0.000000 1.000000 0.000000
-Linecount 15572
+Linecount 15858
 32x32 Base" 27.5 -23 0.1 1 1 18  0 0 1 1 1
 +-OWNER 29019
 16x32 Base" -116.5 -86.5 0.1 1 1 52  0 0 1 1 1
-+-OWNER 6942
++-OWNER 29019
 16x16 Base" 19.5 -45.5 0.1 0 1 6  0 0 1 1 1
 +-OWNER 29019
 48x48 Base" -40.5 -78.5 0.1 3 1 46  0 0 1 1 1
@@ -85,8 +85,8 @@ Linecount 15572
 +-EVENT	0	1	onBrickLoaded	0	Self		createZoneUp	4.5	0.3		
 +-EVENT	1	1	onBrickLoaded	0	Self		setZoneSoundProof	1			
 +-EVENT	2	1	onRelay	0	Self		toggleEventEnabled	3 4			
-+-EVENT	3	0	onRelay	0	Self		setZoneSoundProof	0			
-+-EVENT	4	1	onRelay	0	Self		setZoneSoundProof	1			
++-EVENT	3	1	onRelay	0	Self		setZoneSoundProof	0			
++-EVENT	4	0	onRelay	0	Self		setZoneSoundProof	1			
 +-EVENT	5	1	onMiniGameReset	0	Self		setZoneSoundProof	1			
 +-EVENT	6	1	onMiniGameReset	0	Self		setEventEnabled	3	1		
 +-EVENT	7	1	onMiniGameReset	0	Self		setEventEnabled	4	0		
@@ -96,8 +96,8 @@ Linecount 15572
 +-EVENT	0	1	onBrickLoaded	0	Self		createZoneUp	4.5	0.3		
 +-EVENT	1	1	onBrickLoaded	0	Self		setZoneSoundProof	1			
 +-EVENT	2	1	onRelay	0	Self		toggleEventEnabled	3 4			
-+-EVENT	3	0	onRelay	0	Self		setZoneSoundProof	0			
-+-EVENT	4	1	onRelay	0	Self		setZoneSoundProof	1			
++-EVENT	3	1	onRelay	0	Self		setZoneSoundProof	0			
++-EVENT	4	0	onRelay	0	Self		setZoneSoundProof	1			
 +-EVENT	5	1	onMiniGameReset	0	Self		setZoneSoundProof	1			
 +-EVENT	6	1	onMiniGameReset	0	Self		setEventEnabled	3	1		
 +-EVENT	7	1	onMiniGameReset	0	Self		setEventEnabled	4	0		
@@ -238,8 +238,8 @@ Linecount 15572
 +-EVENT	0	1	onBrickLoaded	0	Self		createZoneUp	4.5	0.3		
 +-EVENT	1	1	onBrickLoaded	0	Self		setZoneSoundProof	1			
 +-EVENT	2	1	onRelay	0	Self		toggleEventEnabled	3 4			
-+-EVENT	3	0	onRelay	0	Self		setZoneSoundProof	0			
-+-EVENT	4	1	onRelay	0	Self		setZoneSoundProof	1			
++-EVENT	3	1	onRelay	0	Self		setZoneSoundProof	0			
++-EVENT	4	0	onRelay	0	Self		setZoneSoundProof	1			
 +-EVENT	5	1	onMiniGameReset	0	Self		setZoneSoundProof	1			
 +-EVENT	6	1	onMiniGameReset	0	Self		setEventEnabled	3	1		
 +-EVENT	7	1	onMiniGameReset	0	Self		setEventEnabled	4	0		
@@ -271,8 +271,8 @@ Linecount 15572
 +-EVENT	0	1	onBrickLoaded	0	Self		createZoneUp	4.5	0.3		
 +-EVENT	1	1	onBrickLoaded	0	Self		setZoneSoundProof	1			
 +-EVENT	2	1	onRelay	0	Self		toggleEventEnabled	3 4			
-+-EVENT	3	0	onRelay	0	Self		setZoneSoundProof	0			
-+-EVENT	4	1	onRelay	0	Self		setZoneSoundProof	1			
++-EVENT	3	1	onRelay	0	Self		setZoneSoundProof	0			
++-EVENT	4	0	onRelay	0	Self		setZoneSoundProof	1			
 +-EVENT	5	1	onMiniGameReset	0	Self		setZoneSoundProof	1			
 +-EVENT	6	1	onMiniGameReset	0	Self		setEventEnabled	3	1		
 +-EVENT	7	1	onMiniGameReset	0	Self		setEventEnabled	4	0		
@@ -284,8 +284,8 @@ Linecount 15572
 +-EVENT	0	1	onBrickLoaded	0	Self		createZoneUp	4.5	0.3		
 +-EVENT	1	1	onBrickLoaded	0	Self		setZoneSoundProof	1			
 +-EVENT	2	1	onRelay	0	Self		toggleEventEnabled	3 4			
-+-EVENT	3	0	onRelay	0	Self		setZoneSoundProof	0			
-+-EVENT	4	1	onRelay	0	Self		setZoneSoundProof	1			
++-EVENT	3	1	onRelay	0	Self		setZoneSoundProof	0			
++-EVENT	4	0	onRelay	0	Self		setZoneSoundProof	1			
 +-EVENT	5	1	onMiniGameReset	0	Self		setZoneSoundProof	1			
 +-EVENT	6	1	onMiniGameReset	0	Self		setEventEnabled	3	1		
 +-EVENT	7	1	onMiniGameReset	0	Self		setEventEnabled	4	0		
@@ -295,8 +295,8 @@ Linecount 15572
 +-EVENT	0	1	onBrickLoaded	0	Self		createZoneUp	4.5	0.3		
 +-EVENT	1	1	onBrickLoaded	0	Self		setZoneSoundProof	1			
 +-EVENT	2	1	onRelay	0	Self		toggleEventEnabled	3 4			
-+-EVENT	3	0	onRelay	0	Self		setZoneSoundProof	0			
-+-EVENT	4	1	onRelay	0	Self		setZoneSoundProof	1			
++-EVENT	3	1	onRelay	0	Self		setZoneSoundProof	0			
++-EVENT	4	0	onRelay	0	Self		setZoneSoundProof	1			
 +-EVENT	5	1	onMiniGameReset	0	Self		setZoneSoundProof	1			
 +-EVENT	6	1	onMiniGameReset	0	Self		setEventEnabled	3	1		
 +-EVENT	7	1	onMiniGameReset	0	Self		setEventEnabled	4	0		
@@ -306,8 +306,8 @@ Linecount 15572
 +-EVENT	0	1	onBrickLoaded	0	Self		createZoneUp	4.5	0.3		
 +-EVENT	1	1	onBrickLoaded	0	Self		setZoneSoundProof	1			
 +-EVENT	2	1	onRelay	0	Self		toggleEventEnabled	3 4			
-+-EVENT	3	0	onRelay	0	Self		setZoneSoundProof	0			
-+-EVENT	4	1	onRelay	0	Self		setZoneSoundProof	1			
++-EVENT	3	1	onRelay	0	Self		setZoneSoundProof	0			
++-EVENT	4	0	onRelay	0	Self		setZoneSoundProof	1			
 +-EVENT	5	1	onMiniGameReset	0	Self		setZoneSoundProof	1			
 +-EVENT	6	1	onMiniGameReset	0	Self		setEventEnabled	3	1		
 +-EVENT	7	1	onMiniGameReset	0	Self		setEventEnabled	4	0		
@@ -323,8 +323,8 @@ Linecount 15572
 +-EVENT	0	1	onBrickLoaded	0	Self		createZoneUp	4.5	0.3		
 +-EVENT	1	1	onBrickLoaded	0	Self		setZoneSoundProof	1			
 +-EVENT	2	1	onRelay	0	Self		toggleEventEnabled	3 4			
-+-EVENT	3	0	onRelay	0	Self		setZoneSoundProof	0			
-+-EVENT	4	1	onRelay	0	Self		setZoneSoundProof	1			
++-EVENT	3	1	onRelay	0	Self		setZoneSoundProof	0			
++-EVENT	4	0	onRelay	0	Self		setZoneSoundProof	1			
 +-EVENT	5	1	onMiniGameReset	0	Self		setZoneSoundProof	1			
 +-EVENT	6	1	onMiniGameReset	0	Self		setEventEnabled	3	1		
 +-EVENT	7	1	onMiniGameReset	0	Self		setEventEnabled	4	0		
@@ -334,8 +334,8 @@ Linecount 15572
 +-EVENT	0	1	onBrickLoaded	0	Self		createZoneUp	4.5	0.3		
 +-EVENT	1	1	onBrickLoaded	0	Self		setZoneSoundProof	1			
 +-EVENT	2	1	onRelay	0	Self		toggleEventEnabled	3 4			
-+-EVENT	3	0	onRelay	0	Self		setZoneSoundProof	0			
-+-EVENT	4	1	onRelay	0	Self		setZoneSoundProof	1			
++-EVENT	3	1	onRelay	0	Self		setZoneSoundProof	0			
++-EVENT	4	0	onRelay	0	Self		setZoneSoundProof	1			
 +-EVENT	5	1	onMiniGameReset	0	Self		setZoneSoundProof	1			
 +-EVENT	6	1	onMiniGameReset	0	Self		setEventEnabled	3	1		
 +-EVENT	7	1	onMiniGameReset	0	Self		setEventEnabled	4	0		
@@ -347,8 +347,8 @@ Linecount 15572
 +-EVENT	0	1	onBrickLoaded	0	Self		createZoneUp	4.5	0.3		
 +-EVENT	1	1	onBrickLoaded	0	Self		setZoneSoundProof	1			
 +-EVENT	2	1	onRelay	0	Self		toggleEventEnabled	3 4			
-+-EVENT	3	0	onRelay	0	Self		setZoneSoundProof	0			
-+-EVENT	4	1	onRelay	0	Self		setZoneSoundProof	1			
++-EVENT	3	1	onRelay	0	Self		setZoneSoundProof	0			
++-EVENT	4	0	onRelay	0	Self		setZoneSoundProof	1			
 +-EVENT	5	1	onMiniGameReset	0	Self		setZoneSoundProof	1			
 +-EVENT	6	1	onMiniGameReset	0	Self		setEventEnabled	3	1		
 +-EVENT	7	1	onMiniGameReset	0	Self		setEventEnabled	4	0		
@@ -376,13 +376,13 @@ Linecount 15572
 16x16 Base" -16.5 -46.5 0.1 2 1 46  0 0 1 1 1
 +-OWNER 29019
 16x32 Base" -100.5 -86.5 0.1 1 1 52  0 0 1 1 1
-+-OWNER 6942
++-OWNER 29019
 16x32 Base" -100.5 -30.5 0.1 3 1 52  0 0 1 1 1
-+-OWNER 6942
++-OWNER 29019
 16x32 Base" -116.5 -30.5 0.1 3 1 52  0 0 1 1 1
-+-OWNER 6942
++-OWNER 29019
 32x32 Base" -135.5 6.5 0.1 3 1 45  0 0 1 1 1
-+-OWNER 6942
++-OWNER 29019
 48x48 Base" -32.5 -54.5 0.1 1 1 51  0 0 1 1 1
 +-OWNER 29019
 16x16 Base" -24.5 -78.5 0.1 1 1 51  0 0 1 1 1
@@ -466,19 +466,19 @@ Linecount 15572
 1x1" -100.75 21.25 0.3 3 1 0  0 0 1 1 1
 +-OWNER 29019
 32x32 Base" -135.5 22.5 0.1 3 1 46  0 0 1 1 1
-+-OWNER 6942
++-OWNER 29019
 32x32 Base" -116.5 -74.5 0.1 0 1 37  0 0 1 1 1
-+-OWNER 6942
++-OWNER 29019
 32x32 Base" -100.5 -74.5 0.1 0 1 37  0 0 1 1 1
-+-OWNER 6942
++-OWNER 29019
 64x64 Base" -108.5 -50.5 0.1 0 1 37  0 0 1 1 1
-+-OWNER 6942
++-OWNER 29019
 32x32 Base" -163.5 21 0.1 0 1 45  0 0 1 1 1
-+-OWNER 35032
-32x32 Base" 76 -91 0.1 2 1 49  0 0 1 1 1
-+-OWNER 151794
-+-EVENT	0	1	onPlayerTouch	0	Player		ChangeDataBlock	PlayerStandardArmor			
-3x3F Tile" 26.75 -29.75 0.3 0 0 44  0 0 1 1 1
++-OWNER 29019
+4x8F" -127.5 -79 0.1 2 1 6  0 0 1 1 1
++-OWNER 19783
+4x8F" -129.5 -79 0.1 2 1 6  0 0 1 1 1
++-OWNER 19783
 1x4F Tile" 26.5 -28.75 0.3 0 0 44  0 0 1 1 1
 1x3F Tile" 20.25 -26.25 0.3 3 0 44  0 0 1 1 1
 1x1F Corner Tile" 25.5 -27.5 0.3 3 0 44  0 0 1 1 1
@@ -549,7 +549,7 @@ Linecount 15572
 1x10" -11.75 -16 0.5 2 0 40  0 0 1 1 1
 1x2" -11.75 -11 0.5 2 0 40  0 0 1 1 1
 Stripe Window Door" -12.25 -12.5 2 0 0 30  0 0 1 1 1
-+-NTOBJECTNAME _door_jani
++-NTOBJECTNAME _door_janitor
 +-EVENT	0	1	onActivate	0	Self		door	0			
 Glass Pane Door" -25.25 31 2 2 0 14  0 0 1 1 1
 +-EVENT	0	1	onActivate	0	Self		door	0			
@@ -1001,6 +1001,7 @@ Glass Pane Door" -25.25 15 2 2 0 14  0 0 1 1 1
 1x1 Wedge" -8.25 13.75 0.5 2 0 61  0 0 1 1 1
 1x1F" -85.75 -79.75 0.3 0 0 38  0 0 0 0 0
 +-NTOBJECTNAME _randomLootSpawn
++-ITEM NONE"  2 1000
 1x4" 68.5 -53.75 0.5 1 0 34  0 0 1 1 1
 1F 2x2F Vertical Print" -7.5 13.75 0.3 2 0 51 2x2f/blank 0 0 0 0 0
 1F 2x2F Vertical Print" -6.5 13.75 0.3 2 0 51 2x2f/blank 0 0 0 0 0
@@ -2483,7 +2484,7 @@ House Door" -12.25 34.5 2 1 0 61  0 0 1 1 1
 1x1F Round" -107.75 24.75 0.3 2 0 51  0 0 1 1 1
 1x1F Round" -107.75 27.25 0.3 2 0 51  0 0 1 1 1
 1x1F Round" -106.25 27.25 0.3 2 0 51  0 0 1 1 1
-1F 1x1F Vertical Print" -99.75 22.75 0.3 2 0 51 Letters/-space 0 0 0 0 0
+3x3F Tile" 26.75 -29.75 0.3 0 0 44  0 0 1 1 1
 1F 1x1F Vertical Print" -99.75 22.25 0.3 3 0 51 Letters/-space 0 0 1 1 1
 1F 1x1F Vertical Print" -99.25 23.25 0.3 0 0 51 Letters/-space 0 0 0 0 0
 1x 1x1F Vertical Edge Print" -98.75 22.25 0.5 3 0 51 Letters/-space 0 0 1 1 1
@@ -2817,12 +2818,16 @@ Glass Pane Door" -43 50.25 2 3 0 14  0 0 1 1 1
 1x1F Corner Tile" 28 -26 0.3 0 0 44  0 0 1 1 1
 1x1F" -77.75 -75.75 0.3 0 0 38  0 0 0 0 0
 +-NTOBJECTNAME _randomLootSpawn
++-ITEM NONE"  2 1000
 1x1F" -78.75 -80.25 0.3 0 0 38  0 0 0 0 0
 +-NTOBJECTNAME _randomLootSpawn
++-ITEM NONE"  2 1000
 1x1F" -79.75 -77.25 0.3 0 0 38  0 0 0 0 0
 +-NTOBJECTNAME _randomLootSpawn
++-ITEM NONE"  2 1000
 1x1F" -82.25 -79.75 0.3 0 0 38  0 0 0 0 0
 +-NTOBJECTNAME _randomLootSpawn
++-ITEM NONE"  2 1000
 1x 1x1F Vertical Edge Print" -74.25 10.25 0.5 1 0 51 Letters/-space 0 0 1 1 1
 1x3" 14.75 -29.75 0.5 3 0 28  0 0 0 0 0
 1x2" 14.75 -29 0.5 0 0 28  0 0 0 0 0
@@ -2904,12 +2909,13 @@ Glass Pane Door" -43 50.25 2 3 0 14  0 0 1 1 1
 1x4x3" 31.25 -74 1.1 0 0 49  0 0 1 1 1
 1x4x3" 31.25 -67 1.1 0 0 49  0 0 1 1 1
 1x4x5" -164.5 20.25 1.7 1 0 45  0 0 1 1 1
-4-Sided Print 1x1" 75.75 -96.25 0.5 1 0 59 Letters/-space 0 0 1 1 1
-4-Sided Print 1x1" 75.75 -95.75 0.5 1 0 59 Letters/-space 0 0 1 1 1
-4-Sided Print 1x1" 75.75 -95.25 0.5 1 0 59 Letters/-space 0 0 1 1 1
-4-Sided Print 1x1" 75.75 -96.75 0.5 1 0 59 Letters/-space 0 0 1 1 1
+2x2F Print Plate" -94 -41 0.3 3 0 0 Letters/A 0 0 1 1 1
+2x2F Print Plate" -94 -43 0.3 3 0 0 Letters/A 0 0 1 1 1
+2x2F Print Plate" -94 -42 0.3 3 0 0 Letters/A 0 0 1 1 1
+House Door Frameless" -92.75 -43.5 2 2 0 56  0 0 1 1 1
++-EVENT	0	1	onActivate	0	Self		door	0			
 1x4x5" -166.5 20.25 1.7 1 0 45  0 0 1 1 1
-+-ITEM Monkey Wrench" 4 2 4000
++-ITEM NONE" 4 2 4000
 1x2x5" 20.5 -64.75 1.7 3 0 39  0 0 1 1 1
 1x1x5" 20.25 -75.75 1.7 2 0 39  0 0 1 1 1
 1x2x5" 30.5 -76.25 1.7 1 0 39  0 0 1 1 1
@@ -3717,6 +3723,7 @@ Large Window Door" -60.25 -60 2 0 0 18  0 0 1 1 1
 1x4F" 18.25 -151 0.3 0 0 28  0 0 1 1 1
 1x1F" -20.25 -38.75 0.3 1 0 0  0 0 0 0 0
 +-NTOBJECTNAME _randomLootSpawn
++-ITEM NONE"  2 1000
 1x4F" 22.75 -151 0.3 0 0 28  0 0 1 1 1
 8x8F" 20.5 -151 0.3 0 0 28  0 0 1 1 1
 Arched French Screen CCW" -65.25 -26.75 2.3 1 0 39  0 0 1 1 1
@@ -3810,14 +3817,16 @@ Large Window Door" 29.75 -117.5 2 0 0 18  0 0 1 1 1
 2x2F Print" -133 25 0.3 3 0 52 Letters/-space 0 0 1 1 1
 1x2F Print" -136.25 21.5 0.3 3 0 52 Letters/-space 0 0 1 1 1
 1x2F Print" -133 21.75 0.3 2 0 52 Letters/-space 0 0 1 1 1
-2x2F" 76.5 -96 0.3 1 0 59  0 0 1 1 1
+House Door Frameless" -92.75 -41.5 2 0 0 56  0 0 1 1 1
++-EVENT	0	1	onActivate	0	Self		door	1			
 1x2F Print" -134.25 21.5 0.3 1 0 52 Letters/-space 0 0 1 1 1
-4-Sided Print 1x1" 75.75 -97.25 0.5 3 0 59 Letters/-space 0 0 1 1 1
-4-Sided Print 1x1" 76.25 -97.25 0.5 3 0 59 Letters/-space 0 0 1 1 1
-4-Sided Print 1x1" 76.75 -97.25 0.5 3 0 59 Letters/-space 0 0 1 1 1
-4-Sided Print 1x1" 77.25 -97.25 0.5 3 0 59 Letters/-space 0 0 1 1 1
-4-Sided Print 1x1" 77.25 -96.75 0.5 3 0 59 Letters/-space 0 0 1 1 1
-4-Sided Print 1x1" 77.25 -96.25 0.5 3 0 59 Letters/-space 0 0 1 1 1
+House Door Frameless" -92.75 -65.5 2 0 0 56  0 0 1 1 1
++-EVENT	0	1	onActivate	0	Self		door	1			
+2x2F Print Plate" -94 -65 0.3 3 0 0 Letters/A 0 0 1 1 1
+2x2F Print Plate" -94 -66 0.3 3 0 0 Letters/A 0 0 1 1 1
+2x2F Print Plate" -94 -67 0.3 3 0 0 Letters/A 0 0 1 1 1
+2x2F Print Plate" -94 -68 0.3 3 0 0 Letters/A 0 0 1 1 1
+3x4 Crate" -107 -11.75 0.7 3 0 48  0 0 1 1 1
 1x2F Print" -134.25 23 0.3 1 0 52 Letters/-space 0 0 1 1 1
 1x2F Print" -139.5 24.75 0.3 0 0 52 Letters/-space 0 0 1 1 1
 1x2F Print" -138.5 24.75 0.3 0 0 52 Letters/-space 0 0 1 1 1
@@ -3830,11 +3839,10 @@ Large Window Door" 29.75 -117.5 2 0 0 18  0 0 1 1 1
 1x1F Print" -141.75 29.75 0.3 0 0 45 Letters/1 0 0 1 1 1
 1x1F Print" -141.75 30.25 0.3 0 0 45 Letters/L 0 0 1 1 1
 1x1F Print" -142.25 30.25 0.3 0 0 45 Letters/A 0 0 1 1 1
-4-Sided Print 1x1" 77.25 -95.75 0.5 3 0 59 Letters/-space 0 0 1 1 1
+3x4 Crate" -107.25 -13.5 0.7 2 0 49  0 0 1 1 1
 1x1F Print" -142.75 30.25 0.3 0 0 45 Letters/C 0 0 1 1 1
 1x1F Print" -143.25 30.25 0.3 0 0 45 Letters/S 0 0 1 1 1
-1x3x2 Door Left" 76.75 -95.25 0.8 3 0 59  0 0 1 1 1
-+-EVENT	0	1	onActivate	0	Self		door	0			
+1x3 Glass Pane" -106.25 -11.75 0.5 2 0 48  0 0 1 1 1
 1x1F Print" -141.25 30.25 0.3 0 0 45 Letters/E 0 0 1 1 1
 1x1F Print" -141.25 29.75 0.3 0 0 45 Letters/6 0 0 1 1 1
 1x1F Wedge" -142.25 29.75 0.3 1 0 47  0 0 1 1 1
@@ -3875,7 +3883,7 @@ Large Window Door" 29.75 -117.5 2 0 0 18  0 0 1 1 1
 1x2F Print" -133.75 26.5 0.3 1 0 4 Letters/-space 3 0 1 1 1
 1x2F Print" -133.75 27.5 0.3 1 0 4 Letters/-space 3 0 1 1 1
 1x2F Print" -133.75 28.5 0.3 1 0 4 Letters/-space 3 0 1 1 1
-1x1F Vertical Edge Print" 81.25 -93.75 0.7 2 0 49 Letters/-space 0 0 1 1 1
+2x2 Picture Frame" -105.75 -25 0.8 2 0 49 Letters/-space 0 0 1 1 1
 1x2F Print" -138.25 28.5 0.3 3 0 4 Letters/-space 3 0 1 1 1
 1x2F Print" -137.5 29.25 0.3 0 0 4 Letters/-space 3 0 1 1 1
 1x2F Print" -134.5 29.25 0.3 0 0 4 Letters/-space 3 0 1 1 1
@@ -3897,15 +3905,15 @@ Large Window Door" 29.75 -117.5 2 0 0 18  0 0 1 1 1
 +-EVENT	0	1	onActivate	0	Client		CenterPrint	[ROOM 7]	3		
 2x2F Print" -138 25.5 0.3 0 0 4 Letters/-space 3 0 1 1 1
 2x2F Print" -135 25.5 0.3 0 0 4 Letters/-space 3 0 1 1 1
-1x 1x1F Vertical Edge Print" 80.25 -92.75 0.5 1 0 59 Letters/-space 0 0 1 1 1
+2x2 Picture Frame" -105.75 -23.5 0.8 2 0 49 Letters/-space 0 0 1 1 1
 2x2F Print" -136 25.5 0.3 0 0 4 Letters/-space 3 0 1 1 1
-1x 1x1F Vertical Edge Print" 79.75 -92.75 0.5 2 0 59 Letters/-space 0 0 1 1 1
-1x 1x1F Vertical Edge Print" 79.75 -92.25 0.5 3 0 59 Letters/-space 0 0 1 1 1
+2x3" -106.75 -25 0.5 1 0 49  0 0 1 1 1
+2x3F" -127.75 -80.5 0.3 1 0 58  0 0 1 1 1
 2x2F Print" -137 25.5 0.3 0 0 4 Letters/-space 3 0 1 1 1
 2x2F Print" -134 25.5 0.3 0 0 4 Letters/-space 3 0 1 1 1
 1x1F Print" -133.25 25.75 0.3 0 0 3 Letters/J 3 0 1 1 1
 +-EVENT	0	1	onActivate	0	Client		CenterPrint	[JANITOR CLOSET]	3		
-1x 1x1F Vertical Edge Print" 80.25 -92.25 0.5 0 0 59 Letters/-space 0 0 1 1 1
+2x2F Print Plate" -94 -44 0.3 3 0 0 Letters/A 0 0 1 1 1
 2x2F Print" -134 24.5 0.3 0 0 7 Letters/S 3 0 1 1 1
 1x1F Print" -136.75 24.75 0.3 0 0 4 Letters/W 3 0 1 1 1
 +-EVENT	0	1	onActivate	0	Client		CenterPrint	[WALKWAY]	3		
@@ -3927,14 +3935,14 @@ Large Window Door" 29.75 -117.5 2 0 0 18  0 0 1 1 1
 1x2F Print" -138.25 22.5 0.3 1 0 47 Letters/-space 0 0 1 1 1
 4x16F" 18 -143 0.3 2 0 55  0 0 1 1 1
 1x2F Print" -138.25 23.5 0.3 1 0 46 Letters/-space 0 0 1 1 1
-1x1F Vertical Edge Print" 82.75 -93.75 0.7 1 0 49 Letters/-space 0 0 1 1 1
-1x1F Vertical Edge Print" 82.75 -91.25 0.7 0 0 49 Letters/-space 0 0 1 1 1
+2x3" -106.75 -23.5 0.5 1 0 49  0 0 1 1 1
+1x1" -106.25 -24.25 0.5 1 0 49  0 0 1 1 1
 4x4f_PrintPlate" -139.5 23.5 0.3 0 0 38 Letters/G 0 0 1 1 1
 +-EVENT	0	1	onActivate	0	Client		CenterPrint	[GYMNASIUM]	3		
 1x16" -108.25 -14.5 0.5 0 0 40  0 0 1 1 1
 2x2F Print" -139 22 0.3 0 0 38 Letters/G 0 0 1 1 1
 +-EVENT	0	1	onActivate	0	Client		CenterPrint	[GYMNASIUM]	3		
-1x1F Vertical Edge Print" 81.25 -91.25 0.7 3 0 49 Letters/-space 0 0 1 1 1
+1x3" -107.75 -23.25 0.5 2 0 48  0 0 1 1 1
 1x16" -108.25 -22.5 0.5 0 0 40  0 0 1 1 1
 1x3F Tile" 30.75 -25.25 0.3 2 0 44  0 0 1 1 1
 2x2F Vertical Double Print" 23.25 -123 0.7 3 0 34 Letters/-space 0 0 1 1 1
@@ -4379,7 +4387,8 @@ Wood Plank Door" 31.25 -69.5 2 0 0 49  0 0 1 1 1
 4x16F" 28.5 -153.5 0.3 3 0 55  0 0 1 1 1
 4x16F" 28.5 -148.5 0.3 1 0 55  0 0 1 1 1
 4x16F" 12.5 -148.5 0.3 1 0 55  0 0 1 1 1
-32x Cube 3/4h" 76 -91 6.2 0 0 49 ModTer/brickTOP 0 0 0 0 0
+House Door Frameless" -92.75 -67.5 2 2 0 56  0 0 1 1 1
++-EVENT	0	1	onActivate	0	Self		door	0			
 4x16F" 12.5 -153.5 0.3 3 0 55  0 0 1 1 1
 4x16F" 18 -159 0.3 2 0 55  0 0 1 1 1
 1x6F" 17.25 -151 0.3 0 0 27  0 0 1 1 1
@@ -4446,27 +4455,29 @@ Wood Plank Door" 31.25 -69.5 2 0 0 49  0 0 1 1 1
 2x3F Tile" 28 -27.25 0.3 3 0 44  0 0 1 1 1
 1x1F" -14.75 -33.25 0.3 1 0 0  0 0 0 0 0
 +-NTOBJECTNAME _randomLootSpawn
++-ITEM NONE"  2 1000
 1x1F" -26.25 -32.25 0.3 2 0 0  0 0 0 0 0
 +-NTOBJECTNAME _randomLootSpawn
++-ITEM NONE"  2 1000
 Arched French Screen" -65.25 -34.25 2.3 3 0 39  0 0 1 1 1
 +-EVENT	0	1	onActivate	0	Self		door	0			
 Arched French Screen" -63.75 -26.75 2.3 1 0 39  0 0 1 1 1
 +-EVENT	0	1	onActivate	0	Self		door	0			
 2x2F" -47.5 -46.5 0.3 3 0 0  0 0 0 0 0
 +-NTOBJECTNAME _randomLootSpawn
-+-ITEM NONE"  2 1000
++-ITEM Mop"  2 1000
 1x1F" 1.25 -58.75 0.3 0 0 0  0 0 0 0 0
 +-NTOBJECTNAME _randomLootSpawn
-+-ITEM NONE"  2 1000
++-ITEM Mop"  2 1000
 1x1F" -9.25 -54.25 0.3 1 0 0  0 0 0 0 0
 +-NTOBJECTNAME _randomLootSpawn
-+-ITEM NONE"  2 1000
++-ITEM Mop"  2 1000
 1x1F" -2.75 -40.25 0.3 2 0 0  0 0 0 0 0
 +-NTOBJECTNAME _randomLootSpawn
-+-ITEM NONE"  2 1000
++-ITEM Umbrella"  2 1000
 1x1F" 0.75 -46.25 0.3 3 0 0  0 0 0 0 0
 +-NTOBJECTNAME _randomLootSpawn
-+-ITEM bucket"  2 1000
++-ITEM Umbrella"  2 1000
 1x2" -4.75 -9.5 0.5 2 0 18  0 0 1 1 1
 1x4F" 20.5 -153.25 0.3 1 0 28  0 0 1 1 1
 1x2F Print" -137.25 23.5 0.3 1 0 44 Letters/M 3 0 1 1 1
@@ -4554,10 +4565,8 @@ Arched French Screen" -63.75 -26.75 2.3 1 0 39  0 0 1 1 1
 1x32x3" -100.5 -82.75 1.1 1 0 41  0 0 1 1 1
 1x32x3" -116.5 -82.75 1.1 1 0 41  0 0 1 1 1
 1x15" -96.75 -10.75 0.5 1 0 40  0 0 1 1 1
-Double Door" -92.75 -66.5 2 3 0 47  0 0 1 1 1
-+-EVENT	0	1	onActivate	0	Self		door	0			
-Double Door" -92.75 -42.5 2 3 0 47  0 0 1 1 1
-+-EVENT	0	1	onActivate	0	Self		door	0			
+1F 1x1F Vertical Print" -99.75 22.75 0.3 2 0 51 Letters/-space 0 0 0 0 0
+2x3F" -129.75 -80.5 0.3 1 0 58  0 0 1 1 1
 1x32" -84.5 -82.25 0.5 3 0 46  0 0 1 1 1
 1x14" -76.75 -78.5 0.5 2 0 46  0 0 1 1 1
 1x14" -92.25 -78.5 0.5 2 0 46  0 0 1 1 1
@@ -4569,6 +4578,7 @@ Plain Door Frameless" -87.5 -74.75 2 1 0 46  0 0 1 1 1
 Plain Door Frameless" -89.5 -74.75 2 3 0 46  0 0 1 1 1
 +-EVENT	0	1	onActivate	0	Self		door	0			
 Plain Door" -92.75 -14 2 3 0 50  0 0 1 1 1
++-NTOBJECTNAME _door_incinerator
 +-EVENT	0	1	onActivate	0	Self		door	0			
 4x16" -40.5 -65.5 0.5 3 0 46  0 0 1 1 1
 2x2F Print Plate" -137 8.5 0.3 0 0 45 Letters/S 0 0 1 1 1
@@ -7579,20 +7589,23 @@ Wire Fence Footless" 28.5 -64.75 4.7 1 0 39  0 0 1 1 1
 1F 1x1F Vertical Corner Print" -101.25 39.75 0.9 1 0 51 Letters/-space 0 0 1 1 1
 1x1F" -75.75 -43.75 0.5 3 0 0  0 0 0 0 0
 +-NTOBJECTNAME _randomLootSpawn
++-ITEM Bucket"  2 1000
 1x1F" -77.25 -49.75 0.5 1 0 0  0 0 0 0 0
 +-NTOBJECTNAME _randomLootSpawn
++-ITEM Knife"  2 1000
 1x1F" -77.25 -43.75 0.5 3 0 0  0 0 0 0 0
 +-NTOBJECTNAME _randomLootSpawn
++-ITEM Pan"  2 1000
 1F 1x1F Vertical Corner Print" -102.75 39.75 0.9 0 0 51 Letters/-space 0 0 1 1 1
 1x1F" -74.25 -59.75 0.5 3 0 0  0 0 0 0 0
 +-NTOBJECTNAME _randomLootSpawn
-+-ITEM Mop"  2 1000
++-ITEM Monkey Wrench"  2 1000
 1x1F" -72.75 -73.25 0.5 1 0 0  0 0 0 0 0
 +-NTOBJECTNAME _randomLootSpawn
-+-ITEM NONE"  2 1000
++-ITEM Knife"  2 1000
 1x1F" -80.25 -59.75 0.5 3 0 0  0 0 0 0 0
 +-NTOBJECTNAME _randomLootSpawn
-+-ITEM Mop"  2 1000
++-ITEM NONE"  2 1000
 1x1F" -71.25 -59.75 0.5 3 0 0  0 0 0 0 0
 +-NTOBJECTNAME _randomLootSpawn
 +-ITEM NONE"  2 1000
@@ -7601,6 +7614,7 @@ Wire Fence Footless" 28.5 -64.75 4.7 1 0 39  0 0 1 1 1
 +-ITEM NONE"  2 1000
 1x1F" -75.75 -65.75 0.5 1 0 0  0 0 0 0 0
 +-NTOBJECTNAME _randomLootSpawn
++-ITEM NONE"  2 1000
 1x1F" -78.75 -65.75 0.5 1 0 0  0 0 0 0 0
 +-NTOBJECTNAME _randomLootSpawn
 1x1F" -74.25 -73.25 0.5 1 0 0  0 0 0 0 0
@@ -8113,35 +8127,35 @@ Castle Door 2" 20.5 -166.75 4 1 0 59  0 0 1 1 1
 1x1 Flowers" -107.25 38.75 0.6 1 0 32  0 0 1 1 1
 1x1F Tile" 11.25 -163.25 0.5 0 0 62  0 0 1 1 1
 1x16x5" -108.25 -14.5 2.3 0 0 41  0 0 1 1 1
-1F 1x1F Vertical Print" 79.75 -92.75 1.9 2 0 59 Letters/-space 0 0 1 1 1
+1x 1x2F Vertical Print" -130.25 -80.25 0.7 1 0 58 Letters/-space 0 0 1 1 1
 1x2F Tile" 5.25 -148.5 0.5 1 0 62  0 0 1 1 1
-2x2F Print Plate" 81.5 -93.5 1.3 0 0 59 Letters/-space 0 0 1 1 1
-2x2F Print Plate" 82.5 -93.5 1.3 0 0 59 Letters/-space 0 0 1 1 1
-2x2F Print Plate" 81.5 -92.5 1.3 0 0 59 Letters/-space 0 0 1 1 1
-2x2F Print Plate" 81.5 -91.5 1.3 0 0 59 Letters/-space 0 0 1 1 1
+1x 1x2F Vertical Print" -130.25 -80.75 0.7 1 0 58 Letters/-space 0 0 1 1 1
+1x 1x2F Vertical Print" -129.25 -80.75 0.7 3 0 58 Letters/-space 0 0 1 1 1
+1x 1x2F Vertical Print" -129.25 -80.25 0.7 3 0 58 Letters/-space 0 0 1 1 1
+1x2F" -129.75 -80.5 0.5 2 0 58  0 0 1 1 1
 1x 1x1F Vertical Edge Print" 5.75 -148.25 0.7 3 0 62 Letters/-space 0 0 1 1 1
 1x 1x1F Vertical Edge Print" 15.75 -136.75 0.7 3 0 62 Letters/-space 0 0 1 1 1
 1x 1x1F Vertical Edge Print" 6.25 -146.25 0.7 3 0 62 Letters/-space 0 0 1 1 1
 1x 1x1F Vertical Edge Print" 6.75 -145.25 0.7 3 0 62 Letters/-space 0 0 1 1 1
 1x 1x1F Vertical Edge Print" 13.25 -137.75 0.7 3 0 62 Letters/-space 0 0 1 1 1
 1x 1x1F Vertical Edge Print" 7.25 -143.75 0.7 3 0 62 Letters/-space 0 0 1 1 1
-2x2F Print Plate" 82.5 -91.5 1.3 0 0 59 Letters/-space 0 0 1 1 1
-2x2F Print Plate" 82.5 -92.5 1.3 0 0 59 Letters/-space 0 0 1 1 1
+1x7x5" -93.25 -16.75 2.3 0 0 41  0 0 1 1 1
+1F 1x1F Vertical Print" 36.75 7.25 0.5 0 0 61 Letters/-space 0 0 1 1 1
 1x1F Tile" 12.75 -137.75 0.5 1 0 62  0 0 1 1 1
-2x2F Print" 80 -92.5 0.9 0 0 59 Letters/-space 0 0 1 1 1
+1x15x5" -104.25 -10.75 2.3 3 0 41  0 0 1 1 1
 1x1F Tile" 7.25 -143.25 0.5 1 0 62  0 0 1 1 1
 1x 1x1F Vertical Edge Print" 12.75 -138.25 0.7 3 0 62 Letters/-space 0 0 1 1 1
 1x 1x1F Vertical Edge Print" 7.75 -143.25 0.7 3 0 62 Letters/-space 0 0 1 1 1
 1x1F Tile" 8.25 -141.75 0.5 1 0 62  0 0 1 1 1
-1x 1x1F Vertical Edge Print" 79.75 -92.75 1.3 2 0 59 Letters/-space 0 0 1 1 1
+1x3" -107.75 -24.25 1.1 2 0 48  0 0 1 1 1
 1x1F Tile" 11.25 -138.75 0.5 1 0 62  0 0 1 1 1
 1x 1x1F Vertical Edge Print" 11.75 -138.75 0.7 3 0 62 Letters/-space 0 0 1 1 1
 1x 1x1F Vertical Edge Print" 8.25 -142.25 0.7 3 0 62 Letters/-space 0 0 1 1 1
-1x 1x1F Vertical Edge Print" 79.75 -92.25 1.3 3 0 59 Letters/-space 0 0 1 1 1
-1F 2x2F Vertical Print" 79.75 -92.5 1.7 3 0 59 Letters/-space 0 0 1 1 1
+1x7x5" -92.75 -16.75 2.3 0 0 36  0 0 1 1 1
+1x1F Tile" 8.25 -160.25 0.5 0 0 62  0 0 1 1 1
 1x1F Tile" 9.75 -139.75 0.5 1 0 62  0 0 1 1 1
-1F 2x2F Vertical Print" 79.75 -92.5 2.1 3 0 59 Letters/-space 0 0 1 1 1
-1F 1x1F Vertical Print" 79.75 -92.25 1.9 3 0 59 Letters/-space 0 0 1 1 1
+2x3" -106.75 -23.5 1.1 3 0 49  0 0 1 1 1
+2x3" -106.75 -25 1.1 3 0 49  0 0 1 1 1
 1x1F Tile" 9.25 -140.25 0.5 1 0 62  0 0 1 1 1
 1x 1x1F Vertical Edge Print" 11.25 -139.25 0.7 3 0 62 Letters/-space 0 0 1 1 1
 1x 1x1F Vertical Edge Print" 8.75 -141.75 0.7 3 0 62 Letters/-space 0 0 1 1 1
@@ -8149,190 +8163,185 @@ Castle Door 2" 20.5 -166.75 4 1 0 59  0 0 1 1 1
 1x 1x1F Vertical Edge Print" 10.25 -139.75 0.7 3 0 62 Letters/-space 0 0 1 1 1
 1x 1x1F Vertical Edge Print" 9.75 -140.25 0.7 3 0 62 Letters/-space 0 0 1 1 1
 1x2F Tile" 18 -166.25 0.5 0 0 62  0 0 1 1 1
-2x2f Print 90" 82.25 -92.5 1.9 1 0 48 Letters/0 0 0 1 1 1
-+-NTOBJECTNAME _ha
-1x2F Print" 81.75 -92.5 1.5 1 0 50 1x2f/keyboard 0 0 1 1 1
+1x1 Glass Pane" -106.25 -24.25 1.1 2 0 49  0 0 1 1 1
+1x 1x1F Vertical Edge Print" 6.75 -156.75 0.7 2 0 62 Letters/-space 0 0 1 1 1
 1x2F Tile" 23 -135.75 0.5 2 0 62  0 0 1 1 1
-1x2F Print" 82.75 -92.5 2.5 1 0 50 1x2f/chip1 0 0 1 1 1
-1x1f Horizontal pole" 81.75 -93.25 1.5 0 0 51  0 0 1 1 1
-1x1F Pole Corner" 81.75 -93.75 1.5 2 0 51  0 0 1 1 1
+1x 1x1F Vertical Edge Print" 17.75 -165.75 0.7 2 0 62 Letters/-space 0 0 1 1 1
+1x8f Horizontal pole" -127.75 -79 0.5 2 0 58  0 0 1 1 1
+1F 2x2F Vertical Print" -127.25 -80.5 0.5 3 0 58 Letters/-space 0 0 1 1 1
 1x2F Tile" 35.75 -148.5 0.5 3 0 62  0 0 1 1 1
 1x 1x1F Vertical Edge Print" 35.25 -148.25 0.7 0 0 62 Letters/-space 0 0 1 1 1
 1x 1x1F Vertical Edge Print" 23.25 -136.25 0.7 0 0 62 Letters/-space 0 0 1 1 1
 1x 1x1F Vertical Edge Print" 25.25 -136.75 0.7 0 0 62 Letters/-space 0 0 1 1 1
 1x 1x1F Vertical Edge Print" 26.25 -137.25 0.7 0 0 62 Letters/-space 0 0 1 1 1
 1x 1x1F Vertical Edge Print" 27.75 -137.75 0.7 0 0 62 Letters/-space 0 0 1 1 1
-1x 1x2F Vertical Print" 83.25 -93.75 1.3 3 0 51 Letters/-pound 0 0 1 1 1
-+-EVENT	0	1	onActivate	0	-1	_ha	setPrintCount	5			
-+-EVENT	1	1	onActivate	0	Self		playSound	Beep_TryAgain_Sound			
-+-EVENT	2	1	onActivate	1000	-1	_ha	setPrintCount	0			
-+-EVENT	3	1	onActivate	0	-1	_ha	spawnExplosion	radioWaveProjectile	1		
-+-EVENT	4	1	onActivate	0	-1	_ha	setColor	7			
-+-EVENT	5	1	onActivate	1000	-1	_ha	setColor	48			
-+-EVENT	6	1	onActivate	0	Client		CenterPrint	<font:helvetica:100>GOD DAMN <color:0000ff>NOOOOOOOOO	3		
-1x1f Horizontal pole" 82.25 -93.75 1.5 3 0 50  0 0 1 1 1
+1F 2x2F Vertical Print" -128.25 -80.5 0.5 1 0 58 Letters/-space 0 0 1 1 1
+1x 1x1F Vertical Edge Print" 5.75 -153.75 0.7 2 0 62 Letters/-space 0 0 1 1 1
 1x1F Tile" 33.75 -143.25 0.5 2 0 62  0 0 1 1 1
-1x1f Horizontal pole" 82.75 -93.75 1.5 1 0 50  0 0 1 1 1
-1x1F Vertical Corner Print" 82.75 -92.75 1.9 2 0 50 2x2f/vent 0 0 1 1 1
+1x3 Glass Pane" -106.25 -11.75 1.1 2 0 48  0 0 1 1 1
+1x 1x1F Vertical Edge Print" 15.75 -165.25 0.7 2 0 62 Letters/-space 0 0 1 1 1
 1x1F Tile" 28.25 -137.75 0.5 2 0 62  0 0 1 1 1
 1x 1x1F Vertical Edge Print" 33.25 -143.25 0.7 0 0 62 Letters/-space 0 0 1 1 1
 1x 1x1F Vertical Edge Print" 28.25 -138.25 0.7 0 0 62 Letters/-space 0 0 1 1 1
-1x1F Vertical Corner Print" 82.75 -92.25 1.9 1 0 50 2x2f/vent 0 0 1 1 1
-2x2F Print" 76.5 -96.5 0.9 2 0 3 Letters/-space 0 0 1 1 1
+1x4x5" -93.25 -12 2.3 0 0 41  0 0 1 1 1
+1x2F Tile" 5.25 -153.5 0.5 1 0 62  0 0 1 1 1
 1x1F Tile" 29.75 -138.75 0.5 2 0 62  0 0 1 1 1
-2x2F Print" 76.5 -96.5 0.7 2 0 4 Letters/-space 0 0 1 1 1
-1x3x2 Door Left" 76.75 -95.25 2 3 0 59  0 0 1 1 1
-+-EVENT	0	1	onActivate	0	Self		door	0			
+1x 1x1F Vertical Edge Print" 6.25 -155.75 0.7 2 0 62 Letters/-space 0 0 1 1 1
+1x1F Tile" 7.25 -158.75 0.5 0 0 62  0 0 1 1 1
 1x1F Tile" 32.75 -141.75 0.5 2 0 62  0 0 1 1 1
 1x 1x1F Vertical Edge Print" 29.25 -138.75 0.7 0 0 62 Letters/-space 0 0 1 1 1
-4-Sided Print 1x1" 77.25 -95.75 2.3 3 0 59 Letters/-space 0 0 1 1 1
+3x4 Crate" -107 -11.75 1.7 3 0 48  0 0 1 1 1
 1x1F Tile" 31.75 -140.25 0.5 2 0 62  0 0 1 1 1
-4-Sided Print 1x1" 77.25 -95.75 1.1 3 0 59 Letters/-space 0 0 1 1 1
-4-Sided Print 1x1" 77.25 -95.75 1.7 3 0 59 Letters/-space 0 0 1 1 1
+1x 1x1F Vertical Edge Print" 12.75 -163.75 0.7 2 0 62 Letters/-space 0 0 1 1 1
+3x4 Crate" -107.25 -13.5 1.7 2 0 49  0 0 1 1 1
 1x1F Tile" 31.25 -139.75 0.5 2 0 62  0 0 1 1 1
 1x 1x1F Vertical Edge Print" 32.25 -141.75 0.7 0 0 62 Letters/-space 0 0 1 1 1
 1x 1x1F Vertical Edge Print" 29.75 -139.25 0.7 0 0 62 Letters/-space 0 0 1 1 1
 1x 1x1F Vertical Edge Print" 30.75 -139.75 0.7 0 0 62 Letters/-space 0 0 1 1 1
 1x 1x1F Vertical Edge Print" 31.75 -140.75 0.7 0 0 62 Letters/-space 0 0 1 1 1
 1x 1x1F Vertical Edge Print" 31.25 -140.25 0.7 0 0 62 Letters/-space 0 0 1 1 1
-4-Sided Print 1x1" 77.25 -97.25 2.3 3 0 59 Letters/-space 0 0 1 1 1
-4-Sided Print 1x1" 76.75 -97.25 2.9 2 0 59 Letters/-space 0 0 1 1 1
-4-Sided Print 1x1" 76.25 -95.25 2.9 0 0 59 Letters/-space 0 0 1 1 1
-2x2F" 76.5 -96.5 0.5 1 0 59  0 0 1 1 1
-4-Sided Print 1x1" 76.75 -95.25 2.9 0 0 59 Letters/-space 0 0 1 1 1
-4-Sided Print 1x1" 77.25 -96.75 2.3 3 0 59 Letters/-space 0 0 1 1 1
-4-Sided Print 1x1" 76.25 -97.25 2.3 3 0 59 Letters/-space 0 0 1 1 1
-4-Sided Print 1x1" 77.25 -95.25 2.9 2 0 59 Letters/-space 0 0 1 1 1
-4-Sided Print 1x1" 76.75 -97.25 2.3 3 0 59 Letters/-space 0 0 1 1 1
-4-Sided Print 1x1" 77.25 -95.75 2.9 2 0 59 Letters/-space 0 0 1 1 1
-4-Sided Print 1x1" 77.25 -96.25 2.3 3 0 59 Letters/-space 0 0 1 1 1
-4-Sided Print 1x1" 76.25 -97.25 2.9 2 0 59 Letters/-space 0 0 1 1 1
-4-Sided Print 1x1" 77.25 -96.25 2.9 2 0 59 Letters/-space 0 0 1 1 1
+1x16" -92.75 -14.5 4.1 2 0 36  0 0 1 1 1
+1x5x5" -92.75 -11.75 2.3 2 0 36  0 0 1 1 1
+1x14x5" -97 -26.25 2.3 1 0 41  0 0 1 1 1
+1x15x5" -96.75 -10.75 2.3 3 0 41  0 0 1 1 1
+1x 1x1F Vertical Edge Print" 7.75 -158.75 0.7 2 0 62 Letters/-space 0 0 1 1 1
+1x 1x1F Vertical Edge Print" 17.75 -136.25 0.7 3 0 62 Letters/-space 0 0 1 1 1
+1x 1x1F Vertical Edge Print" 13.25 -164.25 0.7 2 0 62 Letters/-space 0 0 1 1 1
+1x14" -104.25 -18.5 0.7 2 0 49  0 0 1 1 1
+1x8" -106 -14.75 0.7 1 0 49  0 0 1 1 1
+1x8" -106 -22.25 0.7 3 0 49  0 0 1 1 1
+6x10F" -106 -18.5 0.5 0 0 2  3 0 1 1 1
++-EMITTER Fire B" 0
+1x10x5" -107.75 -18.5 1.9 2 0 2  3 0 1 1 1
++-NTOBJECTNAME _incinerator
+1x 1x1F Vertical Edge Print" 8.75 -160.25 0.7 2 0 62 Letters/-space 0 0 1 1 1
 1x16x3" -123.75 -78.5 2.9 2 0 41  0 0 1 1 1
 1x32x3" -123.75 -50.5 2.9 2 0 41  0 0 1 1 1
 1x32x3" -123.75 -66.5 2.9 2 0 41  0 0 1 1 1
-4-Sided Print 1x1" 75.75 -97.25 2.3 3 0 59 Letters/-space 0 0 1 1 1
-4-Sided Print 1x1" 75.75 -97.25 1.1 3 0 59 Letters/-space 0 0 1 1 1
-4-Sided Print 1x1" 76.25 -97.25 1.1 3 0 59 Letters/-space 0 0 1 1 1
+1x 1x1F Vertical Edge Print" 9.25 -161.25 0.7 2 0 62 Letters/-space 0 0 1 1 1
+1x 1x1F Vertical Edge Print" 9.75 -161.75 0.7 2 0 62 Letters/-space 0 0 1 1 1
+1x 1x1F Vertical Edge Print" 11.25 -162.75 0.7 2 0 62 Letters/-space 0 0 1 1 1
 1x16x3" -123.75 -38.5 2.9 2 0 41  0 0 1 1 1
 1x12x3" -93.25 -79.5 2.9 0 0 41  0 0 1 1 1
 1x16x3" -93.25 -72.5 2.9 0 0 41  0 0 1 1 1
-4-Sided Print 1x1" 76.75 -97.25 1.1 3 0 59 Letters/-space 0 0 1 1 1
-4-Sided Print 1x1" 77.25 -97.25 1.1 3 0 59 Letters/-space 0 0 1 1 1
+1x1F Tile" 9.25 -161.75 0.5 0 0 62  0 0 1 1 1
+1x 1x1F Vertical Edge Print" 10.25 -162.25 0.7 2 0 62 Letters/-space 0 0 1 1 1
 1x8x3" -93.25 -46.5 2.9 0 0 41  0 0 1 1 1
-4-Sided Print 1x1" 77.25 -96.75 1.1 3 0 59 Letters/-space 0 0 1 1 1
+1x1F Tile" 9.75 -162.25 0.5 0 0 62  0 0 1 1 1
 1x32x3" -93.25 -56.5 2.9 0 0 41  0 0 1 1 1
 1x15x5" -104.25 -26.25 2.3 1 0 41  0 0 1 1 1
 1x12x3" -93.25 -37.5 2.9 0 0 41  0 0 1 1 1
-4-Sided Print 1x1" 77.25 -96.25 1.1 3 0 59 Letters/-space 0 0 1 1 1
+1x15" -32.25 -66.25 1.1 3 0 45  0 0 1 1 1
 1x8" -92.75 -66.5 4.1 0 0 46  0 0 1 1 1
 1x8" -92.75 -62.5 1.1 0 0 45  0 0 1 1 1
 1x32" -92.75 -52.5 1.1 0 0 45  0 0 1 1 1
-4-Sided Print 1x1" 77.25 -96.25 1.7 3 0 59 Letters/-space 0 0 1 1 1
+1x15" -36.25 -62.75 1.1 2 0 45  0 0 1 1 1
 1x16x5" -108.25 -22.5 2.3 0 0 41  0 0 1 1 1
 1x8" -92.75 -42.5 4.1 0 0 46  0 0 1 1 1
 1x12" -92.75 -71.5 1.1 0 0 45  0 0 1 1 1
-4-Sided Print 1x1" 77.25 -96.75 1.7 3 0 59 Letters/-space 0 0 1 1 1
+1x16" -40.5 -66.25 1.1 1 0 45  0 0 1 1 1
 1x12" -92.75 -37.5 1.1 0 0 45  0 0 1 1 1
-4-Sided Print 1x1" 77.25 -97.25 1.7 3 0 59 Letters/-space 0 0 1 1 1
-4-Sided Print 1x1" 76.75 -97.25 1.7 3 0 59 Letters/-space 0 0 1 1 1
+1x2F Tile" 18 -135.75 0.5 2 0 62  0 0 1 1 1
+2x4" -170.5 15 1.1 3 0 45  0 0 1 1 1
 1x 1x1F Vertical Edge Print" 11.75 -163.25 0.7 2 0 62 Letters/-space 0 0 1 1 1
 1x 1x1F Vertical Edge Print" 7.25 -158.25 0.7 2 0 62 Letters/-space 0 0 1 1 1
 1x1F Tile" 12.75 -164.25 0.5 0 0 62  0 0 1 1 1
-4-Sided Print 1x1" 76.25 -97.25 1.7 3 0 59 Letters/-space 0 0 1 1 1
-4-Sided Print 1x1" 75.75 -97.25 1.7 3 0 59 Letters/-space 0 0 1 1 1
+2x4" -168.5 15 1.1 3 0 45  0 0 1 1 1
+2x4" -166.5 15 1.1 3 0 45  0 0 1 1 1
 1x4F" -164.5 14.25 0.9 3 0 50  0 0 1 1 1
 1x4F" -166.5 14.25 0.9 3 0 50  0 0 1 1 1
 1x4F" -168.5 14.25 0.9 3 0 50  0 0 1 1 1
 1x4F" -170.5 14.25 0.9 3 0 50  0 0 1 1 1
-4-Sided Print 1x1" 77.25 -96.75 2.9 2 0 59 Letters/-space 0 0 1 1 1
+2x4" -164.5 15 1.1 3 0 45  0 0 1 1 1
 1x4x3" -166.5 20.25 4.1 1 0 45  0 0 1 1 1
 1x4x3" -168.5 20.25 4.1 1 0 45  0 0 1 1 1
 1x4x3" -170.5 20.25 4.1 1 0 45  0 0 1 1 1
 1x4x3" -164.5 20.25 4.1 1 0 45  0 0 1 1 1
-4-Sided Print 1x1" 77.25 -97.25 2.9 2 0 59 Letters/-space 0 0 1 1 1
-4-Sided Print 1x1" 75.75 -97.25 2.9 2 0 59 Letters/-space 0 0 1 1 1
-4-Sided Print 1x1" 75.75 -96.75 2.9 1 0 59 Letters/-space 0 0 1 1 1
-4-Sided Print 1x1" 75.75 -96.25 1.1 1 0 59 Letters/-space 0 0 1 1 1
-1x1x5" -163.25 20.25 4.7 1 0 45  0 0 1 1 1
-4-Sided Print 1x1" 75.75 -96.75 1.1 1 0 59 Letters/-space 0 0 1 1 1
-4-Sided Print 1x1" 75.75 -95.75 1.1 1 0 59 Letters/-space 0 0 1 1 1
-4-Sided Print 1x1" 75.75 -95.25 1.1 1 0 59 Letters/-space 0 0 1 1 1
-4-Sided Print 1x1" 75.75 -95.25 1.7 1 0 59 Letters/-space 0 0 1 1 1
--45° Ramp 4x" -164.5 16 1.1 0 0 45  0 0 1 1 1
--45° Ramp 4x" -166.5 16 1.1 0 0 45  0 0 1 1 1
--45° Ramp 4x" -168.5 16 1.1 0 0 45  0 0 1 1 1
--45° Ramp 4x" -170.5 16 1.1 0 0 45  0 0 1 1 1
-4-Sided Print 1x1" 75.75 -95.75 1.7 1 0 59 Letters/-space 0 0 1 1 1
-4-Sided Print 1x1" 75.75 -96.25 1.7 1 0 59 Letters/-space 0 0 1 1 1
-1x2" -163.25 17 1.1 2 0 45  0 0 1 1 1
-4-Sided Print 1x1" 75.75 -96.75 1.7 1 0 59 Letters/-space 0 0 1 1 1
-1x4" -163.25 15.5 1.1 2 0 45  0 0 1 1 1
-4-Sided Print 1x1" 75.75 -96.75 2.3 1 0 59 Letters/-space 0 0 1 1 1
-45° Ramp 1x" -163.25 14 1.1 2 0 45  0 0 1 1 1
-4-Sided Print 1x1" 75.75 -96.25 2.3 1 0 59 Letters/-space 0 0 1 1 1
 1x1" -163.25 17.75 1.1 2 0 45  0 0 1 1 1
-2x4" -164.5 15 1.1 3 0 45  0 0 1 1 1
-4-Sided Print 1x1" 75.75 -95.75 2.3 1 0 59 Letters/-space 0 0 1 1 1
-2x4" -166.5 15 1.1 3 0 45  0 0 1 1 1
-4-Sided Print 1x1" 75.75 -95.25 2.3 1 0 59 Letters/-space 0 0 1 1 1
-2x4" -168.5 15 1.1 3 0 45  0 0 1 1 1
-4-Sided Print 1x1" 75.75 -95.25 2.9 1 0 59 Letters/-space 0 0 1 1 1
-2x4" -170.5 15 1.1 3 0 45  0 0 1 1 1
-4-Sided Print 1x1" 75.75 -95.75 2.9 1 0 59 Letters/-space 0 0 1 1 1
-4-Sided Print 1x1" 75.75 -96.25 2.9 1 0 59 Letters/-space 0 0 1 1 1
-2x2F Print" 77 -95.5 3.3 1 0 59 Letters/-space 0 0 1 1 1
-2x2F Print" 76 -95.5 3.3 1 0 59 Letters/-space 0 0 1 1 1
-2x2F Print" 76 -97 3.3 1 0 59 Letters/-space 0 0 1 1 1
-2x2F Print" 77 -97 3.3 1 0 59 Letters/-space 0 0 1 1 1
-1x2F Tile" 18 -135.75 0.5 2 0 62  0 0 1 1 1
-1x16" -40.5 -66.25 1.1 1 0 45  0 0 1 1 1
-1x15" -36.25 -62.75 1.1 2 0 45  0 0 1 1 1
-1x2F Print" 76 -96.25 3.3 0 0 59 Letters/-space 0 0 1 1 1
-1x15" -32.25 -66.25 1.1 3 0 45  0 0 1 1 1
-1x2F Print" 77 -96.25 3.3 0 0 59 Letters/-space 0 0 1 1 1
-4-Sided Print 1x1" 76.25 -96.25 1.5 2 0 1 Letters/-space 0 0 1 1 1
-2x2F Print" 76.5 -96.5 1.1 2 0 59 Letters/-space 0 0 1 1 1
-1x1F Tile" 9.75 -162.25 0.5 0 0 62  0 0 1 1 1
-1x 1x1F Vertical Edge Print" 10.25 -162.25 0.7 2 0 62 Letters/-space 0 0 1 1 1
-1x1F Tile" 9.25 -161.75 0.5 0 0 62  0 0 1 1 1
-1x 1x1F Vertical Edge Print" 11.25 -162.75 0.7 2 0 62 Letters/-space 0 0 1 1 1
-1x 1x1F Vertical Edge Print" 9.75 -161.75 0.7 2 0 62 Letters/-space 0 0 1 1 1
-1x 1x1F Vertical Edge Print" 9.25 -161.25 0.7 2 0 62 Letters/-space 0 0 1 1 1
-1x 1x1F Vertical Edge Print" 8.75 -160.25 0.7 2 0 62 Letters/-space 0 0 1 1 1
-1x10x5" -107.75 -18.5 1.9 2 0 2  3 0 1 1 1
-6x10F" -106 -18.5 0.5 0 0 2  3 0 1 1 1
-+-EMITTER Fire B" 0
-1x7" -106.25 -22.25 0.7 3 0 48  0 0 1 1 1
-1x7" -106.25 -14.75 0.7 3 0 48  0 0 1 1 1
-1x16" -104.25 -18.5 0.7 2 0 48  0 0 1 1 1
-4-Sided Print 1x1" 76.25 -96.75 1.5 2 0 3 Letters/-space 0 0 1 1 1
-1x 1x1F Vertical Edge Print" 13.25 -164.25 0.7 2 0 62 Letters/-space 0 0 1 1 1
-1x 1x1F Vertical Edge Print" 17.75 -136.25 0.7 3 0 62 Letters/-space 0 0 1 1 1
-1x 1x1F Vertical Edge Print" 7.75 -158.75 0.7 2 0 62 Letters/-space 0 0 1 1 1
-1x15x5" -96.75 -10.75 2.3 3 0 41  0 0 1 1 1
-4-Sided Print 1x1" 76.75 -96.75 1.5 2 0 4 Letters/-space 0 0 1 1 1
-1x14x5" -97 -26.25 2.3 1 0 41  0 0 1 1 1
-1x5x5" -92.75 -11.75 2.3 2 0 36  0 0 1 1 1
-1x16" -92.75 -14.5 4.1 2 0 36  0 0 1 1 1
-1x 1x1F Vertical Edge Print" 12.75 -163.75 0.7 2 0 62 Letters/-space 0 0 1 1 1
-1x1F Tile" 7.25 -158.75 0.5 0 0 62  0 0 1 1 1
-1x 1x1F Vertical Edge Print" 6.25 -155.75 0.7 2 0 62 Letters/-space 0 0 1 1 1
-1x2F Tile" 5.25 -153.5 0.5 1 0 62  0 0 1 1 1
-1x4x5" -93.25 -12 2.3 0 0 41  0 0 1 1 1
-1x 1x1F Vertical Edge Print" 15.75 -165.25 0.7 2 0 62 Letters/-space 0 0 1 1 1
-1x 1x1F Vertical Edge Print" 5.75 -153.75 0.7 2 0 62 Letters/-space 0 0 1 1 1
-1x 1x1F Vertical Edge Print" 17.75 -165.75 0.7 2 0 62 Letters/-space 0 0 1 1 1
-1x 1x1F Vertical Edge Print" 6.75 -156.75 0.7 2 0 62 Letters/-space 0 0 1 1 1
-4-Sided Print 1x1" 76.75 -96.25 1.5 2 0 0 Letters/-space 0 0 1 1 1
-1x1F Tile" 8.25 -160.25 0.5 0 0 62  0 0 1 1 1
-1x1F Ceiling Print Plate" 76.75 -95.75 3.1 1 0 61 Letters/-plus 0 0 1 1 1
-1x7x5" -92.75 -16.75 2.3 0 0 36  0 0 1 1 1
-1x2F Print" 76.5 -95.75 1.1 2 0 59 Letters/-space 0 0 1 1 1
-1x15x5" -104.25 -10.75 2.3 3 0 41  0 0 1 1 1
-1F 1x1F Vertical Print" 36.75 7.25 0.5 0 0 61 Letters/-space 0 0 1 1 1
-1x7x5" -93.25 -16.75 2.3 0 0 41  0 0 1 1 1
-1x16" -56.5 -26.75 4.1 1 0 36  0 0 1 1 1
+45° Ramp 1x" -163.25 14 1.1 2 0 45  0 0 1 1 1
+1x4" -163.25 15.5 1.1 2 0 45  0 0 1 1 1
+1x2" -163.25 17 1.1 2 0 45  0 0 1 1 1
+1x1x5" -163.25 20.25 4.7 1 0 45  0 0 1 1 1
+-45° Ramp 4x" -170.5 16 1.1 0 0 45  0 0 1 1 1
+-45° Ramp 4x" -168.5 16 1.1 0 0 45  0 0 1 1 1
+-45° Ramp 4x" -166.5 16 1.1 0 0 45  0 0 1 1 1
+-45° Ramp 4x" -164.5 16 1.1 0 0 45  0 0 1 1 1
+2x2F" 20.5 -151 0.5 3 0 0  0 0 0 0 0
++-NTOBJECTNAME _courtroom_center
+1x3F" -11.25 24.25 0.7 2 0 45  0 0 1 1 1
+1F 1x1F Vertical Print" -32.75 6.25 0.7 3 0 51 Letters/-space 0 0 1 1 1
+1F 1x1F Vertical Corner Print" 5.25 -153.75 0.7 3 0 62 Letters/-space 0 0 1 1 1
+1x6x2" -46.5 20.75 1.2 1 0 49  0 0 1 1 1
+6x10F" -106 -18.5 0.7 0 0 11  3 0 1 1 1
++-NTOBJECTNAME _incinerator
++-EMITTER Fire A" 0
+1F 1x1F Vertical Print" -26.75 7.25 0.7 3 0 51 Letters/-space 0 0 1 1 1
+2x4F" -38 13.5 1.1 0 0 49  0 0 1 1 1
+1F 1x1F Vertical Print" 43.75 -122.75 0.7 0 0 50 Letters/-space 0 0 1 1 1
+1x32" -84.25 -2.5 4.1 2 0 36  0 0 1 1 1
+1F 1x1F Vertical Corner Print" 7.25 -158.75 0.7 3 0 62 Letters/-space 0 0 1 1 1
+1x10" -107.75 -18.5 3.7 2 0 2  3 0 1 1 1
+1F 1x1F Vertical Print" 44.25 -122.75 0.7 3 0 50 Letters/-space 0 0 1 1 1
+1x3F" -99.25 44.25 1.5 2 0 61  0 0 1 1 1
+1F 1x1F Vertical Print" -32.75 7.25 0.7 3 0 51 Letters/-space 0 0 1 1 1
+1x1F Vertical Edge Print" -21.75 -36.25 1.1 1 0 49 Letters/-space 0 0 1 1 1
+1F 1x1F Vertical Print" -31.75 7.25 0.7 3 0 51 Letters/-space 0 0 1 1 1
+1F 1x1F Vertical Print" 44.75 -122.75 1.1 3 0 50 Letters/-space 0 0 1 1 1
+1x3F" 50.25 -1.25 1.1 2 0 51  0 0 1 1 1
+1F 2x2F Vertical Print" 44.75 -122 1.1 3 0 50 Letters/-space 0 0 1 0 1
+1x2F" -70 60.75 1.1 1 0 18  0 0 1 1 1
+1x15" -96.75 29.75 4.1 3 0 36  0 0 1 1 1
+1x3F" -29.75 52.25 1.5 3 0 61  0 0 1 1 1
+1x15" -96.75 45.75 4.1 3 0 36  0 0 1 1 1
+1x1 Print" -19.25 -26.75 4.1 2 0 18 Letters/S 0 0 1 1 1
+1x1" -0.25 -61.75 0.9 0 0 56  0 0 1 1 1
+1F 1x1F Vertical Print" -27.75 7.25 0.7 3 0 51 Letters/-space 0 0 1 1 1
+1x2" -0.25 -62.5 0.9 0 0 56  0 0 1 1 1
+1x1 Pole" 27.25 -149.75 0.9 2 0 38  0 0 1 0 1
+1F 1x1F Vertical Print" -99.75 38.25 0.7 3 0 51 Letters/-space 0 0 1 1 1
+1F 1x1F Vertical Print" 43.25 -122.75 1.1 0 0 50 Letters/-space 0 0 1 1 1
+45° Ramp 4x" -71.5 60.5 1.3 0 0 29  0 0 0 0 1
+1x15x5" -32.25 -66.25 2.9 3 0 46  0 0 1 1 1
+1F 2x2F Vertical Print" -51 17.75 1.5 2 0 18 Letters/-space 0 0 1 1 1
+2x2F Vertical Double Print" -76.25 -67.5 1.9 3 0 34 Letters/-space 0 0 1 1 1
+1F 1x1F Vertical Corner Print" 8.25 -160.25 0.7 3 0 62 Letters/-space 0 0 1 1 1
+1x1 Pole" 27.25 -149.25 0.9 2 0 38  0 0 1 0 1
+1F 2x2F Vertical Print" 43.25 -122 1.1 1 0 50 Letters/-space 0 0 1 0 1
+1F 1x2F Vertical Print" 5.25 -153.25 0.7 3 0 62 Letters/-space 0 0 1 1 1
+1x1F Vertical Edge Print" -26.75 6.25 1.5 3 0 51 Letters/-space 0 0 1 1 1
+32x32 Base" -100.5 -18.5 4.5 3 0 41  0 0 1 1 1
+1F 2x2F Vertical Print" 30 -15.75 0.7 0 0 31 Letters/-space 0 0 1 1 1
+1x32x5" -4.5 -50.75 2.9 1 0 46  0 0 1 1 1
+1F 1x2F Vertical Print" -51.75 17.25 1.5 1 0 18 Letters/-space 0 0 1 1 1
+1x15x5" -36.25 -62.75 2.9 2 0 46  0 0 1 1 1
+Pumpkin" -51.25 7.25 2.1 2 0 2  0 0 1 1 1
+1x16x5" -40.5 -66.25 2.9 1 0 46  0 0 1 1 1
+1x3 Door Right" -104.25 -17.75 1.3 0 0 49  0 0 1 1 1
+1x5x5" -104.25 -21.25 2.5 2 0 48  0 0 1 1 1
+1x5x5" -104.25 -15.75 2.5 2 0 48  0 0 1 1 1
+1x7x5" -106.25 -22.25 2.5 3 0 48  0 0 1 1 1
+1x15x5" 3.25 -54.75 2.9 0 0 46  0 0 1 1 1
+1x7x5" -106.25 -14.75 2.5 1 0 48  0 0 1 1 1
+1F 2x2F Vertical Print" -128.25 -80.5 0.7 3 0 51 Letters/-space 0 0 1 1 1
+1F 2x2F Vertical Print" -127.25 -80.5 0.7 1 0 51 Letters/-space 0 0 1 1 1
+2x3F" -106.5 -11.75 2.3 0 0 48  0 0 1 1 1
+2x3F" -107.25 -13 2.3 3 0 49  0 0 1 1 1
+2x3F" -107.25 -14 2.3 3 0 49  0 0 1 1 1
+2x3F" -107.5 -11.75 2.3 0 0 48  0 0 1 1 1
+1x3 Glass Pane" -106.25 -11.75 1.7 2 0 48  0 0 1 1 1
+1x2F" -127.75 -80.5 0.7 2 0 58  0 0 1 1 1
+3x5x1" -106.75 -24.25 1.7 2 0 49  0 0 1 1 1
+1x 1x2F Vertical Print" -130.25 -80.25 1.3 1 0 58 Letters/-space 0 0 1 1 1
+1x 1x2F Vertical Print" -130.25 -80.75 1.3 1 0 58 Letters/-space 0 0 1 1 1
+2x2F Vertical Double Print" -24.75 46.5 2.7 1 0 14 Letters/-space 0 0 1 1 1
+1x3" -107.75 -23.25 1.7 2 0 48  0 0 1 1 1
+2x2F Print" -77 13.5 0.7 2 0 49 Letters/-space 0 0 1 1 1
+1x 1x2F Vertical Print" -129.25 -80.75 1.3 3 0 58 Letters/-space 0 0 1 1 1
+2x2F Print" 21.5 12.5 0.7 0 0 49 Letters/-space 0 0 1 1 1
+1x3 Door Left" -104.25 -19.25 1.3 0 0 49  0 0 1 1 1
+1x 1x2F Vertical Print" -129.25 -80.25 1.3 3 0 58 Letters/-space 0 0 1 1 1
+1x8f Horizontal pole" -129.75 -79 0.7 2 0 58  0 0 1 1 1
+1x1F Vertical Edge Print" -31.75 6.25 1.5 3 0 51 Letters/-space 0 0 1 1 1
 1x2F Print" 36 -123.25 1.1 0 0 48 Letters/-space 0 0 1 1 1
 1x16x5" 29.75 -112.5 2.9 2 0 46  0 0 1 1 1
 1x15x5" 45.25 -119.75 2.9 0 0 46  0 0 1 1 1
@@ -8875,7 +8884,7 @@ Castle Door 2" 20.5 -166.75 4 1 0 59  0 0 1 1 1
 2x2F Vertical Double Print" -79.25 -67.5 1.9 3 0 34 Letters/-space 0 0 1 1 1
 2x2F Vertical Double Print" -78.5 -66.75 1.9 0 0 34 Letters/-space 0 0 1 1 1
 1x1F Vertical Corner Print" -79.25 -66.75 1.9 0 0 34 Letters/-space 0 0 1 1 1
-1x32x5" -4.5 -50.75 2.9 1 0 46  0 0 1 1 1
+1x16" -56.5 -26.75 4.1 1 0 36  0 0 1 1 1
 2x2F Vertical Double Print" -75.5 -66.75 1.9 0 0 34 Letters/-space 0 0 1 1 1
 1x1F Vertical Corner Print" -76.25 -66.75 1.9 0 0 34 Letters/-space 0 0 1 1 1
 2x2F Vertical Double Print" -73.75 -65.5 1.9 1 0 34 Letters/-space 0 0 1 1 1
@@ -11305,63 +11314,64 @@ Locker Door" 41.75 -46.75 2.1 1 0 34  0 0 1 1 1
 +-EVENT	0	1	onActivate	0	Self		door	0			
 +-EVENT	1	0		0							
 +-EVENT	2	0		0							
-2x2F Print" 21.5 12.5 0.7 0 0 49 Letters/-space 0 0 1 1 1
-2x2F Print" -77 13.5 0.7 2 0 49 Letters/-space 0 0 1 1 1
-2x2F Vertical Double Print" -24.75 46.5 2.7 1 0 14 Letters/-space 0 0 1 1 1
-1x15x5" 3.25 -54.75 2.9 0 0 46  0 0 1 1 1
-1x16x5" -40.5 -66.25 2.9 1 0 46  0 0 1 1 1
-Pumpkin" -51.25 7.25 2.1 2 0 2  0 0 1 1 1
-1x15x5" -36.25 -62.75 2.9 2 0 46  0 0 1 1 1
-1F 1x2F Vertical Print" -51.75 17.25 1.5 1 0 18 Letters/-space 0 0 1 1 1
-1F 2x2F Vertical Print" -51 17.75 1.5 2 0 18 Letters/-space 0 0 1 1 1
-1x15x5" -32.25 -66.25 2.9 3 0 46  0 0 1 1 1
-45° Ramp 4x" -71.5 60.5 1.3 0 0 29  0 0 0 0 1
-1F 1x1F Vertical Print" -99.75 38.25 0.7 3 0 51 Letters/-space 0 0 1 1 1
-1x1" -0.25 -61.75 0.9 0 0 56  0 0 1 1 1
-1x1 Print" -19.25 -26.75 4.1 2 0 18 Letters/S 0 0 1 1 1
-1x15" -96.75 45.75 4.1 3 0 36  0 0 1 1 1
-1x3F" -29.75 52.25 1.5 3 0 61  0 0 1 1 1
-1x15" -96.75 29.75 4.1 3 0 36  0 0 1 1 1
-1x2F" -70 60.75 1.1 1 0 18  0 0 1 1 1
-1x3F" 50.25 -1.25 1.1 2 0 51  0 0 1 1 1
-1F 1x1F Vertical Print" -31.75 7.25 0.7 3 0 51 Letters/-space 0 0 1 1 1
-1F 1x1F Vertical Print" -32.75 7.25 0.7 3 0 51 Letters/-space 0 0 1 1 1
-1x10" -107.75 -18.5 3.7 2 0 2  3 0 1 1 1
-1x32" -84.25 -2.5 4.1 2 0 36  0 0 1 1 1
-2x4F" -38 13.5 1.1 0 0 49  0 0 1 1 1
-6x10F" -106 -18.5 0.7 0 0 11  3 0 1 1 1
-+-EMITTER Fire A" 0
-1x7" -106.25 -22.25 1.3 3 0 48  0 0 1 1 1
-1x6x2" -46.5 20.75 1.2 1 0 49  0 0 1 1 1
-1x7" -106.25 -14.75 1.3 3 0 48  0 0 1 1 1
-1x1F Vertical Edge Print" -31.75 6.25 1.5 3 0 51 Letters/-space 0 0 1 1 1
-1x6" -104.25 -21 1.3 2 0 48  0 0 1 1 1
-1x7" -104.25 -16.25 1.3 2 0 48  0 0 1 1 1
-1x3F" -11.25 24.25 0.7 2 0 45  0 0 1 1 1
-1x3 Door Left" -104.25 -18.75 1.3 0 0 47  0 0 1 1 1
-1F 1x1F Vertical Print" -32.75 6.25 0.7 3 0 51 Letters/-space 0 0 1 1 1
-1F 1x1F Vertical Corner Print" 5.25 -153.75 0.7 3 0 62 Letters/-space 0 0 1 1 1
-1F 1x1F Vertical Print" -26.75 7.25 0.7 3 0 51 Letters/-space 0 0 1 1 1
-1F 1x1F Vertical Print" 43.75 -122.75 0.7 0 0 50 Letters/-space 0 0 1 1 1
-1F 1x1F Vertical Corner Print" 7.25 -158.75 0.7 3 0 62 Letters/-space 0 0 1 1 1
-1F 1x1F Vertical Print" 44.25 -122.75 0.7 3 0 50 Letters/-space 0 0 1 1 1
-1x3F" -99.25 44.25 1.5 2 0 61  0 0 1 1 1
-1x1F Vertical Edge Print" -21.75 -36.25 1.1 1 0 49 Letters/-space 0 0 1 1 1
-1F 1x1F Vertical Print" 44.75 -122.75 1.1 3 0 50 Letters/-space 0 0 1 1 1
-1F 2x2F Vertical Print" 44.75 -122 1.1 3 0 50 Letters/-space 0 0 1 0 1
-1F 1x1F Vertical Print" -27.75 7.25 0.7 3 0 51 Letters/-space 0 0 1 1 1
-1x2" -0.25 -62.5 0.9 0 0 56  0 0 1 1 1
-1x1 Pole" 27.25 -149.75 0.9 2 0 38  0 0 1 0 1
-1F 1x1F Vertical Print" 43.25 -122.75 1.1 0 0 50 Letters/-space 0 0 1 1 1
-2x2F Vertical Double Print" -76.25 -67.5 1.9 3 0 34 Letters/-space 0 0 1 1 1
-1F 1x1F Vertical Corner Print" 8.25 -160.25 0.7 3 0 62 Letters/-space 0 0 1 1 1
-1x1 Pole" 27.25 -149.25 0.9 2 0 38  0 0 1 0 1
-1F 2x2F Vertical Print" 43.25 -122 1.1 1 0 50 Letters/-space 0 0 1 0 1
-1F 1x2F Vertical Print" 5.25 -153.25 0.7 3 0 62 Letters/-space 0 0 1 1 1
-1x1F Vertical Edge Print" -26.75 6.25 1.5 3 0 51 Letters/-space 0 0 1 1 1
-32x32 Base" -100.5 -18.5 4.5 3 0 41  0 0 1 1 1
-1F 2x2F Vertical Print" 30 -15.75 0.7 0 0 31 Letters/-space 0 0 1 1 1
-1F 2x2F Vertical Print" -57 -59.75 1.3 0 0 50 Letters/-space 0 0 1 1 1
+1x1 Small Ramp" -19.25 -83.75 1.4 3 0 45  0 0 1 1 1
+1x6x5" -106 -20.75 2.3 3 0 2  3 0 1 1 1
++-NTOBJECTNAME _incinerator
+1x1 Round" -106.75 -24.25 2.3 2 0 49  0 0 1 1 1
+45° Ramp 2x" -106.5 -23.5 2.3 1 0 49  0 0 1 1 1
+45° Ramp 2x" -106.5 -25 2.3 1 0 49  0 0 1 1 1
+1x2F Vertical Print" -73.25 -66.75 2.9 3 0 34 Letters/-space 0 0 1 1 1
+1x1 Pole" 27.25 -149.25 1.5 2 0 38  0 0 1 0 1
+1x2F Tile" 5.25 -153.5 0.9 1 0 62  0 0 1 1 1
+1F 2x2F Vertical Print" -47.5 -55.25 1.3 0 0 50 Letters/-space 0 0 1 1 1
+1F 1x1F Vertical Corner Print" -46.25 -54.75 1.3 2 0 50 Letters/-space 0 0 1 1 1
+1x1F Vertical Edge Print" -47.25 -65.75 1.7 2 0 48 Letters/-space 0 0 1 1 1
+1x2F" -107.25 -13.5 2.5 2 0 49  0 0 1 1 1
+3x8F" -127.75 -79 0.9 2 0 51  0 0 1 1 1
+1x2F" -107 -11.75 2.5 3 0 48  0 0 1 1 1
+2x2F Vertical Print" -49 -65.75 1.7 2 0 34 Letters/-space 0 0 1 1 1
+2x2F Vertical Print" -48 -65.75 1.7 2 0 34 Letters/-space 0 0 1 1 1
+1x1F Vertical Edge Print" -57.75 -65.75 1.7 1 0 48 Letters/-space 0 0 1 1 1
+1x6" -104.25 -18.5 1.9 2 0 48  0 0 1 1 1
+45° Ramp 1x" -107.75 -14 2.7 0 0 48  0 0 1 1 1
+1x2F" -129.75 -80.5 0.9 2 0 58  0 0 1 1 1
+1x 1x2F Vertical Print" -129.25 -80.25 1.9 3 0 58 Letters/-space 0 0 1 1 1
+1x 1x2F Vertical Print" -129.25 -80.75 1.9 3 0 58 Letters/-space 0 0 1 1 1
+1x 1x2F Vertical Print" -130.25 -80.75 1.9 1 0 58 Letters/-space 0 0 1 1 1
+1x 1x2F Vertical Print" -130.25 -80.25 1.9 1 0 58 Letters/-space 0 0 1 1 1
+1x16F" -104.25 -18.5 4.3 2 0 48  0 0 1 1 1
+2x2F Vertical Print" -57 -65.75 1.7 2 0 34 Letters/-space 0 0 1 1 1
+2x2F Vertical Print" -56 -65.75 1.7 2 0 34 Letters/-space 0 0 1 1 1
+2x2F Vertical Print" -55 -65.75 1.7 2 0 34 Letters/-space 0 0 1 1 1
+2x2F Vertical Print" -54 -65.75 1.7 2 0 34 Letters/-space 0 0 1 1 1
+1x7F" -106.25 -22.25 4.3 3 0 48  0 0 1 1 1
+1x7F" -106.25 -14.75 4.3 3 0 48  0 0 1 1 1
+2x2F Vertical Print" -53 -65.75 1.7 2 0 34 Letters/-space 0 0 1 1 1
+2x2F Vertical Print" -52 -65.75 1.7 2 0 34 Letters/-space 0 0 1 1 1
+2x2F Vertical Print" -51 -65.75 1.7 2 0 34 Letters/-space 0 0 1 1 1
+2x2F Vertical Print" -50 -65.75 1.7 2 0 34 Letters/-space 0 0 1 1 1
+6x10F" -106 -18.5 4.3 0 0 2  0 0 1 1 1
+1x16F" -104.25 -18.5 4.1 2 0 48  0 0 1 1 1
+1x6x5" -106 -16.25 2.3 3 0 2  3 0 1 1 1
++-NTOBJECTNAME _incinerator
+1x7F" -106.25 -14.75 4.1 3 0 48  0 0 1 1 1
+2x4 Small Ramp" -15 60 3.2 3 0 61  0 0 1 0 1
+1x2x2 Print" -60.25 -65.5 2.6 0 0 45 Letters/C 0 0 1 1 1
+1x2x2 Print" -60.25 -64.5 2.6 0 0 45 Letters/-minus 0 0 1 1 1
+1x2x2 Print" -60.25 -63.5 2.6 0 0 45 Letters/1 0 0 1 1 1
+1x15" -60.25 -54.75 4.7 2 0 45  0 0 1 1 1
+1x7F" -106.25 -22.25 4.1 3 0 48  0 0 1 1 1
+1x15" -44.75 -54.75 4.7 0 0 45  0 0 1 1 1
+1x3F" -48.25 -62.25 1.3 0 0 56  0 0 1 1 1
+1x32" -52.5 -50.75 4.7 1 0 45  0 0 1 1 1
+1x32" -52.5 -66.25 4.7 3 0 45  0 0 1 1 1
+1F 1x2F Vertical Print" 43.25 -46.75 3.7 2 0 34 Letters/-space 0 0 1 1 1
+1F 1x1F Vertical Corner Print" 12.75 -20.25 0.9 2 0 61 Letters/-space 0 0 1 1 1
+1x3F" 17.75 -47.75 1.3 1 0 49  0 0 1 1 1
+1F 2x2F Vertical Print" 11.75 -23 1.7 1 0 18 Letters/-space 0 0 1 1 1
+1x15" -32.25 -66.25 4.7 3 0 45  0 0 1 1 1
+1F 1x1F Vertical Print" 45.25 16.75 0.9 3 0 61 Letters/-space 0 0 1 1 1
+1x3F" 17.75 -45.25 1.3 1 0 49  0 0 1 1 1
 1F 1x1F Vertical Corner Print" -58.25 -59.25 1.3 3 0 50 Letters/-space 0 0 1 1 1
 2x2F Vertical Double Print" -57.5 -57.25 1.3 0 0 36 Letters/-space 0 0 1 0 1
 1F 1x1F Vertical Corner Print" -53.25 -59.25 1.3 2 0 50 Letters/-space 0 0 1 1 1
@@ -11392,7 +11402,7 @@ Pumpkin" -51.25 7.25 2.1 2 0 2  0 0 1 1 1
 1x2F Vertical Print" -59.75 -65.75 2.9 1 0 34 Letters/-space 0 0 1 1 1
 1F 1x2F Vertical Print" -11.75 11.75 1.7 2 0 49 Letters/-space 0 0 1 1 1
 +-EVENT	0	1	onRelay	0	Self		fireRelaySouth				
-+-EVENT	1	0	onRelay	0	Self		fireRelayDown				
++-EVENT	1	1	onRelay	0	Self		fireRelayDown				
 +-EVENT	2	1	onRelay	0	Self		toggleEventEnabled	1			
 1x1F Wedge" 50.75 8.25 1.7 0 0 61  0 0 1 1 1
 1x3F" 48.25 7.25 1.7 2 0 61  0 0 1 1 1
@@ -11613,7 +11623,7 @@ Pumpkin" -51.25 7.25 2.1 2 0 2  0 0 1 1 1
 +-EVENT	0	1	onActivate	0	Self		fireRelayDown				
 1F 1x2F Vertical Print" -26.75 46.25 1.7 1 0 49 Letters/-space 0 0 1 1 1
 +-EVENT	0	1	onRelay	0	Self		fireRelayEast				
-+-EVENT	1	1	onRelay	0	Self		fireRelayDown				
++-EVENT	1	0	onRelay	0	Self		fireRelayDown				
 +-EVENT	2	1	onRelay	0	Self		toggleEventEnabled	1			
 1F 1x1F Vertical Print" -37.25 14.25 1.9 2 0 0 2x2f/blank 0 0 1 1 1
 1F 1x1F Vertical Corner Print" -26.25 46.25 1.7 1 0 49 Letters/-space 0 0 1 1 1
@@ -11876,7 +11886,7 @@ Pumpkin" -51.25 7.25 2.1 2 0 2  0 0 1 1 1
 2x8F" -106.5 35 0.5 2 0 61  0 0 0 1 0
 1F 1x2F Vertical Print" -93.25 31.25 1.7 0 0 49 Letters/-space 0 0 1 1 1
 +-EVENT	0	1	onRelay	0	Self		fireRelayNorth				
-+-EVENT	1	0	onRelay	0	Self		fireRelayDown				
++-EVENT	1	1	onRelay	0	Self		fireRelayDown				
 +-EVENT	2	1	onRelay	0	Self		toggleEventEnabled	1			
 1x2F Ceiling Print Plate" -7.5 22.25 4.3 2 0 51 Letters/-space 0 0 1 1 1
 1x2F Ceiling Print Plate" -8.5 22.25 4.3 2 0 51 Letters/-space 0 0 1 1 1
@@ -12511,7 +12521,7 @@ Pumpkin" -51.25 7.25 2.1 2 0 2  0 0 1 1 1
 1x1 Small Ramp" -19.25 -88.25 1.4 1 0 45  0 0 1 1 1
 1x1 Small Ramp" -19.25 -86.25 1.4 3 0 45  0 0 1 1 1
 1x1 Small Ramp" -19.25 -85.75 1.4 1 0 45  0 0 1 1 1
-1x1 Small Ramp" -19.25 -83.75 1.4 3 0 45  0 0 1 1 1
+2x2F Vertical Double Print" -54 -52.75 1.3 0 0 36 Letters/-space 0 0 1 0 1
 1x16" -20.75 -62.5 4.7 0 0 45  0 0 1 1 1
 1x2x5" 23 -166.75 7.9 1 0 44  0 0 1 1 1
 1x2x5" 18 -166.75 7.9 1 0 44  0 0 1 1 1
@@ -12778,12 +12788,12 @@ Pumpkin" -51.25 7.25 2.1 2 0 2  0 0 1 1 1
 1F 1x2F Vertical Print" -73.25 -66.25 3.3 3 0 34 Letters/-space 0 0 1 1 1
 1F 1x2F Vertical Print" -11.75 -4.25 1.7 2 0 49 Letters/-space 0 0 1 1 1
 +-EVENT	0	1	onRelay	0	Self		fireRelaySouth				
-+-EVENT	1	1	onRelay	0	Self		fireRelayDown				
++-EVENT	1	0	onRelay	0	Self		fireRelayDown				
 +-EVENT	2	1	onRelay	0	Self		toggleEventEnabled	1			
 2x2F Vertical Double Print" 13.75 -122.5 2.9 1 0 34 Letters/-space 0 0 1 1 1
 2x2F Vertical Double Print" 13 -123.25 2.9 2 0 34 Letters/-space 0 0 1 1 1
 1x1F Vertical Corner Print" 13.75 -123.25 2.9 2 0 34 Letters/-space 0 0 1 1 1
-2x2F Vertical Double Print" -54 -52.75 1.3 0 0 36 Letters/-space 0 0 1 0 1
+1F 2x2F Vertical Print" -57 -59.75 1.3 0 0 50 Letters/-space 0 0 1 1 1
 2x2F Vertical Double Print" -73.25 -67.5 2.9 3 0 34 Letters/-space 0 0 1 1 1
 1F 1x1F Vertical Print" -73.25 -64.75 3.3 2 0 34 Letters/-space 0 0 1 1 1
 1F 1x1F Vertical Print" -73.25 -68.25 3.3 3 0 34 Letters/-space 0 0 1 1 1
@@ -13177,7 +13187,7 @@ Pumpkin" -51.25 7.25 2.1 2 0 2  0 0 1 1 1
 2x4 Small Ramp" -17 60 3.2 1 0 61  0 0 1 0 1
 1F 2x2F Vertical Print" -38 26.25 0.9 2 0 51 Letters/-space 0 0 1 1 1
 1x2F Vertical Print" -51.75 19.75 2.1 1 0 18 Letters/-space 0 0 1 1 1
-1x7" -106.25 -14.75 1.9 3 0 48  0 0 1 1 1
+2x2F Vertical Double Print" 38.75 -47.5 2.1 1 0 34 Letters/-space 0 0 1 1 1
 1x1F Tile" 9.75 -162.25 0.9 3 0 62  0 0 1 1 1
 1x2F Tile" 18 -166.25 0.9 2 0 62  0 0 1 1 1
 1x1 Pole" 18.75 -144.25 1.5 1 0 38  0 0 1 0 1
@@ -13370,7 +13380,7 @@ Pumpkin" -51.25 7.25 2.1 2 0 2  0 0 1 1 1
 +-EVENT	0	1	onActivate	0	Self		fireRelayDown				
 1F 1x2F Vertical Print" -46.25 36.75 1.7 3 0 49 Letters/-space 0 0 1 1 1
 +-EVENT	0	1	onRelay	0	Self		fireRelayWest				
-+-EVENT	1	0	onRelay	0	Self		fireRelayDown				
++-EVENT	1	1	onRelay	0	Self		fireRelayDown				
 +-EVENT	2	1	onRelay	0	Self		toggleEventEnabled	1			
 1F 1x1F Vertical Corner Print" -46.75 36.75 1.7 3 0 49 Letters/-space 0 0 1 1 1
 +-EVENT	0	1	onRelay	0	Self		fireRelayUp				
@@ -13400,7 +13410,7 @@ Pumpkin" -51.25 7.25 2.1 2 0 2  0 0 1 1 1
 2x2F Round" -45 14 1.9 0 0 18  0 0 1 1 1
 1F 1x2F Vertical Print" -74.75 46.25 1.7 1 0 49 Letters/-space 0 0 1 1 1
 +-EVENT	0	1	onRelay	0	Self		fireRelayEast				
-+-EVENT	1	1	onRelay	0	Self		fireRelayDown				
++-EVENT	1	0	onRelay	0	Self		fireRelayDown				
 +-EVENT	2	1	onRelay	0	Self		toggleEventEnabled	1			
 1x1 Stem" -13.25 46.75 1.4 3 0 19  0 0 1 1 1
 1F 2x2F Vertical Print" -97.25 32.5 4.3 3 0 14 Letters/-space 0 0 1 1 1
@@ -13489,7 +13499,7 @@ Pumpkin" -51.25 7.25 2.1 2 0 2  0 0 1 1 1
 +-EVENT	0	1	onRelay	0	Self		fireRelayUp				
 1F 1x2F Vertical Print" -78.25 36.75 1.7 3 0 49 Letters/-space 0 0 1 1 1
 +-EVENT	0	1	onRelay	0	Self		fireRelayWest				
-+-EVENT	1	1	onRelay	0	Self		fireRelayDown				
++-EVENT	1	0	onRelay	0	Self		fireRelayDown				
 +-EVENT	2	1	onRelay	0	Self		toggleEventEnabled	1			
 1F 1x1F Vertical Print" -79.25 36.75 1.9 2 0 0 Letters/-space 0 0 1 1 1
 +-NTOBJECTNAME _switch
@@ -13658,49 +13668,62 @@ Pumpkin" -51.25 7.25 2.1 2 0 2  0 0 1 1 1
 1x1F Vertical Edge Print" 49.25 -1.75 1.7 2 0 51 2x2f/blank 0 0 1 1 1
 1x3F" 23.25 -50.75 1.7 1 0 61  0 0 1 1 1
 1x15" -36.25 -62.75 4.7 2 0 45  0 0 1 1 1
-2x2F Vertical Double Print" 38.75 -47.5 2.1 1 0 34 Letters/-space 0 0 1 1 1
-1x3F" 17.75 -45.25 1.3 1 0 49  0 0 1 1 1
-1F 1x1F Vertical Print" 45.25 16.75 0.9 3 0 61 Letters/-space 0 0 1 1 1
-1x15" -32.25 -66.25 4.7 3 0 45  0 0 1 1 1
-1F 2x2F Vertical Print" 11.75 -23 1.7 1 0 18 Letters/-space 0 0 1 1 1
-1x3F" 17.75 -47.75 1.3 1 0 49  0 0 1 1 1
-1F 1x1F Vertical Corner Print" 12.75 -20.25 0.9 2 0 61 Letters/-space 0 0 1 1 1
-1F 1x2F Vertical Print" 43.25 -46.75 3.7 2 0 34 Letters/-space 0 0 1 1 1
-1x32" -52.5 -66.25 4.7 3 0 45  0 0 1 1 1
-1x32" -52.5 -50.75 4.7 1 0 45  0 0 1 1 1
-1x3F" -48.25 -62.25 1.3 0 0 56  0 0 1 1 1
-1x15" -44.75 -54.75 4.7 0 0 45  0 0 1 1 1
-1x15" -60.25 -54.75 4.7 2 0 45  0 0 1 1 1
-1x2x2 Print" -60.25 -63.5 2.6 0 0 45 Letters/1 0 0 1 1 1
-1x2x2 Print" -60.25 -64.5 2.6 0 0 45 Letters/-minus 0 0 1 1 1
-1x2x2 Print" -60.25 -65.5 2.6 0 0 45 Letters/C 0 0 1 1 1
-2x4 Small Ramp" -15 60 3.2 3 0 61  0 0 1 0 1
-1x6x5" -106 -16.25 2.3 3 0 2  3 0 1 1 1
-6x10F" -106 -18.5 4.3 0 0 2  0 0 1 1 1
-2x2F Vertical Print" -50 -65.75 1.7 2 0 34 Letters/-space 0 0 1 1 1
-2x2F Vertical Print" -51 -65.75 1.7 2 0 34 Letters/-space 0 0 1 1 1
-2x2F Vertical Print" -52 -65.75 1.7 2 0 34 Letters/-space 0 0 1 1 1
-2x2F Vertical Print" -53 -65.75 1.7 2 0 34 Letters/-space 0 0 1 1 1
-1x7F" -106.25 -14.75 4.3 3 0 48  0 0 1 1 1
-1x7F" -106.25 -22.25 4.3 3 0 48  0 0 1 1 1
-1x7" -106.25 -22.25 1.9 3 0 48  0 0 1 1 1
-2x2F Vertical Print" -54 -65.75 1.7 2 0 34 Letters/-space 0 0 1 1 1
-2x2F Vertical Print" -55 -65.75 1.7 2 0 34 Letters/-space 0 0 1 1 1
-2x2F Vertical Print" -56 -65.75 1.7 2 0 34 Letters/-space 0 0 1 1 1
-2x2F Vertical Print" -57 -65.75 1.7 2 0 34 Letters/-space 0 0 1 1 1
-1x16F" -104.25 -18.5 4.3 2 0 48  0 0 1 1 1
-1x16" -104.25 -18.5 1.9 2 0 48  0 0 1 1 1
-1x1F Vertical Edge Print" -57.75 -65.75 1.7 1 0 48 Letters/-space 0 0 1 1 1
-2x2F Vertical Print" -48 -65.75 1.7 2 0 34 Letters/-space 0 0 1 1 1
-2x2F Vertical Print" -49 -65.75 1.7 2 0 34 Letters/-space 0 0 1 1 1
-1x1F Vertical Edge Print" -47.25 -65.75 1.7 2 0 48 Letters/-space 0 0 1 1 1
-1F 1x1F Vertical Corner Print" -46.25 -54.75 1.3 2 0 50 Letters/-space 0 0 1 1 1
-1F 2x2F Vertical Print" -47.5 -55.25 1.3 0 0 50 Letters/-space 0 0 1 1 1
-1x2F Tile" 5.25 -153.5 0.9 1 0 62  0 0 1 1 1
-1x1 Pole" 27.25 -149.25 1.5 2 0 38  0 0 1 0 1
-1x2F Vertical Print" -73.25 -66.75 2.9 3 0 34 Letters/-space 0 0 1 1 1
-1x6x5" -106 -20.75 2.3 3 0 2  3 0 1 1 1
-1F 2x2F Vertical Print" -64.5 14.25 1.1 2 0 49 Letters/-space 0 0 1 1 1
+4x6" -16 60 3.7 1 0 45  0 0 0 1 0
+3x4 Glass Pane" -21.25 50 3.3 0 0 47  2 0 1 1 1
+2x2F Vertical Double Print" 60.75 -71.5 1.5 1 0 36 Letters/-space 0 0 1 0 1
+1x6F" -106 -16.25 3.9 3 0 2  3 0 1 1 1
+1x2" -66.75 33 1.7 2 0 0  0 0 1 0 0
++-NTOBJECTNAME _sink
++-EVENT	0	1	onActivate	0	Player		cleanPlayer	0			
++-EVENT	1	1	onActivate	0	Client		CenterPrint	<color:FFFFFF>You clean yourself with the sink.	2		
++-EVENT	2	0	onActivate	0	Client		CenterPrint	<color:FFFFFF>You turn the faucet, but no water comes out..	2		
+6x10F" -106 -18.5 4.1 0 0 2  3 0 1 1 1
+1x1F Vertical Edge Print" -5.25 36.75 1.5 1 0 51 Letters/-space 0 0 1 1 1
+1x1 Stem" -93.75 44.75 1.8 1 0 19  0 0 1 1 1
+1x2" -54.25 50 1.7 0 0 0  0 0 1 0 0
++-NTOBJECTNAME _sink
++-EVENT	0	1	onActivate	0	Player		cleanPlayer	0			
++-EVENT	1	1	onActivate	0	Client		CenterPrint	<color:FFFFFF>You clean yourself with the sink.	2		
++-EVENT	2	0	onActivate	0	Client		CenterPrint	<color:FFFFFF>You turn the faucet, but no water comes out..	2		
+2x3F" -55.25 47 1.1 1 0 45  0 0 0 0 0
+1x 1x2F Vertical Print" -97.75 52.75 3.9 3 0 51 2x2f/blank 0 0 1 1 1
+1x1F Round" -51.25 19.75 1.5 2 0 34  0 0 1 1 1
+1F 1x1F Vertical Print" -96.75 52.25 1.5 0 0 18 2x2f/blank 0 0 1 1 1
+3x3F Tile" 11.75 -122.75 3.5 2 0 34  0 0 1 1 1
+1F 1x1F Vertical Corner Print" 58.75 -72.25 1.5 3 0 50 Letters/-space 0 0 1 1 1
+1F 2x2F Vertical Print" 58.25 -71 1.5 1 0 50 Letters/-space 0 0 1 1 1
+1F 2x2F Vertical Print" 58.25 -72 1.5 1 0 50 Letters/-space 0 0 1 1 1
+1F 1x1F Vertical Corner Print" 58.75 -70.75 1.5 0 0 50 Letters/-space 0 0 1 1 1
+1x 1x2F Vertical Print" -130.25 -80.25 2.5 1 0 58 Letters/-space 0 0 1 1 1
+1x 1x2F Vertical Print" -130.25 -80.75 2.5 1 0 58 Letters/-space 0 0 1 1 1
+1x 1x2F Vertical Print" -129.25 -80.75 2.5 3 0 58 Letters/-space 0 0 1 1 1
+1x 1x2F Vertical Print" -129.25 -80.25 2.5 3 0 58 Letters/-space 0 0 1 1 1
+1F 1x1F Vertical Print" -93.25 47.25 1.9 3 0 44 Letters/-space 0 0 1 1 1
++-NTOBJECTNAME _switch
++-EVENT	0	1	onActivate	0	Self		fireRelayDown				
+1x2F" -97 36.75 1.5 3 0 18  0 0 1 1 1
+1F 1x1F Vertical Print" -97.25 36.25 1.5 3 0 18 2x2f/blank 0 0 1 1 1
+1x4F" 61 -34.75 1.5 3 0 51  0 0 1 1 1
+1x1F Vertical Edge Print" -93.25 47.75 2.3 3 0 49 Letters/-space 0 0 1 1 1
++-EVENT	0	1	onRelay	0	Self		fireRelayUp				
+1x1F Vertical Edge Print" -104.75 38.25 1.5 3 0 51 Letters/-space 0 0 1 1 1
+1x1F Vertical Edge Print" -20.25 -41.25 2.3 3 0 49 Letters/-space 0 0 1 1 1
+1x8x5" -22.5 -42.25 6.5 1 0 49  0 0 1 1 1
+1x2F" -129.75 -80.5 1.1 2 0 58  0 0 1 1 1
+1F 2x2F Vertical Print" 61 -43.25 2.3 2 0 51 2x2f/blank 0 0 1 1 1
+1x3x2 Door Right" -104.25 -17.75 2.8 2 0 48  0 0 1 1 1
++-EVENT	0	1	onActivate	0	Self		door	0			
+1x3x2 Door Left" -104.25 -19.25 2.8 0 0 48  0 0 1 1 1
++-EVENT	0	1	onActivate	0	Self		door	0			
+1x6" -104.25 -18.5 3.7 2 0 48  0 0 1 1 1
+1F 2x2F Vertical Print" -127.25 -79.5 0.7 1 0 51 Letters/-space 0 0 1 1 1
+1F 2x2F Vertical Print" -127.25 -78.5 0.7 1 0 51 Letters/-space 0 0 1 1 1
+1F 2x2F Vertical Print" -127.25 -77.5 0.7 1 0 51 Letters/-space 0 0 1 1 1
+1F 2x2F Vertical Print" -128.25 -77.5 0.7 3 0 51 Letters/-space 0 0 1 1 1
+1F 2x2F Vertical Print" -128.25 -78.5 0.7 3 0 51 Letters/-space 0 0 1 1 1
+1F 2x2F Vertical Print" -128.25 -79.5 0.7 3 0 51 Letters/-space 0 0 1 1 1
+1x1F Pole" -106.75 -24.25 2.7 2 0 49  0 0 1 1 1
+2x4F" 2 17 3.1 1 0 61  0 0 1 0 1
 1F 2x2F Vertical Print" -38.25 14 1.5 3 0 49 2x2f/blank 0 0 1 1 1
 1F 1x1F Vertical Print" 30.25 -41.25 3.1 2 0 62 Letters/-space 0 0 1 1 1
 3x3F Tile" -5.25 -11.75 3.5 1 0 34  0 0 1 1 1
@@ -13808,9 +13831,9 @@ Pumpkin" -51.25 7.25 2.1 2 0 2  0 0 1 1 1
 2x2F Vertical Double Print" 44.25 -47.5 3.1 1 0 34 Letters/-space 0 0 1 1 1
 1x3" -14.25 -76.75 1.7 0 0 45  0 0 1 0 0
 +-NTOBJECTNAME _sink
-+-EVENT	0	0	onActivate	0	Player		cleanPlayer	0			
-+-EVENT	1	0	onActivate	0	Client		CenterPrint	<color:FFFFFF>You clean yourself with the sink.	2		
-+-EVENT	2	1	onActivate	0	Client		CenterPrint	<color:FFFFFF>You turn the faucet, but no water comes out..	2		
++-EVENT	0	1	onActivate	0	Player		cleanPlayer	0			
++-EVENT	1	1	onActivate	0	Client		CenterPrint	<color:FFFFFF>You clean yourself with the sink.	2		
++-EVENT	2	0	onActivate	0	Client		CenterPrint	<color:FFFFFF>You turn the faucet, but no water comes out..	2		
 1x1F Vertical Edge Print" -9.75 -17.75 3.1 3 0 49 Letters/-space 0 0 1 1 1
 1x1F Vertical Edge Print" -9.75 -18.25 3.1 2 0 49 Letters/-space 0 0 1 1 1
 1x1F Vertical Edge Print" -6.25 -17.75 3.1 0 0 49 Letters/-space 0 0 1 1 1
@@ -13869,19 +13892,19 @@ Pumpkin" -51.25 7.25 2.1 2 0 2  0 0 1 1 1
 1x16" 33.5 -105.75 5.3 1 0 22  0 0 1 1 1
 1x2" -6.25 50 1.7 0 0 0  0 0 1 0 0
 +-NTOBJECTNAME _sink
-+-EVENT	0	0	onActivate	0	Player		cleanPlayer	0			
-+-EVENT	1	0	onActivate	0	Client		CenterPrint	<color:FFFFFF>You clean yourself with the sink.	2		
-+-EVENT	2	1	onActivate	0	Client		CenterPrint	<color:FFFFFF>You turn the faucet, but no water comes out..	2		
++-EVENT	0	1	onActivate	0	Player		cleanPlayer	0			
++-EVENT	1	1	onActivate	0	Client		CenterPrint	<color:FFFFFF>You clean yourself with the sink.	2		
++-EVENT	2	0	onActivate	0	Client		CenterPrint	<color:FFFFFF>You turn the faucet, but no water comes out..	2		
 1x2" -82.75 33 1.7 2 0 0  0 0 1 0 0
 +-NTOBJECTNAME _sink
-+-EVENT	0	0	onActivate	0	Player		cleanPlayer	0			
-+-EVENT	1	0	onActivate	0	Client		CenterPrint	<color:FFFFFF>You clean yourself with the sink.	2		
-+-EVENT	2	1	onActivate	0	Client		CenterPrint	<color:FFFFFF>You turn the faucet, but no water comes out..	2		
++-EVENT	0	1	onActivate	0	Player		cleanPlayer	0			
++-EVENT	1	1	onActivate	0	Client		CenterPrint	<color:FFFFFF>You clean yourself with the sink.	2		
++-EVENT	2	0	onActivate	0	Client		CenterPrint	<color:FFFFFF>You turn the faucet, but no water comes out..	2		
 1x2" -8 23.25 1.7 1 0 0  0 0 1 0 0
 +-NTOBJECTNAME _sink
-+-EVENT	0	0	onActivate	0	Player		cleanPlayer	0			
-+-EVENT	1	0	onActivate	0	Client		CenterPrint	<color:FFFFFF>You clean yourself with the sink.	2		
-+-EVENT	2	1	onActivate	0	Client		CenterPrint	<color:FFFFFF>You turn the faucet, but no water comes out..	2		
++-EVENT	0	1	onActivate	0	Player		cleanPlayer	0			
++-EVENT	1	1	onActivate	0	Client		CenterPrint	<color:FFFFFF>You clean yourself with the sink.	2		
++-EVENT	2	0	onActivate	0	Client		CenterPrint	<color:FFFFFF>You turn the faucet, but no water comes out..	2		
 1x16" 33.5 -90.75 5.3 3 0 22  0 0 1 1 1
 2x2" 42 -25 1.3 0 0 34  0 0 1 1 1
 1F 1x1F Vertical Print" -69.25 26.25 2.3 2 0 51 Letters/-space 0 0 1 1 1
@@ -14260,7 +14283,7 @@ Pumpkin" -51.25 7.25 2.1 2 0 2  0 0 1 1 1
 1x3x5" 6.25 -157.75 10.9 0 0 31  0 0 1 1 1
 2x3F" -94 34.75 1.1 0 0 45  0 0 0 0 0
 1F 2x2F Vertical Print" 28.75 -41 1.1 1 0 48 Letters/-space 0 0 1 1 1
-1x8x5" -22.5 -42.25 6.5 1 0 49  0 0 1 1 1
+1F 2x2F Vertical Print" -64.5 14.25 1.1 2 0 49 Letters/-space 0 0 1 1 1
 1x2x5" 7.25 -159.5 10.9 0 0 31  0 0 1 1 1
 3x3F Tile" 16.25 -109.25 3.5 0 0 34  0 0 1 1 1
 2x4F" 2 33 3.1 1 0 61  0 0 1 0 1
@@ -14300,9 +14323,9 @@ Pumpkin" -51.25 7.25 2.1 2 0 2  0 0 1 1 1
 1x1 Print" 18.25 32.25 3.5 1 0 29 Letters/F 0 0 1 1 1
 1x2" -22.25 50 1.7 0 0 0  0 0 1 0 0
 +-NTOBJECTNAME _sink
-+-EVENT	0	0	onActivate	0	Player		cleanPlayer	0			
-+-EVENT	1	0	onActivate	0	Client		CenterPrint	<color:FFFFFF>You clean yourself with the sink.	2		
-+-EVENT	2	1	onActivate	0	Client		CenterPrint	<color:FFFFFF>You turn the faucet, but no water comes out..	2		
++-EVENT	0	1	onActivate	0	Player		cleanPlayer	0			
++-EVENT	1	1	onActivate	0	Client		CenterPrint	<color:FFFFFF>You clean yourself with the sink.	2		
++-EVENT	2	0	onActivate	0	Client		CenterPrint	<color:FFFFFF>You turn the faucet, but no water comes out..	2		
 2x2F Vertical Double Print" 39.5 -48.25 3.1 2 0 34 Letters/-space 0 0 1 1 1
 1x2x5" 15 -165.75 10.9 1 0 31  0 0 1 1 1
 1F 1x1F Vertical Print" -58.75 46.25 1.9 0 0 44 Letters/-space 0 0 1 1 1
@@ -14312,9 +14335,9 @@ Pumpkin" -51.25 7.25 2.1 2 0 2  0 0 1 1 1
 1x32" -76.5 -34.75 5.3 3 0 46  0 0 1 1 1
 1x2" -38.25 50 1.7 0 0 0  0 0 1 0 0
 +-NTOBJECTNAME _sink
-+-EVENT	0	0	onActivate	0	Player		cleanPlayer	0			
-+-EVENT	1	0	onActivate	0	Client		CenterPrint	<color:FFFFFF>You clean yourself with the sink.	2		
-+-EVENT	2	1	onActivate	0	Client		CenterPrint	<color:FFFFFF>You turn the faucet, but no water comes out..	2		
++-EVENT	0	1	onActivate	0	Player		cleanPlayer	0			
++-EVENT	1	1	onActivate	0	Client		CenterPrint	<color:FFFFFF>You clean yourself with the sink.	2		
++-EVENT	2	0	onActivate	0	Client		CenterPrint	<color:FFFFFF>You turn the faucet, but no water comes out..	2		
 1x6F" -106 -20.75 3.9 3 0 2  3 0 1 1 1
 1x1 Stem" -21.75 -3.25 1.8 1 0 19  0 0 1 1 1
 3x4 Glass Pane" -5.25 50 3.3 0 0 47  2 0 1 1 1
@@ -14324,6 +14347,7 @@ Pumpkin" -51.25 7.25 2.1 2 0 2  0 0 1 1 1
 1x8x5" -22.5 -27.25 6.5 3 0 49  0 0 1 1 1
 1F 2x2F Vertical Print" 26.25 0.5 1.1 1 0 49 Letters/-space 0 0 1 1 1
 64x64 Base" 20.5 -151 12.5 0 0 52  0 0 1 1 1
++-EMITTER NONE" 1
 1x6F" -34.5 4.75 2.3 3 0 40  0 0 0 1 0
 1x1F Vertical Edge Print" -37.25 25.75 1.5 2 0 51 Letters/-space 0 0 1 1 1
 1F 2x2F Vertical Print" -81 8.75 1.1 0 0 49 Letters/-space 0 0 1 1 1
@@ -14383,18 +14407,18 @@ Pumpkin" -51.25 7.25 2.1 2 0 2  0 0 1 1 1
 1x1F Vertical Edge Print" -22.25 -32.75 2.3 3 0 49 Letters/-space 0 0 1 1 1
 1x2" -97 51.75 1.7 3 0 0  0 0 1 0 0
 +-NTOBJECTNAME _sink
-+-EVENT	0	0	onActivate	0	Player		cleanPlayer	0			
-+-EVENT	1	0	onActivate	0	Client		CenterPrint	<color:FFFFFF>You clean yourself with the sink.	2		
-+-EVENT	2	1	onActivate	0	Client		CenterPrint	<color:FFFFFF>You turn the faucet, but no water comes out..	2		
++-EVENT	0	1	onActivate	0	Player		cleanPlayer	0			
++-EVENT	1	1	onActivate	0	Client		CenterPrint	<color:FFFFFF>You clean yourself with the sink.	2		
++-EVENT	2	0	onActivate	0	Client		CenterPrint	<color:FFFFFF>You turn the faucet, but no water comes out..	2		
 1x1F Vertical Edge Print" -5.25 20.75 1.5 1 0 51 Letters/-space 0 0 1 1 1
 2x2F Corner Macaroni" 26.5 -147 1.9 0 0 39  0 0 1 0 1
 1x1F" 26.25 -146.25 1.9 0 0 39  0 0 1 0 1
 1x2" -97 35.75 1.7 3 0 0  0 0 1 0 0
 +-NTOBJECTNAME _sink
-+-EVENT	0	0	onActivate	0	Player		cleanPlayer	0			
-+-EVENT	1	0	onActivate	0	Client		CenterPrint	<color:FFFFFF>You clean yourself with the sink.	2		
-+-EVENT	2	1	onActivate	0	Client		CenterPrint	<color:FFFFFF>You turn the faucet, but no water comes out..	2		
-2x4F" 2 17 3.1 1 0 61  0 0 1 0 1
++-EVENT	0	1	onActivate	0	Player		cleanPlayer	0			
++-EVENT	1	1	onActivate	0	Client		CenterPrint	<color:FFFFFF>You clean yourself with the sink.	2		
++-EVENT	2	0	onActivate	0	Client		CenterPrint	<color:FFFFFF>You turn the faucet, but no water comes out..	2		
+1F 1x2F Vertical Print" 61.75 -43.25 2.3 2 0 51 2x2f/blank 0 0 1 1 1
 4x6" 2 17 3.7 2 0 45  0 0 0 1 0
 2x2F Vertical Double Print" 39 -45.25 3.1 2 0 34 Letters/-space 0 0 1 1 1
 1x1 Stem" -11.25 14.25 1.8 3 0 19  0 0 1 1 1
@@ -14746,24 +14770,24 @@ Pumpkin" -51.25 7.25 2.1 2 0 2  0 0 1 1 1
 1F 2x2F Vertical Print" 30.25 -123 3.5 1 0 34 Letters/-space 0 0 1 1 1
 1x3" 35.75 -92.25 1.7 0 0 45  0 0 1 0 0
 +-NTOBJECTNAME _sink
-+-EVENT	0	0	onActivate	0	Player		cleanPlayer	0			
-+-EVENT	1	0	onActivate	0	Client		CenterPrint	<color:FFFFFF>You clean yourself with the sink.	2		
-+-EVENT	2	1	onActivate	0	Client		CenterPrint	<color:FFFFFF>You turn the faucet, but no water comes out..	2		
++-EVENT	0	1	onActivate	0	Player		cleanPlayer	0			
++-EVENT	1	1	onActivate	0	Client		CenterPrint	<color:FFFFFF>You clean yourself with the sink.	2		
++-EVENT	2	0	onActivate	0	Client		CenterPrint	<color:FFFFFF>You turn the faucet, but no water comes out..	2		
 1x3" 31.25 -92.25 1.7 2 0 45  0 0 1 0 0
 +-NTOBJECTNAME _sink
-+-EVENT	0	0	onActivate	0	Player		cleanPlayer	0			
-+-EVENT	1	0	onActivate	0	Client		CenterPrint	<color:FFFFFF>You clean yourself with the sink.	2		
-+-EVENT	2	1	onActivate	0	Client		CenterPrint	<color:FFFFFF>You turn the faucet, but no water comes out..	2		
++-EVENT	0	1	onActivate	0	Player		cleanPlayer	0			
++-EVENT	1	1	onActivate	0	Client		CenterPrint	<color:FFFFFF>You clean yourself with the sink.	2		
++-EVENT	2	0	onActivate	0	Client		CenterPrint	<color:FFFFFF>You turn the faucet, but no water comes out..	2		
 1x3" 26.75 -92.25 1.7 0 0 45  0 0 1 0 0
 +-NTOBJECTNAME _sink
-+-EVENT	0	0	onActivate	0	Player		cleanPlayer	0			
-+-EVENT	1	0	onActivate	0	Client		CenterPrint	<color:FFFFFF>You clean yourself with the sink.	2		
-+-EVENT	2	1	onActivate	0	Client		CenterPrint	<color:FFFFFF>You turn the faucet, but no water comes out..	2		
++-EVENT	0	1	onActivate	0	Player		cleanPlayer	0			
++-EVENT	1	1	onActivate	0	Client		CenterPrint	<color:FFFFFF>You clean yourself with the sink.	2		
++-EVENT	2	0	onActivate	0	Client		CenterPrint	<color:FFFFFF>You turn the faucet, but no water comes out..	2		
 1x3" 26.75 -96.75 1.7 0 0 45  0 0 1 0 0
 +-NTOBJECTNAME _sink
-+-EVENT	0	0	onActivate	0	Player		cleanPlayer	0			
-+-EVENT	1	0	onActivate	0	Client		CenterPrint	<color:FFFFFF>You clean yourself with the sink.	2		
-+-EVENT	2	1	onActivate	0	Client		CenterPrint	<color:FFFFFF>You turn the faucet, but no water comes out..	2		
++-EVENT	0	1	onActivate	0	Player		cleanPlayer	0			
++-EVENT	1	1	onActivate	0	Client		CenterPrint	<color:FFFFFF>You clean yourself with the sink.	2		
++-EVENT	2	0	onActivate	0	Client		CenterPrint	<color:FFFFFF>You turn the faucet, but no water comes out..	2		
 1x16" -88.5 -34.75 5.3 3 0 46  0 0 1 1 1
 1F 1x1F Vertical Print" 20.25 -117.75 3.5 3 0 34 Letters/-space 0 0 1 1 1
 1x15" 24.75 -119.75 5.3 0 0 46  0 0 1 1 1
@@ -14812,18 +14836,18 @@ Pumpkin" -51.25 7.25 2.1 2 0 2  0 0 1 1 1
 3x4 Glass Pane" -69.25 50 3.3 0 0 47  2 0 1 1 1
 1x3" -18.75 -76.75 1.7 2 0 45  0 0 1 0 0
 +-NTOBJECTNAME _sink
-+-EVENT	0	0	onActivate	0	Player		cleanPlayer	0			
-+-EVENT	1	0	onActivate	0	Client		CenterPrint	<color:FFFFFF>You clean yourself with the sink.	2		
-+-EVENT	2	1	onActivate	0	Client		CenterPrint	<color:FFFFFF>You turn the faucet, but no water comes out..	2		
++-EVENT	0	1	onActivate	0	Player		cleanPlayer	0			
++-EVENT	1	1	onActivate	0	Client		CenterPrint	<color:FFFFFF>You clean yourself with the sink.	2		
++-EVENT	2	0	onActivate	0	Client		CenterPrint	<color:FFFFFF>You turn the faucet, but no water comes out..	2		
 3x4 Glass Pane" -53.25 50 3.3 0 0 47  2 0 1 1 1
 1x1F Vertical Edge Print" -58.25 46.25 2.3 0 0 49 Letters/-space 0 0 1 1 1
 +-EVENT	0	1	onRelay	0	Self		fireRelayUp				
 1F 2x2F Vertical Print" 43 15.75 2.3 2 0 51 Letters/-space 0 0 1 1 1
 1x2" -25 35.75 1.7 3 0 0  0 0 1 0 0
 +-NTOBJECTNAME _sink
-+-EVENT	0	0	onActivate	0	Player		cleanPlayer	0			
-+-EVENT	1	0	onActivate	0	Client		CenterPrint	<color:FFFFFF>You clean yourself with the sink.	2		
-+-EVENT	2	1	onActivate	0	Client		CenterPrint	<color:FFFFFF>You turn the faucet, but no water comes out..	2		
++-EVENT	0	1	onActivate	0	Player		cleanPlayer	0			
++-EVENT	1	1	onActivate	0	Client		CenterPrint	<color:FFFFFF>You clean yourself with the sink.	2		
++-EVENT	2	0	onActivate	0	Client		CenterPrint	<color:FFFFFF>You turn the faucet, but no water comes out..	2		
 1x 1x2F Vertical Print" -53.25 49.25 3.9 2 0 51 2x2f/blank 0 0 1 1 1
 1x 1x2F Vertical Print" -53.25 50.75 3.9 0 0 51 2x2f/blank 0 0 1 1 1
 1F 1x1F Vertical Print" -31.75 6.25 2.3 3 0 51 Letters/-space 0 0 1 1 1
@@ -14898,15 +14922,15 @@ Pumpkin" -51.25 7.25 2.1 2 0 2  0 0 1 1 1
 1x2F Print" -61.5 -81.25 1.9 2 0 47 Letters/-space 0 0 1 1 1
 1x3" -62.25 -81.25 1.7 0 0 45  0 0 1 0 0
 +-NTOBJECTNAME _sink
-+-EVENT	0	0	onActivate	0	Player		cleanPlayer	0			
-+-EVENT	1	0	onActivate	0	Client		CenterPrint	<color:FFFFFF>You clean yourself with the sink.	2		
-+-EVENT	2	1	onActivate	0	Client		CenterPrint	<color:FFFFFF>You turn the faucet, but no water comes out..	2		
++-EVENT	0	1	onActivate	0	Player		cleanPlayer	0			
++-EVENT	1	1	onActivate	0	Client		CenterPrint	<color:FFFFFF>You clean yourself with the sink.	2		
++-EVENT	2	0	onActivate	0	Client		CenterPrint	<color:FFFFFF>You turn the faucet, but no water comes out..	2		
 1x2F Print" -61.5 -76.75 1.9 2 0 47 Letters/-space 0 0 1 1 1
 1x3" -62.25 -76.75 1.7 0 0 45  0 0 1 0 0
 +-NTOBJECTNAME _sink
-+-EVENT	0	0	onActivate	0	Player		cleanPlayer	0			
-+-EVENT	1	0	onActivate	0	Client		CenterPrint	<color:FFFFFF>You clean yourself with the sink.	2		
-+-EVENT	2	1	onActivate	0	Client		CenterPrint	<color:FFFFFF>You turn the faucet, but no water comes out..	2		
++-EVENT	0	1	onActivate	0	Player		cleanPlayer	0			
++-EVENT	1	1	onActivate	0	Client		CenterPrint	<color:FFFFFF>You clean yourself with the sink.	2		
++-EVENT	2	0	onActivate	0	Client		CenterPrint	<color:FFFFFF>You turn the faucet, but no water comes out..	2		
 1x16" -64.5 -90.25 5.3 1 0 29  0 0 1 1 1
 1x14" -68.25 -79 5.3 2 0 29  0 0 1 1 1
 1x15" -68.25 -86.25 5.3 2 0 29  0 0 1 1 1
@@ -15000,9 +15024,9 @@ Pumpkin" -51.25 7.25 2.1 2 0 2  0 0 1 1 1
 1F 1x1F Vertical Print" -83.75 51.75 2.3 0 0 51 Letters/-space 0 0 1 1 1
 1x2" -8 7.25 1.7 1 0 0  0 0 1 0 0
 +-NTOBJECTNAME _sink
-+-EVENT	0	0	onActivate	0	Player		cleanPlayer	0			
-+-EVENT	1	0	onActivate	0	Client		CenterPrint	<color:FFFFFF>You clean yourself with the sink.	2		
-+-EVENT	2	1	onActivate	0	Client		CenterPrint	<color:FFFFFF>You turn the faucet, but no water comes out..	2		
++-EVENT	0	1	onActivate	0	Player		cleanPlayer	0			
++-EVENT	1	1	onActivate	0	Client		CenterPrint	<color:FFFFFF>You clean yourself with the sink.	2		
++-EVENT	2	0	onActivate	0	Client		CenterPrint	<color:FFFFFF>You turn the faucet, but no water comes out..	2		
 1x1F" 21.75 -48.75 1.1 2 0 51  0 0 1 1 1
 1x3F" 41.75 -119.75 1.5 0 0 56  0 0 1 1 1
 1F 1x1F Vertical Print" 60.75 -73.75 1.1 2 0 50 Letters/-space 0 0 1 1 1
@@ -15021,9 +15045,9 @@ Pumpkin" -51.25 7.25 2.1 2 0 2  0 0 1 1 1
 1F 1x1F Vertical Corner Print" 13.25 -128.75 1.5 1 0 38 Letters/-space 0 0 1 1 1
 1x2" -25 19.75 1.7 3 0 0  0 0 1 0 0
 +-NTOBJECTNAME _sink
-+-EVENT	0	0	onActivate	0	Player		cleanPlayer	0			
-+-EVENT	1	0	onActivate	0	Client		CenterPrint	<color:FFFFFF>You clean yourself with the sink.	2		
-+-EVENT	2	1	onActivate	0	Client		CenterPrint	<color:FFFFFF>You turn the faucet, but no water comes out..	2		
++-EVENT	0	1	onActivate	0	Player		cleanPlayer	0			
++-EVENT	1	1	onActivate	0	Client		CenterPrint	<color:FFFFFF>You clean yourself with the sink.	2		
++-EVENT	2	0	onActivate	0	Client		CenterPrint	<color:FFFFFF>You turn the faucet, but no water comes out..	2		
 2x4" -166.5 16.5 2.9 3 0 45  0 0 1 1 1
 1x3F" 22.75 -43.25 1.1 3 0 49  0 0 1 1 1
 2x2F Tile" 13 -129 2.3 2 0 38  0 0 1 1 1
@@ -15033,9 +15057,9 @@ Pumpkin" -51.25 7.25 2.1 2 0 2  0 0 1 1 1
 2x4" -168.5 16.5 2.9 3 0 45  0 0 1 1 1
 1x2" -25 3.75 1.7 3 0 0  0 0 1 0 0
 +-NTOBJECTNAME _sink
-+-EVENT	0	0	onActivate	0	Player		cleanPlayer	0			
-+-EVENT	1	0	onActivate	0	Client		CenterPrint	<color:FFFFFF>You clean yourself with the sink.	2		
-+-EVENT	2	1	onActivate	0	Client		CenterPrint	<color:FFFFFF>You turn the faucet, but no water comes out..	2		
++-EVENT	0	1	onActivate	0	Player		cleanPlayer	0			
++-EVENT	1	1	onActivate	0	Client		CenterPrint	<color:FFFFFF>You clean yourself with the sink.	2		
++-EVENT	2	0	onActivate	0	Client		CenterPrint	<color:FFFFFF>You turn the faucet, but no water comes out..	2		
 2x2F Vertical Double Print" 56.25 -51.5 2.3 3 0 18 Letters/-space 0 0 1 1 1
 2x2F Vertical Double Print" 55 -50.75 2.3 2 0 18 Letters/-space 0 0 1 1 1
 1x2F Vertical Print" 55.75 -50.75 2.3 2 0 18 Letters/-space 0 0 1 1 1
@@ -15050,16 +15074,16 @@ Pumpkin" -51.25 7.25 2.1 2 0 2  0 0 1 1 1
 2x4F" -107 42 3.1 3 0 61  0 0 1 0 1
 1x2" -8 -8.75 1.7 1 0 0  0 0 1 0 0
 +-NTOBJECTNAME _sink
-+-EVENT	0	0	onActivate	0	Player		cleanPlayer	0			
-+-EVENT	1	0	onActivate	0	Client		CenterPrint	<color:FFFFFF>You clean yourself with the sink.	2		
-+-EVENT	2	1	onActivate	0	Client		CenterPrint	<color:FFFFFF>You turn the faucet, but no water comes out..	2		
++-EVENT	0	1	onActivate	0	Player		cleanPlayer	0			
++-EVENT	1	1	onActivate	0	Client		CenterPrint	<color:FFFFFF>You clean yourself with the sink.	2		
++-EVENT	2	0	onActivate	0	Client		CenterPrint	<color:FFFFFF>You turn the faucet, but no water comes out..	2		
 1F 2x2F Vertical Print" 28.75 -46 1.1 1 0 48 Letters/-space 0 0 1 1 1
 1x16" -40.5 -66.25 5.3 1 0 46  0 0 1 1 1
 1x2" -70.25 50 1.7 0 0 0  0 0 1 0 0
 +-NTOBJECTNAME _sink
-+-EVENT	0	0	onActivate	0	Player		cleanPlayer	0			
-+-EVENT	1	0	onActivate	0	Client		CenterPrint	<color:FFFFFF>You clean yourself with the sink.	2		
-+-EVENT	2	1	onActivate	0	Client		CenterPrint	<color:FFFFFF>You turn the faucet, but no water comes out..	2		
++-EVENT	0	1	onActivate	0	Player		cleanPlayer	0			
++-EVENT	1	1	onActivate	0	Client		CenterPrint	<color:FFFFFF>You clean yourself with the sink.	2		
++-EVENT	2	0	onActivate	0	Client		CenterPrint	<color:FFFFFF>You turn the faucet, but no water comes out..	2		
 3x4 Glass Pane" -8 22.25 3.3 1 0 47  2 0 1 1 1
 1x2x2 Print" 29.75 -45 3.6 2 0 18 Letters/-space 0 0 1 1 1
 1x15" -36.25 -62.75 5.3 2 0 46  0 0 1 1 1
@@ -15078,61 +15102,49 @@ Pumpkin" -51.25 7.25 2.1 2 0 2  0 0 1 1 1
 25° Ramp 2x" 58.75 -63.5 1.7 1 0 18  0 0 1 0 1
 1x2" -50.75 33 1.7 2 0 0  0 0 1 0 0
 +-NTOBJECTNAME _sink
-+-EVENT	0	0	onActivate	0	Player		cleanPlayer	0			
-+-EVENT	1	0	onActivate	0	Client		CenterPrint	<color:FFFFFF>You clean yourself with the sink.	2		
-+-EVENT	2	1	onActivate	0	Client		CenterPrint	<color:FFFFFF>You turn the faucet, but no water comes out..	2		
++-EVENT	0	1	onActivate	0	Player		cleanPlayer	0			
++-EVENT	1	1	onActivate	0	Client		CenterPrint	<color:FFFFFF>You clean yourself with the sink.	2		
++-EVENT	2	0	onActivate	0	Client		CenterPrint	<color:FFFFFF>You turn the faucet, but no water comes out..	2		
 25° Ramp 2x" 57.25 -63.5 1.7 3 0 18  0 0 1 0 1
-1F 1x2F Vertical Print" 61.75 -43.25 2.3 2 0 51 2x2f/blank 0 0 1 1 1
-1F 2x2F Vertical Print" 61 -43.25 2.3 2 0 51 2x2f/blank 0 0 1 1 1
-1x4F" 61 -34.75 1.5 3 0 51  0 0 1 1 1
-4x6" -16 60 3.7 1 0 45  0 0 0 1 0
-3x4 Glass Pane" -21.25 50 3.3 0 0 47  2 0 1 1 1
-2x2F Vertical Double Print" 60.75 -71.5 1.5 1 0 36 Letters/-space 0 0 1 0 1
-1x6F" -106 -16.25 3.9 3 0 2  3 0 1 1 1
-1x2" -66.75 33 1.7 2 0 0  0 0 1 0 0
-+-NTOBJECTNAME _sink
-+-EVENT	0	0	onActivate	0	Player		cleanPlayer	0			
-+-EVENT	1	0	onActivate	0	Client		CenterPrint	<color:FFFFFF>You clean yourself with the sink.	2		
-+-EVENT	2	1	onActivate	0	Client		CenterPrint	<color:FFFFFF>You turn the faucet, but no water comes out..	2		
-6x10F" -106 -18.5 4.1 0 0 2  3 0 1 1 1
-1x1F Vertical Edge Print" -5.25 36.75 1.5 1 0 51 Letters/-space 0 0 1 1 1
-1x1 Stem" -93.75 44.75 1.8 1 0 19  0 0 1 1 1
-1x2" -54.25 50 1.7 0 0 0  0 0 1 0 0
-+-NTOBJECTNAME _sink
-+-EVENT	0	0	onActivate	0	Player		cleanPlayer	0			
-+-EVENT	1	0	onActivate	0	Client		CenterPrint	<color:FFFFFF>You clean yourself with the sink.	2		
-+-EVENT	2	1	onActivate	0	Client		CenterPrint	<color:FFFFFF>You turn the faucet, but no water comes out..	2		
-2x3F" -55.25 47 1.1 1 0 45  0 0 0 0 0
-1x 1x2F Vertical Print" -97.75 52.75 3.9 3 0 51 2x2f/blank 0 0 1 1 1
-1x1F Round" -51.25 19.75 1.5 2 0 34  0 0 1 1 1
-1x7F" -106.25 -22.25 4.1 3 0 48  0 0 1 1 1
-1x7" -106.25 -22.25 2.5 3 0 48  0 0 1 1 1
-1F 1x1F Vertical Print" -96.75 52.25 1.5 0 0 18 2x2f/blank 0 0 1 1 1
-3x3F Tile" 11.75 -122.75 3.5 2 0 34  0 0 1 1 1
-1F 1x1F Vertical Corner Print" 58.75 -72.25 1.5 3 0 50 Letters/-space 0 0 1 1 1
-1x7" -106.25 -14.75 2.5 3 0 48  0 0 1 1 1
-1F 2x2F Vertical Print" 58.25 -71 1.5 1 0 50 Letters/-space 0 0 1 1 1
-1F 2x2F Vertical Print" 58.25 -72 1.5 1 0 50 Letters/-space 0 0 1 1 1
-1x7F" -106.25 -14.75 4.1 3 0 48  0 0 1 1 1
-1F 1x1F Vertical Corner Print" 58.75 -70.75 1.5 0 0 50 Letters/-space 0 0 1 1 1
-1x16F" -104.25 -18.5 4.1 2 0 48  0 0 1 1 1
-1x5" -104.25 -21.25 2.5 0 0 48  0 0 1 1 1
-1x5" -104.25 -15.75 2.5 0 0 48  0 0 1 1 1
-1x3x2 Door Left" -104.25 -19.25 2.8 0 0 46  0 0 1 1 1
-+-EVENT	0	1	onActivate	0	Self		door	0			
-1x3x2 Door Right" -104.25 -17.75 2.8 2 0 46  0 0 1 1 1
-+-EVENT	0	1	onActivate	0	Self		door	0			
-1F 1x1F Vertical Print" -93.25 47.25 1.9 3 0 44 Letters/-space 0 0 1 1 1
-+-NTOBJECTNAME _switch
-+-EVENT	0	1	onActivate	0	Self		fireRelayDown				
-1x2F" -97 36.75 1.5 3 0 18  0 0 1 1 1
-1F 1x1F Vertical Print" -97.25 36.25 1.5 3 0 18 2x2f/blank 0 0 1 1 1
-1x1F Vertical Edge Print" -93.25 47.75 2.3 3 0 49 Letters/-space 0 0 1 1 1
+1x2F Print" -96.5 52.75 2.3 0 0 51 Letters/-space 0 0 1 1 1
+1x 1x2F Vertical Print" -129.25 -80.75 3.1 3 0 58 Letters/-space 0 0 1 1 1
+1x 1x2F Vertical Print" -130.25 -80.75 3.1 1 0 58 Letters/-space 0 0 1 1 1
+1x 1x2F Vertical Print" -130.25 -80.25 3.1 1 0 58 Letters/-space 0 0 1 1 1
+1F 1x1F Vertical Print" -32.25 6.25 2.1 3 0 51 Letters/-space 0 0 1 1 1
+1x 1x2F Vertical Print" -25.75 20.75 3.3 3 0 51 2x2f/blank 0 0 1 1 1
+1x 1x2F Vertical Print" -37.25 50.75 3.3 0 0 51 2x2f/blank 0 0 1 1 1
+1F 2x2F Vertical Print" -51 18.25 2.9 0 0 18 Letters/-space 0 0 1 1 1
+1x 1x2F Vertical Print" -83.75 32.25 3.3 2 0 51 2x2f/blank 0 0 1 1 1
+1x 1x1F Vertical Edge Print" -21.25 15.75 3.1 3 0 49 Letters/-space 0 0 1 1 1
 +-EVENT	0	1	onRelay	0	Self		fireRelayUp				
-1x1F Vertical Edge Print" -104.75 38.25 1.5 3 0 51 Letters/-space 0 0 1 1 1
-1x1F Vertical Edge Print" -20.25 -41.25 2.3 3 0 49 Letters/-space 0 0 1 1 1
-1x 1x1F Vertical Edge Print" -10.25 46.25 3.1 0 0 49 Letters/-space 0 0 1 1 1
+1x1F" -65.75 35.75 0.9 1 0 45  0 0 1 1 1
+1x 1x1F Vertical Edge Print" -62.75 36.75 3.1 2 0 49 Letters/-space 0 0 1 1 1
 +-EVENT	0	1	onRelay	0	Self		fireRelayUp				
+1F 1x1F Vertical Print" -73.25 11.25 1.3 1 0 49 Letters/-space 0 0 1 1 1
+1x6F" 1.5 25.75 2.1 1 0 40  0 0 0 1 0
+2x4" 1.5 -7.5 1.1 2 0 18  0 0 0 0 0
+1F 1x1F Vertical Print" -51.75 52.75 2.1 0 0 51 Letters/-space 0 0 1 1 1
+1x 1x2F Vertical Print" -129.25 -80.25 3.1 3 0 58 Letters/-space 0 0 1 1 1
+1x1F Vertical Edge Print" 30.25 -48.75 3.7 3 0 62 Letters/-space 0 0 1 1 1
+1x 1x2F Vertical Print" -96.25 52.75 2.7 1 0 51 2x2f/blank 0 0 1 1 1
+1F 1x1F Vertical Print" -71.75 19.25 1.3 1 0 49 Letters/-space 0 0 1 1 1
+1x8f Horizontal pole" -129.75 -79 1.3 2 0 58  0 0 1 1 1
+1F 2x2F Vertical Print" -51 17.75 2.9 2 0 18 Letters/-space 0 0 1 1 1
+1x 1x2F Vertical Print" -96.25 52.75 3.3 1 0 51 2x2f/blank 0 0 1 1 1
+2x4F" -48 60 3.3 0 0 61  0 0 1 0 1
+1x 1x2F Vertical Print" -37.25 49.25 2.7 2 0 51 2x2f/blank 0 0 1 1 1
+2x2F Print" -13.5 -33.5 2.5 1 0 36 Letters/-minus 0 0 1 1 1
+1x1F Wedge" -66.25 35.75 0.9 2 0 45  0 0 1 1 1
+1F 1x1F Vertical Print" -79.75 -1.25 1.3 3 0 49 Letters/-space 0 0 1 1 1
+1F 1x1F Vertical Print" 20.75 8.25 1.3 1 0 49 Letters/-space 0 0 1 1 1
+1F 1x1F Vertical Print" -67.75 32.75 1.7 0 0 47 2x2f/blank 0 0 1 1 1
+1F 1x1F Vertical Print" -69.25 49.75 1.7 3 0 47 2x2f/blank 0 0 1 1 1
+1x1 Stem" -11.25 -1.75 2.2 2 0 19  0 0 1 1 1
+1F 1x1F Vertical Print" 28.25 8.25 1.3 2 0 49 Letters/-space 0 0 1 1 1
+1x 1x2F Vertical Print" -5.25 49.25 2.7 2 0 51 2x2f/blank 0 0 1 1 1
+1x 1x2F Vertical Print" -21.25 49.25 2.7 2 0 51 2x2f/blank 0 0 1 1 1
+1x1F Wedge" -38.75 47.25 0.9 0 0 45  0 0 1 1 1
+2x2 Disc" -106.75 -24.25 2.9 2 0 49  0 0 1 1 1
 1x1F" -7.25 47.25 0.9 3 0 45  0 0 1 1 1
 1x1 Stem" -43.75 36.25 2.2 3 0 19  0 0 1 1 1
 1x 1x2F Vertical Print" -67.75 33.75 2.7 0 0 51 2x2f/blank 0 0 1 1 1
@@ -15228,8 +15240,8 @@ Pumpkin" -51.25 7.25 2.1 2 0 2  0 0 1 1 1
 1x1F Vertical Edge Print" 41.75 7.25 1.7 2 0 51 Letters/-space 0 0 1 1 1
 1x4" -38.25 13.5 1.9 0 0 0  0 0 1 0 0
 +-NTOBJECTNAME _sink
-+-EVENT	0	0	onActivate	0	Player		cleanPlayer	0			
-+-EVENT	1	0	onActivate	0	Client		CenterPrint	<color:FFFFFF>You clean yourself with the sink.	3		
++-EVENT	0	1	onActivate	0	Player		cleanPlayer	0			
++-EVENT	1	1	onActivate	0	Client		CenterPrint	<color:FFFFFF>You clean yourself with the sink.	3		
 1x7" -12.75 -40.25 8.3 0 0 49  0 0 1 1 1
 2x2F Vertical Print" 39 -123.25 3.7 2 0 34 Letters/-space 0 0 1 1 1
 2x2F Vertical Print" 40 -123.25 3.7 2 0 34 Letters/-space 0 0 1 1 1
@@ -15403,19 +15415,19 @@ Pumpkin" -51.25 7.25 2.1 2 0 2  0 0 1 1 1
 1x1 Stem" -61.25 46.75 2.2 1 0 19  0 0 1 1 1
 2x2F Vertical Double Print" 49 -66.75 3.7 0 0 34 Letters/-space 0 0 1 1 1
 2x2F Vertical Double Print" 50 -66.75 3.7 0 0 34 Letters/-space 0 0 1 1 1
-1x7" -106.25 -14.75 3.7 3 0 48  0 0 1 1 1
-1x7" -106.25 -14.75 3.1 3 0 48  0 0 1 1 1
+1F 1x1F Vertical Print" -37.25 50.25 1.7 2 0 47 2x2f/blank 0 0 1 1 1
+2x2F Print" -13.5 -79 2.7 2 0 46 Letters/-space 0 0 1 1 1
 1x 1x2F Vertical Print" -97.75 36.75 3.3 3 0 51 2x2f/blank 0 0 1 1 1
 1x16F" 26 -34.75 1.7 1 0 48  0 0 0 0 0
 1x6F" 20.5 -34.75 1.7 1 0 48  0 0 0 0 0
 1F 1x1F Vertical Print" -51.75 20.25 2.9 1 0 18 Letters/-space 0 0 1 1 1
 1x 1x2F Vertical Print" -51.75 32.25 2.7 2 0 51 2x2f/blank 0 0 1 1 1
-1x16" -104.25 -18.5 3.7 2 0 48  0 0 1 1 1
+16x32 Base" 33.5 -98 5.7 2 0 45  0 0 1 1 1
 1x 1x2F Vertical Print" -51.75 33.75 2.7 0 0 51 2x2f/blank 0 0 1 1 1
 1x 1x2F Vertical Print" -83.75 32.25 2.7 2 0 51 2x2f/blank 0 0 1 1 1
-1x5" -104.25 -15.75 3.1 0 0 48  0 0 1 1 1
+16x32 Base" 24.5 -98 5.7 2 0 45  0 0 1 1 1
 1F 1x1F Vertical Print" -5.25 4.75 2.1 1 0 51 Letters/-space 0 0 1 1 1
-1x5" -104.25 -21.25 3.1 0 0 48  0 0 1 1 1
+16x32 Base" -116.5 -78.5 11.7 1 0 36  0 0 1 1 1
 1F 1x1F Vertical Print" -5.75 4.75 2.1 1 0 51 Letters/-space 0 0 1 1 1
 1x 1x2F Vertical Print" -8.75 6.25 2.7 3 0 51 2x2f/blank 0 0 1 1 1
 1F 1x1F Vertical Print" -104.25 22.25 2.1 3 0 51 Letters/-space 0 0 1 1 1
@@ -15424,8 +15436,8 @@ Pumpkin" -51.25 7.25 2.1 2 0 2  0 0 1 1 1
 1F 1x1F Vertical Print" -68.25 3.25 1.3 1 0 49 Letters/-space 0 0 1 1 1
 1x 1x2F Vertical Print" -7.25 6.25 2.7 1 0 51 2x2f/blank 0 0 1 1 1
 2x2F Vertical Double Print" 53 -66.75 3.7 0 0 34 Letters/-space 0 0 1 1 1
-1x7" -106.25 -22.25 3.1 3 0 48  0 0 1 1 1
-1x7" -106.25 -22.25 3.7 3 0 48  0 0 1 1 1
+64x64 Base" -108.5 -58.5 11.7 1 0 36  0 0 1 1 1
+16x32 Base" -116.5 -38.5 11.7 1 0 36  0 0 1 1 1
 2x2F Vertical Double Print" 51 -66.75 3.7 0 0 34 Letters/-space 0 0 1 1 1
 1x2F Vertical Print" 46.25 -66.75 3.7 1 0 51 Letters/-space 0 0 1 1 1
 2x2F Vertical Double Print" 52 -66.75 3.7 0 0 34 Letters/-space 0 0 1 1 1
@@ -15498,7 +15510,8 @@ Pumpkin" -51.25 7.25 2.1 2 0 2  0 0 1 1 1
 1F 1x1F Vertical Print" -79.75 6.25 1.3 1 0 49 Letters/-space 0 0 1 1 1
 1F 1x2F Vertical Print" 55.75 -50.75 2.9 2 0 18 Letters/-space 0 0 1 1 1
 1x 1x2F Vertical Print" -97.75 52.75 2.7 3 0 51 2x2f/blank 0 0 1 1 1
-1x 1x2F Vertical Print" -67.75 32.25 2.7 2 0 51 2x2f/blank 0 0 1 1 1
+1x 1x1F Vertical Edge Print" -10.25 46.25 3.1 0 0 49 Letters/-space 0 0 1 1 1
++-EVENT	0	1	onRelay	0	Self		fireRelayUp				
 2x4" -164.5 17 3.5 3 0 45  0 0 1 1 1
 2x4" -164.5 19 5.9 3 0 45  0 0 1 1 1
 1F 1x1F Vertical Print" 20.75 8.75 1.3 0 0 49 Letters/-space 0 0 1 1 1
@@ -15781,8 +15794,8 @@ Pumpkin" -51.25 7.25 2.1 2 0 2  0 0 1 1 1
 1F 1x1F Vertical Print" -68.25 7.25 1.3 1 0 49 Letters/-space 0 0 1 1 1
 1x4" -38.25 16.5 1.9 0 0 0  0 0 1 0 0
 +-NTOBJECTNAME _sink
-+-EVENT	0	0	onActivate	0	Player		cleanPlayer	0			
-+-EVENT	1	0	onActivate	0	Client		CenterPrint	<color:FFFFFF>You clean yourself with the sink.	3		
++-EVENT	0	1	onActivate	0	Player		cleanPlayer	0			
++-EVENT	1	1	onActivate	0	Client		CenterPrint	<color:FFFFFF>You clean yourself with the sink.	3		
 1F 1x2F Vertical Print" 51.25 -56.25 3.7 0 0 34 Letters/-space 0 0 1 1 1
 1F 2x2F Vertical Print" 52 -56.25 3.7 0 0 34 Letters/-space 0 0 1 1 1
 3x3F Tile" 51.75 -55.25 3.7 1 0 34  0 0 1 1 1
@@ -15975,47 +15988,48 @@ Pumpkin" -51.25 7.25 2.1 2 0 2  0 0 1 1 1
 2x2F Print" 27.5 -99 2.7 2 0 46 Letters/-space 0 0 1 1 1
 16x32 Base" -100.5 -78.5 11.7 1 0 36  0 0 1 1 1
 16x32 Base" -100.5 -38.5 11.7 1 0 36  0 0 1 1 1
-16x32 Base" -116.5 -38.5 11.7 1 0 36  0 0 1 1 1
-64x64 Base" -108.5 -58.5 11.7 1 0 36  0 0 1 1 1
-16x32 Base" -116.5 -78.5 11.7 1 0 36  0 0 1 1 1
-16x32 Base" 24.5 -98 5.7 2 0 45  0 0 1 1 1
-16x32 Base" 33.5 -98 5.7 2 0 45  0 0 1 1 1
-2x2F Print" -13.5 -79 2.7 2 0 46 Letters/-space 0 0 1 1 1
-1F 1x1F Vertical Print" -37.25 50.25 1.7 2 0 47 2x2f/blank 0 0 1 1 1
-1x1F Wedge" -38.75 47.25 0.9 0 0 45  0 0 1 1 1
-1x 1x2F Vertical Print" -21.25 49.25 2.7 2 0 51 2x2f/blank 0 0 1 1 1
-1x 1x2F Vertical Print" -5.25 49.25 2.7 2 0 51 2x2f/blank 0 0 1 1 1
-1F 1x1F Vertical Print" 28.25 8.25 1.3 2 0 49 Letters/-space 0 0 1 1 1
-1x1 Stem" -11.25 -1.75 2.2 2 0 19  0 0 1 1 1
-1F 1x1F Vertical Print" -69.25 49.75 1.7 3 0 47 2x2f/blank 0 0 1 1 1
-1F 1x1F Vertical Print" -67.75 32.75 1.7 0 0 47 2x2f/blank 0 0 1 1 1
-1F 1x1F Vertical Print" 20.75 8.25 1.3 1 0 49 Letters/-space 0 0 1 1 1
-1F 1x1F Vertical Print" -79.75 -1.25 1.3 3 0 49 Letters/-space 0 0 1 1 1
-1x1F Wedge" -66.25 35.75 0.9 2 0 45  0 0 1 1 1
-2x2F Print" -13.5 -33.5 2.5 1 0 36 Letters/-minus 0 0 1 1 1
-1x 1x2F Vertical Print" -37.25 49.25 2.7 2 0 51 2x2f/blank 0 0 1 1 1
-2x4F" -48 60 3.3 0 0 61  0 0 1 0 1
-1x 1x2F Vertical Print" -96.25 52.75 3.3 1 0 51 2x2f/blank 0 0 1 1 1
-1F 2x2F Vertical Print" -51 17.75 2.9 2 0 18 Letters/-space 0 0 1 1 1
-1F 1x1F Vertical Print" -71.75 19.25 1.3 1 0 49 Letters/-space 0 0 1 1 1
-1x 1x2F Vertical Print" -96.25 52.75 2.7 1 0 51 2x2f/blank 0 0 1 1 1
-1x2F Print" -96.5 52.75 2.3 0 0 51 Letters/-space 0 0 1 1 1
-1x1F Vertical Edge Print" 30.25 -48.75 3.7 3 0 62 Letters/-space 0 0 1 1 1
-1F 1x1F Vertical Print" -51.75 52.75 2.1 0 0 51 Letters/-space 0 0 1 1 1
-2x4" 1.5 -7.5 1.1 2 0 18  0 0 0 0 0
-1x6F" 1.5 25.75 2.1 1 0 40  0 0 0 1 0
-1F 1x1F Vertical Print" -73.25 11.25 1.3 1 0 49 Letters/-space 0 0 1 1 1
-1x 1x1F Vertical Edge Print" -62.75 36.75 3.1 2 0 49 Letters/-space 0 0 1 1 1
-+-EVENT	0	1	onRelay	0	Self		fireRelayUp				
-1x1F" -65.75 35.75 0.9 1 0 45  0 0 1 1 1
-1x 1x1F Vertical Edge Print" -21.25 15.75 3.1 3 0 49 Letters/-space 0 0 1 1 1
-+-EVENT	0	1	onRelay	0	Self		fireRelayUp				
-1x 1x2F Vertical Print" -83.75 32.25 3.3 2 0 51 2x2f/blank 0 0 1 1 1
-1F 2x2F Vertical Print" -51 18.25 2.9 0 0 18 Letters/-space 0 0 1 1 1
-1x 1x2F Vertical Print" -37.25 50.75 3.3 0 0 51 2x2f/blank 0 0 1 1 1
-1x 1x2F Vertical Print" -25.75 20.75 3.3 3 0 51 2x2f/blank 0 0 1 1 1
-1F 1x1F Vertical Print" -32.25 6.25 2.1 3 0 51 Letters/-space 0 0 1 1 1
-1x32F" -44.75 -59 6.1 0 0 46  0 0 1 1 1
+1x 1x2F Vertical Print" -67.75 32.25 2.7 2 0 51 2x2f/blank 0 0 1 1 1
+1x1F Vertical Edge Print" -27.25 -30.75 3.5 0 0 49 Letters/-space 0 0 1 1 1
+1x1F Vertical Edge Print" -27.75 -38.25 3.5 2 0 49 Letters/-space 0 0 1 1 1
+3x4F" -26 28.25 0.7 3 0 61  0 0 1 1 1
+1F 1x1F Vertical Print" -96.75 52.75 1.9 2 0 47 2x2f/blank 0 0 1 1 1
+1x2x3" -108.5 -82.25 10.7 1 0 27  0 0 0 0 0
+1F 1x2F Vertical Print" -21.25 31.75 3.5 0 0 49 Letters/-space 0 0 1 1 1
++-EVENT	0	1	onRelay	0	Self		fireRelayWest				
+1F 1x2F Vertical Print" -58.25 46.25 3.5 1 0 49 Letters/-space 0 0 1 1 1
++-EVENT	0	1	onRelay	0	Self		fireRelayNorth				
+2x4F" -34.5 34.5 1.5 0 0 29  0 0 0 0 1
+1x2x3" -108.5 -34.75 10.7 3 0 27  0 0 0 0 0
+4x4F" -27 -40.5 3.5 1 0 61  0 0 1 1 1
+1F 2x2F Vertical Print" -60.75 7.5 1.5 3 0 49 Letters/-space 0 0 1 1 1
+1x1F Wedge" -22.25 35.25 0.7 3 0 45  0 0 1 1 1
+1F 1x1F Vertical Print" -25.25 36.75 1.9 1 0 47 2x2f/blank 0 0 1 1 1
+1F 1x1F Vertical Print" -37.25 50.25 1.9 2 0 47 2x2f/blank 0 0 1 1 1
+2x3F Tile" -41.75 20.5 2.5 2 0 47  0 0 1 1 1
+1x1F Vertical Edge Print" -47.25 -65.75 4.7 2 0 48 Letters/-space 0 0 1 1 1
+1x14x2" -52.25 10 6.8 0 0 36  0 0 1 1 1
+1F 1x1F Vertical Print" -97.25 36.75 1.9 1 0 47 2x2f/blank 0 0 1 1 1
+1x32x2" -44.5 5.75 6.8 3 0 36  0 0 1 1 1
+1F 2x2F Vertical Print" 20.75 8.5 1.5 1 0 49 Letters/-space 0 0 1 1 1
+1F 1x1F Vertical Print" 22.25 -43.25 1.9 2 0 49 Letters/-space 0 0 1 1 1
+1x1F" -49.75 35.75 0.7 1 0 45  0 0 1 1 1
+1F 2x2F Vertical Print" -37.25 25.5 2.3 3 0 51 Letters/-space 0 0 1 1 1
+1F 2x2F Vertical Print" -35.75 57.5 2.3 1 0 51 Letters/-space 0 0 1 1 1
+1F 2x2F Vertical Print" -74.5 3.75 1.5 0 0 49 Letters/-space 0 0 1 1 1
+1x1F Round" 42.25 -24.75 1.9 3 0 49  0 0 1 1 1
+1x1F Round" 43.75 -24.75 1.9 3 0 49  0 0 1 1 1
+1x1F Vertical Edge Print" -27.75 -34.75 3.5 3 0 49 Letters/-space 0 0 1 1 1
+1x1F" -25.25 -41.25 3.5 1 0 0  0 0 0 0 0
++-NTOBJECTNAME _randomLootSpawn
+1F 2x2F Vertical Print" -37.25 30.5 2.3 3 0 51 Letters/-space 0 0 1 1 1
+1F 2x2F Vertical Print" -99.5 38.25 2.3 0 0 51 Letters/-space 0 0 1 1 1
+2x2F Vertical Print" -6 -65.75 4.7 2 0 34 Letters/-space 0 0 1 1 1
+1x 1x2F Vertical Print" -130.25 -80.25 3.7 1 0 58 Letters/-space 0 0 1 1 1
+1x 1x2F Vertical Print" -130.25 -80.75 3.7 1 0 58 Letters/-space 0 0 1 1 1
+1x 1x2F Vertical Print" -129.25 -80.75 3.7 3 0 58 Letters/-space 0 0 1 1 1
+1x 1x2F Vertical Print" -129.25 -80.25 3.7 3 0 58 Letters/-space 0 0 1 1 1
+1x2F" -129.75 -80.5 1.5 2 0 58  0 0 1 1 1
+1x1F Vertical Edge Print" -27.75 -34.25 3.5 2 0 49 Letters/-space 0 0 1 1 1
 4x16" -40.5 -59.5 4.1 3 0 46  0 0 1 1 1
 1x16F" -40.5 -66.75 5.9 3 0 46  0 0 1 1 1
 1x32F" -36.25 -59 5.9 0 0 46  0 0 1 1 1
@@ -16116,7 +16130,7 @@ Pumpkin" -51.25 7.25 2.1 2 0 2  0 0 1 1 1
 1F 2x2F Vertical Print" -67.75 52.5 2.3 1 0 51 Letters/-space 0 0 1 1 1
 3x4F" -45.75 51 0.7 0 0 61  0 0 1 1 1
 1x1F Wedge" -49.25 35.75 0.7 1 0 45  0 0 1 1 1
-1F 2x2F Vertical Print" -35.75 57.5 2.3 1 0 51 Letters/-space 0 0 1 1 1
+2x4F" -49.5 23.5 1.5 3 0 29  0 0 0 0 1
 1x4F" 49.5 6.75 1.1 3 0 61  0 0 1 1 1
 1F 2x2F Vertical Print" -60.75 11.5 1.5 3 0 49 Letters/-space 0 0 1 1 1
 3x4F" -61.75 51 0.7 0 0 61  0 0 1 1 1
@@ -16154,7 +16168,7 @@ Pumpkin" -51.25 7.25 2.1 2 0 2  0 0 1 1 1
 2x2F Vertical Print" -8 -65.75 4.7 2 0 34 Letters/-space 0 0 1 1 1
 2x2F Vertical Print" -7 -65.75 4.7 2 0 34 Letters/-space 0 0 1 1 1
 1F 1x1F Vertical Print" -25.25 20.75 1.9 1 0 47 2x2f/blank 0 0 1 1 1
-2x2F Vertical Print" -6 -65.75 4.7 2 0 34 Letters/-space 0 0 1 1 1
+1x32F" -44.75 -59 6.1 0 0 46  0 0 1 1 1
 2x2F Vertical Print" -5 -65.75 4.7 2 0 34 Letters/-space 0 0 1 1 1
 2x2F Vertical Print" -4 -65.75 4.7 2 0 34 Letters/-space 0 0 1 1 1
 2x2F Vertical Print" -3 -65.75 4.7 2 0 34 Letters/-space 0 0 1 1 1
@@ -16424,41 +16438,37 @@ Pumpkin" -51.25 7.25 2.1 2 0 2  0 0 1 1 1
 1F 2x2F Vertical Print" -73.5 11.25 1.5 2 0 49 Letters/-space 0 0 1 1 1
 1F 2x2F Vertical Print" -72.75 19 1.5 3 0 49 Letters/-space 0 0 1 1 1
 1x1F Vertical Edge Print" -22.25 -32.75 3.5 3 0 49 Letters/-space 0 0 1 1 1
-2x4F" -49.5 23.5 1.5 3 0 29  0 0 0 0 1
-1x1F Vertical Edge Print" -27.75 -34.25 3.5 2 0 49 Letters/-space 0 0 1 1 1
-1x1F Vertical Edge Print" -27.25 -30.75 3.5 0 0 49 Letters/-space 0 0 1 1 1
-1x1F Vertical Edge Print" -27.75 -38.25 3.5 2 0 49 Letters/-space 0 0 1 1 1
-3x4F" -26 28.25 0.7 3 0 61  0 0 1 1 1
-1F 1x1F Vertical Print" -96.75 52.75 1.9 2 0 47 2x2f/blank 0 0 1 1 1
-1F 1x2F Vertical Print" -21.25 31.75 3.5 0 0 49 Letters/-space 0 0 1 1 1
-+-EVENT	0	1	onRelay	0	Self		fireRelayWest				
-1F 1x2F Vertical Print" -58.25 46.25 3.5 1 0 49 Letters/-space 0 0 1 1 1
-+-EVENT	0	1	onRelay	0	Self		fireRelayNorth				
-2x4F" -34.5 34.5 1.5 0 0 29  0 0 0 0 1
-4x4F" -27 -40.5 3.5 1 0 61  0 0 1 1 1
-1F 2x2F Vertical Print" -60.75 7.5 1.5 3 0 49 Letters/-space 0 0 1 1 1
-1x1F Wedge" -22.25 35.25 0.7 3 0 45  0 0 1 1 1
-1F 1x1F Vertical Print" -25.25 36.75 1.9 1 0 47 2x2f/blank 0 0 1 1 1
-1F 1x1F Vertical Print" -37.25 50.25 1.9 2 0 47 2x2f/blank 0 0 1 1 1
-2x3F Tile" -41.75 20.5 2.5 2 0 47  0 0 1 1 1
-1x1F Vertical Edge Print" -47.25 -65.75 4.7 2 0 48 Letters/-space 0 0 1 1 1
-1x14x2" -52.25 10 6.8 0 0 36  0 0 1 1 1
-1F 1x1F Vertical Print" -97.25 36.75 1.9 1 0 47 2x2f/blank 0 0 1 1 1
-1x32x2" -44.5 5.75 6.8 3 0 36  0 0 1 1 1
-1F 2x2F Vertical Print" 20.75 8.5 1.5 1 0 49 Letters/-space 0 0 1 1 1
-1F 1x1F Vertical Print" 22.25 -43.25 1.9 2 0 49 Letters/-space 0 0 1 1 1
-1x4F" -104.25 -18.5 3.3 2 0 48  0 0 0 1 0
-1x1F" -49.75 35.75 0.7 1 0 45  0 0 1 1 1
-1F 2x2F Vertical Print" -37.25 25.5 2.3 3 0 51 Letters/-space 0 0 1 1 1
-1F 2x2F Vertical Print" -74.5 3.75 1.5 0 0 49 Letters/-space 0 0 1 1 1
-1x1F Round" 42.25 -24.75 1.9 3 0 49  0 0 1 1 1
-1x1F Round" 43.75 -24.75 1.9 3 0 49  0 0 1 1 1
-1x1F Vertical Edge Print" -27.75 -34.75 3.5 3 0 49 Letters/-space 0 0 1 1 1
-1x1F" -25.25 -41.25 3.5 1 0 0  0 0 0 0 0
-+-NTOBJECTNAME _randomLootSpawn
-1F 2x2F Vertical Print" -37.25 30.5 2.3 3 0 51 Letters/-space 0 0 1 1 1
-1F 2x2F Vertical Print" -99.5 38.25 2.3 0 0 51 Letters/-space 0 0 1 1 1
-1F 1x2F Vertical Print" -24.75 36.25 1.9 3 0 47 2x2f/blank 0 0 1 1 1
+1x3F" -51.25 16.75 2.1 2 0 49  0 0 1 1 1
+1F 1x2F Vertical Print" -83.25 32.75 1.9 0 0 47 2x2f/blank 0 0 1 1 1
+1F 1x1F Vertical Print" 28.25 8.75 1.7 3 0 49 Letters/-space 0 0 1 1 1
+45° Ramp Corner" 43.5 -24.5 2.3 3 0 34  0 0 1 1 1
+2x2F Vertical Print" 28.75 -39 3.7 1 0 34 Letters/C 0 0 1 1 1
+1x8F" -108.5 -82.25 9.7 1 0 27  0 0 1 0 0
+1F 2x2F Vertical Print" 30.25 -48 4.3 3 0 62 Letters/-space 0 0 1 1 1
+1F 2x2F Vertical Print" 30.25 -47 4.3 3 0 62 Letters/-space 0 0 1 1 1
+1F 1x2F Vertical Print" -96.75 36.25 1.9 3 0 47 2x2f/blank 0 0 1 1 1
+1F 2x2F Vertical Print" 30.25 -46 4.3 3 0 62 Letters/-space 0 0 1 1 1
+1F 2x2F Vertical Print" 30.25 -42 4.3 3 0 62 Letters/-space 0 0 1 1 1
+1F 1x1F Vertical Print" -76.25 13.75 1.7 3 0 49 Letters/-space 0 0 1 1 1
+1F 2x2F Vertical Print" 30.25 -43 4.3 3 0 62 Letters/-space 0 0 1 1 1
+1F 2x2F Vertical Print" 30.25 -44 4.3 3 0 62 Letters/-space 0 0 1 1 1
+1F 2x2F Vertical Print" -46.75 36.5 3.7 3 0 49 Letters/-space 0 0 1 1 1
+1x8F" -108.5 -34.75 9.7 3 0 27  0 0 1 0 0
+1F 1x2F Vertical Print" -21.75 50.25 1.9 2 0 47 2x2f/blank 0 0 1 1 1
+1F 1x1F Vertical Print" -76.25 15.75 1.7 3 0 49 Letters/-space 0 0 1 1 1
+1F 2x2F Vertical Print" -9 -49.75 5.3 2 0 48 Letters/-space 0 0 1 1 1
+1F 2x2F Vertical Print" -8 -49.75 5.3 2 0 48 Letters/-space 0 0 1 1 1
+1F 2x2F Vertical Print" -7 -49.75 5.3 2 0 48 Letters/-space 0 0 1 1 1
+1F 2x2F Vertical Print" -6 -49.75 5.3 2 0 48 Letters/-space 0 0 1 1 1
+1F 2x2F Vertical Print" -5 -49.75 5.3 2 0 48 Letters/-space 0 0 1 1 1
+1F 2x2F Vertical Print" -4 -49.75 5.3 2 0 48 Letters/-space 0 0 1 1 1
+1F 2x2F Vertical Print" -3 -49.75 5.3 2 0 48 Letters/-space 0 0 1 1 1
+1F 2x2F Vertical Print" -2 -49.75 5.3 2 0 48 Letters/-space 0 0 1 1 1
+1x 1x2F Vertical Print" -130.25 -80.25 4.3 1 0 58 Letters/-space 0 0 1 1 1
+1x 1x2F Vertical Print" -130.25 -80.75 4.3 1 0 58 Letters/-space 0 0 1 1 1
+1x 1x2F Vertical Print" -129.25 -80.75 4.3 3 0 58 Letters/-space 0 0 1 1 1
+1x 1x2F Vertical Print" -129.25 -80.25 4.3 3 0 58 Letters/-space 0 0 1 1 1
+1x2F" -129.75 -80.5 1.7 2 0 58  0 0 1 1 1
 1F 2x2F Vertical Print" -93.5 47.75 3.7 0 0 49 Letters/-space 0 0 1 1 1
 2x2F Vertical Double Print" -27 -41.25 4.1 0 0 18 Letters/-space 0 0 1 1 1
 1F 1x2F Vertical Print" 1.25 -61.75 0.5 0 0 56 Letters/-space 0 0 1 1 1
@@ -16597,7 +16607,7 @@ Pumpkin" -51.25 7.25 2.1 2 0 2  0 0 1 1 1
 1F 1x1F Vertical Print" -68.25 -0.25 1.7 0 0 49 Letters/-space 0 0 1 1 1
 1F 1x1F Vertical Print" -82.75 15.25 1.7 0 0 49 Letters/-space 0 0 1 1 1
 1F 1x1F Vertical Print" -68.25 3.25 1.7 1 0 49 Letters/-space 0 0 1 1 1
-1F 2x2F Vertical Print" 42 -123.25 5.3 2 0 48 Letters/-space 0 0 1 1 1
+1F 1x2F Vertical Print" -24.75 36.25 1.9 3 0 47 2x2f/blank 0 0 1 1 1
 1F 2x2F Vertical Print" 41 -123.25 5.3 2 0 48 Letters/-space 0 0 1 1 1
 1F 2x2F Vertical Print" 34 -123.25 5.3 2 0 48 Letters/-space 0 0 1 1 1
 1F 1x1F Vertical Print" -68.25 -0.75 1.7 1 0 49 Letters/-space 0 0 1 1 1
@@ -16665,7 +16675,7 @@ Pumpkin" -51.25 7.25 2.1 2 0 2  0 0 1 1 1
 2x2F Vertical Double Print" -26.25 -40.5 4.1 3 0 18 Letters/-space 0 0 1 1 1
 1x32" -44.5 5.75 7.7 3 0 18  0 0 1 1 1
 1F 2x2F Vertical Print" 38 -123.25 5.3 2 0 48 Letters/-space 0 0 1 1 1
-1x3F" -51.25 16.75 2.1 2 0 49  0 0 1 1 1
+1F 1x2F Vertical Print" -24.75 4.25 1.9 3 0 47 2x2f/blank 0 0 1 1 1
 1F 1x1F Vertical Print" -68.25 7.75 1.7 0 0 49 Letters/-space 0 0 1 1 1
 1F 1x1F Vertical Print" -72.75 19.25 1.7 3 0 49 Letters/-space 0 0 1 1 1
 1F 1x1F Vertical Print" 20.75 8.25 1.7 1 0 49 Letters/-space 0 0 1 1 1
@@ -16723,31 +16733,31 @@ Pumpkin" -51.25 7.25 2.1 2 0 2  0 0 1 1 1
 1F 1x2F Vertical Print" -7.75 22.75 1.9 3 0 47 2x2f/blank 0 0 1 1 1
 1F 1x1F Vertical Print" -73.75 11.25 1.7 2 0 49 Letters/-space 0 0 1 1 1
 1F 1x2F Vertical Print" -37.75 50.25 1.9 2 0 47 2x2f/blank 0 0 1 1 1
-1F 1x2F Vertical Print" -24.75 4.25 1.9 3 0 47 2x2f/blank 0 0 1 1 1
-1F 2x2F Vertical Print" -2 -49.75 5.3 2 0 48 Letters/-space 0 0 1 1 1
-1F 2x2F Vertical Print" -3 -49.75 5.3 2 0 48 Letters/-space 0 0 1 1 1
-1F 2x2F Vertical Print" -4 -49.75 5.3 2 0 48 Letters/-space 0 0 1 1 1
-1F 2x2F Vertical Print" -5 -49.75 5.3 2 0 48 Letters/-space 0 0 1 1 1
-1F 2x2F Vertical Print" -6 -49.75 5.3 2 0 48 Letters/-space 0 0 1 1 1
-1F 2x2F Vertical Print" -7 -49.75 5.3 2 0 48 Letters/-space 0 0 1 1 1
-1F 2x2F Vertical Print" -8 -49.75 5.3 2 0 48 Letters/-space 0 0 1 1 1
-1F 2x2F Vertical Print" -9 -49.75 5.3 2 0 48 Letters/-space 0 0 1 1 1
-1F 1x1F Vertical Print" -76.25 15.75 1.7 3 0 49 Letters/-space 0 0 1 1 1
-1F 1x2F Vertical Print" -21.75 50.25 1.9 2 0 47 2x2f/blank 0 0 1 1 1
-1F 2x2F Vertical Print" -46.75 36.5 3.7 3 0 49 Letters/-space 0 0 1 1 1
-1F 2x2F Vertical Print" 30.25 -44 4.3 3 0 62 Letters/-space 0 0 1 1 1
-1F 2x2F Vertical Print" 30.25 -43 4.3 3 0 62 Letters/-space 0 0 1 1 1
-1F 1x1F Vertical Print" -76.25 13.75 1.7 3 0 49 Letters/-space 0 0 1 1 1
-1F 2x2F Vertical Print" 30.25 -42 4.3 3 0 62 Letters/-space 0 0 1 1 1
-1F 2x2F Vertical Print" 30.25 -46 4.3 3 0 62 Letters/-space 0 0 1 1 1
-1F 1x2F Vertical Print" -96.75 36.25 1.9 3 0 47 2x2f/blank 0 0 1 1 1
-1F 2x2F Vertical Print" 30.25 -47 4.3 3 0 62 Letters/-space 0 0 1 1 1
-1F 2x2F Vertical Print" 30.25 -48 4.3 3 0 62 Letters/-space 0 0 1 1 1
-2x2F Vertical Print" 28.75 -39 3.7 1 0 34 Letters/C 0 0 1 1 1
-45° Ramp Corner" 43.5 -24.5 2.3 3 0 34  0 0 1 1 1
-1F 1x1F Vertical Print" 28.25 8.75 1.7 3 0 49 Letters/-space 0 0 1 1 1
-1F 1x2F Vertical Print" -83.25 32.75 1.9 0 0 47 2x2f/blank 0 0 1 1 1
-1x1F Vertical Edge Print" -27.75 -34.25 4.7 2 0 49 Letters/-space 0 0 1 1 1
+1F 2x2F Vertical Print" 42 -123.25 5.3 2 0 48 Letters/-space 0 0 1 1 1
+1x8f Horizontal pole" -129.75 -79 1.9 2 0 58  0 0 1 1 1
+1x 1x2F Vertical Print" -129.25 -80.25 4.9 3 0 58 Letters/-space 0 0 1 1 1
+1x 1x2F Vertical Print" -129.25 -80.75 4.9 3 0 58 Letters/-space 0 0 1 1 1
+1x 1x2F Vertical Print" -130.25 -80.75 4.9 1 0 58 Letters/-space 0 0 1 1 1
+1x 1x2F Vertical Print" -130.25 -80.25 4.9 1 0 58 Letters/-space 0 0 1 1 1
+1x4F" -166.5 17.75 5.1 3 0 50  0 0 1 1 1
+1x4F" -168.5 17.75 5.1 3 0 50  0 0 1 1 1
+1x1" -163.25 19.25 4.1 2 0 45  0 0 1 1 1
+1x1" -163.25 19.25 5.3 2 0 45  0 0 1 1 1
+1x2" -163.25 18.5 5.3 2 0 45  0 0 1 1 1
+45° Ramp 1x" -163.25 17.5 5.3 2 0 45  0 0 1 1 1
+1F 2x2F Vertical Print" -110 -34.75 9.5 2 0 27 Letters/-space 0 0 1 1 1
+8x16" -40.5 -56.5 5.3 3 0 46  0 0 1 1 1
+1x16" -40.5 -66.75 6.5 1 0 46  0 0 1 1 1
+1F 2x2F Vertical Print" -109 -34.75 9.5 2 0 27 Letters/-space 0 0 1 1 1
+1F 2x2F Vertical Print" -108 -34.75 9.5 2 0 27 Letters/-space 0 0 1 1 1
+2x2F Print" 60 -55 2.3 0 0 47 2x2f/blank 0 0 0 0 0
+1F 2x2F Vertical Print" -64.5 -3.25 1.9 0 0 49 Letters/-space 0 0 1 1 1
+1F 2x2F Vertical Print" -107 -34.75 9.5 2 0 27 Letters/-space 0 0 1 1 1
+1F 2x2F Vertical Print" -110 -82.25 9.5 0 0 27 Letters/-space 0 0 1 1 1
+1F 2x2F Vertical Print" -109 -82.25 9.5 0 0 27 Letters/-space 0 0 1 1 1
+1F 2x2F Vertical Print" -108 -82.25 9.5 0 0 27 Letters/-space 0 0 1 1 1
+1F 2x2F Vertical Print" -107 -82.25 9.5 0 0 27 Letters/-space 0 0 1 1 1
+1F 2x2F Vertical Print" 28.25 16.5 1.9 3 0 49 Letters/-space 0 0 1 1 1
 1F 1x1F Vertical Print" -26.25 46.75 3.5 0 0 49 Letters/-space 0 0 1 1 1
 +-EVENT	0	1	onRelay	0	Self		fireRelayNorth				
 1F 2x2F Vertical Print" -82.75 15 1.9 1 0 49 Letters/-space 0 0 1 1 1
@@ -16814,7 +16824,7 @@ Pumpkin" -51.25 7.25 2.1 2 0 2  0 0 1 1 1
 1F 2x2F Vertical Print" 20.75 16.5 1.9 1 0 49 Letters/-space 0 0 1 1 1
 1x1F Vertical Edge Print" -27.25 -34.75 4.7 0 0 49 Letters/-space 0 0 1 1 1
 1F 2x2F Vertical Print" -76 15.75 1.9 0 0 49 Letters/-space 0 0 1 1 1
-1F 2x2F Vertical Print" 28.25 16.5 1.9 3 0 49 Letters/-space 0 0 1 1 1
+1x1F Vertical Edge Print" -27.75 -34.25 4.7 2 0 49 Letters/-space 0 0 1 1 1
 1x2F" -11 27.25 3.9 1 0 49  0 0 0 0 0
 1F 2x2F Vertical Print" -64.5 14.25 1.9 2 0 49 Letters/-space 0 0 1 1 1
 1x1F Vertical Edge Print" -13.25 -38.25 4.7 1 0 49 Letters/-space 0 0 1 1 1
@@ -16907,17 +16917,17 @@ Pumpkin" -51.25 7.25 2.1 2 0 2  0 0 1 1 1
 2x2F Vertical Print" 29 -34.75 3.5 0 0 34 Letters/-space 0 0 1 1 1
 1x4F" -170.5 17.75 5.1 3 0 50  0 0 1 1 1
 1x4F" -164.5 17.75 5.1 3 0 50  0 0 1 1 1
-1x4F" -166.5 17.75 5.1 3 0 50  0 0 1 1 1
-1x4F" -168.5 17.75 5.1 3 0 50  0 0 1 1 1
-1x1" -163.25 19.25 4.1 2 0 45  0 0 1 1 1
-1x1" -163.25 19.25 5.3 2 0 45  0 0 1 1 1
-1x2" -163.25 18.5 5.3 2 0 45  0 0 1 1 1
-45° Ramp 1x" -163.25 17.5 5.3 2 0 45  0 0 1 1 1
-8x16" -40.5 -56.5 5.3 3 0 46  0 0 1 1 1
-1x16" -40.5 -66.75 6.5 1 0 46  0 0 1 1 1
-2x2F Print" 60 -55 2.3 0 0 47 2x2f/blank 0 0 0 0 0
-1F 2x2F Vertical Print" -64.5 -3.25 1.9 0 0 49 Letters/-space 0 0 1 1 1
-2x2F Vertical Print" 27 -34.75 4.5 0 0 34 Letters/-space 0 0 1 1 1
+1x2F" -129.75 -80.5 2.1 2 0 58  0 0 1 1 1
+1x 1x2F Vertical Print" -129.25 -80.25 5.5 3 0 58 Letters/-space 0 0 1 1 1
+1x 1x2F Vertical Print" -129.25 -80.75 5.5 3 0 58 Letters/-space 0 0 1 1 1
+1x 1x2F Vertical Print" -130.25 -80.75 5.5 1 0 58 Letters/-space 0 0 1 1 1
+1x1F Vertical Edge Print" -107.75 -34.75 8.9 1 0 46 Letters/-space 0 0 1 1 1
+5x4 Glass Pane" -107.5 -34.75 7.9 3 0 45  0 0 1 1 1
+1x 1x2F Vertical Print" -130.25 -80.25 5.5 1 0 58 Letters/-space 0 0 1 1 1
+1x 1x1F Vertical Edge Print" -110.25 -34.75 9.1 2 0 27 Letters/-space 0 0 1 1 1
+5x4 Glass Pane" -109.5 -34.75 7.9 3 0 45  0 0 1 1 1
+1x 1x1F Vertical Edge Print" -106.75 -34.75 9.1 1 0 27 Letters/-space 0 0 1 1 1
+1x1F Vertical Edge Print" -109.25 -34.75 8.9 2 0 46 Letters/-space 0 0 1 1 1
 2x8F Tile" -22 -34.5 5.3 1 0 49  0 0 1 1 1
 1x1F" -10.25 47.25 3.7 0 0 49  0 0 0 0 0
 2x2F" -4.5 -70.5 7.7 0 0 46  0 0 1 1 1
@@ -16970,7 +16980,7 @@ Pumpkin" -51.25 7.25 2.1 2 0 2  0 0 1 1 1
 1F 2x2F Vertical Print" 21.75 -45 2.1 1 0 49 Letters/-space 0 0 1 1 1
 2x8F Tile" -13.5 -36.5 5.3 1 0 49  0 0 1 1 1
 1F 2x2F Vertical Print" 28.75 -42 5.3 1 0 48 Letters/-space 0 0 1 1 1
-1F 2x2F Vertical Print" 22.25 -45 2.1 3 0 49 Letters/-space 0 0 1 1 1
+2x2F Vertical Print" 27 -34.75 4.5 0 0 34 Letters/-space 0 0 1 1 1
 1F 2x2F Vertical Print" 21.75 -48 2.1 1 0 49 Letters/-space 0 0 1 1 1
 2x8F Tile" -22.5 -41.5 5.3 2 0 49  0 0 1 1 1
 1F 2x2F Vertical Print" 22.25 -47 2.1 3 0 49 Letters/-space 0 0 1 1 1
@@ -16999,31 +17009,13 @@ Pumpkin" -51.25 7.25 2.1 2 0 2  0 0 1 1 1
 45° Ramp 1x" -163.25 18 5.9 2 0 45  0 0 1 1 1
 1x2" -163.25 19 5.9 2 0 45  0 0 1 1 1
 8x16" -40.5 -55.5 5.9 3 0 46  0 0 1 1 1
-1x1F Print" -10.25 47.25 3.5 0 0 44 Letters/-space 0 0 0 0 0
-+-NTOBJECTNAME _Faucet
-+-EVENT	0	0	onRelay	0	Self		setEmitter	swirlPaintEmitter			
-+-EVENT	1	0	onRelay	0	Self		playSound	lightOnSound			
-+-EVENT	2	1	onRelay	0	Self		toggleEventEnabled	0 1 3			
-+-EVENT	3	1	onRelay	0	Self		setEmitter	-1			
-+-EMITTER FX Can - Swirl" 1
-1x1F Print" -26.25 47.25 3.5 0 0 44 Letters/-space 0 0 0 0 0
-+-NTOBJECTNAME _Faucet
-+-EVENT	0	1	onRelay	0	Self		setEmitter	swirlPaintEmitter			
-+-EVENT	1	1	onRelay	0	Self		playSound	lightOnSound			
-+-EVENT	2	1	onRelay	0	Self		toggleEventEnabled	0 1 3			
-+-EVENT	3	0	onRelay	0	Self		setEmitter	-1			
-+-EMITTER NONE" 1
-1x1F Vertical Edge Print" -22.25 -36.25 5.9 2 0 49 Letters/-space 0 0 1 1 1
-2x2F Vertical Print" 26 -34.75 5.5 0 0 34 Letters/-space 0 0 1 1 1
-1x1F Print" -10.75 -4.75 3.5 1 0 44 Letters/-space 0 0 0 0 0
-+-NTOBJECTNAME _Faucet
-+-EVENT	0	0	onRelay	0	Self		setEmitter	swirlPaintEmitter			
-+-EVENT	1	0	onRelay	0	Self		playSound	lightOnSound			
-+-EVENT	2	1	onRelay	0	Self		toggleEventEnabled	0 1 3			
-+-EVENT	3	1	onRelay	0	Self		setEmitter	-1			
-+-EMITTER FX Can - Swirl" 1
-2x2F Vertical Print" 27 -34.75 5.5 0 0 34 Letters/-space 0 0 1 1 1
-1x1F Vertical Edge Print" -13.75 -34.25 5.9 2 0 49 Letters/-space 0 0 1 1 1
+1F 2x2F Vertical Print" 22.25 -45 2.1 3 0 49 Letters/-space 0 0 1 1 1
+5x4 Glass Pane" -109.5 -82.25 7.9 1 0 45  0 0 1 1 1
+1x 1x1F Vertical Edge Print" -110.25 -82.25 9.1 3 0 27 Letters/-space 0 0 1 1 1
+1x1F Vertical Edge Print" -109.25 -82.25 8.9 3 0 46 Letters/-space 0 0 1 1 1
+5x4 Glass Pane" -107.5 -82.25 7.9 1 0 45  0 0 1 1 1
+1x1F Vertical Edge Print" -107.75 -82.25 8.9 0 0 46 Letters/-space 0 0 1 1 1
+1x 1x1F Vertical Edge Print" -106.75 -82.25 9.1 0 0 27 Letters/-space 0 0 1 1 1
 2x2F Vertical Print" 22 -34.75 5.5 0 0 34 Letters/-space 0 0 1 1 1
 1x1F Print" -94.25 47.75 3.5 3 0 44 Letters/-space 0 0 0 0 0
 +-NTOBJECTNAME _Faucet
@@ -17090,14 +17082,12 @@ Pumpkin" -51.25 7.25 2.1 2 0 2  0 0 1 1 1
 16x Ceiling Print Baseplate" -0.5 -70.5 7.5 0 0 52 2x2f/blank 1 0 1 1 1
 1x1F Print" -94.25 31.75 3.5 3 0 44 Letters/-space 0 0 0 0 0
 +-NTOBJECTNAME _Faucet
-+-EVENT	0	0	onRelay	0	Self		setEmitter	swirlPaintEmitter			
-+-EVENT	1	0	onRelay	0	Self		playSound	lightOnSound			
++-EVENT	0	1	onRelay	0	Self		setEmitter	swirlPaintEmitter			
++-EVENT	1	1	onRelay	0	Self		playSound	lightOnSound			
 +-EVENT	2	1	onRelay	0	Self		toggleEventEnabled	0 1 3			
-+-EVENT	3	1	onRelay	0	Self		setEmitter	-1			
-+-EMITTER FX Can - Swirl" 
++-EVENT	3	0	onRelay	0	Self		setEmitter	-1			
 1F 1x1F Vertical Print" -26.75 -36.75 1.9 3 0 61 Letters/-space 0 0 1 1 1
-1x1F Vertical Edge Print" -27.75 -38.25 5.9 2 0 49 Letters/-space 0 0 1 1 1
-2x2F Vertical Print" 24 -34.75 5.5 0 0 34 Letters/-space 0 0 1 1 1
+1F 1x1F Vertical Print" -26.75 -37.25 1.9 2 0 61 Letters/-space 0 0 1 1 1
 1x1F Print" -74.25 47.25 3.5 0 0 44 Letters/-space 0 0 0 0 0
 +-NTOBJECTNAME _Faucet
 +-EVENT	0	1	onRelay	0	Self		setEmitter	swirlPaintEmitter			
@@ -17105,6 +17095,48 @@ Pumpkin" -51.25 7.25 2.1 2 0 2  0 0 1 1 1
 +-EVENT	2	1	onRelay	0	Self		toggleEventEnabled	0 1 3			
 +-EVENT	3	0	onRelay	0	Self		setEmitter	-1			
 +-EMITTER NONE" 1
+1F 2x2F Vertical Print" -108.25 -82 6.9 3 0 27 Letters/-space 0 0 0 0 0
+1x1F Print" -46.75 35.75 3.5 2 0 44 Letters/-space 0 0 0 0 0
++-NTOBJECTNAME _Faucet
++-EVENT	0	0	onRelay	0	Self		setEmitter	swirlPaintEmitter			
++-EVENT	1	0	onRelay	0	Self		playSound	lightOnSound			
++-EVENT	2	1	onRelay	0	Self		toggleEventEnabled	0 1 3			
++-EVENT	3	1	onRelay	0	Self		setEmitter	-1			
++-EMITTER FX Can - Swirl" 1
+1x1" -163.25 19.25 6.5 0 0 45  0 0 1 1 1
+1x 1x1F Vertical Edge Print" -109.25 -82.25 7.5 3 0 27 Letters/-space 0 0 1 1 1
+1x1F Vertical Edge Print" -110.25 -82.25 8.1 3 0 27 Letters/-space 0 0 1 1 1
+1x1F Vertical Edge Print" -110.25 -82.25 7.1 3 0 27 Letters/-space 0 0 1 1 1
+2x2F Vertical Print" 28 -34.75 5.5 0 0 34 Letters/-space 0 0 1 1 1
+1x1F Vertical Edge Print" -27.25 -38.25 5.9 1 0 49 Letters/-space 0 0 1 1 1
+1x 1x2F Vertical Print" -130.25 -80.25 6.1 1 0 58 Letters/-space 0 0 1 1 1
+4x12" -40.5 -53.5 5.3 3 0 46  0 0 1 1 1
+1x1F Vertical Edge Print" -13.75 -34.25 5.9 2 0 49 Letters/-space 0 0 1 1 1
+2x2F Vertical Print" 27 -34.75 5.5 0 0 34 Letters/-space 0 0 1 1 1
+1x1F Print" -10.75 -4.75 3.5 1 0 44 Letters/-space 0 0 0 0 0
++-NTOBJECTNAME _Faucet
++-EVENT	0	0	onRelay	0	Self		setEmitter	swirlPaintEmitter			
++-EVENT	1	0	onRelay	0	Self		playSound	lightOnSound			
++-EVENT	2	1	onRelay	0	Self		toggleEventEnabled	0 1 3			
++-EVENT	3	1	onRelay	0	Self		setEmitter	-1			
++-EMITTER FX Can - Swirl" 1
+2x2F Vertical Print" 26 -34.75 5.5 0 0 34 Letters/-space 0 0 1 1 1
+1x1F Vertical Edge Print" -22.25 -36.25 5.9 2 0 49 Letters/-space 0 0 1 1 1
+1x1F Print" -26.25 47.25 3.5 0 0 44 Letters/-space 0 0 0 0 0
++-NTOBJECTNAME _Faucet
++-EVENT	0	1	onRelay	0	Self		setEmitter	swirlPaintEmitter			
++-EVENT	1	1	onRelay	0	Self		playSound	lightOnSound			
++-EVENT	2	1	onRelay	0	Self		toggleEventEnabled	0 1 3			
++-EVENT	3	0	onRelay	0	Self		setEmitter	-1			
++-EMITTER NONE" 1
+1x1F Vertical Edge Print" -27.75 -38.25 5.9 2 0 49 Letters/-space 0 0 1 1 1
+1x1F Print" -58.25 47.25 3.5 0 0 44 Letters/-space 0 0 0 0 0
++-NTOBJECTNAME _Faucet
++-EVENT	0	0	onRelay	0	Self		setEmitter	swirlPaintEmitter			
++-EVENT	1	0	onRelay	0	Self		playSound	lightOnSound			
++-EVENT	2	1	onRelay	0	Self		toggleEventEnabled	0 1 3			
++-EVENT	3	1	onRelay	0	Self		setEmitter	-1			
++-EMITTER FX Can - Swirl" 1
 1x1F Print" -78.75 35.75 3.5 2 0 44 Letters/-space 0 0 0 0 0
 +-NTOBJECTNAME _Faucet
 +-EVENT	0	1	onRelay	0	Self		setEmitter	swirlPaintEmitter			
@@ -17113,49 +17145,12 @@ Pumpkin" -51.25 7.25 2.1 2 0 2  0 0 1 1 1
 +-EVENT	3	0	onRelay	0	Self		setEmitter	-1			
 +-EMITTER NONE" 1
 1x1F Vertical Edge Print" -20.25 -41.75 5.9 2 0 49 Letters/-space 0 0 1 1 1
-1x1F Vertical Edge Print" -13.25 -30.75 5.9 0 0 49 Letters/-space 0 0 1 1 1
-1x1F Vertical Edge Print" -18.75 -36.25 5.9 1 0 49 Letters/-space 0 0 1 1 1
-1F 1x1F Vertical Print" -26.75 -37.25 1.9 2 0 61 Letters/-space 0 0 1 1 1
-1x1F Vertical Edge Print" -20.75 -41.25 5.9 0 0 49 Letters/-space 0 0 1 1 1
-2x2F Vertical Print" 29 -34.75 5.5 0 0 34 Letters/-space 0 0 1 1 1
-1x1F Vertical Edge Print" -27.25 -34.75 5.9 0 0 49 Letters/-space 0 0 1 1 1
-1x1F Print" -10.75 27.25 3.5 1 0 44 Letters/-space 0 0 0 0 0
-+-NTOBJECTNAME _Faucet
-+-EVENT	0	1	onRelay	0	Self		setEmitter	swirlPaintEmitter			
-+-EVENT	1	1	onRelay	0	Self		playSound	lightOnSound			
-+-EVENT	2	1	onRelay	0	Self		toggleEventEnabled	0 1 3			
-+-EVENT	3	0	onRelay	0	Self		setEmitter	-1			
-+-EMITTER NONE" 1
-2x2F Vertical Print" 21 -34.75 5.5 0 0 34 Letters/-space 0 0 1 1 1
-1x1F Vertical Edge Print" -21.75 -32.75 5.9 0 0 49 Letters/-space 0 0 1 1 1
-1x1F Vertical Edge Print" -27.25 -38.25 5.9 1 0 49 Letters/-space 0 0 1 1 1
-2x4" -23 -41.5 5.7 1 0 36  0 0 1 1 1
-1x1F Vertical Edge Print" -19.25 -32.75 5.9 3 0 49 Letters/-space 0 0 1 1 1
-16x32 Base" -20.5 41.5 4.5 1 0 36  0 0 1 1 1
-1x1F Vertical Edge Print" -24.25 -41.25 5.9 3 0 49 Letters/-space 0 0 1 1 1
 1x1F Vertical Edge Print" -13.25 -38.25 5.9 1 0 49 Letters/-space 0 0 1 1 1
-1x1" -163.25 19.25 6.5 0 0 45  0 0 1 1 1
-4x12" -40.5 -53.5 5.3 3 0 46  0 0 1 1 1
-2x2F Vertical Print" 28 -34.75 5.5 0 0 34 Letters/-space 0 0 1 1 1
-1x1F Print" -46.75 35.75 3.5 2 0 44 Letters/-space 0 0 0 0 0
-+-NTOBJECTNAME _Faucet
-+-EVENT	0	1	onRelay	0	Self		setEmitter	swirlPaintEmitter			
-+-EVENT	1	1	onRelay	0	Self		playSound	lightOnSound			
-+-EVENT	2	1	onRelay	0	Self		toggleEventEnabled	0 1 3			
-+-EVENT	3	0	onRelay	0	Self		setEmitter	-1			
-+-EMITTER NONE" 1
-1x1F Print" -58.25 47.25 3.5 0 0 44 Letters/-space 0 0 0 0 0
-+-NTOBJECTNAME _Faucet
-+-EVENT	0	0	onRelay	0	Self		setEmitter	swirlPaintEmitter			
-+-EVENT	1	0	onRelay	0	Self		playSound	lightOnSound			
-+-EVENT	2	1	onRelay	0	Self		toggleEventEnabled	0 1 3			
-+-EVENT	3	1	onRelay	0	Self		setEmitter	-1			
-+-EMITTER FX Can - Swirl" 1
-1x1F Vertical Edge Print" -13.75 -38.25 5.9 2 0 49 Letters/-space 0 0 1 1 1
-2x4" -27.5 -33 5.7 2 0 36  0 0 1 1 1
-2x4" -13.5 -37 5.7 0 0 36  0 0 1 1 1
-1x1F Vertical Edge Print" -20.75 -41.75 5.9 1 0 49 Letters/-space 0 0 1 1 1
-1x1F Vertical Edge Print" -27.75 -30.75 5.9 3 0 49 Letters/-space 0 0 1 1 1
+1x1F Vertical Edge Print" -13.25 -30.75 5.9 0 0 49 Letters/-space 0 0 1 1 1
+2x4" -23 -41.5 5.7 1 0 36  0 0 1 1 1
+1x1F Vertical Edge Print" -21.75 -32.75 5.9 0 0 49 Letters/-space 0 0 1 1 1
+1x1F Vertical Edge Print" -18.75 -36.25 5.9 1 0 49 Letters/-space 0 0 1 1 1
+2x2F Vertical Print" 20 -34.75 5.5 0 0 34 Letters/-space 0 0 1 1 1
 1x1F Print" -22.25 31.75 3.5 3 0 44 Letters/-space 0 0 0 0 0
 +-NTOBJECTNAME _Faucet
 +-EVENT	0	0	onRelay	0	Self		setEmitter	swirlPaintEmitter			
@@ -17163,7 +17158,73 @@ Pumpkin" -51.25 7.25 2.1 2 0 2  0 0 1 1 1
 +-EVENT	2	1	onRelay	0	Self		toggleEventEnabled	0 1 3			
 +-EVENT	3	1	onRelay	0	Self		setEmitter	-1			
 +-EMITTER FX Can - Swirl" 1
-2x2F Vertical Print" 20 -34.75 5.5 0 0 34 Letters/-space 0 0 1 1 1
+1x1F Print" -10.25 47.25 3.5 0 0 44 Letters/-space 0 0 0 0 0
++-NTOBJECTNAME _Faucet
++-EVENT	0	0	onRelay	0	Self		setEmitter	swirlPaintEmitter			
++-EVENT	1	0	onRelay	0	Self		playSound	lightOnSound			
++-EVENT	2	1	onRelay	0	Self		toggleEventEnabled	0 1 3			
++-EVENT	3	1	onRelay	0	Self		setEmitter	-1			
++-EMITTER FX Can - Swirl" 1
+1x1F Vertical Edge Print" -20.75 -41.25 5.9 0 0 49 Letters/-space 0 0 1 1 1
+2x2F Vertical Print" 24 -34.75 5.5 0 0 34 Letters/-space 0 0 1 1 1
+1F 2x2F Vertical Print" -108.25 -35 6.9 3 0 27 Letters/-space 0 0 0 0 0
+1x 1x1F Vertical Edge Print" -107.75 -34.75 7.5 1 0 27 Letters/-space 0 0 1 1 1
+2x2F Vertical Print" 21 -34.75 5.5 0 0 34 Letters/-space 0 0 1 1 1
+1x1F Vertical Edge Print" -20.75 -41.75 5.9 1 0 49 Letters/-space 0 0 1 1 1
+2x4" -13.5 -37 5.7 0 0 36  0 0 1 1 1
+1x1F Vertical Edge Print" -19.25 -32.75 5.9 3 0 49 Letters/-space 0 0 1 1 1
+1x1F Vertical Edge Print" -27.25 -34.75 5.9 0 0 49 Letters/-space 0 0 1 1 1
+1x 1x2F Vertical Print" -130.25 -80.75 6.1 1 0 58 Letters/-space 0 0 1 1 1
+1F 1x1F Vertical Print" -107.75 -82.25 6.7 0 0 46 Letters/-space 0 0 1 1 1
+1x1F Vertical Edge Print" -24.25 -41.25 5.9 3 0 49 Letters/-space 0 0 1 1 1
+1x 1x2F Vertical Print" -129.25 -80.75 6.1 3 0 58 Letters/-space 0 0 1 1 1
+1F 1x1F Vertical Print" -109.25 -82.25 6.7 3 0 46 Letters/-space 0 0 1 1 1
+1F 2x2F Vertical Print" -108.75 -82 6.9 1 0 27 Letters/-space 0 0 0 0 0
+1F 1x1F Vertical Print" -109.25 -82.25 8.3 3 0 46 Letters/-space 0 0 1 1 1
+1x1F Vertical Edge Print" -13.75 -38.25 5.9 2 0 49 Letters/-space 0 0 1 1 1
+1x 1x2F Vertical Print" -129.25 -80.25 6.1 3 0 58 Letters/-space 0 0 1 1 1
+1F 2x2F Vertical Print" -108 -82.25 7.1 0 0 27 Letters/-space 0 0 1 1 1
+1F 2x2F Vertical Print" -109 -82.25 7.1 0 0 27 Letters/-space 0 0 1 1 1
+1x 1x1F Vertical Edge Print" -107.75 -82.25 7.5 0 0 27 Letters/-space 0 0 1 1 1
+1F 2x2F Vertical Print" -109 -82.25 8.1 0 0 27 Letters/-space 0 0 1 1 1
+1F 1x1F Vertical Print" -109.25 -82.25 7.9 3 0 27 Letters/-space 0 0 1 1 1
+1F 2x2F Vertical Print" -108 -82.25 8.1 0 0 27 Letters/-space 0 0 1 1 1
+1x1F Vertical Edge Print" -106.75 -34.75 7.1 1 0 27 Letters/-space 0 0 1 1 1
+1F 2x2F Vertical Print" -107 -82.25 6.5 0 0 27 Letters/-space 0 0 1 1 1
+1F 1x1F Vertical Print" -107.75 -82.25 8.3 0 0 46 Letters/-space 0 0 1 1 1
+1x2F" -129.75 -80.5 2.3 2 0 58  0 0 1 1 1
+1F 1x1F Vertical Print" -109.25 -82.25 6.9 3 0 46 Letters/-space 0 0 1 1 1
+1F 1x1F Vertical Print" -107.75 -82.25 6.9 0 0 46 Letters/-space 0 0 1 1 1
+1F 1x1F Vertical Print" -107.75 -34.75 8.3 1 0 46 Letters/-space 0 0 1 1 1
+1x1F Vertical Edge Print" -106.75 -34.75 8.1 1 0 27 Letters/-space 0 0 1 1 1
+2x4" -27.5 -33 5.7 2 0 36  0 0 1 1 1
+1x1F Vertical Edge Print" -110.25 -34.75 7.1 2 0 27 Letters/-space 0 0 1 1 1
+1F 1x1F Vertical Print" -107.75 -34.75 7.9 1 0 27 Letters/-space 0 0 1 1 1
+16x32 Base" -20.5 41.5 4.5 1 0 36  0 0 1 1 1
+1F 2x2F Vertical Print" -107 -34.75 6.5 2 0 27 Letters/-space 0 0 1 1 1
+1F 1x1F Vertical Print" -109.25 -34.75 8.3 2 0 46 Letters/-space 0 0 1 1 1
+1F 2x2F Vertical Print" -108.75 -35 6.9 1 0 27 Letters/-space 0 0 0 0 0
+1x1F Vertical Edge Print" -110.25 -34.75 8.1 2 0 27 Letters/-space 0 0 1 1 1
+1F 1x1F Vertical Print" -107.75 -82.25 7.9 0 0 27 Letters/-space 0 0 1 1 1
+1F 2x2F Vertical Print" -109 -34.75 7.1 2 0 27 Letters/-space 0 0 1 1 1
+1F 1x1F Vertical Print" -107.75 -34.75 6.9 1 0 46 Letters/-space 0 0 1 1 1
+1F 1x1F Vertical Print" -110.25 -34.75 8.7 2 0 27 Letters/-space 0 0 1 1 1
+1x1F Vertical Edge Print" -27.75 -30.75 5.9 3 0 49 Letters/-space 0 0 1 1 1
+1F 1x1F Vertical Print" -106.75 -82.25 8.7 0 0 27 Letters/-space 0 0 1 1 1
+1x1F Print" -10.75 27.25 3.5 1 0 44 Letters/-space 0 0 0 0 0
++-NTOBJECTNAME _Faucet
++-EVENT	0	1	onRelay	0	Self		setEmitter	swirlPaintEmitter			
++-EVENT	1	1	onRelay	0	Self		playSound	lightOnSound			
++-EVENT	2	1	onRelay	0	Self		toggleEventEnabled	0 1 3			
++-EVENT	3	0	onRelay	0	Self		setEmitter	-1			
++-EMITTER NONE" 1
+1F 2x2F Vertical Print" -108 -82.25 6.5 0 0 27 Letters/-space 0 0 1 1 1
+1x1F Vertical Edge Print" -106.75 -82.25 7.1 0 0 27 Letters/-space 0 0 1 1 1
+1F 1x1F Vertical Print" -109.25 -34.75 6.7 2 0 46 Letters/-space 0 0 1 1 1
+1F 1x1F Vertical Print" -107.75 -34.75 6.7 1 0 46 Letters/-space 0 0 1 1 1
+1x1F Vertical Edge Print" -106.75 -82.25 8.1 0 0 27 Letters/-space 0 0 1 1 1
+1F 2x2F Vertical Print" -109 -82.25 6.5 0 0 27 Letters/-space 0 0 1 1 1
+1F 2x2F Vertical Print" -110 -82.25 6.5 0 0 27 Letters/-space 0 0 1 1 1
 1x1F Print" -22.25 15.75 3.5 3 0 44 Letters/-space 0 0 0 0 0
 +-NTOBJECTNAME _Faucet
 +-EVENT	0	1	onRelay	0	Self		setEmitter	swirlPaintEmitter			
@@ -17171,99 +17232,334 @@ Pumpkin" -51.25 7.25 2.1 2 0 2  0 0 1 1 1
 +-EVENT	2	1	onRelay	0	Self		toggleEventEnabled	0 1 3			
 +-EVENT	3	0	onRelay	0	Self		setEmitter	-1			
 +-EMITTER NONE" 1
-1x2x3" -16.75 -41.5 7.3 0 0 43  0 0 0 1 0
-6x16F" -40.5 -52 5.7 3 0 46  0 0 1 1 1
-1x 1x2F Vertical Print" -17.75 45.25 4.1 0 0 37 Letters/0 0 0 1 1 1
-1x2x3" -13.5 -34.75 7.3 1 0 43  0 0 0 1 0
-1x2x3" -27.5 -34.75 7.3 3 0 43  0 0 0 1 0
-1x16" -40.5 -66.75 10.7 1 0 45  0 0 1 1 1
-1F 2x2F Vertical Print" 27 -34.75 6.1 0 0 48 Letters/-space 0 0 1 1 1
-1x2F Ceiling Print Plate" 60.25 -54.5 4.5 1 0 51 Letters/-space 0 0 1 1 1
-1x2x3" -24.25 -41.5 7.3 0 0 43  0 0 0 1 0
+1F 1x1F Vertical Print" -106.75 -34.75 8.7 1 0 27 Letters/-space 0 0 1 1 1
+1x 1x1F Vertical Edge Print" -109.25 -34.75 7.5 2 0 27 Letters/-space 0 0 1 1 1
+1F 2x2F Vertical Print" -108 -34.75 6.5 2 0 27 Letters/-space 0 0 1 1 1
+1F 2x2F Vertical Print" -108 -34.75 7.1 2 0 27 Letters/-space 0 0 1 1 1
+1F 2x2F Vertical Print" -109 -34.75 8.1 2 0 27 Letters/-space 0 0 1 1 1
+1F 2x2F Vertical Print" -110 -34.75 6.5 2 0 27 Letters/-space 0 0 1 1 1
+1F 2x2F Vertical Print" -108 -34.75 8.1 2 0 27 Letters/-space 0 0 1 1 1
+1F 1x1F Vertical Print" -109.25 -34.75 6.9 2 0 46 Letters/-space 0 0 1 1 1
+1F 2x2F Vertical Print" -109 -34.75 6.5 2 0 27 Letters/-space 0 0 1 1 1
+2x2F Vertical Print" 29 -34.75 5.5 0 0 34 Letters/-space 0 0 1 1 1
+1F 1x1F Vertical Print" -110.25 -82.25 8.7 3 0 27 Letters/-space 0 0 1 1 1
+1F 1x1F Vertical Print" -109.25 -34.75 7.9 2 0 27 Letters/-space 0 0 1 1 1
+1x 1x2F Vertical Print" 60.25 -54.25 3.5 0 0 51 2x2f/blank 0 0 1 1 1
+1F 1x1F Vertical Print" 29.75 -34.75 6.1 3 0 48 Letters/-space 0 0 1 1 1
+1F 1x1F Vertical Print" -26.75 -37.25 1.7 2 0 61 Letters/-space 0 0 1 1 1
+1x2x3" -27.5 -34.25 7.3 3 0 43  0 0 0 1 0
+1x 1x2F Vertical Print" 60.25 -55.75 3.5 2 0 51 2x2f/blank 0 0 1 1 1
+2x2F Print" -27.5 -33.5 6.1 3 0 36 Letters/-minus 0 0 1 1 1
+1x2x3" -27.5 -38.25 7.3 3 0 43  0 0 0 1 0
+1x2x3" -13.5 -34.25 7.3 1 0 43  0 0 0 1 0
 2x2F Print" -13.5 -36.5 6.1 1 0 36 Letters/-minus 0 0 1 1 1
 1x 1x2F Vertical Print" 60.25 -54.25 4.1 0 0 51 2x2f/blank 0 0 1 1 1
 1x2F Ceiling Print Plate" 60.25 -55.5 4.5 1 0 51 Letters/-space 0 0 1 1 1
-1x 1x2F Vertical Print" 60.25 -55.75 4.1 2 0 51 2x2f/blank 0 0 1 1 1
-1x 1x2F Vertical Print" 60.25 -54.25 3.5 0 0 51 2x2f/blank 0 0 1 1 1
-1x 1x2F Vertical Print" 60.25 -55.75 3.5 2 0 51 2x2f/blank 0 0 1 1 1
-1x2x3" -27.5 -34.25 7.3 3 0 43  0 0 0 1 0
-1x2x3" -13.5 -30.75 7.3 1 0 43  0 0 0 1 0
-1F 1x1F Vertical Print" -26.75 -37.25 1.7 2 0 61 Letters/-space 0 0 1 1 1
 1F 2x2F Vertical Print" 23 -34.75 6.1 0 0 48 Letters/-space 0 0 1 1 1
 1x2x3" -13.5 -38.25 7.3 1 0 43  0 0 0 1 0
-1x2x3" -13.5 -34.25 7.3 1 0 43  0 0 0 1 0
-1x2x3" -19 -32.75 7.3 1 0 43  0 0 0 1 0
-2x2F" -28.5 41.5 4.7 3 0 36  0 0 1 1 1
-2x2F Print" -27.5 -32.5 6.1 3 0 36 Letters/-minus 0 0 1 1 1
-2x2F Print" -13.5 -33.5 6.1 1 0 36 Letters/-minus 0 0 1 1 1
-2x2F Print" -13.5 -32.5 6.1 1 0 36 Letters/-minus 0 0 1 1 1
-1x2x3" -20.25 -41.5 7.3 0 0 43  0 0 0 1 0
+1x2x3" -13.5 -30.75 7.3 1 0 43  0 0 0 1 0
+1x2x3" -16.75 -41.5 7.3 0 0 43  0 0 0 1 0
+1F 2x2F Vertical Print" -108.5 -81.75 6.7 2 0 27 Letters/-space 0 0 1 1 1
+1x 1x2F Vertical Print" -130.25 -80.25 6.7 1 0 58 Letters/-space 0 0 1 1 1
+1x 1x2F Vertical Print" -130.25 -80.75 6.7 1 0 58 Letters/-space 0 0 1 1 1
+1x 1x2F Vertical Print" -129.25 -80.75 6.7 3 0 58 Letters/-space 0 0 1 1 1
+1x 1x2F Vertical Print" -129.25 -80.25 6.7 3 0 58 Letters/-space 0 0 1 1 1
+1x8f Horizontal pole" -129.75 -79 2.5 2 0 58  0 0 1 1 1
+1F 2x2F Vertical Print" 26 -34.75 6.1 0 0 48 Letters/-space 0 0 1 1 1
+1x 1x2F Vertical Print" -17.75 45.25 4.1 0 0 37 Letters/0 0 0 1 1 1
 1x2x3" -22 -32.75 7.3 1 0 43  0 0 0 1 0
-1x2x3" -20.75 -41.5 7.3 0 0 43  0 0 0 1 0
-1F 2x2F Vertical Print" 24 -34.75 6.1 0 0 48 Letters/-space 0 0 1 1 1
-1x2x3" -22 -36.25 7.3 1 0 43  0 0 0 1 0
+1F 2x2F Vertical Print" -108.5 -35.25 6.7 0 0 27 Letters/-space 0 0 1 1 1
+1x2x3" -20.25 -41.5 7.3 0 0 43  0 0 0 1 0
+1F 2x2F Vertical Print" 27 -34.75 6.1 0 0 48 Letters/-space 0 0 1 1 1
+1x16" -40.5 -66.75 10.7 1 0 45  0 0 1 1 1
+2x2F" -28.5 41.5 4.7 3 0 36  0 0 1 1 1
 1x 1x2F Vertical Print" -17.25 45.25 4.1 0 0 37 Letters/7 0 0 1 1 1
+1F 2x2F Vertical Print" 28 -34.75 6.1 0 0 48 Letters/-space 0 0 1 1 1
+1x2x3" -22 -36.25 7.3 1 0 43  0 0 0 1 0
+1F 2x2F Vertical Print" 22 -34.75 6.1 0 0 48 Letters/-space 0 0 1 1 1
+1x2x3" -27.5 -30.75 7.3 3 0 43  0 0 0 1 0
 2x2F Print" -13.5 -37.5 6.1 1 0 36 Letters/-minus 0 0 1 1 1
 2x2F Print" -23.5 -41.5 6.1 2 0 36 Letters/-minus 0 0 1 1 1
-2x2F Print" -27.5 -33.5 6.1 3 0 36 Letters/-minus 0 0 1 1 1
-1x2x3" -27.5 -38.25 7.3 3 0 43  0 0 0 1 0
-1F 2x2F Vertical Print" 29 -34.75 6.1 0 0 48 Letters/-space 0 0 1 1 1
-1x2x3" -27.5 -30.75 7.3 3 0 43  0 0 0 1 0
-1F 2x2F Vertical Print" 22 -34.75 6.1 0 0 48 Letters/-space 0 0 1 1 1
-1x2x3" -19 -36.25 7.3 1 0 43  0 0 0 1 0
+1x2x3" -19 -32.75 7.3 1 0 43  0 0 0 1 0
+1x2F Ceiling Print Plate" 60.25 -54.5 4.5 1 0 51 Letters/-space 0 0 1 1 1
+1x2x3" -24.25 -41.5 7.3 0 0 43  0 0 0 1 0
+1x2x3" -27.5 -34.75 7.3 3 0 43  0 0 0 1 0
 1F 1x1F Vertical Print" -26.75 -36.75 1.7 3 0 61 Letters/-space 0 0 1 1 1
-1F 1x1F Vertical Print" 29.75 -34.75 6.1 3 0 48 Letters/-space 0 0 1 1 1
-1F 1x1F Vertical Print" 19.25 -34.75 6.1 0 0 48 Letters/-space 0 0 1 1 1
+6x16F" -40.5 -52 5.7 3 0 46  0 0 1 1 1
+1x2x3" -19 -36.25 7.3 1 0 43  0 0 0 1 0
+2x2F Print" -22.5 -41.5 6.1 2 0 36 Letters/-minus 0 0 1 1 1
 1F 2x2F Vertical Print" 25 -34.75 6.1 0 0 48 Letters/-space 0 0 1 1 1
 1F 2x2F Vertical Print" 21 -34.75 6.1 0 0 48 Letters/-space 0 0 1 1 1
-1F 2x2F Vertical Print" 28 -34.75 6.1 0 0 48 Letters/-space 0 0 1 1 1
-2x2F Print" -22.5 -41.5 6.1 2 0 36 Letters/-minus 0 0 1 1 1
-1F 2x2F Vertical Print" 26 -34.75 6.1 0 0 48 Letters/-space 0 0 1 1 1
+2x2F Print" -27.5 -32.5 6.1 3 0 36 Letters/-minus 0 0 1 1 1
+1F 2x2F Vertical Print" 29 -34.75 6.1 0 0 48 Letters/-space 0 0 1 1 1
+1F 2x2F Vertical Print" 24 -34.75 6.1 0 0 48 Letters/-space 0 0 1 1 1
+1F 1x1F Vertical Print" 19.25 -34.75 6.1 0 0 48 Letters/-space 0 0 1 1 1
+1x2x3" -13.5 -34.75 7.3 1 0 43  0 0 0 1 0
+2x2F Print" -13.5 -33.5 6.1 1 0 36 Letters/-minus 0 0 1 1 1
+1x 1x2F Vertical Print" 60.25 -55.75 4.1 2 0 51 2x2f/blank 0 0 1 1 1
 1F 2x2F Vertical Print" 20 -34.75 6.1 0 0 48 Letters/-space 0 0 1 1 1
-1F 1x1F Vertical Corner Print" -26.75 -36.75 1.5 0 0 61 Letters/-space 0 0 1 1 1
-1x16" -40.5 -66.75 11.3 1 0 46  0 0 1 1 1
+1x2x3" -20.75 -41.5 7.3 0 0 43  0 0 0 1 0
+2x2F Print" -13.5 -32.5 6.1 1 0 36 Letters/-minus 0 0 1 1 1
 16x32 Base" -36.5 41.5 4.5 1 0 36  0 0 1 1 1
-1F 1x1F Vertical Corner Print" -26.75 -37.25 1.5 3 0 61 Letters/-space 0 0 1 1 1
 2x4" -14 -33 6.5 0 0 36  0 0 1 1 1
+1x 1x2F Vertical Print" -130.25 -80.25 7.3 1 0 58 Letters/-space 0 0 1 1 1
+1x 1x2F Vertical Print" -130.25 -80.75 7.3 1 0 58 Letters/-space 0 0 1 1 1
+1x 1x2F Vertical Print" -129.25 -80.75 7.3 3 0 58 Letters/-space 0 0 1 1 1
 6x16F" -40.5 -52 5.9 3 0 46  0 0 1 1 1
+1x16" -40.5 -66.75 11.3 1 0 46  0 0 1 1 1
+1F 1x1F Vertical Corner Print" -26.75 -37.25 1.5 3 0 61 Letters/-space 0 0 1 1 1
+1F 1x1F Vertical Print" -108.25 -81.75 6.5 2 0 45 Letters/-space 0 0 0 0 1
+1F 1x1F Vertical Print" -108.75 -35.25 6.5 0 0 45 Letters/-space 0 0 0 0 1
+1x2F" -129.75 -80.5 2.7 2 0 58  0 0 1 1 1
+1F 1x1F Vertical Corner Print" -26.75 -36.75 1.5 0 0 61 Letters/-space 0 0 1 1 1
+1x 1x2F Vertical Print" -129.25 -80.25 7.3 3 0 58 Letters/-space 0 0 1 1 1
+1F 1x1F Vertical Print" -108.25 -81.75 6.3 2 0 45 Letters/-space 0 0 0 0 1
+1x 1x2F Vertical Print" -33.25 45.25 4.1 0 0 37 Letters/8 0 0 1 1 1
+1F 1x1F Vertical Print" -108.75 -35.25 6.3 0 0 45 Letters/-space 0 0 0 0 1
+1x 1x2F Vertical Print" -33.75 45.25 4.1 0 0 37 Letters/0 0 0 1 1 1
+1x2F" -129.75 -80.5 2.9 2 0 58  0 0 1 1 1
+1x 1x2F Vertical Print" -129.25 -80.25 7.9 3 0 58 Letters/-space 0 0 1 1 1
+1x 1x2F Vertical Print" -129.25 -80.75 7.9 3 0 58 Letters/-space 0 0 1 1 1
+1x 1x2F Vertical Print" -130.25 -80.75 7.9 1 0 58 Letters/-space 0 0 1 1 1
+1x 1x2F Vertical Print" -130.25 -80.25 7.9 1 0 58 Letters/-space 0 0 1 1 1
+1F 1x1F Vertical Print" -26.75 -36.75 1.3 3 0 61 Letters/-space 0 0 1 1 1
+1x 1x2F Vertical Print" -39.75 37.75 4.1 2 0 37 Letters/9 0 0 1 1 1
+2x2F" -44.5 41.5 4.7 3 0 36  0 0 1 1 1
+1x 1x2F Vertical Print" -39.25 37.75 4.1 2 0 37 Letters/0 0 0 1 1 1
+1F 1x1F Vertical Print" -26.75 -37.25 1.3 2 0 61 Letters/-space 0 0 1 1 1
+6x16F" -40.5 -52 6.1 3 0 46  0 0 1 1 1
 2x2F Print" -14 -33.5 6.9 1 0 36 Letters/-minus 0 0 1 1 1
 2x2F Print" -14 -32.5 6.9 1 0 36 Letters/-minus 0 0 1 1 1
-1x 1x2F Vertical Print" -39.75 37.75 4.1 2 0 37 Letters/9 0 0 1 1 1
-6x16F" -40.5 -52 6.1 3 0 46  0 0 1 1 1
-1x 1x2F Vertical Print" -39.25 37.75 4.1 2 0 37 Letters/0 0 0 1 1 1
-1x 1x2F Vertical Print" -33.25 45.25 4.1 0 0 37 Letters/8 0 0 1 1 1
-1F 1x1F Vertical Print" -26.75 -37.25 1.3 2 0 61 Letters/-space 0 0 1 1 1
-1F 1x1F Vertical Print" -26.75 -36.75 1.3 3 0 61 Letters/-space 0 0 1 1 1
-1x 1x2F Vertical Print" -33.75 45.25 4.1 0 0 37 Letters/0 0 0 1 1 1
-2x2F" -44.5 41.5 4.7 3 0 36  0 0 1 1 1
+1F 1x1F Vertical Print" -108.75 -35.25 6.1 3 0 45 Letters/-space 0 0 0 0 1
 16x32 Base" -52.5 41.5 4.5 1 0 36  0 0 1 1 1
-1x 1x2F Vertical Print" -49.25 45.25 4.1 0 0 37 Letters/0 0 0 1 1 1
+1x8f Horizontal pole" -129.75 -79 3.1 2 0 58  0 0 1 1 1
+1x 1x2F Vertical Print" -129.25 -80.25 8.5 3 0 58 Letters/-space 0 0 1 1 1
+1x 1x2F Vertical Print" -129.25 -80.75 8.5 3 0 58 Letters/-space 0 0 1 1 1
+1x 1x2F Vertical Print" -130.25 -80.25 8.5 1 0 58 Letters/-space 0 0 1 1 1
+1x 1x2F Vertical Print" -130.25 -80.75 8.5 1 0 58 Letters/-space 0 0 1 1 1
+1F 1x1F Vertical Print" -108.25 -81.75 6.1 1 0 45 Letters/-space 0 0 0 0 1
+1F 1x1F Vertical Print" -108.75 -35.25 5.9 3 0 45 Letters/-space 0 0 0 0 1
 2x2F" -60.5 41.5 4.7 3 0 36  0 0 1 1 1
-1x 1x2F Vertical Print" -55.25 37.75 4.1 2 0 37 Letters/1 0 0 1 1 1
-1x 1x2F Vertical Print" -49.75 45.25 4.1 0 0 37 Letters/1 0 0 1 1 1
+2x3F" -129.75 -80.5 8.9 1 0 58  0 0 1 1 1
+1x 1x2F Vertical Print" -49.25 45.25 4.1 0 0 37 Letters/0 0 0 1 1 1
 1x 1x2F Vertical Print" -55.75 37.75 4.1 2 0 37 Letters/1 0 0 1 1 1
+1x2F" -129.75 -80.5 3.3 2 0 58  0 0 1 1 1
+1F 1x1F Vertical Print" -108.25 -81.75 5.9 1 0 45 Letters/-space 0 0 0 0 1
+1x 1x2F Vertical Print" -49.75 45.25 4.1 0 0 37 Letters/1 0 0 1 1 1
+1x 1x2F Vertical Print" -55.25 37.75 4.1 2 0 37 Letters/1 0 0 1 1 1
+1F 1x1F Vertical Print" -108.25 -81.75 5.7 2 0 45 Letters/-space 0 0 0 0 1
+1x2F" -129.75 -80.5 3.5 2 0 58  0 0 1 1 1
+1x2F" -129.75 -80.5 8.7 2 0 58  0 0 1 1 1
 16x32 Base" -68.5 41.5 4.5 1 0 36  0 0 1 1 1
-1x 1x2F Vertical Print" -65.75 45.25 4.1 0 0 37 Letters/1 0 0 1 1 1
-1x 1x2F Vertical Print" -71.25 37.75 4.1 2 0 37 Letters/1 0 0 1 1 1
-1x 1x2F Vertical Print" -71.75 37.75 4.1 2 0 37 Letters/3 0 0 1 1 1
-1x 1x2F Vertical Print" -65.25 45.25 4.1 0 0 37 Letters/2 0 0 1 1 1
+1F 1x1F Vertical Print" -108.75 -35.25 5.7 0 0 45 Letters/-space 0 0 0 0 1
 2x2F" -76.5 41.5 4.7 3 0 36  0 0 1 1 1
+1F 1x1F Vertical Print" -108.25 -81.75 5.5 2 0 45 Letters/-space 0 0 0 0 1
+1x8f Horizontal pole" -129.75 -79 3.7 2 0 58  0 0 1 1 1
+1x 1x2F Vertical Print" -65.25 45.25 4.1 0 0 37 Letters/2 0 0 1 1 1
+1x 1x2F Vertical Print" -71.75 37.75 4.1 2 0 37 Letters/3 0 0 1 1 1
+1x 1x2F Vertical Print" -65.75 45.25 4.1 0 0 37 Letters/1 0 0 1 1 1
+1F 1x1F Vertical Print" -108.75 -35.25 5.5 0 0 45 Letters/-space 0 0 0 0 1
+1x8f Horizontal pole" -129.75 -79 8.5 2 0 58  0 0 1 1 1
+1x 1x2F Vertical Print" -71.25 37.75 4.1 2 0 37 Letters/1 0 0 1 1 1
+1x2F" -129.75 -80.5 3.9 2 0 58  0 0 1 1 1
+1F 1x1F Vertical Print" -108.25 -81.75 5.3 1 0 45 Letters/-space 0 0 0 0 1
 16x32 Base" -84.5 41.5 4.5 1 0 36  0 0 1 1 1
-1x 1x2F Vertical Print" -92.25 40.25 4.1 3 0 37 Letters/1 0 0 1 1 1
+1F 1x1F Vertical Print" -108.75 -35.25 5.3 3 0 45 Letters/-space 0 0 0 0 1
+1x2F" -129.75 -80.5 8.3 2 0 58  0 0 1 1 1
+4x4F" -108.5 -81 5.1 3 0 52  0 0 0 0 0
+4x4F" -108.5 -36 5.1 1 0 52  0 0 0 0 0
 1x 1x2F Vertical Print" -92.25 40.75 4.1 3 0 37 Letters/5 0 0 1 1 1
-1x 1x2F Vertical Print" -81.75 45.25 4.1 0 0 37 Letters/1 0 0 1 1 1
+1x2" -129.75 -80.5 7.9 2 0 58  0 0 1 1 1
+1x2F" -129.75 -80.5 4.1 2 0 58  0 0 1 1 1
 2x2F" -88.5 37.5 4.7 2 0 36  0 0 1 1 1
+1x 1x2F Vertical Print" -92.25 40.25 4.1 3 0 37 Letters/1 0 0 1 1 1
+1x 1x2F Vertical Print" -81.75 45.25 4.1 0 0 37 Letters/1 0 0 1 1 1
 1x 1x2F Vertical Print" -81.25 45.25 4.1 0 0 37 Letters/4 0 0 1 1 1
+1x8f Horizontal pole" -129.75 -79 4.3 2 0 58  0 0 1 1 1
+1F 1x1F Vertical Corner Print" -109.25 -35.25 5.3 0 0 27 Letters/-space 0 0 0 0 0
+1F 1x1F Vertical Print" -108.75 -80.25 5.3 3 0 45 Letters/-space 0 0 0 0 1
+1F 1x1F Vertical Print" -108.25 -36.75 5.3 1 0 45 Letters/-space 0 0 0 0 1
+1x2F" -129.75 -80.5 7.5 2 0 58  0 0 1 1 1
+1F 1x1F Vertical Print" -107.75 -36.25 5.3 0 0 45 Letters/-space 0 0 0 0 1
+1F 1x1F Vertical Print" -107.75 -81.25 5.3 0 0 45 Letters/-space 0 0 0 0 1
 16x32 Base" -88.5 29.5 4.5 0 0 36  0 0 1 1 1
-2x2F" -88.5 21.5 4.7 2 0 36  0 0 1 1 1
-1x 1x2F Vertical Print" -92.25 24.25 4.1 3 0 37 Letters/1 0 0 1 1 1
+1F 1x1F Vertical Print" -109.25 -81.25 5.3 2 0 45 Letters/-space 0 0 0 0 1
+1F 1x1F Vertical Print" -108.25 -80.25 5.3 3 0 45 Letters/-space 0 0 0 0 1
+1F 1x1F Vertical Print" -108.75 -36.75 5.3 1 0 45 Letters/-space 0 0 0 0 1
+1F 1x1F Vertical Corner Print" -107.75 -36.75 5.3 2 0 27 Letters/-space 0 0 0 0 0
+1F 1x1F Vertical Print" -109.25 -80.75 5.3 2 0 45 Letters/-space 0 0 0 0 1
+1F 1x1F Vertical Corner Print" -109.25 -36.75 5.3 3 0 27 Letters/-space 0 0 0 0 0
+1F 1x1F Vertical Print" -107.75 -80.75 5.3 0 0 45 Letters/-space 0 0 0 0 1
+1F 1x1F Vertical Print" -108.75 -81.75 5.3 1 0 45 Letters/-space 0 0 0 0 1
+1F 1x1F Vertical Corner Print" -107.75 -81.75 5.3 2 0 27 Letters/-space 0 0 0 0 0
+1F 1x1F Vertical Print" -108.25 -35.25 5.3 3 0 45 Letters/-space 0 0 0 0 1
+1F 1x1F Vertical Print" -107.75 -35.75 5.3 0 0 45 Letters/-space 0 0 0 0 1
+1F 1x1F Vertical Corner Print" -109.25 -81.75 5.3 3 0 27 Letters/-space 0 0 0 0 0
+1F 1x1F Vertical Corner Print" -109.25 -80.25 5.3 0 0 27 Letters/-space 0 0 0 0 0
+1F 1x1F Vertical Corner Print" -107.75 -80.25 5.3 1 0 27 Letters/-space 0 0 0 0 0
+1F 1x1F Vertical Print" -109.25 -35.75 5.3 2 0 45 Letters/-space 0 0 0 0 1
+1F 1x1F Vertical Corner Print" -107.75 -35.25 5.3 1 0 27 Letters/-space 0 0 0 0 0
+1F 1x1F Vertical Print" -109.25 -36.25 5.3 2 0 45 Letters/-space 0 0 0 0 1
+1F 1x1F Vertical Corner Print" -109.25 -36.75 5.5 3 0 27 Letters/-space 0 0 0 0 0
+1F 1x1F Vertical Corner Print" -109.25 -35.25 5.5 0 0 27 Letters/-space 0 0 0 0 0
+1F 1x1F Vertical Print" -107.75 -35.75 5.5 1 0 45 Letters/-space 0 0 0 0 1
+1F 1x1F Vertical Print" -109.25 -36.25 5.5 3 0 45 Letters/-space 0 0 0 0 1
+1F 1x1F Vertical Print" -108.25 -35.25 5.5 0 0 45 Letters/-space 0 0 0 0 1
+1F 1x1F Vertical Print" -108.25 -80.25 5.5 0 0 45 Letters/-space 0 0 0 0 1
+1F 1x1F Vertical Print" -108.25 -36.75 5.5 2 0 45 Letters/-space 0 0 0 0 1
 1x 1x2F Vertical Print" -92.25 24.75 4.1 3 0 37 Letters/6 0 0 1 1 1
+1F 1x1F Vertical Corner Print" -107.75 -36.75 5.5 2 0 27 Letters/-space 0 0 0 0 0
+1F 1x1F Vertical Print" -108.75 -80.25 5.5 0 0 45 Letters/-space 0 0 0 0 1
+1x 1x2F Vertical Print" -92.25 24.25 4.1 3 0 37 Letters/1 0 0 1 1 1
+1F 1x1F Vertical Print" -107.75 -36.25 5.5 1 0 45 Letters/-space 0 0 0 0 1
+1F 1x1F Vertical Print" -107.75 -80.75 5.5 1 0 45 Letters/-space 0 0 0 0 1
+1F 1x1F Vertical Print" -107.75 -81.25 5.5 1 0 45 Letters/-space 0 0 0 0 1
+1F 1x1F Vertical Print" -108.75 -36.75 5.5 2 0 45 Letters/-space 0 0 0 0 1
+1F 1x1F Vertical Print" -109.25 -81.25 5.5 3 0 45 Letters/-space 0 0 0 0 1
+1F 1x1F Vertical Print" -109.25 -80.75 5.5 3 0 45 Letters/-space 0 0 0 0 1
+2x2F" -88.5 21.5 4.7 2 0 36  0 0 1 1 1
+1F 1x1F Vertical Print" -108.75 -81.75 5.5 2 0 45 Letters/-space 0 0 0 0 1
+1F 1x1F Vertical Corner Print" -107.75 -81.75 5.5 2 0 27 Letters/-space 0 0 0 0 0
+1F 1x1F Vertical Corner Print" -109.25 -81.75 5.5 3 0 27 Letters/-space 0 0 0 0 0
+1F 1x1F Vertical Corner Print" -107.75 -35.25 5.5 1 0 27 Letters/-space 0 0 0 0 0
+1F 1x1F Vertical Corner Print" -109.25 -80.25 5.5 0 0 27 Letters/-space 0 0 0 0 0
+1F 1x1F Vertical Corner Print" -107.75 -80.25 5.5 1 0 27 Letters/-space 0 0 0 0 0
+1F 1x1F Vertical Print" -109.25 -35.75 5.5 3 0 45 Letters/-space 0 0 0 0 1
+1x8f Horizontal pole" -129.75 -79 7.3 2 0 58  0 0 1 1 1
+1x2F" -129.75 -80.5 4.5 2 0 58  0 0 1 1 1
+1F 1x1F Vertical Print" -107.75 -36.25 5.7 0 0 45 Letters/-space 0 0 0 0 1
+1F 1x1F Vertical Print" -109.25 -81.25 5.7 3 0 45 Letters/-space 0 0 0 0 1
+1F 1x1F Vertical Corner Print" -107.75 -36.75 5.7 2 0 27 Letters/-space 0 0 0 0 0
+1F 1x1F Vertical Corner Print" -107.75 -80.25 5.7 1 0 27 Letters/-space 0 0 0 0 0
+1F 1x1F Vertical Corner Print" -109.25 -80.25 5.7 0 0 27 Letters/-space 0 0 0 0 0
+1F 1x1F Vertical Corner Print" -109.25 -81.75 5.7 3 0 27 Letters/-space 0 0 0 0 0
+1F 1x1F Vertical Corner Print" -107.75 -81.75 5.7 2 0 27 Letters/-space 0 0 0 0 0
+1F 1x1F Vertical Print" -108.75 -81.75 5.7 1 0 45 Letters/-space 0 0 0 0 1
+1F 1x1F Vertical Print" -109.25 -80.75 5.7 2 0 45 Letters/-space 0 0 0 0 1
+1F 1x1F Vertical Print" -107.75 -81.25 5.7 0 0 45 Letters/-space 0 0 0 0 1
+1F 1x1F Vertical Print" -107.75 -80.75 5.7 1 0 45 Letters/-space 0 0 0 0 1
 16x32 Base" -88.5 13.5 4.5 0 0 36  0 0 1 1 1
+1F 1x1F Vertical Print" -108.25 -80.25 5.7 3 0 45 Letters/-space 0 0 0 0 1
+1F 1x1F Vertical Print" -108.75 -80.25 5.7 0 0 45 Letters/-space 0 0 0 0 1
+1x2F" -129.75 -80.5 4.7 2 0 58  0 0 1 1 1
+1x2F" -129.75 -80.5 7.1 2 0 58  0 0 1 1 1
+1F 1x1F Vertical Corner Print" -107.75 -35.25 5.7 1 0 27 Letters/-space 0 0 0 0 0
+1F 1x1F Vertical Print" -109.25 -35.75 5.7 2 0 45 Letters/-space 0 0 0 0 1
+1F 1x1F Vertical Corner Print" -109.25 -36.75 5.7 3 0 27 Letters/-space 0 0 0 0 0
+1F 1x1F Vertical Print" -108.75 -36.75 5.7 1 0 45 Letters/-space 0 0 0 0 1
+1F 1x1F Vertical Print" -108.25 -36.75 5.7 2 0 45 Letters/-space 0 0 0 0 1
+1F 1x1F Vertical Corner Print" -109.25 -35.25 5.7 0 0 27 Letters/-space 0 0 0 0 0
+1F 1x1F Vertical Print" -109.25 -36.25 5.7 3 0 45 Letters/-space 0 0 0 0 1
+1F 1x1F Vertical Print" -107.75 -35.75 5.7 1 0 45 Letters/-space 0 0 0 0 1
+1F 1x1F Vertical Print" -108.25 -35.25 5.7 3 0 45 Letters/-space 0 0 0 0 1
+1F 1x1F Vertical Corner Print" -109.25 -36.75 5.9 3 0 27 Letters/-space 0 0 0 0 0
+1F 1x1F Vertical Corner Print" -107.75 -81.75 5.9 2 0 27 Letters/-space 0 0 0 0 0
+1F 1x1F Vertical Corner Print" -107.75 -80.25 5.9 1 0 27 Letters/-space 0 0 0 0 0
+1F 1x1F Vertical Corner Print" -109.25 -80.25 5.9 0 0 27 Letters/-space 0 0 0 0 0
+1F 1x1F Vertical Corner Print" -109.25 -81.75 5.9 3 0 27 Letters/-space 0 0 0 0 0
+1F 1x1F Vertical Print" -108.75 -81.75 5.9 1 0 45 Letters/-space 0 0 0 0 1
+1F 1x1F Vertical Print" -109.25 -80.75 5.9 2 0 45 Letters/-space 0 0 0 0 1
+1F 1x1F Vertical Print" -109.25 -81.25 5.9 2 0 45 Letters/-space 0 0 0 0 1
+1F 1x1F Vertical Print" -107.75 -81.25 5.9 0 0 45 Letters/-space 0 0 0 0 1
+1F 1x1F Vertical Print" -107.75 -80.75 5.9 0 0 45 Letters/-space 0 0 0 0 1
+1F 1x1F Vertical Print" -108.25 -80.25 5.9 3 0 45 Letters/-space 0 0 0 0 1
+1F 1x1F Vertical Print" -108.75 -80.25 5.9 3 0 45 Letters/-space 0 0 0 0 1
+1F 1x1F Vertical Corner Print" -107.75 -36.75 5.9 2 0 27 Letters/-space 0 0 0 0 0
+1F 1x1F Vertical Print" -108.25 -36.75 5.9 1 0 45 Letters/-space 0 0 0 0 1
 2x2F" -88.5 5.5 4.7 2 0 36  0 0 1 1 1
+1F 1x1F Vertical Print" -107.75 -36.25 5.9 0 0 45 Letters/-space 0 0 0 0 1
+1x8f Horizontal pole" -129.75 -79 4.9 2 0 58  0 0 1 1 1
+1F 1x1F Vertical Corner Print" -107.75 -35.25 5.9 1 0 27 Letters/-space 0 0 0 0 0
+1x2" -129.75 -80.5 6.7 2 0 58  0 0 1 1 1
+1F 1x1F Vertical Print" -109.25 -36.25 5.9 2 0 45 Letters/-space 0 0 0 0 1
+1F 1x1F Vertical Print" -107.75 -35.75 5.9 0 0 45 Letters/-space 0 0 0 0 1
+1F 1x1F Vertical Corner Print" -109.25 -35.25 5.9 0 0 27 Letters/-space 0 0 0 0 0
+1F 1x1F Vertical Print" -108.25 -35.25 5.9 3 0 45 Letters/-space 0 0 0 0 1
+1F 1x1F Vertical Print" -109.25 -35.75 5.9 2 0 45 Letters/-space 0 0 0 0 1
+1F 1x1F Vertical Print" -108.75 -36.75 5.9 1 0 45 Letters/-space 0 0 0 0 1
+1F 1x1F Vertical Print" -108.75 -36.75 6.1 2 0 45 Letters/-space 0 0 0 0 1
+1F 1x1F Vertical Print" -108.25 -36.75 6.1 1 0 45 Letters/-space 0 0 0 0 1
+1F 1x1F Vertical Corner Print" -109.25 -80.25 6.1 0 0 27 Letters/-space 0 0 0 0 0
+1F 1x1F Vertical Corner Print" -109.25 -81.75 6.1 3 0 27 Letters/-space 0 0 0 0 0
+1F 1x1F Vertical Corner Print" -107.75 -81.75 6.1 2 0 27 Letters/-space 0 0 0 0 0
+1F 1x1F Vertical Print" -108.75 -81.75 6.1 2 0 45 Letters/-space 0 0 0 0 1
+1F 1x1F Vertical Print" -109.25 -80.75 6.1 3 0 45 Letters/-space 0 0 0 0 1
+1F 1x1F Vertical Print" -109.25 -81.25 6.1 2 0 45 Letters/-space 0 0 0 0 1
+1F 1x1F Vertical Print" -107.75 -81.25 6.1 1 0 45 Letters/-space 0 0 0 0 1
+1F 1x1F Vertical Corner Print" -107.75 -80.25 6.1 1 0 27 Letters/-space 0 0 0 0 0
+1F 1x1F Vertical Print" -107.75 -80.75 6.1 0 0 45 Letters/-space 0 0 0 0 1
+1F 1x1F Vertical Print" -108.25 -80.25 6.1 0 0 45 Letters/-space 0 0 0 0 1
+1F 1x1F Vertical Print" -108.75 -80.25 6.1 3 0 45 Letters/-space 0 0 0 0 1
+1F 1x1F Vertical Print" -108.25 -35.25 6.1 0 0 45 Letters/-space 0 0 0 0 1
+1F 1x1F Vertical Corner Print" -109.25 -36.75 6.1 3 0 27 Letters/-space 0 0 0 0 0
+1F 1x1F Vertical Corner Print" -107.75 -36.75 6.1 2 0 27 Letters/-space 0 0 0 0 0
+1F 1x1F Vertical Print" -109.25 -36.25 6.1 2 0 45 Letters/-space 0 0 0 0 1
+1F 1x1F Vertical Corner Print" -109.25 -35.25 6.1 0 0 27 Letters/-space 0 0 0 0 0
+1F 1x1F Vertical Print" -109.25 -35.75 6.1 3 0 45 Letters/-space 0 0 0 0 1
+1F 1x1F Vertical Print" -107.75 -35.75 6.1 0 0 45 Letters/-space 0 0 0 0 1
+1F 1x1F Vertical Print" -107.75 -36.25 6.1 1 0 45 Letters/-space 0 0 0 0 1
+1x2F" -129.75 -80.5 5.1 2 0 58  0 0 1 1 1
+1F 1x1F Vertical Corner Print" -107.75 -35.25 6.1 1 0 27 Letters/-space 0 0 0 0 0
+1x2F" -129.75 -80.5 6.3 2 0 58  0 0 1 1 1
 16x32 Base" -88.5 -2.5 4.5 2 0 36  0 0 1 1 1
+1x2F" -129.75 -80.5 5.3 2 0 58  0 0 1 1 1
+1x8f Horizontal pole" -129.75 -79 6.1 2 0 58  0 0 1 1 1
+1F 1x1F Vertical Corner Print" -109.25 -35.25 6.3 0 0 27 Letters/-space 0 0 0 0 0
 2x2F" -88.5 -10.5 4.7 0 0 36  0 0 1 1 1
+1F 1x1F Vertical Print" -108.25 -35.25 6.3 0 0 45 Letters/-space 0 0 0 0 1
+1F 1x1F Vertical Corner Print" -107.75 -80.25 6.3 1 0 27 Letters/-space 0 0 0 0 0
+1F 1x1F Vertical Print" -108.75 -36.75 6.3 2 0 45 Letters/-space 0 0 0 0 1
+1F 1x1F Vertical Corner Print" -109.25 -80.25 6.3 0 0 27 Letters/-space 0 0 0 0 0
+1F 1x1F Vertical Corner Print" -109.25 -81.75 6.3 3 0 27 Letters/-space 0 0 0 0 0
+1F 1x1F Vertical Corner Print" -107.75 -81.75 6.3 2 0 27 Letters/-space 0 0 0 0 0
+1F 1x1F Vertical Print" -108.75 -81.75 6.3 2 0 45 Letters/-space 0 0 0 0 1
+1F 1x1F Vertical Print" -109.25 -80.75 6.3 3 0 45 Letters/-space 0 0 0 0 1
+1F 1x1F Vertical Print" -109.25 -81.25 6.3 3 0 45 Letters/-space 0 0 0 0 1
+1F 1x1F Vertical Print" -107.75 -81.25 6.3 1 0 45 Letters/-space 0 0 0 0 1
+1F 1x1F Vertical Print" -107.75 -80.75 6.3 1 0 45 Letters/-space 0 0 0 0 1
+1F 1x1F Vertical Print" -108.25 -80.25 6.3 0 0 45 Letters/-space 0 0 0 0 1
+1F 1x1F Vertical Print" -108.75 -80.25 6.3 0 0 45 Letters/-space 0 0 0 0 1
+1F 1x1F Vertical Print" -107.75 -36.25 6.3 1 0 45 Letters/-space 0 0 0 0 1
+1F 1x1F Vertical Corner Print" -107.75 -36.75 6.3 2 0 27 Letters/-space 0 0 0 0 0
+1F 1x1F Vertical Print" -108.25 -36.75 6.3 2 0 45 Letters/-space 0 0 0 0 1
+1F 1x1F Vertical Corner Print" -109.25 -36.75 6.3 3 0 27 Letters/-space 0 0 0 0 0
+1F 1x1F Vertical Print" -107.75 -35.75 6.3 1 0 45 Letters/-space 0 0 0 0 1
+1F 1x1F Vertical Print" -109.25 -35.75 6.3 3 0 45 Letters/-space 0 0 0 0 1
+1F 1x1F Vertical Print" -109.25 -36.25 6.3 3 0 45 Letters/-space 0 0 0 0 1
+1F 1x1F Vertical Corner Print" -107.75 -35.25 6.3 1 0 27 Letters/-space 0 0 0 0 0
+1x8f Horizontal pole" -129.75 -79 5.5 2 0 58  0 0 1 1 1
+1F 1x1F Vertical Corner Print" -109.25 -81.75 6.5 3 0 27 Letters/-space 0 0 0 0 0
+1F 1x1F Vertical Corner Print" -109.25 -35.25 6.5 0 0 27 Letters/-space 0 0 0 0 0
+1F 1x1F Vertical Corner Print" -107.75 -81.75 6.5 2 0 27 Letters/-space 0 0 0 0 0
+1F 1x1F Vertical Print" -109.25 -81.25 6.5 3 0 45 Letters/-space 0 0 0 0 1
+1F 1x1F Vertical Print" -107.75 -80.75 6.5 1 0 45 Letters/-space 0 0 0 0 1
+1F 1x1F Vertical Print" -108.75 -80.25 6.5 0 0 45 Letters/-space 0 0 0 0 1
+1F 1x1F Vertical Print" -109.25 -36.25 6.5 3 0 45 Letters/-space 0 0 0 0 1
+1F 1x1F Vertical Corner Print" -109.25 -36.75 6.5 3 0 27 Letters/-space 0 0 0 0 0
+1F 1x1F Vertical Print" -108.25 -36.75 6.5 2 0 45 Letters/-space 0 0 0 0 1
+1F 1x1F Vertical Corner Print" -107.75 -35.25 6.5 1 0 27 Letters/-space 0 0 0 0 0
+1F 1x1F Vertical Print" -107.75 -35.75 6.5 1 0 45 Letters/-space 0 0 0 0 1
+1x2F" -129.75 -80.5 5.9 2 0 58  0 0 1 1 1
+1F 1x1F Vertical Corner Print" -107.75 -80.25 6.5 1 0 27 Letters/-space 0 0 0 0 0
+1F 1x1F Vertical Corner Print" -107.75 -36.75 6.5 2 0 27 Letters/-space 0 0 0 0 0
 32x32 Base" -84.5 -18.5 4.5 0 0 36  0 0 1 1 1
+1F 1x1F Vertical Corner Print" -109.25 -80.25 6.5 0 0 27 Letters/-space 0 0 0 0 0
 2x2F" -76.5 -18.5 4.7 0 0 36  0 0 1 1 1
+1F 2x2F Vertical Print" -108.5 -36.75 6.7 2 0 27 Letters/-space 0 0 1 1 1
+1F 1x1F Vertical Corner Print" -107.75 -80.25 6.7 1 0 27 Letters/-space 0 0 1 1 1
+1F 1x1F Vertical Corner Print" -107.75 -81.75 6.7 2 0 27 Letters/-space 0 0 1 1 1
+1F 2x2F Vertical Print" -107.75 -36 6.7 1 0 27 Letters/-space 0 0 1 1 1
+1F 2x2F Vertical Print" -107.75 -81 6.7 1 0 27 Letters/-space 0 0 1 1 1
+1F 2x2F Vertical Print" -108.5 -80.25 6.7 0 0 27 Letters/-space 0 0 1 1 1
+1F 2x2F Vertical Print" -109.25 -36 6.7 3 0 27 Letters/-space 0 0 1 1 1
+1F 1x1F Vertical Corner Print" -109.25 -35.25 6.7 0 0 27 Letters/-space 0 0 1 1 1
+1F 2x2F Vertical Print" -109.25 -81 6.7 3 0 27 Letters/-space 0 0 1 1 1
+1F 1x1F Vertical Corner Print" -109.25 -81.75 6.7 3 0 27 Letters/-space 0 0 1 1 1
+1F 1x1F Vertical Corner Print" -109.25 -80.25 6.7 0 0 27 Letters/-space 0 0 1 1 1
+1F 1x1F Vertical Corner Print" -107.75 -35.25 6.7 1 0 27 Letters/-space 0 0 1 1 1
+1F 1x1F Vertical Corner Print" -107.75 -36.75 6.7 2 0 27 Letters/-space 0 0 1 1 1
+1F 1x1F Vertical Corner Print" -109.25 -36.75 6.7 3 0 27 Letters/-space 0 0 1 1 1
+1x2F" -129.75 -80.5 5.7 2 0 58  0 0 1 1 1
 32x32 Base" -68.5 -18.5 4.5 0 0 36  0 0 1 1 1
 2x2F" -60.5 -18.5 4.7 0 0 36  0 0 1 1 1
 32x32 Base" -52.5 -18.5 4.5 0 0 36  0 0 1 1 1
