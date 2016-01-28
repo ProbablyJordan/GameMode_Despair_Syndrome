@@ -331,6 +331,11 @@ package DSTrialPackge
 			messageClient(%client, '', '\c6There were no matches for given name!');
 			return;
 		}
+		if (%pick[1] == %client)
+		{
+			messageClient(%client, '', '\c6You cannot vote for yourself!');
+			return;
+		}
 		%miniGame.GameMode.voters[%miniGame.GameMode.voteCount++] = %client;
 		%miniGame.GameMode.votes[%miniGame.GameMode.voteCount] = %pick[1];
 		messageClient(%client, '', '\c6You have cast your vote for %1.', %pick[1].character.name);

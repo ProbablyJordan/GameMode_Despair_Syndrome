@@ -86,8 +86,8 @@ datablock PlayerData(PlayerCorpseArmor : PlayerStandardArmor)
 	shapeFile = "base/data/shapes/player/m_despairsyndrome.dts";
 	uiName = "Corpse Player";
 	canJet = 0;
-	boundingBox = "2.5 2.5 4";
-	crouchBoundingBox = "2.5 2.5 4";
+	boundingBox = "5 5 4";
+	crouchBoundingBox = "5 5 4";
 	firstPersonOnly = 1;
 	maxTools = 4;
 };

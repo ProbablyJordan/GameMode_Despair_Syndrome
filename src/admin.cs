@@ -122,3 +122,34 @@ function serverCmdGetKiller(%client)
 	if (isObject(%miniGame.gameMode) && isObject(%miniGame.gameMode.killer))
 		messageClient(%client, '', '\c6The killer is \c0%1 (%2)', %miniGame.gameMode.killer.character.name, %miniGame.gameMode.killer.getPlayerName());
 }
+function serverCmdDamageLogs(%client, %target)
+{
+	if (!%client.isAdmin) return;
+	if (isObject(%target = findClientByName(%target)))
+	{
+		%found = isObject(%target.player) ? %target.player : (isObject(%target.corpse) ? %target.corpse : "");
+		if (%found)
+		{
+			messageClient(%client, '', '\c5Damage logs for client \c3%1\c5:', %target.getPlayerName());
+			for (%i=1;%i<=%found.attackCount;%i++) //Parse attack logs for info
+			{
+				// %found.attackRegion[%i]
+				// %found.attackType[%i]
+				// %found.attackDot[%i]
+				%text[%a++] = "\c6Count \c3["@%i@"], \c6Attacker\c3:" SPC %found.attackerName[%i];
+				%text[%a] = %text[%a] SPC "\c6Damage type\c3:" SPC %found.attackType[%i] SPC "\c6Direction\c3:" SPC (%found.attackDot[%i] > 0 ? "Back" : "Front");
+				//attack region unneccesary to know atm
+			}
+			for (%i=1; %i<=%a; %i++)
+				messageClient(%client, '', %text[%i]);
+		}
+		else
+		{
+			messageClient(%client, '', '\c5Player object for provided client not found.');
+		}
+	}
+	else
+	{
+		messageClient(%client, '', '\c5Player not found');
+	}
+}

@@ -122,6 +122,14 @@ package DespairSyndromePackage
 		%this.DayTimeSchedule = %this.schedule(($DS::Time::DayLength/2) * 1000, "DayTimeSchedule");
 	}
 
+	function GameConnection::spawnPlayer(%this)
+	{
+		// if (!%this.inDefaultGame())
+		// 	return Parent::spawnPlayer(%this);
+		// if (%this.miniGame.numMembers >= $DS::RoomCount)
+		Parent::spawnPlayer(%this);
+	}
+
 	function MiniGameSO::checkLastManStanding(%this)
 	{
 		if (%this != $DefaultMiniGame)

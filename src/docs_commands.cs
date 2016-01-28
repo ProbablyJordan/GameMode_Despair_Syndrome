@@ -53,7 +53,7 @@ function serverCmdHelp(%this, %cat)
 			%text[%count++] = " \c5Page Up to read the above.";
 		case "6" or "rules":
 			%text[%count++] = "\c3[RULES]";
-			%text[%count++] = " \c31\c6. \c0Don't be a dick!\c6 We're all here to have fun. If you block doorways, lock people in your rooms or break all dormitory doors as a non-killer you will be banned.";
+			%text[%count++] = " \c31\c6. \c0Don't be a dick!\c6 We're all here to have fun. If you block doorways, lock people in your rooms or break dormitory doors as a non-killer w/o a reason you will be banned.";
 			%text[%count++] = " \c32\c6. \c0Don't freekill!\c6 It's really obvious to admins when you freekill. We will figure if it's self-defence or not, but expect to be banned if you kill someone without a reason.";
 			%text[%count++] = " \c33\c6. \c0Don't metagame!\c6 Do not use OOC chat for in-game info! If you are seen talking about ongoing round in team chat chances are you will be banned.";
 			%text[%count++] = " \c34\c6. \c0Don't ERP (Erotic RolePlay)!\c6 It is obnoxious as fuck and serves no purpose other than to get some preteens' dick wet and annoy everyone else.";
