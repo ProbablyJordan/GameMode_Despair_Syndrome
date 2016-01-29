@@ -96,12 +96,14 @@ package ChatPackage
 		%structure = '<color:ffaa44>%1<color:ffffff> %3, %4\"%2\"';
 		%does = "says";
 		%range = 24;
+		%zrange = 16;
 		if (getSubStr(%text, 0, 1) $= "!") //shouting
 		{
 			%text = getSubStr(%text, 1, strLen(%text));
 			%does = "shouts";
 			%font = "<font:Verdana:28>";
 			%range = 100;
+			%zrange = 32;
 		}
 		else if(getSubStr(%text, 0, 1) $= "@") //Whispering
 		{
@@ -109,6 +111,7 @@ package ChatPackage
 			%does = "whispers";
 			%font = "<font:segoe ui light:24>";
 			%range = 4;
+			%zrange = 4;
 		}
 
 		if (%text $= "")
@@ -148,6 +151,8 @@ package ChatPackage
 				}
 
 				if (vectorDist(%client.player.getEyePoint(), %other.player.getEyePoint()) > %range) //Out of range
+					continue;
+				if (mAbs(getWord(%client.player.getEyePoint(), 2) - getWord(%other.player.getEyePoint(), 2) > %zrange)) //Check if it's out of Z range too
 					continue;
 			}
 

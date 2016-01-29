@@ -26,6 +26,7 @@ hair_freddie
 hair_greaser
 hair_headband
 hair_jewfro
+hair_mahiru
 hair_maya
 hair_layered
 hair_messy
@@ -41,5 +42,4 @@ hair_punk
 hair_shaggy
 hair_suav
 hair_velma
-hair_wavey
 hair_wig
