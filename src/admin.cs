@@ -153,3 +153,65 @@ function serverCmdDamageLogs(%client, %target)
 		messageClient(%client, '', '\c5Player not found');
 	}
 }
+function serverCmdViewQueue(%this)
+{
+	if (!%this.isAdmin)
+		return;
+	if (!isObject(DSTrialGameMode_Queue))
+	{
+		messageClient(%this, '', '\c5Killer queue is not initialized.');
+		return;
+	}
+	messageClient(%this, '', '\c5Viewing killer queue entries...');
+	for (%i=0;%i<DSTrialGameMode_Queue.getCount();%i++)
+	{
+		%entry = DSTrialGameMode_Queue.getObject(%i);
+		if (isObject(%entry))
+			messageClient(%this, '', '\c6 - \c2%1', %entry.getPlayerName());
+	}
+	messageClient(%this, '', '\c5Found %1 entries in queue!', %i);
+}
+function serverCmdAddToQueue(%this, %target)
+{
+	if (!%this.isAdmin)
+		return;
+	if (!isObject(DSTrialGameMode_Queue))
+	{
+		messageClient(%this, '', '\c5Killer queue is not initialized.');
+		return;
+	}
+	if (isObject(%target = findClientByName(%target)))
+	{
+		if (DSTrialGameMode_Queue.isMember(%target)) //found target in queue already
+		{
+			messageClient(%this, '', '\c5Target already in queue!');
+			return;
+		}
+		DSTrialGameMode_Queue.add(%target);
+		messageClient(%this, '', '\c5Succesfully added %1 to killer queue!', %target.getPlayerName());
+		return;
+	}
+	messageClient(%this, '', '\c5Target not found!');
+}
+function serverCmdRemoveFromQueue(%this, %target)
+{
+	if (!%this.isAdmin)
+		return;
+	if (!isObject(DSTrialGameMode_Queue))
+	{
+		messageClient(%this, '', '\c5Killer queue is not initialized.');
+		return;
+	}
+	if (isObject(%target = findClientByName(%target)))
+	{
+		if (!DSTrialGameMode_Queue.isMember(%target))
+		{
+			messageClient(%this, '', '\c5Target not found in queue!');
+			return;
+		}
+		DSTrialGameMode_Queue.add(%target);
+		messageClient(%this, '', '\c5Succesfully removed %1 from killer queue!', %target.getPlayerName());
+		return;
+	}
+	messageClient(%this, '', '\c5Target not found!');
+}

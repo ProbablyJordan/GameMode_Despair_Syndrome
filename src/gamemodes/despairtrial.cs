@@ -1,6 +1,6 @@
 // Default Killer GameMode.
 $DS::GameMode::Trial::InvestigationPeriod = 300; //5 mins
-$DS::GameMode::Trial::TrialPeriod = 300; //5 mins
+$DS::GameMode::Trial::TrialPeriod = 600; //10 mins
 if (!isObject(DSGameMode_Trial))
 {
 	new ScriptObject(DSGameMode_Trial)
@@ -430,7 +430,7 @@ package DSTrialPackge
 				}
 				%gameMode.forceVotes[%gameMode.forceVoteCount++] = %client;
 				%validVotes++;
-				if (%validVotes >= (MFloor(%alivePlayers * 0.9))) // if at least 90% of alive players voted
+				if (%validVotes >= (MFloor(%alivePlayers * 0.8))) // if at least 90% of alive players voted
 				{
 					$defaultMiniGame.messageAll('', '\c3%1 has voted to start the vote early!\c6 There are enough votes to force the voting period.',
 						%client.character.name);
@@ -439,7 +439,7 @@ package DSTrialPackge
 				else
 				{
 					$defaultMiniGame.messageAll('', '\c3%1 has voted to start the vote early!\c6 Do /forcevote to concur. %2 votes left.',
-						%client.character.name, MFloor(%alivePlayers * 0.9) - %validVotes);
+						%client.character.name, MFloor(%alivePlayers * 0.8) - %validVotes);
 				}
 			}
 			else if (%client.isAdmin) //"Admin" forcevote only works outside minigame
