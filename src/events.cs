@@ -37,6 +37,23 @@ function fxDTSBrick::removeZone(%this)
 		%this.zone.delete();
 }
 
+package DSEventPackage
+{
+	function fxDTSBrick::onDeath(%this)
+	{
+		if (isObject(%this.zone))
+			%this.zone.delete();
+		Parent::onDeath(%this);
+	}
+	function fxDTSBrick::onRemove(%this)
+	{
+		if (isObject(%this.zone))
+			%this.zone.delete();
+		Parent::onRemove(%this);
+	}
+};
+activatePackage(DSEventPackage);
+
 //Clean-up event
 registerOutputEvent(Player, cleanPlayer, "list ALL 0 chest 1 hands 2 shoes 3", 1);
 function Player::cleanPlayer(%this, %type, %client)
@@ -71,19 +88,122 @@ function Player::cleanPlayer(%this, %type, %client)
 	}
 }
 
-package DSEventPackage
+//Storage bricks events
+registerOutputEvent(fxDTSBrick, makeStorage, "bool 1" TAB "int 1 32 4" TAB "string 199 128", 0);
+registerOutputEvent(fxDTSBrick, setStorageItems, "string 199 128", 0);
+registerOutputEvent(fxDTSBrick, setRandomStorageItems, "string 199 128", 0);
+registerOutputEvent(fxDTSBrick, clearStoredItems, "", 0);
+// registerOutputEvent(fxDTSBrick, viewStorage, 1);
+// function fxDTSBrick::viewStorage(%this, %client)
+// {
+// 	if (!isObject(%player = %client.player))
+// 		return;
+// 	%client.startViewingInventory(%this);
+// 	%player.playThread(2, "activate2");
+// }
+
+if (!isObject(StorageBrickGroup))
+	new SimSet(StorageBrickGroup);
+function fxDTSBrick::makeStorage(%this, %toggle, %maxtools, %starteritems)
 {
-	function fxDTSBrick::onDeath(%this)
+	if (!%toggle)
 	{
-		if (isObject(%this.zone))
-			%this.zone.delete();
-		Parent::onDeath(%this);
+		%this.clearStoredItems();
+		%this.storageBrick = false;
+		%this.randomLoot = "";
+		StorageBrickGroup.remove(%this);
+		return;
 	}
-	function fxDTSBrick::onRemove(%this)
+	%this.storageBrick = true;
+	%this.maxTools = %maxtools;
+	if (getWordCount(%starteritems > 0))
 	{
-		if (isObject(%this.zone))
-			%this.zone.delete();
-		Parent::onRemove(%this);
+		for (%i=0;%i<getWordCount(%starteritems);%i++)
+		{
+			%item = getWord(%starteritems, %i);
+			if (isObject(%item.getID()))
+			{
+				%this.storeItem(%item);
+			}
+		}
 	}
-};
-activatePackage(DSEventPackage);
+	StorageBrickGroup.add(%this);
+}
+function fxDTSBrick::clearStoredItems(%this)
+{
+	if (!%this.storageBrick)
+		return;
+	for (%i=0;%i<%this.maxTools;%i++)
+	{
+		if (isObject(%this.itemProps[%i]))
+			%this.itemProps[%i].delete();
+		%this.tool[%i] = "";
+	}
+}
+function fxDTSBrick::storeItem(%this, %data, %props)
+{
+	%data = %data.getID();
+	%maxTools = %this.maxTools;
+	if (!%this.storageBrick || !isObject(%data))
+		return;
+
+	for (%i = 0; %i < %maxTools; %i++)
+	{
+		if (!%this.tool[%i])
+			break;
+
+		// if (!%data.customPickupMultiple && %this.tool[%i] == %data)
+		// {
+		// 	if (!%ignoreProps && isObject(%props))
+		// 		%props.delete();
+		// 	return -1;
+		// }
+	}
+
+	if (%i == %maxTools)
+	{
+		if (!%ignoreProps && isObject(%props))
+			%props.delete();
+		return -1;
+	}
+
+	%this.tool[%i] = %data;
+
+	if (isObject(%props))
+	{
+		%this.itemProps[%i] = %props;
+		%props.itemSlot = %i;
+		%props.onOwnerChange(%this);
+	}
+
+	return %i;
+}
+function fxDTSBrick::removeToolSlot(%this, %index, %ignoreProps) //used by inventory
+{
+	if (!%this.storageBrick)
+		return;
+	%this.tool[%index] = 0;
+
+	if (!%ignoreProps && isObject(%this.itemProps[%index]))
+		%this.itemProps[%index].delete();
+}
+function fxDTSBrick::setStorageItems(%this, %items)
+{
+	if (!%this.storageBrick)
+		return;
+	%this.clearStoredItems();
+	for (%i=0;%i<getWordCount(%items);%i++)
+	{
+		%item = getWord(%items, %i);
+		if (isObject(%item.getID()))
+		{
+			%this.storeItem(%item);
+		}
+	}
+}
+function fxDTSBrick::setRandomStorageItems(%this, %items)
+{
+	if (!%this.storageBrick)
+		return;
+	%this.randomLoot = %items;
+}

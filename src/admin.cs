@@ -63,9 +63,24 @@ function serverCmdResetAccept(%this)
 	$defaultMiniGame.reset(0);
 }
 
+function messageAdmins(%msg)
+{
+	%count = ClientGroup.getCount();
+	for (%i = 0; %i < %count; %i++)
+	{
+		%other = ClientGroup.getObject(%i);
+		if (%other.isAdmin)
+			messageClient(%other, '', %msg);
+	}
+}
+
 function serverCmdPM(%this, %target, %m1, %m2, %m3, %m4, %m5, %m6, %m7, %m8, %m9, %m10, %m11, %m12, %m13, %m14, %m15, %m16, %m17, %m18, %m19, %m20, %m20, %m22, %m23, %m24, %m25, %m26, %m27, %m28, %m29, %m30, %m31, %m32)
 {
-	if (!%this.isAdmin) return;
+	if (!%this.isAdmin)
+	{
+		serverCmdReport(%m1, %m2, %m3, %m4, %m5, %m6, %m7, %m8, %m9, %m10, %m11, %m12, %m13, %m14, %m15, %m16, %m17, %m18, %m19, %m20, %m20, %m22, %m23, %m24, %m25, %m26, %m27, %m28, %m29, %m30, %m31, %m32);
+		return;
+	}
 	%text = %m1;
 	for (%i=2; %i<=32; %i++)
 		%text = %text SPC %m[%i];
@@ -75,14 +90,7 @@ function serverCmdPM(%this, %target, %m1, %m2, %m3, %m4, %m5, %m6, %m7, %m8, %m9
 	if (isObject(%target = findClientByName(%target)))
 	{
 		messageClient(%target, '', '\c4Admin PM from \c5%1\c6: %2',%this.getPlayerName(), %text);
-		%count = ClientGroup.getCount();
-		for (%i = 0; %i < %count; %i++)
-		{
-			%other = ClientGroup.getObject(%i);
-			if (%other.isAdmin && %other != %this) //let them see the PM too
-				messageClient(%other, '', '\c4PM from \c5%1\c6 to \c3%2\c6: %3', %this.getPlayerName(), %target.getPlayerName(), %text);
-		}
-		messageClient(%this, '', '\c5Admin PM to %1\c6: %2',%target.getPlayerName(), %text);
+		messageAdmins("\c4PM from \c5"@ %this.getPlayerName() @"\c6 to \c3"@ %target.getPlayerName() @"\c6: "@%text);
 	}
 	else
 	{
@@ -103,13 +111,7 @@ function serverCmdReport(%this, %m1, %m2, %m3, %m4, %m5, %m6, %m7, %m8, %m9, %m1
 	%text = trim(stripMLControlChars(%text));
 	if (%text $= "")
 		return;
-	%count = ClientGroup.getCount();
-	for (%i = 0; %i < %count; %i++)
-	{
-		%other = ClientGroup.getObject(%i);
-		if (%other.isAdmin)
-			messageClient(%other, '', '\c0REPORT from \c3%1\c6: %2', %this.getPlayerName(), %text);
-	}
+	messageAdmins("\c0REPORT from \c3"@%this.getPlayerName()@"\c6:" SPC %text);
 	messageClient(%this, '', '\c0Your report\c6: %1', %text);
 	%this.lastReport = getSimTime();
 }
@@ -162,7 +164,7 @@ function serverCmdViewQueue(%this)
 		messageClient(%this, '', '\c5Killer queue is not initialized.');
 		return;
 	}
-	messageClient(%this, '', '\c5Viewing killer queue entries...');
+	messageAdmins("\c5" @ %this.getPlayerName() SPC "is viewing the killer queue.");
 	for (%i=0;%i<DSTrialGameMode_Queue.getCount();%i++)
 	{
 		%entry = DSTrialGameMode_Queue.getObject(%i);
@@ -188,7 +190,7 @@ function serverCmdAddToQueue(%this, %target)
 			return;
 		}
 		DSTrialGameMode_Queue.add(%target);
-		messageClient(%this, '', '\c5Succesfully added %1 to killer queue!', %target.getPlayerName());
+		messageAdmins("\c5" @ %this.getPlayerName() SPC "has added\c6" SPC %target.getPlayerName() SPC "\c5to the killer queue.");
 		return;
 	}
 	messageClient(%this, '', '\c5Target not found!');
@@ -210,7 +212,7 @@ function serverCmdRemoveFromQueue(%this, %target)
 			return;
 		}
 		DSTrialGameMode_Queue.add(%target);
-		messageClient(%this, '', '\c5Succesfully removed %1 from killer queue!', %target.getPlayerName());
+		messageAdmins("\c5" @ %this.getPlayerName() SPC "has removed\c6" SPC %target.getPlayerName() SPC "\c5from the killer queue.");
 		return;
 	}
 	messageClient(%this, '', '\c5Target not found!');

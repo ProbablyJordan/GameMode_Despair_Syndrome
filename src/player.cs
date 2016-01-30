@@ -144,6 +144,8 @@ function serverCmdSleep(%this, %bypass)
 		return;
 	if (%bypass)
 	{
+		if (%this.player.unconscious)
+			return;
 		%this.player.KnockOut(90000, 2); //1.30 minute KO w/ 2 bars of exhaustion recovery
 		%this.updateBottomPrint();
 		return;
@@ -223,6 +225,11 @@ function PlayerDSArmor::onCollision(%this, %obj, %col, %vec, %speed)
 	Parent::onCollision(%this, %obj, %col, %col, %vec, %speed);
 }
 
+function PlayerCorpseArmor::onCollision(%this, %obj, %col, %vec, %speed)
+{
+	PlayerDSArmor::onCollision(%this, %obj, %col, %col, %vec, %speed);
+}
+
 function PlayerDSArmor::onTrigger(%this, %obj, %slot, %state)
 {
 	Parent::onTrigger(%this, %obj, %slot, %state);
@@ -234,6 +241,7 @@ function PlayerDSArmor::onTrigger(%this, %obj, %slot, %state)
 		{
 			%time = $Sim::Time - %item.carryStart;
 			cancel(%item.carrySchedule);
+			%item.lastTosser = %obj;
 			%item.carryPlayer = 0;
 			%obj.carryObject = 0;
 			%obj.playThread(2, "root");
@@ -386,7 +394,7 @@ function PlayerDSArmor::onTrigger(%this, %obj, %slot, %state)
 			%obj.playThread(2, "shiftUp");
 			%item.lastTosser = %obj;
 			%obj.setEnergyLevel(%obj.getEnergyLevel() - 20);
-			%item.setVelocity(vectorAdd(%item.getVelocity(), vectorScale(%obj.getEyeVector(), 20)));
+			%item.setVelocity(vectorAdd(%item.getVelocity(), vectorScale(%obj.getEyeVector(), 30)));
 			return;
 		}
 		if (%state && %obj.getEnergyLevel() >= 10)

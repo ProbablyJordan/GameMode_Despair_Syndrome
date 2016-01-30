@@ -90,7 +90,7 @@ package DSConnectionPackage
 			}
 			if (!%adminOn)
 			{
-				%this.delete("There are no admins present on the server.\nServer prefs dictate that nobody can join unless admins are on!");
+				%this.delete("There are no admins present on the server.\nServer prefs dictate that nobody can join unless admins are on!\nIf you want to play please notify us via the <a:forum.blockland.us/index.php?topic=292001.45Forum Topic</a>");
 				return;
 			}
 			setServerName($Pref::Server::Name);

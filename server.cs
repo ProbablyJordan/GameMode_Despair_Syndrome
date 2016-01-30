@@ -2,6 +2,9 @@ $DS::Path = filePath(expandFileName("./description.txt")) @ "/";
 
 exec("./prefs.cs");
 
+//extra
+exec("./res/shapes/debug/init.cs"); //init some debug shapes/datablocks
+
 //lib
 exec("./lib/colors.cs");
 exec("./lib/decals.cs");
@@ -43,10 +46,13 @@ exec("./src/gamemodes/default.cs");
 exec("./src/gamemodes/killer.cs");
 exec("./src/gamemodes/despairtrial.cs");
 //src/tools
+exec("./src/tools/bottle.cs");
 exec("./src/tools/bucket.cs");
 exec("./src/tools/mop.cs");
 exec("./src/tools/key.cs");
 exec("./src/tools/lockpick.cs");
+//src/tools/food
+exec("./src/tools/food/cheeseburger.cs");
 //src/tools/weapons
 exec("./src/tools/weapons/melee.cs"); //should probably move this to lib but eh
 exec("./src/tools/weapons/testsword.cs");

@@ -67,8 +67,37 @@ function Player::KnockOut(%this, %duration, %exRestore)
 		messageClient(%client, '', 'You will be unconscious for %1 seconds.', %duration / 1000);
 		if (%client.getControlObject() != %client.camera)
 		{
-			%client.camera.setMode("Corpse", %this);
-			%client.setControlObject(%client.camera);
+			// %client.camera.setMode("Corpse", %this);
+			// %client.setControlObject(%client.camera);
+			if (!isObject($KOScreenShape))
+			{
+				$KOScreenShape = new StaticShape()
+				{
+					datablock = PlaneShapeGlowData;
+					scale = "1 1 1";
+					position = "0 0 -300"; //units below ground level, woo
+				};
+				$KOScreenShape.setNodeColor("ALL", "0 0 0 1");
+			}
+			%camera = %client.camera;
+			//aim the camera at the target
+			%pos = vectorAdd($KOScreenShape.position, "0.2 0 0");
+			%delta = vectorSub($KOScreenShape.position, %pos);
+			%deltaX = getWord(%delta, 0);
+			%deltaY = getWord(%delta, 1);
+			%deltaZ = getWord(%delta, 2);
+			%deltaXYHyp = vectorLen(%deltaX SPC %deltaY SPC 0);
+
+			%rotZ = mAtan(%deltaX, %deltaY) * -1; 
+			%rotX = mAtan(%deltaZ, %deltaXYHyp);
+
+			%aa = eulerRadToMatrix(%rotX SPC 0 SPC %rotZ); //this function should be called eulerToAngleAxis...
+
+			%camera.setTransform(%pos SPC %aa);
+			%camera.setFlyMode();
+			%camera.mode = "Observer";
+			%client.setControlObject(%camera);
+			%camera.setControlObject(%client.dummyCamera);
 		}
 	}
 	if (%exRestore !$= "")
@@ -106,6 +135,12 @@ function Player::WakeUp(%this)
 
 package DSHealthPackage
 {
+	function Player::playThread(%this, %slot, %sequenceName)
+	{
+		if (%this.unconscious && %slot == 3) //Don't allow to "overwrite" the sleep animation playthread
+			return;
+		Parent::playThread(%this, %slot, %sequenceName);
+	}
 	function Observer::onTrigger(%this, %obj, %slot, %state)
 	{
 		%client = %obj.getControllingClient();
@@ -206,7 +241,7 @@ package DSHealthPackage
 			%props = %source.getItemProps();
 			if (%props.class $= "MeleeProps") //Can bloodify!
 				%props.bloody = true; //Always bloodify
-			if (getRandom(1, %randMax) == 1 && %blood)
+			if (getRandom(1, %randMax) == 1 && %blood && isObject(%image))
 			{
 				%source.bloody["rhand"] = true;
 				// %source.bloody["lhand"] = true; //Idea: bloodify the other hand if player tries to carry the body!
@@ -240,6 +275,8 @@ package DSHealthPackage
 		{
 			if (%blood)
 				%obj.doSplatterBlood(6, %pos, %vector, %type == $DamageType::Sharp ? 45 : 180);
+			if (%obj.unconscious)
+				%obj.WakeUp();
 			Parent::damage(%this, %obj, %src, %position, %this.maxDamage * 4, %type);
 		}
 	}

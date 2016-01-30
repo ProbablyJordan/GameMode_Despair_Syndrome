@@ -14,7 +14,7 @@ $EnvGuiServer::DirectLightColor 0.107477 0.177570 0.345794 1.000000
 $EnvGuiServer::AmbientLightColor 0.303738 0.308411 0.322430 1.000000
 $EnvGuiServer::ShadowColor 0.000000 0.000000 0.401869 1.000000
 $EnvGuiServer::SunFlareColor 0.200000 0.200000 0.200000 1.000000
-$EnvGuiServer::SunFlareSize 1
+$EnvGuiServer::SunFlareSize 0
 $EnvGuiServer::VisibleDistance 20
 $EnvGuiServer::FogDistance 0
 $EnvGuiServer::FogHeight 0

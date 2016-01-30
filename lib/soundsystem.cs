@@ -12,7 +12,7 @@ function GameConnection::playGameSound(%this, %profile, %position, %ignoreSrcSZ,
 		return;
 	}
 	%description = %profile.description;
-	if (isObject(%this.player)) //Check for soundproof zones
+	if (isObject(%this.player)) //Check for soundproof zones and other things
 	{
 		%foundZone = getZoneFromPos(%position);
 		%playerZone = getZoneFromPos(%this.player.getEyePoint());
@@ -25,6 +25,20 @@ function GameConnection::playGameSound(%this, %profile, %position, %ignoreSrcSZ,
 		{
 			// talk("The player is in a soundproof zone. Player" SPC %this.getPlayerName() SPC "didn't hear it!");
 			return;
+		}
+		if (%this.player.unconscious && !%description.is2d)
+		{
+			%dist = vectorDist(%this.player.getEyePoint(), %position);
+			if (%dist > 24) //Unconscious players can only hear sounds right next to them
+				return;
+			//Below we adjust the position in a proper way so it's heard relative to camera. This is done due to unconsciousness setting player's camera somewhere else.
+			//First, we make sound pos relative to player (vectorsub). Second, we make it relative to camera position (vectoradd).
+			%position = vectorAdd(vectorSub(%position, %this.player.getEyePoint()), getWords(%this.camera.getTransform(), 0, 2));
+			//The next problem is the rotation issue - play3d doesn't take transform, so we have to rotate the %position ourselves.
+			%rotation = axisToEuler(getWords(%this.player.getTransform(), 3, 6));
+			%zrot = getWord(%rotation, 2);
+			%camrot = getWord(axisToEuler(getWords(%this.camera.getTransform(), 3, 6)), 2); //Get Z rotation of camera
+			%position = RotatePointAroundPivot(%position, getWords(%this.camera.getTransform(), 0, 2), mClampF(%zrot-%camrot, -180, 180));
 		}
 	}
 	if (%description.is2d)

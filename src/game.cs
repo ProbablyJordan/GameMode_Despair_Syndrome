@@ -43,6 +43,12 @@ package DespairSyndromePackage
 		return isObject($DefaultMiniGame) && %this.miniGame == $DefaultMiniGame;
 	}
 
+	function Armor::onNewDataBlock(%this, %obj)
+	{
+		parent::onNewDataBlock(%this, %obj);
+		%obj.maxTools = %obj.getDataBlock().maxTools;
+	}
+
 	function Armor::onDisabled(%this, %obj)
 	{
 		if (isObject(%obj.client))
@@ -260,6 +266,23 @@ package DespairSyndromePackage
 		{
 			%data = %ray.getDataBlock();
 
+			if (%ray.storageBrick)
+			{
+				if (isObject(%player.tool[%player.currTool]) && %ray.storeItem(%player.tool[%player.currTool], %player.getItemProps(%player.currTool), 1) != -1) //Tool selected, put in storage
+				{
+					%player.itemProps[%player.currTool] = "";
+					%player.removeToolSlot(%player.currTool);
+					%player.playThread(2, "shiftAway");
+					if (%this.isViewingInventory)
+						%this.updateInventoryView();
+				}
+				else
+				{
+					%this.startViewingInventory(%ray);
+					%player.playThread(2, "activate2");
+				}
+				return;
+			}
 			if (%data.isDoor) //Knock knock
 			{
 				%player.playThread(2, "shiftAway");

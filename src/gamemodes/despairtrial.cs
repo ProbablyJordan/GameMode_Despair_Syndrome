@@ -154,7 +154,7 @@ function DSGameMode_Trial::onNight(%this, %miniGame)
 		commandToClient(%this.killer, 'messageBoxOK', "MURDER TIME!", %msg);
 	}
 	parent::onNight(%this, %miniGame);
-	%this.checkInvestigationStart(%miniGame);
+	//%this.checkInvestigationStart(%miniGame);
 }
 function DSGameMode_Trial::onBodyExamine(%this, %miniGame, %client, %body)
 {

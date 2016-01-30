@@ -39,7 +39,7 @@ function GameConnection::updateInventoryView(%this)
 		return;
 	}
 
-	if (vectorDist(%player.getPosition(), %player.inventoryTarget.getPosition()) > 6)
+	if (vectorDist(%player.getPosition(), getWords(%player.inventoryTarget.getTransform(), 0, 2)) > 6)
 	{
 		%this.stopViewingInventory();
 		return;
@@ -47,7 +47,7 @@ function GameConnection::updateInventoryView(%this)
 
 	%count = 0;
 
-	for (%i = 0; %i < %player.inventoryTarget.getDataBlock().maxTools; %i++) {
+	for (%i = 0; %i < %player.inventoryTarget.maxTools; %i++) {
 		%slot = %player.inventoryTarget.tool[%i];
 
 		if (isObject(%slot)) {
@@ -99,7 +99,7 @@ function GameConnection::checkDistanceLoop(%this, %target)
 		%this.stopViewingInventory();
 		return;
 	}
-	if (vectorDist(%player.getPosition(), %target.getPosition()) > 6)
+	if (vectorDist(%player.getPosition(), getWords(%target.getTransform(), 0, 2)) > 6)
 	{
 		%this.stopViewingInventory();
 		return;
@@ -128,7 +128,7 @@ package RPG_InventoryView
 
 		if (isObject(%player) && %player.isViewingInventory)
 		{
-			if (vectorDist(%player.getPosition(), %player.inventoryTarget.getPosition()) > 6)
+			if (vectorDist(%player.getPosition(), getWords(%player.inventoryTarget.getTransform(), 0, 2)) > 6)
 			{
 				%client.stopViewingInventory();
 				return;
@@ -172,7 +172,7 @@ package RPG_InventoryView
 			{
 				%count = 0;
 
-				for (%i = 0; %i < %player.inventoryTarget.getDataBlock().maxTools; %i++) {
+				for (%i = 0; %i < %player.inventoryTarget.maxTools; %i++) {
 					%slot = %player.inventoryTarget.tool[%i];
 
 					if (isObject(%slot)) {

@@ -129,9 +129,9 @@ package ChatPackage
 
 			if (!isObject(%client.player) || !%client.inDefaultGame()) //dead chat
 			{
-				%structure = '<color:444444>[DEAD] %1<color:aaaaaa>: %2';
+				%structure = '\c7[DEAD] %1<color:aaaaaa>: %2';
 				if (!%client.hasSpawnedOnce)
-					%structure = '<color:444444>[SPEC] %1<color:aaaaaa>: %2';
+					%structure = '\c7[SPEC] %1<color:aaaaaa>: %2';
 				if(isObject(%other.player)) //Listener's player is alive. Don't transmit the message to them.
 					continue;
 			}
@@ -154,6 +154,10 @@ package ChatPackage
 					continue;
 				if (mAbs(getWord(%client.player.getEyePoint(), 2) - getWord(%other.player.getEyePoint(), 2) > %zrange)) //Check if it's out of Z range too
 					continue;
+				if (%other.unconscious && vectorDist(%client.player.getEyePoint(), %other.player.getEyePoint()) > 4)
+				{
+					%text = muffleText(%text, 35);
+				}
 			}
 
 			messageClient(%other, '', %structure,

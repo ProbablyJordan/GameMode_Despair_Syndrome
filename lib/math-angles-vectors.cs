@@ -86,3 +86,25 @@ function axisToEuler(%axis)
 	%m33 = 2.0 * %q0q0 - 1.0 + 2.0 * %q3q3;
 	return mRadToDeg(mAsin(%m23)) SPC mRadToDeg(mAtan(-%m13, %m33)) SPC mRadToDeg(mAtan(-%m21, %m22));
 }
+
+//Thanks to Wrapperup for this one, though iirc it only works around z rotation
+function RotatePointAroundPivot(%point, %pivot, %zrot)
+{
+	%dist = vectorDist(%point, %pivot);
+	
+	%norm = vectorNormalize(vectorSub(%point, %pivot));
+	
+	%xB = getWord(%norm, 0);
+	%yB = getWord(%norm, 1);
+	
+	%angle = mRadToDeg(mATan(%xB,%yB));
+	
+	%newAngle = %angle + %zrot;
+	
+	%pos = mSin(mDegToRad(%newAngle)) SPC mCos(mDegToRad(%newAngle)) SPC 0;
+	
+	%pos = vectorScale(%pos, %dist);
+	%pos = vectorAdd(%pos, %pivot);
+	
+	return %pos;
+}
