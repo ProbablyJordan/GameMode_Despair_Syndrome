@@ -1,4 +1,5 @@
 $DS::RoomCount = 16;
+$DS::MaxPlayers = $DS::RoomCount;
 $DS::Time::DayLength = 300; //5 mins
 $DS::Time::NightLength = 150; //2.5 mins
 
@@ -94,12 +95,21 @@ package DespairSyndromePackage
 		}
 		if (isObject(%this.gameMode))
 			%this.gameMode.onMiniGameJoin(%this, %member);
+		if (!isObject(DSAdminQueue))
+			new SimSet(DSAdminQueue);
+		if (%this.numMembers - DSAdminQueue.getCount() >= $DS::RoomCount && %member.isAdmin)
+		{
+			DSAdminQueue.add(%member);
+			messageClient(%this, '', "\c5You have been added to the admin queue due to max playerlimit being reached.");
+		}
 	}
 	function MiniGameSO::removeMember(%this, %member)
 	{
 		Parent::removeMember(%this, %member);
 		if (isObject(%this.gameMode))
 			%this.gameMode.onMiniGameLeave(%this, %member);
+		if (%member.isAdmin)
+			DSAdminQueue.remove(%member);
 	}
 	function MiniGameSO::Reset(%this, %client)
 	{
@@ -130,9 +140,18 @@ package DespairSyndromePackage
 
 	function GameConnection::spawnPlayer(%this)
 	{
-		// if (!%this.inDefaultGame())
-		// 	return Parent::spawnPlayer(%this);
-		// if (%this.miniGame.numMembers >= $DS::RoomCount)
+		if (!%this.inDefaultGame())
+			return Parent::spawnPlayer(%this);
+		if (%this.isAdmin && DSAdminQueue.isMember(%this))
+		{
+			if (%this.miniGame.numMembers - DSAdminQueue.getCount() >= $DS::MaxPlayers)
+			{
+				CenterPrint(%this, "\c5You won't be able to spawn this round due to max players reached for minigame.");
+				return;
+			}
+			DSAdminQueue.remove(%member);
+			messageClient(%this, '', "\c5You have been removed from the admin queue.");
+		}
 		Parent::spawnPlayer(%this);
 	}
 
@@ -252,6 +271,11 @@ package DespairSyndromePackage
 		%player = %this.player;
 		if (!%this.inDefaultGame() || !isObject(%this.player) || %this.player.getState() $= "Dead")
 			return parent::serverCmdLight(%this);
+
+		if (getSimTime() - %this.lastLightClick < 100) //a limit so server cannot be lagged out
+			return;
+
+		%this.lastLightClick = getSimTime();
 
 		if (%player.unconscious) //Can't do stuff while unconscious bro
 			return;

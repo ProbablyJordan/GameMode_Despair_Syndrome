@@ -8,7 +8,7 @@ function pingScoreTick()
 		%client.setScore(%client.getPing());
 	}
 
-	$pingScoreTick = schedule(500, 0, "pingScoreTick");
+	$pingScoreTick = schedule(1000, 0, "pingScoreTick");
 }
 
 if (!isEventPending($pingScoreTick))
@@ -76,8 +76,13 @@ package DSConnectionPackage
 		// 	}
 		// }
 		parent::startLoad(%this, %a, %b, %c);
-		// talk(%this.getPlayerName() SPC "attempting connection" SPC %this.bl_id SPC "ADMIN:" SPC %this.isAdmin);
-		if ($Pref::Server::DespairSyndrome::RequireAdmins && !%this.isAdmin)
+		if (%this.isAdmin) return;
+		if (ClientGroup.getCount() >= $DS::MaxPlayers) //Max non-admin player limit reached.
+		{
+			%this.delete("Max server playercount is actually "@$DS::MaxPlayers@".\nThe reason why that is the case is to open up some space for admins.\nThis server heavily relies on proper administration. <a:forum.blockland.us/index.php?topic=292001.45Forum Topic</a>");
+			return;
+		}
+		if ($Pref::Server::DespairSyndrome::RequireAdmins)
 		{
 			for (%i = 0; %i < ClientGroup.getCount(); %i++)
 			{

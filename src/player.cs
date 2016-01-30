@@ -204,7 +204,7 @@ function PlayerDSArmor::onCollision(%this, %obj, %col, %vec, %speed)
 {
 	if (%col.getClassName() $= "Item")
 	{
-		if (!isObject(%col.carryPlayer) && isObject(%col.lastTosser))
+		if (!isObject(%col.carryPlayer) && isObject(%col.lastTosser) && %col.lastTosser != %obj) //We shouldn't be able to hurt our tosser
 		{
 			if (vectorLen(%col.getVelocity()) > 5) //Enough force to register as a hit
 			{
@@ -213,6 +213,7 @@ function PlayerDSArmor::onCollision(%this, %obj, %col, %vec, %speed)
 				{
 					%this.damage(%obj, %col.lastTosser, %col.getPosition(), %col.getDataBlock().image.directDamage * getMin(vectorLen(%col.getVelocity())/8, 1), %col.getDataBlock().image.directDamageType);
 					%col.getDataBlock().image.onRaycastCollision(%col.lastTosser, %obj, %col.getPosition(), vectorNormalize(vectorAdd(%obj.getHackPosition(), %col.getPosition()))); //haaaaaax
+					%col.lastTosser = ""; //nullify last tosser
 				}
 				else
 				{
