@@ -126,7 +126,7 @@ package ChatPackage
 		for (%i = 0; %i < %count; %i++)
 		{
 			%other = ClientGroup.getObject(%i);
-
+			%msg = %text;
 			if (!isObject(%client.player) || !%client.inDefaultGame()) //dead chat
 			{
 				%structure = '\c7[DEAD] %1<color:aaaaaa>: %2';
@@ -154,14 +154,14 @@ package ChatPackage
 					continue;
 				if (mAbs(getWord(%client.player.getEyePoint(), 2) - getWord(%other.player.getEyePoint(), 2) > %zrange)) //Check if it's out of Z range too
 					continue;
-				if (%other.unconscious && vectorDist(%client.player.getEyePoint(), %other.player.getEyePoint()) > 4)
+				if (%other.player.unconscious && vectorDist(%client.player.getEyePoint(), %other.player.getEyePoint()) > 4)
 				{
-					%text = muffleText(%text, 35);
+					%msg = muffleText(%text, 35);
 				}
 			}
 
 			messageClient(%other, '', %structure,
-								%name, %text, %does, %font);
+								%name, %msg, %does, %font);
 		}
 	}
 
@@ -171,7 +171,14 @@ package ChatPackage
 			return Parent::serverCmdMessageSent(%client, %text);
 		if (isEventPending(%client.miniGame.resetSchedule))
 			return serverCmdMessageSent(%client, %text);
-		if ($defaultMiniGame.muteOOC)
+		
+		if(despair_isMuted(%client.getBLID()))
+		{
+			messageClient(%client, '', "You have been muted!");
+			return;
+		}
+		
+		if ($defaultMiniGame.muteOOC && !%client.isAdmin)
 		{
 			messageClient(%client, '', "OOC is muted!");
 			return;

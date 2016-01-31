@@ -77,7 +77,19 @@ package DSConnectionPackage
 		// }
 		parent::startLoad(%this, %a, %b, %c);
 		if (%this.isAdmin) return;
-		if (ClientGroup.getCount() >= $DS::MaxPlayers) //Max non-admin player limit reached.
+		%count = ClientGroup.getCount();
+		for (%i=0;%i<ClientGroup.getCount();%i++)
+		{
+			%member = ClientGroup.getObject(%i);
+			if (%member.isAdmin)
+			{
+				if(!isObject(%member.miniGame) || isObject(DSAdminQueue) && DSAdminQueue.isMember(%member))
+				{
+					%count--; //Admins outside minigame or admins in the admin queue
+				}
+			}
+		}
+		if (%count > $DS::MaxPlayers) //Max non-admin player limit reached.
 		{
 			%this.delete("Max server playercount is actually "@$DS::MaxPlayers@".\nThe reason why that is the case is to open up some space for admins.\nThis server heavily relies on proper administration. <a:forum.blockland.us/index.php?topic=292001.45Forum Topic</a>");
 			return;

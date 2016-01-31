@@ -31,9 +31,10 @@ datablock ItemData(MemorialItem)
 function DSGameMode_Trial::onMiniGameJoin(%this, %miniGame, %client)
 {
 	parent::onMiniGameJoin(%this, %miniGame, %client);
-	if (!isObject(DSTrialGameMode_Queue))
-		new SimSet(DSTrialGameMode_Queue);
-	DSTrialGameMode_Queue.add(%client);
+	// Abusable (potentially)
+	// if (!isObject(DSTrialGameMode_Queue))
+	// 	new SimSet(DSTrialGameMode_Queue);
+	// DSTrialGameMode_Queue.add(%client);
 }
 
 function DSGameMode_Trial::onMiniGameLeave(%this, %miniGame, %client)

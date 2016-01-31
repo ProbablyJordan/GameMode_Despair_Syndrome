@@ -388,14 +388,17 @@ function PlayerDSArmor::onTrigger(%this, %obj, %slot, %state)
 		%item = %obj.carryObject;
 		if (isObject(%item) && isEventPending(%item.carrySchedule) && %item.carryPlayer $= %obj)
 		{
-			%time = $Sim::Time - %item.carryStart;
-			cancel(%item.carrySchedule);
-			%item.carryPlayer = 0;
-			%obj.carryObject = 0;
-			%obj.playThread(2, "shiftUp");
-			%item.lastTosser = %obj;
-			%obj.setEnergyLevel(%obj.getEnergyLevel() - 20);
-			%item.setVelocity(vectorAdd(%item.getVelocity(), vectorScale(%obj.getEyeVector(), 30)));
+			if (%obj.getEnergyLevel() >= 30)
+			{
+				%time = $Sim::Time - %item.carryStart;
+				cancel(%item.carrySchedule);
+				%item.carryPlayer = 0;
+				%obj.carryObject = 0;
+				%obj.playThread(2, "shiftUp");
+				%item.lastTosser = %obj;
+				%obj.setEnergyLevel(%obj.getEnergyLevel() - 30);
+				%item.setVelocity(vectorAdd(%item.getVelocity(), vectorScale(%obj.getEyeVector(), 30)));
+			}
 			return;
 		}
 		if (%state && %obj.getEnergyLevel() >= 10)

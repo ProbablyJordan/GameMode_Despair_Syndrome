@@ -43,7 +43,7 @@ function serverCmdToggleOOC(%this, %tog)
 	if (%tog $= "")
 		%tog = !$defaultMiniGame.muteOOC;
 	$defaultMiniGame.muteOOC = %tog ? 1 : 0; //This is to make sure that you can't set it to random gibberish, only boolean
-	$defaultMiniGame.chatMessageAll('', '\c5OOC has been globally %1.', $defaultMiniGame.muteOOC ? "muted" : "unmuted");
+	$defaultMiniGame.chatMessageAll('', '\c5OOC has been globally %1 by %2.', $defaultMiniGame.muteOOC ? "muted" : "unmuted", %this.getPlayerName());
 }
 
 function serverCmdReset(%this, %do)
@@ -122,7 +122,10 @@ function serverCmdGetKiller(%client)
 
 	%miniGame = $defaultMiniGame;
 	if (isObject(%miniGame.gameMode) && isObject(%miniGame.gameMode.killer))
+	{
+		messageAdmins("\c5" @ %client.getPlayerName() SPC "used /getkiller.");
 		messageClient(%client, '', '\c6The killer is \c0%1 (%2)', %miniGame.gameMode.killer.character.name, %miniGame.gameMode.killer.getPlayerName());
+	}
 }
 function serverCmdDamageLogs(%client, %target)
 {
@@ -217,3 +220,171 @@ function serverCmdRemoveFromQueue(%this, %target)
 	}
 	messageClient(%this, '', '\c5Target not found!');
 }
+
+
+
+function serverCmdMute(%client, %time, %name1, %name2, %name3)
+{
+	if(!%client.isAdmin)
+		return;
+	
+	%target = findClientByName(trim(%name1 SPC %name2 SPC %name3));
+	
+	if(!isObject(%target))
+	{
+		MessageClient(%client, '', "\c6Client not found! (Remember: the cmd is /mute time (in minutes) name)");
+		return;
+	}
+	
+	%blid = %target.getBLID();
+	
+	if(despair_setMute(%blid, %target.getPlayerName(), %time))
+	{
+		if(%time != -1)
+			%time_str = "for" SPC %time SPC (%time > 1 ? "minutes" : "minute");
+		else
+			%time_str = "forever";
+		
+		MessageAll('', "\c3" @ %client.getPlayerName() SPC "\c2muted \c3" @ %target.getPlayerName() SPC "\c2(ID: " @ %target.getBLID() @ ") from using OOC chat " @ %time_str);
+	}
+	else
+	{
+		MessageClient(%client, '', "\c6That player is already muted!");
+		return;
+	}
+}
+
+function serverCmdUnMute(%client, %name1, %name2, %name3)
+{
+	if(!%client.isAdmin)
+		return;
+	
+	%target = findClientByName(trim(%name1 SPC %name2 SPC %name3));
+	
+	if(!isObject(%target))
+	{
+		MessageClient(%client, '', "\c6Client not found! (Remember: the cmd is /unmute name)");
+		return;
+	}
+	
+	%blid = %target.getBLID();
+	
+	if(despair_unMute(%blid, %target.getPlayerName()))
+	{
+		MessageAll('', "\c3" @ %client.getPlayerName() SPC "\c2unmuted \c3" @ %target.getPlayerName() SPC "\c2(ID: " @ %target.getBLID() @ ") from using OOC chat");
+	}
+	else
+	{
+		MessageClient(%client, '', "\c6That player is not muted!");
+		return;
+	}
+}
+
+function serverCmdViewMute(%client)
+{
+	if(!%client.isAdmin)
+		return;
+	
+	if($Muted::PlayersList $= "")
+	{
+		MessageClient(%client, '', "\c6Nobody is muted!");
+		return;
+	}
+	
+	for(%i = 0; %i < getWordCount($Muted::PlayersList); %i++)
+	{
+		%blid = getWord($Muted::PlayersList, %i);
+		%name = $Muted::Players[%blid];
+		
+		if(%name $= "")
+			continue;
+		
+		if($Muted::Players[%blid, "time_muted"] - getCurrentMinuteOfYear() < 0 && $Muted::Players[%blid, "time_muted"] != -1)
+		{
+			despair_unMute(%blid);
+			continue;
+		}
+		
+		if($Muted::Players[%blid, "time_muted"] != -1)
+		{
+			%time_left = $Muted::Players[%blid, "time_muted"] - getCurrentMinuteOfYear();
+			%time_left = %time_left SPC (%time_left != 1 ? "minutes" : "minute");
+		}
+		else
+			%time_left = "Muted forever";
+		
+		MessageClient(%client, '', "\c6BLID:" SPC %blid SPC "\c7-\c6" SPC $Muted::Players[%blid] SPC "\c7-\c6" SPC %time_left);
+	}
+}
+
+function despair_setMute(%blid, %name, %time)
+{
+	if($Muted::Players[%blid] !$= "")
+		return false;
+	
+	// set the variables n everything
+	$Muted::Players[%blid] = %name;
+	
+	$Muted::Players[%blid, "time_issued"] = (%time != -1 ? getCurrentMinuteOfYear() : -1);
+	$Muted::Players[%blid, "time_muted"] = (%time != -1 ? getCurrentMinuteOfYear() + %time : -1);
+	
+	$Muted::PlayersList = $Muted::PlayersList SPC %blid;
+	
+	// save the list
+	export("$Muted*", "config/server/muted.cs");
+	
+	return true;
+}
+
+function despair_unMute(%blid)
+{
+	if($Muted::Players[%blid] $= "")
+		return false;
+	
+	// set the name to nothing
+	$Muted::Players[%blid] = "";
+	$Muted::Players[%blid, "time_issued"] = "";
+	$Muted::Players[%blid, "time_muted"] = "";
+	
+	// loop through the whole list and remove the BLID that we want to unmute
+	%newlist = "";
+	for(%i = 0; %i < getWordCount($Muted::PlayersList); %i++)
+	{
+		%test_blid = getWord($Muted::PlayersList, %i);
+		
+		if(%test_blid != %blid)
+			%newlist = %newlist SPC %test_blid;
+	}
+	
+	// remove the spaces that we might have left at the beguining n stuff
+	%newlist = trim(%newlist);
+	$Muted::PlayersList = %newlist;
+	
+	// save the list
+	export("$Muted*", "config/server/muted.cs");
+	
+	return true;
+}
+
+function despair_isMuted(%blid)
+{
+	if($Muted::Players[%blid] !$= "")
+	{
+		if($Muted::Players[%blid, "time_muted"] - getCurrentMinuteOfYear() < 0 && $Muted::Players[%blid, "time_muted"] != -1)
+		{
+			despair_unMute(%blid);
+			return false;
+		}
+		
+		return true;
+	}
+	else
+	{
+		return false;
+	}
+}
+
+if($Muted::Initialized == false && isFile("config/server/muted.cs"))
+	exec("config/server/muted.cs");
+
+$Muted::Initialized = true;
