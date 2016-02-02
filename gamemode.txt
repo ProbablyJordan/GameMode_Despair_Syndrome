@@ -113,6 +113,8 @@ ADDON Brick_VerticalPlatePack
 ADDON Brick_Wedge
 ADDON Brick_Window
 ADDON Brick_WireFence
+ADDON Print_2x2f_RestroomSigns
+ADDON Print_2x2f_VendingMachine
 ADDON Event_Camera_Control
 ADDON Event_onBrickLoaded
 ADDON Event_setPlayerTransform
