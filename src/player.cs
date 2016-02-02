@@ -189,7 +189,10 @@ function Player::monitorEnergyLevel(%this)
 	}
 	else //idle
 	{
-		%this.setEnergyLevel(GetMin(%this.getEnergyLevel() + %this.regenStamina, %this.energyLimit)); //Energy Limit used for exhaustion stuffs
+		%restoreStamina = %this.regenStamina;
+		if (getSimTime() - %this.attackTime[%this.attackCount] < 2000 && %this.attackType[%this.attackCount] $= "Stamina")
+			%restoreStamina = %restoreStamina * ((getSimTime() - %this.attackTime[%this.attackCount])/2000);
+		%this.setEnergyLevel(GetMin(%this.getEnergyLevel() + %restoreStamina, %this.energyLimit)); //Energy Limit used for exhaustion stuffs
 	}
 	%this.client.updateBottomPrint();
 	// %show = %this.getEnergyLevel() < %this.getDataBlock().maxEnergy;

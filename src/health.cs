@@ -26,9 +26,6 @@ function Player::updateHealth(%this)
 
 function Player::setHealth(%this, %health)
 {
-	if (%health < %this.health)
-		%this.lastDamageTime = $Sim::Time;
-
 	%this.health = mClampF(%health, 0, %this.maxHealth);
 
 	if (isObject(%this.client))
@@ -226,6 +223,7 @@ package DSHealthPackage
 		%obj.attackType[%obj.attackCount] = $DamageType_Array[%type];
 		%obj.attackDot[%obj.attackCount] = %dot;
 		%obj.attacker[%obj.attackCount] = %source.getClassName() $= "GameConnection" ? %source : %source.client;
+		%obj.attackTime[%obj.attackCount] = getSimTime();
 		%obj.attackerName[%obj.attackCount] = isObject(%obj.attacker[%obj.attackCount]) ? %obj.attacker[%obj.attackCount].GetPlayerName() : "";
 		// echo("HARM:" SPC %obj.attackCount SPC %obj.attackRegion[%obj.attackCount] SPC %obj.attackType[%obj.attackCount] SPC %obj.attacker[%obj.attackCount].GetPlayerName());
 		%obj.setDamageFlash(getMax(0.25, %damage / %obj.maxHealth));
