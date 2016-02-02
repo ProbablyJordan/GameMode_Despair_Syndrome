@@ -373,7 +373,7 @@ function PlayerDSArmor::onTrigger(%this, %obj, %slot, %state)
 		}
 		else if (isObject(%item) && (%item.getType() & $TypeMasks::ItemObjectType) && %time < 0.15 && %item.canPickUp)
 		{
-			if (%obj.addTool(%item.GetDatablock(), %item.itemProps) != -1)
+			if (%obj.addTool(%item.GetDatablock(), %item.itemProps, 1) != -1)
 			{
 				%item.itemProps = "";
 				%item.delete();
