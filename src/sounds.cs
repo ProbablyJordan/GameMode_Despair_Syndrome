@@ -63,6 +63,12 @@ datablock AudioProfile(BodyDiscoveryNoise2) {
 	description = audio2D;
 	preload = true;
 };
+
+datablock AudioProfile(AdminBwoinkSound) {
+	fileName = $DS::Path @ "res/sounds/bwoink.wav";
+	description = audio2D;
+	preload = true;
+};
 //SFX -- not yet adapted to new soundsystem
 // new ScriptObject(GenericShellSFX)
 // {

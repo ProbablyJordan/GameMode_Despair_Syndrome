@@ -63,14 +63,18 @@ function serverCmdResetAccept(%this)
 	$defaultMiniGame.reset(0);
 }
 
-function messageAdmins(%msg)
+function messageAdmins(%msg, %sound)
 {
 	%count = ClientGroup.getCount();
 	for (%i = 0; %i < %count; %i++)
 	{
 		%other = ClientGroup.getObject(%i);
 		if (%other.isAdmin)
+		{
 			messageClient(%other, '', %msg);
+			if (%sound !$= "")
+				%other.play2D(%sound);
+		}
 	}
 }
 
@@ -78,7 +82,7 @@ function serverCmdPM(%this, %target, %m1, %m2, %m3, %m4, %m5, %m6, %m7, %m8, %m9
 {
 	if (!%this.isAdmin)
 	{
-		serverCmdReport(%m1, %m2, %m3, %m4, %m5, %m6, %m7, %m8, %m9, %m10, %m11, %m12, %m13, %m14, %m15, %m16, %m17, %m18, %m19, %m20, %m20, %m22, %m23, %m24, %m25, %m26, %m27, %m28, %m29, %m30, %m31, %m32);
+		serverCmdReport(%this, %target, %m1, %m2, %m3, %m4, %m5, %m6, %m7, %m8, %m9, %m10, %m11, %m12, %m13, %m14, %m15, %m16, %m17, %m18, %m19, %m20, %m20, %m22, %m23, %m24, %m25, %m26, %m27, %m28, %m29, %m30, %m31, %m32);
 		return;
 	}
 	%text = %m1;
@@ -90,6 +94,7 @@ function serverCmdPM(%this, %target, %m1, %m2, %m3, %m4, %m5, %m6, %m7, %m8, %m9
 	if (isObject(%target = findClientByName(%target)))
 	{
 		messageClient(%target, '', '\c4Admin PM from \c5%1\c6: %2',%this.getPlayerName(), %text);
+		%target.play2d(adminBwoinkSound);
 		messageAdmins("\c4PM from \c5"@ %this.getPlayerName() @"\c6 to \c3"@ %target.getPlayerName() @"\c6: "@%text);
 	}
 	else
@@ -111,7 +116,7 @@ function serverCmdReport(%this, %m1, %m2, %m3, %m4, %m5, %m6, %m7, %m8, %m9, %m1
 	%text = trim(stripMLControlChars(%text));
 	if (%text $= "")
 		return;
-	messageAdmins("\c0REPORT from \c3"@%this.getPlayerName()@"\c6:" SPC %text);
+	messageAdmins("\c0REPORT from \c3"@%this.getPlayerName()@"\c6:" SPC %text, adminBwoinkSound);
 	messageClient(%this, '', '\c0Your report\c6: %1', %text);
 	%this.lastReport = getSimTime();
 }
