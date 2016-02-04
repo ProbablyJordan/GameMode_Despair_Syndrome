@@ -292,7 +292,7 @@ package DespairSyndromePackage
 
 			if (%ray.storageBrick)
 			{
-				if (isObject(%player.tool[%player.currTool]) && %ray.storeItem(%player.tool[%player.currTool], %player.getItemProps(%player.currTool), 1) != -1) //Tool selected, put in storage
+				if (%ray.allowStoringItems && isObject(%player.tool[%player.currTool]) && %ray.storeItem(%player.tool[%player.currTool], %player.getItemProps(%player.currTool), 1) != -1)
 				{
 					%player.itemProps[%player.currTool] = "";
 					%player.removeToolSlot(%player.currTool);

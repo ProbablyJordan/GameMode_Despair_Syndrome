@@ -46,6 +46,7 @@ exec("./src/gamemodes/default.cs");
 exec("./src/gamemodes/killer.cs");
 exec("./src/gamemodes/despairtrial.cs");
 //src/tools
+exec("./src/tools/bloodpack.cs");
 exec("./src/tools/bottle.cs");
 exec("./src/tools/bucket.cs");
 exec("./src/tools/mop.cs");

@@ -93,6 +93,7 @@ registerOutputEvent(fxDTSBrick, makeStorage, "bool 1" TAB "int 1 32 4" TAB "stri
 registerOutputEvent(fxDTSBrick, setStorageItems, "string 199 128", 0);
 registerOutputEvent(fxDTSBrick, setRandomStorageItems, "string 199 128", 0);
 registerOutputEvent(fxDTSBrick, clearStoredItems, "", 0);
+registerOutputEvent(fxDTSBrick, allowStoringItems, "bool 1", 0);
 // registerOutputEvent(fxDTSBrick, viewStorage, 1);
 // function fxDTSBrick::viewStorage(%this, %client)
 // {
@@ -206,4 +207,10 @@ function fxDTSBrick::setRandomStorageItems(%this, %items)
 	if (!%this.storageBrick)
 		return;
 	%this.randomLoot = %items;
+}
+function fxDTSBrick::allowStoringItems(%this, %bool)
+{
+	if (!%this.storageBrick)
+		return;
+	%this.allowStoringItems = %bool;
 }
