@@ -124,7 +124,7 @@ function Player::KnockOutTick(%this, %ticks, %done)
 	if (isObject(%this.client))
 	{
 		%this.client.centerPrint("\c6" @ %ticks - %done SPC "seconds left until you wake up.", 2);
-		if (getProbability(30)) //30% chance
+		if (getProbability(10))
 		{
 			%dream = getDreamText();
 			if (getProbability(15)) //less chance for a random character name to appear
@@ -133,10 +133,10 @@ function Player::KnockOutTick(%this, %ticks, %done)
 				if (isObject(%character))
 					%dream = %character.name;
 			}
-			messageClient(%this.client, '', '\c1... %1 ...', %dream);
+			messageClient(%this.client, '', '   \c1... %1 ...', %dream);
 		}
 	}
-	%this.wakeUpSchedule = %this.schedule(1000, KnockOutTick, %ticks, %done++)
+	%this.wakeUpSchedule = %this.schedule(1000, KnockOutTick, %ticks, %done++);
 }
 
 function Player::WakeUp(%this)
