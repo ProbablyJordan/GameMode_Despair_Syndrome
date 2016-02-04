@@ -72,8 +72,8 @@ function messageAdmins(%msg, %sound)
 		if (%other.isAdmin)
 		{
 			messageClient(%other, '', %msg);
-			if (%sound !$= "")
-				%other.play2D(%sound);
+			if (isObject(%sound))
+				%other.play2d(%sound);
 		}
 	}
 }
@@ -94,7 +94,7 @@ function serverCmdPM(%this, %target, %m1, %m2, %m3, %m4, %m5, %m6, %m7, %m8, %m9
 	if (isObject(%target = findClientByName(%target)))
 	{
 		messageClient(%target, '', '\c4Admin PM from \c5%1\c6: %2',%this.getPlayerName(), %text);
-		%target.play2d(adminBwoinkSound);
+		%target.play2d(AdminBwoinkSound);
 		messageAdmins("\c4PM from \c5"@ %this.getPlayerName() @"\c6 to \c3"@ %target.getPlayerName() @"\c6: "@%text);
 	}
 	else
@@ -116,7 +116,7 @@ function serverCmdReport(%this, %m1, %m2, %m3, %m4, %m5, %m6, %m7, %m8, %m9, %m1
 	%text = trim(stripMLControlChars(%text));
 	if (%text $= "")
 		return;
-	messageAdmins("\c0REPORT from \c3"@%this.getPlayerName()@"\c6:" SPC %text, adminBwoinkSound);
+	messageAdmins("\c0REPORT from \c3"@%this.getPlayerName()@"\c6:" SPC %text, AdminBwoinkSound);
 	messageClient(%this, '', '\c0Your report\c6: %1', %text);
 	%this.lastReport = getSimTime();
 }

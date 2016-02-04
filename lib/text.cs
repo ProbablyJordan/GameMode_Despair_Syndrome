@@ -25,8 +25,47 @@ function muffleText(%text, %prob)
 	{
 		if (getSubStr(%text, %i, %i+1) $= " ") //space character
 			continue;
-		if (getRandom(0, 100) < %prob)
+		if (getProbability(%prob))
 			%result = getSubStr(%result, 0, %i) @ "#" @ getSubStr(%result, %i+1, strlen(%result));
 	}
 	return %result;
+}
+
+function loadDreamList()
+{
+	%file = new FileObject();
+	%fileName = $DS::Path @ "data/dreams.txt";
+
+	if (!%file.openForRead(%fileName))
+	{
+		error("ERROR: Failed to open '" @ %fileName @ "' for reading");
+		%file.delete();
+		return;
+	}
+
+	deleteVariables("$DS::DreamListItem_*");
+	%max = -1;
+
+	while (!%file.isEOF())
+	{
+		%line = %file.readLine();
+		$DS::DreamListItem[%max++] = %line;
+	}
+
+	%file.close();
+	%file.delete();
+
+	$DS::DreamListMax = %max;
+}
+
+if (!$DS::LoadedDreamList)
+{
+	$DS::LoadedDreamList = true;
+	loadDreamList();
+}
+
+function getDreamText()
+{
+	%text = $DS::DreamListItem[getRandom($DS::DreamListMax)];
+	return %text;
 }

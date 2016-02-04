@@ -58,3 +58,8 @@ function ShapeBase::PointAt(%this, %pos)
 
 	%this.setTransform(%thispos SPC eulerRadToMatrix(%rotX SPC 0 SPC %rotZ));
 }
+
+function getProbability(%prob) //Probability, woo
+{
+	return getRandom(0, 100) < %prob;
+}

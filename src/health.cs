@@ -108,13 +108,41 @@ function Player::KnockOut(%this, %duration, %exRestore)
 	%this.unconscious = true;
 	%this.setShapeNameDistance(0);
 	%this.isBody = true;
-	%this.wakeUpSchedule = %this.schedule(%duration, WakeUp);
+	%this.KnockOutTick(%duration/1000);
+}
+
+function Player::KnockOutTick(%this, %ticks, %done)
+{
+	cancel(%this.wakeUpSchedule);
+	if (%this.getState() $= "Dead" || !%this.unconscious)
+		return;
+	if (%done >= %ticks)
+	{
+		%this.WakeUp();
+		return;
+	}
+	if (isObject(%this.client))
+	{
+		%this.client.centerPrint("\c6" @ %ticks - %done SPC "seconds left until you wake up.", 2);
+		if (getProbability(30)) //30% chance
+		{
+			%dream = getDreamText();
+			if (getProbability(15)) //less chance for a random character name to appear
+			{
+				%character = GameCharacters.getObject(getRandom(0, GameCharacters.getCount()));
+				if (isObject(%character))
+					%dream = %character.name;
+			}
+			messageClient(%this.client, '', '\c1... %1 ...', %dream);
+		}
+	}
+	%this.wakeUpSchedule = %this.schedule(1000, KnockOutTick, %ticks, %done++)
 }
 
 function Player::WakeUp(%this)
 {
 	cancel(%this.wakeUpSchedule);
-	if (%this.getState() $= "Dead")
+	if (%this.getState() $= "Dead" || !%this.unconscious)
 		return;
 	%client = %this.client;
 	if (isObject(%client) && isObject(%client.camera))
