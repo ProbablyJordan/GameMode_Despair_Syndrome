@@ -54,9 +54,11 @@ function serverCmdHelp(%this, %cat)
 		case "6" or "rules":
 			%text[%count++] = "\c3[RULES]";
 			%text[%count++] = " \c31\c6. \c0Don't be a dick!\c6 We're all here to have fun. If you block doorways, lock people in your rooms or break dormitory doors as a non-killer w/o a reason you will be banned.";
-			%text[%count++] = " \c32\c6. \c0Don't freekill!\c6 It's really obvious to admins when you freekill. We will figure if it's self-defence or not, but expect to be banned if you kill someone without a reason.";
-			%text[%count++] = " \c33\c6. \c0Don't metagame!\c6 Do not use OOC chat for in-game info! If you are seen talking about ongoing round in team chat chances are you will be banned.";
-			%text[%count++] = " \c34\c6. \c0Don't ERP (Erotic RolePlay)!\c6 It is obnoxious as fuck and serves no purpose other than to get some preteens' dick wet and annoy everyone else.";
+			%text[%count++] = " \c32\c6. \c0Do not gamethrow!\c6 This means don't screw up evidence by cleaning up the crime scene and don't toss the body into incinerator before it's even discovered by everyone else. You shouldn't scream \"im kiler lol\" during voting period as a non-killer, either.";
+			%text[%count++] = " \c33\c6. \c0Don't freekill!\c6 It's really obvious to admins when you freekill. We will figure if it's self-defence or not, but expect to be banned if you kill someone without a reason.";
+			%text[%count++] = " \c34\c6. \c0Don't metagame!\c6 Do not use OOC chat for in-game info! If you are seen talking about ongoing round in team chat chances are you will be banned.";
+			%text[%count++] = " \c35\c6. \c0Don't ERP (Erotic RolePlay)!\c6 It is obnoxious as fuck and serves no purpose other than to get some preteens' dick wet and annoy everyone else.";
+			%text[%count++] = " \c0    EXAMPLES PROVIDED IN THIS LIST ARE ONLY EXAMPLES. THEY DO NOT ENCAPSULATE THE FULL EXTENT OF THE RULE'S EFFECT. PLEASE USE /REPORT IF YOU WANT TO CLARIFY A RULE WITH AN ADMIN.";
 			%text[%count++] = " \c3If someone is breaking the rules, use /report *message* to get an admin's attention!";
 			%text[%count++] = " \c5Page Up to read the above.";
 		case "7" or "admin":
