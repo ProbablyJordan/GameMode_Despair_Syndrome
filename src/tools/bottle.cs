@@ -12,6 +12,7 @@ datablock ItemData(EmptyBottleItem) {
 	elasticity = 0.2;
 	friction = 0.6;
 	emap = true;
+	w_class = 2; //Weight class: 1 is tiny, 2 is small, 3 is normal-sized, 4 is bulky
 };
 
 datablock ShapeBaseImageData(EmptyBottleImage)

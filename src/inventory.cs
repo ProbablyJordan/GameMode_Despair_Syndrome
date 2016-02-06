@@ -60,7 +60,12 @@ function GameConnection::updateInventoryView(%this)
 	%shown = 6;
 
 	%last = getMin(%player.inventoryScroll + %shown, %count);
-	%text = "\c6Inventory | " @ %player.inventoryIndex + 1 @ "/" @ %count;
+	%text = "\c6Inventory | " @ %player.inventoryIndex + 1 @ "/" @ %player.inventoryTarget.maxTools;
+	if (%player.inventoryTarget.w_class_max !$= "")
+	{
+		%size = getDisplayWClass(%player.inventoryTarget.w_class_max);
+		%text = %text @ "\n\c7Max Size:" SPC %size;
+	}
 	%text = %text @ "\n<just:left><font:palatino linotype:20>\n";
 
 	for (%i = %player.inventoryScroll; %i < %last; %i++)
@@ -71,7 +76,7 @@ function GameConnection::updateInventoryView(%this)
 			%text = %text @ "<div:1>";
 
 		%slot = %listSlot[%i];
-		%text = %text @ (%hl ? "\c6" : "\c7") @ %slot.uiName;
+		%text = %text @ (%hl ? "\c6" : "\c7") @ %slot.uiName SPC "("@getDisplayWClass(%slot.w_class)@")";
 
 		if (%hl)
 			%text = %text @ "<just:right>\c6 <just:left>";
@@ -139,6 +144,8 @@ package RPG_InventoryView
 				{
 					%player.inventoryTarget.removeToolSlot(%player.inventorySlotIndex, 1);
 					%player.inventoryTarget.itemProps[%player.inventorySlotIndex] = "";
+					%player.inventoryIndex--;
+					%player.inventoryIndex = getMax(0, %player.inventoryIndex);
 				}
 			}
 			%player.playThread(2, "activate");

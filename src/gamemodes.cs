@@ -14,6 +14,7 @@ function DSGameMode::onMiniGameLeave(%this, %miniGame, %client)
 }
 function DSGameMode::onStart(%this, %miniGame)
 {
+	$DefaultMiniGame.lastStageStarted = getSimTime();
 	$DefaultMiniGame.noWeapons = false;
 	$DefaultMiniGame.shapeNameDistance = 13.5;
 	%miniGame.messageAll('', '\c5A new round has started. Current mode is: %1! %2', %this.name, %this.desc);
@@ -184,6 +185,7 @@ function DSGameMode::checkLastManStanding(%this, %miniGame)
 }
 function DSGameMode::onDay(%this, %miniGame)
 {
+	$DefaultMiniGame.lastStageStarted = getSimTime();
 	$DefaultMiniGame.shapeNameDistance = 13.5;
 	for (%i = 0; %i < %miniGame.numMembers; %i++)
 	{
@@ -209,6 +211,7 @@ function DSGameMode::onDay(%this, %miniGame)
 }
 function DSGameMode::onNight(%this, %miniGame)
 {
+	$DefaultMiniGame.lastStageStarted = getSimTime();
 	$DefaultMiniGame.shapeNameDistance = 5;
 	//Exhaust all players
 	for (%i = 0; %i < %miniGame.numMembers; %i++)

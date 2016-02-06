@@ -252,6 +252,11 @@ package DespairSyndromePackage
 	{
 		if (!%this.inDefaultGame() || %bypass)
 			return parent::serverCmdSuicide(%this);
+		if (%this.miniGame.gameMode.trial)
+		{
+			messageClient(%this, '', "You cannot suicide during the trial!");
+			return;
+		}
 		if (%this.miniGame.gameMode.killer == %this)
 		{
 			messageClient(%this, '', "You cannot suicide as the killer!");
@@ -283,7 +288,7 @@ package DespairSyndromePackage
 		%start = %player.getEyePoint();
 		%end = vectorAdd(%start, vectorScale(%player.getEyeVector(), 6));
 
-		%mask = $TypeMasks::All ^ $TypeMasks::FxBrickAlwaysObjectType;
+		%mask = $TypeMasks::All ^ ($TypeMasks::FxBrickAlwaysObjectType | $TypeMasks::StaticShapeObjectType);
 		%ray = containerRayCast(%start, %end, %mask, %player);
 
 		if (%ray && %ray.getType() & $TypeMasks::fxBrickObjectType)
@@ -292,13 +297,21 @@ package DespairSyndromePackage
 
 			if (%ray.storageBrick)
 			{
-				if (%ray.allowStoringItems && isObject(%player.tool[%player.currTool]) && %ray.storeItem(%player.tool[%player.currTool], %player.getItemProps(%player.currTool), 1) != -1)
+				if (%ray.allowStoringItems && isObject(%player.tool[%player.currTool]))
 				{
-					%player.itemProps[%player.currTool] = "";
-					%player.removeToolSlot(%player.currTool);
-					%player.playThread(2, "shiftAway");
-					if (%this.isViewingInventory)
-						%this.updateInventoryView();
+					if (%player.tool[%player.currTool].w_class > %ray.w_class_max)
+					{
+						commandToClient(%this, 'CenterPrint', "\c3" @ %player.tool[%player.currTool].uiName SPC "\c6is too big for this storage!", 1);
+						return;
+					}
+					if (%ray.storeItem(%player.tool[%player.currTool], %player.getItemProps(%player.currTool), 1) != -1)
+					{
+						%player.itemProps[%player.currTool] = "";
+						%player.removeToolSlot(%player.currTool, 1);
+						%player.playThread(2, "shiftAway");
+						if (%player.isViewingInventory)
+							%this.updateInventoryView();
+					}
 				}
 				else
 				{
@@ -340,9 +353,9 @@ package DespairSyndromePackage
 			if (isObject(%player.tool[%player.currTool]) && %corpse.addTool(%player.tool[%player.currTool], %player.getItemProps(%player.currTool), 1) != -1) //Tool selected, plant on body
 			{
 				%player.itemProps[%player.currTool] = "";
-				%player.removeToolSlot(%player.currTool);
+				%player.removeToolSlot(%player.currTool, 1);
 				%player.playThread(2, "shiftAway");
-				if (%this.isViewingInventory)
+				if (%player.isViewingInventory)
 					%this.updateInventoryView();
 			}
 			else

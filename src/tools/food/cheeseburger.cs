@@ -20,6 +20,7 @@ datablock ItemData(CheeseburgerItem)
 	 // Dynamic properties defined by the scripts
 	image = CheeseburgerImage;
 	canDrop = true;
+	w_class = 2; //Weight class: 1 is tiny, 2 is small, 3 is normal-sized, 4 is bulky
 };
 
 datablock ShapeBaseImageData(CheeseburgerImage)

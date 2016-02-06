@@ -30,6 +30,8 @@ datablock ItemData(AdvSwordItem)
 	blockMaxDrain = 100; //How much stamina can be possibly drained from you at worst block
 	blockEnemyDrain = 44; //How much stamina to drain from opponent on succesful block
 	canDrop = true;
+	
+	w_class = 3; //Weight class: 1 is tiny, 2 is small, 3 is normal-sized, 4 is bulky
 };
 
 datablock ShapeBaseImageData(AdvSwordImage)

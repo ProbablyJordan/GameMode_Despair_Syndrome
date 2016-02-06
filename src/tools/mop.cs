@@ -19,6 +19,8 @@ datablock ItemData(mopItem)
 	maxBlood = 30;
 
 	canDrop = true;
+
+	w_class = 3; //Weight class: 1 is tiny, 2 is small, 3 is normal-sized, 4 is bulky
 };
 
 function MopProps::onAdd(%this)

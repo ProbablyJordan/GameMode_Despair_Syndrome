@@ -144,6 +144,23 @@ function DSGameMode_Trial::onNight(%this, %miniGame)
 				%alivePlayers[%count++] = %member;
 			}
 		}
+		if (%count <= 0)
+		{
+			DSTrialGameMode_Queue.clear();
+			for (%i = 0; %i < %miniGame.numMembers; %i++)
+			{
+				%member = %miniGame.member[%i];
+				DSTrialGameMode_Queue.add(%member);
+			}
+			if (DSTrialGameMode_Queue.getCount() <= 0) //Error handler so it doesn't go infinite looping on me
+			{
+				announce("\c0ERROR\c3: No killer can be picked even after refilling the queue! Yell at Jack Noir about this.");
+				%this.onEnd(%miniGame, "");
+				return;
+			}
+			%this.onNight(%miniGame); //Try again
+			return;
+		}
 		%this.madekiller = true;
 		%this.killer = $DS::GameMode::ForceKiller !$= "" ? $DS::GameMode::ForceKiller : %alivePlayers[getRandom(1, %count)];
 		DSTrialGameMode_Queue.remove(%this.killer); //Remove from queue

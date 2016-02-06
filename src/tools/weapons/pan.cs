@@ -45,6 +45,8 @@ datablock ItemData(PanItem)
 	blockBaseDrain = 30; //What stamina drain do you get on best possible block
 	blockMaxDrain = 200; //How much stamina can be possibly drained from you at worst block
 	blockEnemyDrain = 22; //How much stamina to drain from opponent on succesful block
+
+	w_class = 3; //Weight class: 1 is tiny, 2 is small, 3 is normal-sized, 4 is bulky
 };
 
 ////////////////////////////////////////////////////////

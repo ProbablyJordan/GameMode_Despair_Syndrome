@@ -4,7 +4,7 @@
 //ALSO: Would be cool if, while carrying the bucket, shaking it too much will spill its contents on the floor.
 datablock ItemData(BucketItem) {
 	canPickUp = false;
-	doColorShift = true;
+	doColorShift = false;
 	colorShiftColor = "0.6 0.6 0.6 1";
 	shapeFile = $DS::Path @ "res/shapes/tools/bucket.dts";
 
@@ -24,14 +24,16 @@ datablock ItemData(BucketItem) {
 function BucketItem::onAdd(%this, %obj)
 {
 	Parent::onAdd(%this, %obj);
-	// %obj.alpha = 0.5;
-	// %obj.setNodeColor("liquid", "0.2 0.8 1" SPC %obj.alpha);
+	%obj.setNodeColor("bucket32", "0.6 0.6 0.6 1");
+	%obj.playThread(0, "liq-1");
+	%obj.setNodeColor("liquid", "0 0.8 1 1");
 }
 
 function BucketItem::updateLiquidColor(%this, %obj)
 {
-	// %bucketProps = %obj.getItemProps();
-	// %obj.setNodeColor("liquid", BlendRGBA("0.2 0.8 1", "0.7 0 0" SPC %bucketProps.blood/%this.maxBlood) SPC getMax(%obj.alpha, %bucketProps.blood/%this.maxBlood));
+	%bucketProps = %obj.getItemProps();
+	%blend = BlendRGBA("0 0.8 1 0.5", "0.7 0 0" SPC mClampF(%bucketProps.blood/%this.maxBlood, 0, 1));
+	%obj.setNodeColor("liquid", getWords(%blend, 0, 2) SPC 1);
 }
 
 function BucketProps::onAdd(%this)

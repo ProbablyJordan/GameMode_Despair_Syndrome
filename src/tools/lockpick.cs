@@ -37,6 +37,7 @@ datablock ItemData(LockpickItem)
 
 	canDrop = true;
 
+	w_class = 2; //Weight class: 1 is tiny, 2 is small, 3 is normal-sized, 4 is bulky
 	// collisionSFX = LockpickImpactSFX;
 	// collisionThreshold = 3;
 };

@@ -89,7 +89,7 @@ function Player::cleanPlayer(%this, %type, %client)
 }
 
 //Storage bricks events
-registerOutputEvent(fxDTSBrick, makeStorage, "bool 1" TAB "int 1 32 4" TAB "string 199 128", 0);
+registerOutputEvent(fxDTSBrick, makeStorage, "bool 1" TAB "int 1 32 4" TAB "string 199 128" TAB "int 1 4 3", 0);
 registerOutputEvent(fxDTSBrick, setStorageItems, "string 199 128", 0);
 registerOutputEvent(fxDTSBrick, setRandomStorageItems, "string 199 128", 0);
 registerOutputEvent(fxDTSBrick, clearStoredItems, "", 0);
@@ -105,7 +105,7 @@ registerOutputEvent(fxDTSBrick, allowStoringItems, "bool 1", 0);
 
 if (!isObject(StorageBrickGroup))
 	new SimSet(StorageBrickGroup);
-function fxDTSBrick::makeStorage(%this, %toggle, %maxtools, %starteritems)
+function fxDTSBrick::makeStorage(%this, %toggle, %maxtools, %starteritems, %maxwclass)
 {
 	if (!%toggle)
 	{
@@ -117,6 +117,8 @@ function fxDTSBrick::makeStorage(%this, %toggle, %maxtools, %starteritems)
 	}
 	%this.storageBrick = true;
 	%this.maxTools = %maxtools;
+	%this.w_class_max = %maxwclass;
+	%this.allowStoringItems = true;
 	if (getWordCount(%starteritems > 0))
 	{
 		for (%i=0;%i<getWordCount(%starteritems);%i++)

@@ -63,3 +63,16 @@ function getProbability(%prob) //Probability, woo
 {
 	return getRandom(0, 100) < %prob;
 }
+
+function getDisplayWClass(%wclass)
+{
+	switch (%wclass)
+	{
+		case 1: %size = "tiny";
+		case 2: %size = "small";
+		case 3: %size = "normal-sized";
+		case 4: %size = "bulky";
+		default: %size = "ERROR";
+	}
+	return %size;
+}
