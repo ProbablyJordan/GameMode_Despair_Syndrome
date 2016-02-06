@@ -24,7 +24,6 @@ function setServerName(%name)
 	}
 }
 
-$FullException::Mode = 3;
 package DSConnectionPackage
 {
 	function GameConnection::onClientLeaveGame(%this, %a, %b, %c)
@@ -42,51 +41,65 @@ package DSConnectionPackage
 			setServerName("(NO ADMINS)" @ $Pref::Server::Name);
 		parent::onClientLeaveGame(%this, %a, %b, %c);
 	}
-	//===============================
-	// Title: Full Exception
-	// Author: Jincux
-	//===============================
-	function GameConnection::onConnectRequest(%client, %ip, %lan, %net, %prefix, %suffix, %arg5, %rtb, %arg7, %arg8, %arg9, %arg10, %arg11, %arg12, %arg13, %arg14, %arg15)
+	function GameConnection::startLoad(%this, %a, %b, %c)
 	{
-		%actualMax = $Pref::Server::MaxPlayers;
-		if(ClientGroup.getCount() >= $Pref::Server::MaxPlayers)
+		//WHY IS BL_ID NOT AVAILABLE AAAAAAAAAAA
+		//Gotta check through three lists:
+		//$Pref::Server::AutoAdminList
+		//$Pref::Server::AutoAdminServerOwner
+		//$Pref::Server::AutoSuperAdminList
+		// for (%i=0;%i<getWordCount($Pref::Server::AutoAdminList);%i++)
+		// {
+		// 	%bl_id = getWord($Pref::Server::AutoAdminList, %i);
+		// 	if (%bl_id == %this.bl_id)
+		// 	{
+		// 		%isAdmin = true;
+		// 		break;
+		// 	}
+		// }
+		// for (%i=0;%i<getWordCount($Pref::Server::AutoAdminServerOwner);%i++)
+		// {
+		// 	%bl_id = getWord($Pref::Server::AutoAdminList, %i);
+		// 	if (%bl_id == %this.bl_id)
+		// 	{
+		// 		%isAdmin = true;
+		// 		break;
+		// 	}
+		// }
+		// for (%i=0;%i<getWordCount($Pref::Server::AutoSuperAdminList);%i++)
+		// {
+		// 	%bl_id = getWord($Pref::Server::AutoAdminList, %i);
+		// 	if (%bl_id == %this.bl_id)
+		// 	{
+		// 		%isAdmin = true;
+		// 		break;
+		// 	}
+		// }
+		parent::startLoad(%this, %a, %b, %c);
+		if (%this.isAdmin) return;
+		%count = ClientGroup.getCount();
+		for (%i=0;%i<ClientGroup.getCount();%i++)
 		{
-			if(getNumKeyId() $= %client.bl_id && $FullException::Mode >= 1)
-				%isAdmin = 1;
-			
-			if(!%isAdmin && $FullException::Mode >= 3)
+			%member = ClientGroup.getObject(%i);
+			if (%member.isAdmin)
 			{
-				for(%i = 0; %i < getWordCount($Pref::Server::AutoAdminList); %i++)
+				if(!isObject(%member.miniGame) || isObject(DSAdminQueue) && DSAdminQueue.isMember(%member))
 				{
-					if(getWord($Pref::Server::AutoAdminList, %i) $= %client.bl_id)
-					{
-						%isAdmin = 1;
-						break;
-					}
+					%count--; //Admins outside minigame or admins in the admin queue
 				}
 			}
-			
-			if(!%isAdmin && $FullException::Mode >= 2)
-			{
-				for(%i = 0; %i < getWordCount($Pref::Server::AutoSuperAdminList); %i++)
-				{
-					if(getWord($Pref::Server::AutoSuperAdminList, %i) $= %client.bl_id)
-					{
-						%isAdmin = 1;
-						break;
-					}
-				}
-			}
-			
-			if(%isAdmin && $Pref::Server::MaxPlayers < 99)
-				$Pref::Server::MaxPlayers = ClientGroup.getCount() + 1;
 		}
-		if ($Pref::Server::DespairSyndrome::RequireAdmins && !%isAdmin)
+		if (%count > $DS::MaxPlayers) //Max non-admin player limit reached.
+		{
+			%this.delete("Max server playercount is actually "@$DS::MaxPlayers@".\nThe reason why that is the case is to open up some space for admins.\nThis server heavily relies on proper administration. <a:forum.blockland.us/index.php?topic=292001.45Forum Topic</a>");
+			return;
+		}
+		if ($Pref::Server::DespairSyndrome::RequireAdmins)
 		{
 			for (%i = 0; %i < ClientGroup.getCount(); %i++)
 			{
-				%other = ClientGroup.getObject(%i);
-				if (%other.isAdmin)
+				%client = ClientGroup.getObject(%i);
+				if (%client.isAdmin)
 				{
 					%adminOn = true;
 					break;
@@ -94,16 +107,11 @@ package DSConnectionPackage
 			}
 			if (!%adminOn)
 			{
-				%client.delete("There are no admins present on the server.\nServer prefs dictate that nobody can join unless admins are on!\nIf you want to play please notify us via the <a:forum.blockland.us/index.php?topic=292001.45Forum Topic</a>");
+				%this.delete("There are no admins present on the server.\nServer prefs dictate that nobody can join unless admins are on!\nIf you want to play please notify us via the <a:forum.blockland.us/index.php?topic=292001.45Forum Topic</a>");
 				return;
 			}
 			setServerName($Pref::Server::Name);
 		}
-		
-		%ret = parent::onConnectRequest(%client, %ip, %lan, %net, %prefix, %suffix, %arg5, %rtb, %arg7, %arg8, %arg9, %arg10, %arg11, %arg12, %arg13, %arg14, %arg15);
-		
-		$Pref::Server::MaxPlayers = %actualMax;
-		return %ret;
 	}
 };
 if ($GameModeArg $= ($DS::Path @ "gamemode.txt"))
