@@ -26,7 +26,6 @@ function setServerName(%name)
 	}
 }
 
-$FullException::Mode = 3;
 package DSConnectionPackage
 {
 	function GameConnection::onClientLeaveGame(%this, %a, %b, %c)
@@ -48,10 +47,10 @@ package DSConnectionPackage
 	{
 		if(ClientGroup.getCount() >= $Pref::Server::MaxPlayers)
 		{
-			if(getNumKeyId() $= %this.bl_id && $FullException::Mode >= 1)
+			if(getNumKeyId() $= %this.bl_id)
 				%isAdmin = 1;
 			
-			if(!%isAdmin && $FullException::Mode >= 3)
+			if(!%isAdmin)
 			{
 				for(%i = 0; %i < getWordCount($Pref::Server::AutoAdminList); %i++)
 				{
@@ -61,10 +60,6 @@ package DSConnectionPackage
 						break;
 					}
 				}
-			}
-			
-			if(!%isAdmin && $FullException::Mode >= 2)
-			{
 				for(%i = 0; %i < getWordCount($Pref::Server::AutoSuperAdminList); %i++)
 				{
 					if(getWord($Pref::Server::AutoSuperAdminList, %i) $= %this.bl_id)
