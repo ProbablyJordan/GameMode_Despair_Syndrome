@@ -44,11 +44,6 @@ package DSConnectionPackage
 			setServerName("(NO ADMINS)" @ $Pref::Server::Name);
 		parent::onClientLeaveGame(%this, %a, %b, %c);
 	}
-	function GameConnection::onConnectRequest(%client, %ip, %lan, %net, %prefix, %suffix, %arg5, %rtb, %arg7, %arg8, %arg9, %arg10, %arg11, %arg12, %arg13, %arg14, %arg15)
-	{
-		%ret = parent::onConnectRequest(%client, %ip, %lan, %net, %prefix, %suffix, %arg5, %rtb, %arg7, %arg8, %arg9, %arg10, %arg11, %arg12, %arg13, %arg14, %arg15);
-		return %ret;
-	}
 	function GameConnection::startLoad(%this, %a, %b, %c)
 	{
 		if(ClientGroup.getCount() >= $Pref::Server::MaxPlayers)
@@ -93,16 +88,16 @@ package DSConnectionPackage
 				}
 			}
 		}
-		if (%count > $DS::MaxPlayers) //Max non-admin player limit reached.
+		if (%count > $DS::MaxPlayers && !%isAdmin) //Max non-admin player limit reached.
 		{
-			%this.delete("Server is full ("@$DS::MaxPlayers@" max players).\nOpen player slots you might see are reserved for admins due to the server's heavy reliance on proper administration.\n<a:forum.blockland.us/index.php?topic=292001.45Forum Topic</a>");
+			%this.delete("Server is full ("@$DS::MaxPlayers@" max players).\nOpen player slots you might see are reserved for admins due to the server's heavy reliance on proper administration.\n<a:forum.blockland.us/index.php?topic=292001.45>Forum Topic</a>");
 			return;
 		}
 		if ($Pref::Server::DespairSyndrome::RequireAdmins && !%isAdmin)
 		{
 			if (!%adminOn)
 			{
-				%this.delete("There are no admins present on the server.\nServer prefs dictate that nobody can join unless admins are on!\nIf you want to play please notify us via the <a:forum.blockland.us/index.php?topic=292001.45Forum Topic</a>");
+				%this.delete("There are no admins present on the server.\nServer prefs dictate that nobody can join unless admins are on!\nIf you want to play please notify us via the <a:forum.blockland.us/index.php?topic=292001.45>Forum Topic</a>");
 				return;
 			}
 			setServerName($Pref::Server::Name);
