@@ -45,28 +45,25 @@ package DSConnectionPackage
 	}
 	function GameConnection::startLoad(%this, %a, %b, %c)
 	{
-		if(ClientGroup.getCount() >= $Pref::Server::MaxPlayers)
+		if(getNumKeyId() $= %this.bl_id)
+			%isAdmin = 1;
+		
+		if(!%isAdmin)
 		{
-			if(getNumKeyId() $= %this.bl_id)
-				%isAdmin = 1;
-			
-			if(!%isAdmin)
+			for(%i = 0; %i < getWordCount($Pref::Server::AutoAdminList); %i++)
 			{
-				for(%i = 0; %i < getWordCount($Pref::Server::AutoAdminList); %i++)
+				if(getWord($Pref::Server::AutoAdminList, %i) $= %this.bl_id)
 				{
-					if(getWord($Pref::Server::AutoAdminList, %i) $= %this.bl_id)
-					{
-						%isAdmin = 1;
-						break;
-					}
+					%isAdmin = 1;
+					break;
 				}
-				for(%i = 0; %i < getWordCount($Pref::Server::AutoSuperAdminList); %i++)
+			}
+			for(%i = 0; %i < getWordCount($Pref::Server::AutoSuperAdminList); %i++)
+			{
+				if(getWord($Pref::Server::AutoSuperAdminList, %i) $= %this.bl_id)
 				{
-					if(getWord($Pref::Server::AutoSuperAdminList, %i) $= %this.bl_id)
-					{
-						%isAdmin = 1;
-						break;
-					}
+					%isAdmin = 1;
+					break;
 				}
 			}
 		}
