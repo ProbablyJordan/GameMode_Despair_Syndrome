@@ -249,22 +249,11 @@ package DespairSyndromePackage
 		%client.miniGame.gameMode.onDeath(%client.miniGame, %client, %sourceObject, %sourceClient, %damageType, %damLoc);
 	}
 
-	function serverCmdSuicide(%this, %bypass)
+	function serverCmdSuicide(%this)
 	{
-		if (!%this.inDefaultGame() || %bypass)
+		if (!%this.inDefaultGame())
 			return parent::serverCmdSuicide(%this);
-		if (%this.miniGame.gameMode.trial)
-		{
-			messageClient(%this, '', "You cannot suicide during the trial!");
-			return;
-		}
-		if (%this.miniGame.gameMode.killer == %this)
-		{
-			messageClient(%this, '', "You cannot suicide as the killer!");
-			return;
-		}
-		%message = "\c2Are you SURE you want to commit suicide?\nYou will be dead for the rest of the round!";
-		commandToClient(%this, 'messageBoxYesNo', "", %message, 'suicideAccept');
+		messageClient(%this, '', "Suicide is disabled.");
 	}
 
 	function serverCmdAlarm(%this)
@@ -367,11 +356,6 @@ package DespairSyndromePackage
 		}
 	}
 };
-
-function serverCmdSuicideAccept(%this)
-{
-	serverCmdSuicide(%this, 1);
-}
 
 if ($GameModeArg $= ($DS::Path @ "gamemode.txt"))
 	activatePackage("DespairSyndromePackage");
