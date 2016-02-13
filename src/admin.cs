@@ -143,12 +143,8 @@ function serverCmdDamageLogs(%client, %target)
 			messageClient(%client, '', '\c5Damage logs for client \c3%1\c5:', %target.getPlayerName());
 			for (%i=1;%i<=%found.attackCount;%i++) //Parse attack logs for info
 			{
-				// %found.attackRegion[%i]
-				// %found.attackType[%i]
-				// %found.attackDot[%i]
-				%text[%a++] = "\c6Count \c3["@%i@"], \c6Attacker\c3:" SPC %found.attackerName[%i];
-				%text[%a] = %text[%a] SPC "\c6Damage type\c3:" SPC %found.attackType[%i] SPC "\c6Direction\c3:" SPC (%found.attackDot[%i] > 0 ? "Back" : "Front");
-				//attack region unneccesary to know atm
+				%text[%a++] = "\c3["@ (%found.attackTime[%i] - $defaultMiniGame.lastResetTime) / 10000 @ " seconds after roundstart], \c6Attacker\c3:" SPC %found.attackerName[%i];
+				%text[%a] = %text[%a] SPC "\c6Damage weapon\c3:" SPC %found.attackSource[%i].getName() SPC "\c6Direction\c3:" SPC (%found.attackDot[%i] > 0 ? "Back" : "Front");
 			}
 			for (%i=1; %i<=%a; %i++)
 				messageClient(%client, '', %text[%i]);
@@ -225,8 +221,27 @@ function serverCmdRemoveFromQueue(%this, %target)
 	}
 	messageClient(%this, '', '\c5Target not found!');
 }
-
-
+function serverCmdIgnoreQueue(%this, %target)
+{
+	%target = findClientByName(%target);
+	if (!%this.isAdmin)
+		return;//%target = %this;
+	if (!isObject(DSTrialGameMode_Queue))
+	{
+		messageClient(%this, '', '\c5Killer queue is not initialized.');
+		return;
+	}
+	if (isObject(%target))
+	{
+		%target.ignoreFromQueue = !%target.ignoreFromQueue;
+		if (%this.isAdmin)
+			messageAdmins("\c5" @ %this.getPlayerName() SPC "has" SPC %target.ignoreFromQueue ? "ignored" : "unignored" SPC"\c6" SPC %target.getPlayerName() SPC "\c5from the killer queue.");
+		if (%target == %this)
+			messageClient(%this, '', '\c5You will now be %1 from the killer queue.', %target.ignoreFromQueue ? "ignored" : "unignored");
+		return;
+	}
+	messageClient(%this, '', '\c5Target not found!');
+}
 
 function serverCmdMute(%client, %time, %name1, %name2, %name3)
 {

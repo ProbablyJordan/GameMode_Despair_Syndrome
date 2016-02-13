@@ -311,6 +311,21 @@ function createBloodExplosion(%position, %velocity, %scale) {
 	%obj.explode();
 }
 
+function createBloodSplatterExplosion(%position, %velocity, %scale) {
+	%datablock = bloodExplosionProjectile3;
+	%obj = new Projectile() {
+		dataBlock = %datablock;
+
+		initialPosition = %position;
+		initialVelocity = %velocity;
+	};
+
+	MissionCleanup.add(%obj);
+
+	%obj.setScale(vectorMin(%scale, "1 1 1"));
+	%obj.explode();
+}
+
 //
 //Datablocks below
 //
@@ -371,7 +386,7 @@ datablock ParticleData(bloodParticle)
 	dragCoefficient		= 3.0;
 	windCoefficient		= 0.2;
 	gravityCoefficient	= 0.2;
-	inheritedVelFactor	= 1;
+	inheritedVelFactor	= 0;
 	constantAcceleration	= 0.0;
 	lifetimeMS		= 500;
 	lifetimeVarianceMS	= 10;
@@ -523,6 +538,63 @@ datablock ProjectileData(bloodExplosionProjectile2)
 	verticalImpulse	  = 0;
 	explosion           = bloodExplosion2;
 	particleEmitter     = bloodEmitter2;
+
+	muzzleVelocity      = 50;
+	velInheritFactor    = 1;
+
+	armingDelay         = 0;
+	lifetime            = 2000;
+	fadeDelay           = 1000;
+	bounceElasticity    = 0.5;
+	bounceFriction      = 0.20;
+	isBallistic         = true;
+	gravityMod = 0.1;
+
+	hasLight    = false;
+	lightRadius = 3.0;
+	lightColor  = "0 0 0.5";
+};
+
+datablock ParticleEmitterData(bloodEmitter3)
+{
+	ejectionPeriodMS = 10;
+	periodVarianceMS = 0;
+
+	ejectionVelocity = 8;
+	velocityVariance = 2;
+	orientParticles = 0;
+	ejectionOffset = 0.2;
+
+	thetaMin         = 0;
+	thetaMax         = 25;
+
+	particles = bloodParticle;
+
+	useEmitterColors = true;
+	uiName = "";
+};
+
+datablock ExplosionData(bloodExplosion3)
+{
+	//explosionShape = "";`
+	//soundProfile = bulletHitSound;
+	lifeTimeMS = 65;
+
+	particleEmitter = "";
+	particleDensity = 0.2;
+	particleRadius = 30;
+	emitter[0] = "bloodEmitter3";
+
+	faceViewer     = true;
+	explosionScale = "1 1 1";
+};
+
+datablock ProjectileData(bloodExplosionProjectile3)
+{
+	directDamage        = 0;
+	impactImpulse	     = 0;
+	verticalImpulse	  = 0;
+	explosion           = bloodExplosion3;
 
 	muzzleVelocity      = 50;
 	velInheritFactor    = 1;

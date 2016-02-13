@@ -54,6 +54,7 @@ function DSGameMode_Trial::onStart(%this, %miniGame)
 	%this.announcements = 0;
 	%this.forceVoteCount = 0;
 	%this.forceTrialCount = 0;
+	%this.killerRevealed = false;
 	cancel(%this.trialSchedule);
 	activatepackage(DSTrialPackge);
 	%miniGame.messageAll('', '\c5The culprit will be decided on by night. The first day doesn\'t have a killer, so use this time to study each other\'s behaviours.');
@@ -129,6 +130,23 @@ function DSGameMode_Trial::onDay(%this, %miniGame)
 {
 	parent::onDay(%this, %miniGame);
 	%this.checkInvestigationStart(%miniGame);
+	if (%this.deathCount <= 0 && %miniGame.days >= 3 && !%this.killerRevealed) //at 3rd day, someone will be tipped off about the murderer
+	{
+		for (%i = 0; %i < %miniGame.numMembers; %i++)
+		{
+			%member = %miniGame.member[%i];
+			%player = %member.player;
+			if (!isObject(%player) || %this.killer == %member)
+				continue;
+			%alivePlayers[%count++] = %member;
+		}
+		if (%count <= 0)
+			return;
+		%tipoff = %alivePlayers[getRandom(1, %count)];
+		messageClient(%tipoff, '', '<font:impact:30>You suddenly realise the true culprit: %1! Your objective is to kill them to steal their role. Do not reveal this information to anyone.', %this.killer);
+		messageAdmins(%tipoff.getPlayerName() SPC "was told who the killer is!");
+		%this.killerRevealed = true;
+	}
 }
 function DSGameMode_Trial::onNight(%this, %miniGame)
 {
@@ -139,7 +157,7 @@ function DSGameMode_Trial::onNight(%this, %miniGame)
 		{
 			%member = DSTrialGameMode_Queue.getObject(%i);
 
-			if (isObject(%member.player))
+			if (isObject(%member.player) && %member.inDefaultGame())
 			{
 				%alivePlayers[%count++] = %member;
 			}
@@ -150,7 +168,8 @@ function DSGameMode_Trial::onNight(%this, %miniGame)
 			for (%i = 0; %i < %miniGame.numMembers; %i++)
 			{
 				%member = %miniGame.member[%i];
-				DSTrialGameMode_Queue.add(%member);
+				if (!%member.ignoreQueue)
+					DSTrialGameMode_Queue.add(%member);
 			}
 			if (DSTrialGameMode_Queue.getCount() <= 0) //Error handler so it doesn't go infinite looping on me
 			{

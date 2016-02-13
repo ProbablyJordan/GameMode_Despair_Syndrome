@@ -133,6 +133,7 @@ package DespairSyndromePackage
 		Parent::reset(%this, %client);
 		%this.gameMode.onStart(%this);
 		%this.currTime = "Day";
+		%this.days = 0;
 		%this.gameMode.onDay(%this);
 		cancel(%this.DayTimeSchedule);
 		%this.DayTimeSchedule = %this.schedule(($DS::Time::DayLength/2) * 1000, "DayTimeSchedule");

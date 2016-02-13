@@ -208,6 +208,7 @@ function DSGameMode::onDay(%this, %miniGame)
 		%brick.eventEnabled1 = true;
 		%brick.eventEnabled2 = false;
 	}
+	%miniGame.days++;
 }
 function DSGameMode::onNight(%this, %miniGame)
 {

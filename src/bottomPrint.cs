@@ -59,6 +59,7 @@ function GameConnection::updateBottomPrint(%this)
 	%hour = %hour % 12;
 	if (%hour == 0)
 		%hour = 12;
-	%text = %text @ "<just:left><br>\c6Exhaustion: \c5" @ %bar @ "<just:right>\c6Time: \c3" @ %hour @ ":" @ %minute SPC %pastNoon;
+	%time = %hour @ ":" @ %minute SPC %pastNoon;
+	%text = %text @ "<just:left><br>\c6Exhaustion: \c5" @ %bar @ "<just:right>\c6Time: \c3" @ %time;
 	%this.bottomPrint(%text, 5, 0);
 }

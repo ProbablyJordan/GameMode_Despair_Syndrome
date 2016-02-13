@@ -249,6 +249,7 @@ package DSHealthPackage
 		%obj.attackCount++;
 		%obj.attackRegion[%obj.attackCount] = %obj.getRegion(%pos);
 		%obj.attackType[%obj.attackCount] = $DamageType_Array[%type];
+		%obj.attackSource[%obj.attackCount] = %src;
 		%obj.attackDot[%obj.attackCount] = %dot;
 		%obj.attacker[%obj.attackCount] = %source.getClassName() $= "GameConnection" ? %source : %source.client;
 		%obj.attackTime[%obj.attackCount] = getSimTime();
@@ -259,11 +260,10 @@ package DSHealthPackage
 		%randMax = %type == $DamageType::Sharp ? 2 : 3; //Sharp weapons have higher chance to cause blood
 		%blood = %type != $DamageType::Suicide && %type != $DamageType::Stamina;
 		%obj.playPain();
-		if (%blood)
-			%obj.doSplatterBlood(%randMax, %pos, %vector, %type == $DamageType::Sharp ? 45 : 180);
-		if (%source.getClassName() $= "Player") //rather good chance of getting blood on yourself
+		if (%source.getClassName() $= "Player" || %source.getClassName() $= "AIPlayer") //rather good chance of getting blood on yourself
 		{
 			%image = %source.getMountedImage(0);
+			%obj.attackSource[%obj.attackCount] = %image;
 			%props = %source.getItemProps();
 			if (%props.class $= "MeleeProps") //Can bloodify!
 				%props.bloody = true; //Always bloodify
@@ -283,7 +283,7 @@ package DSHealthPackage
 			}
 			if (%dot > 0) //Backstab
 			{
-				%damage *= getMin(1, %image.backstabMult) + %dot;
+				%damage *= getMax(1, %image.backstabMult) + %dot;
 			}
 		}
 		if (%type == $DamageType::Stamina)
@@ -300,10 +300,23 @@ package DSHealthPackage
 		if (%obj.health <= 0)
 		{
 			if (%blood)
+			{
+				createBloodSplatterExplosion(%pos, vectorNormalize(vectorSub(%pos, %source.getEyePoint())), "1 1 1");
+				if (%image != KnifeImage.getID())
+					serverPlay3d(goreFinisherSound, %obj.getHackPosition());
 				%obj.doSplatterBlood(6, %pos, %vector, %type == $DamageType::Sharp ? 45 : 180);
+			}
 			if (%obj.unconscious)
 				%obj.WakeUp();
 			Parent::damage(%this, %obj, %src, %position, %this.maxDamage * 4, %type);
+			return;
+		}
+		if (%blood)
+		{
+			createBloodSplatterExplosion(%pos, vectorNormalize(vectorSub(%pos, %source.getEyePoint())), "1 1 1");
+			if (%image != KnifeImage.getID())
+				serverPlay3d(goreSound @ getRandom(1, 4), %obj.getHackPosition());
+			%obj.doSplatterBlood(%randMax, %pos, %vector, %type == $DamageType::Sharp ? 45 : 180);
 		}
 	}
 };

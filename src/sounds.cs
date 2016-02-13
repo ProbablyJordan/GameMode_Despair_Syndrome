@@ -69,6 +69,56 @@ datablock AudioProfile(AdminBwoinkSound) {
 	description = audio2D;
 	preload = true;
 };
+
+//Damage
+datablock audioProfile(goreSound1)
+{
+	fileName = $DS::Path @ "res/sounds/damage/desceration-01.wav";
+	description = audioClosest3D;
+	preload = true;
+};
+datablock audioProfile(goreSound2)
+{
+	fileName = $DS::Path @ "res/sounds/damage/desceration-02.wav";
+	description = audioClosest3D;
+	preload = true;
+};
+datablock audioProfile(goreSound3)
+{
+	fileName = $DS::Path @ "res/sounds/damage/desceration-03.wav";
+	description = audioClosest3D;
+	preload = true;
+};
+datablock audioProfile(goreSound4)
+{
+	fileName = $DS::Path @ "res/sounds/damage/desceration-04.wav";
+	description = audioClosest3D;
+	preload = true;
+};
+datablock audioProfile(goreFinisherSound)
+{
+	fileName = $DS::Path @ "res/sounds/damage/splatter_impact.wav";
+	description = audioClosest3D;
+	preload = true;
+};
+datablock audioProfile(boneBreakSound1)
+{
+	fileName = $DS::Path @ "res/sounds/damage/bone_break-01.wav";
+	description = audioClosest3D;
+	preload = true;
+};
+datablock audioProfile(boneBreakSound2)
+{
+	fileName = $DS::Path @ "res/sounds/damage/bone_break-02.wav";
+	description = audioClosest3D;
+	preload = true;
+};
+datablock audioProfile(boneBreakSound3)
+{
+	fileName = $DS::Path @ "res/sounds/damage/bone_break-03.wav";
+	description = audioClosest3D;
+	preload = true;
+};
 //SFX -- not yet adapted to new soundsystem
 // new ScriptObject(GenericShellSFX)
 // {
