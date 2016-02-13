@@ -144,6 +144,7 @@ function DSGameMode_Trial::onDay(%this, %miniGame)
 			return;
 		%tipoff = %alivePlayers[getRandom(1, %count)];
 		messageClient(%tipoff, '', '<font:impact:30>You suddenly realise the true culprit: %1! Your objective is to kill them to steal their role. Do not reveal this information to anyone.', %this.killer.character.name);
+		messageClient(%this.killer, '', '<font:impact:30>%1 was told about your true identity! If they stay alive, they might tell someone else. It\'s best to kill them before it\'s too late!', %tipoff.character.name);
 		messageAdmins(%tipoff.getPlayerName() SPC "was told who the killer is!");
 		%this.killerRevealed = true;
 	}
