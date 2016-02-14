@@ -1,5 +1,3 @@
-$DS::Player::ExhaustionTime = 300; //5 mins
-
 //NOTE TO SELF: TSShapeConstructor has to be done BEFORE player datablock.
 datablock TSShapeConstructor(mDespairsyndromeDts) {
 	baseShape = "base/data/shapes/player/m_despairsyndrome.dts";
@@ -69,6 +67,7 @@ datablock PlayerData(PlayerDSArmor : PlayerStandardArmor)
 	jumpForce = 1200;
 	regenStamina = 0.5;
 	rechargeRate = 0;
+	jumpSound = "";
 };
 
 datablock PlayerData(PlayerDSFrozenArmor : PlayerStandardArmor)
@@ -79,6 +78,7 @@ datablock PlayerData(PlayerDSFrozenArmor : PlayerStandardArmor)
 	jumpForce = 0;
 	runForce = 0;
 	maxTools = 4;
+	jumpSound = "";
 };
 
 datablock PlayerData(PlayerCorpseArmor : PlayerStandardArmor)
@@ -90,6 +90,7 @@ datablock PlayerData(PlayerCorpseArmor : PlayerStandardArmor)
 	crouchBoundingBox = "5 5 4";
 	firstPersonOnly = 1;
 	maxTools = 4;
+	jumpSound = "";
 };
 
 
@@ -207,6 +208,8 @@ function PlayerDSArmor::onCollision(%this, %obj, %col, %vec, %speed)
 {
 	if (%col.getClassName() $= "Item")
 	{
+		if ($defaultMiniGame.noWeapons)
+			return;
 		if (!isObject(%col.carryPlayer) && isObject(%col.lastTosser) && %col.lastTosser != %obj) //We shouldn't be able to hurt our tosser
 		{
 			if (vectorLen(%col.getVelocity()) > 5) //Enough force to register as a hit

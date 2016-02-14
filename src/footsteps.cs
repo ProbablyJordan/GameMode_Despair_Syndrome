@@ -224,7 +224,6 @@ package FootstepsPackage
 };
 
 activatePackage("FootstepsPackage");
-JumpSound.fileName = "";
 
 function getNumberStart( %str )
 {

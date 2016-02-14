@@ -1,20 +1,20 @@
-function pingScoreTick()
-{
-	cancel($pingScoreTick);
-	if (!isObject(ClientGroup) || ClientGroup.getCount() <= 0)
-		return;
+// function pingScoreTick()
+// {
+// 	cancel($pingScoreTick);
+// 	if (!isObject(ClientGroup) || ClientGroup.getCount() <= 0)
+// 		return;
 
-	for (%i = 0; %i < ClientGroup.getCount(); %i++)
-	{
-		%client = ClientGroup.getObject(%i);
-		%client.setScore(%client.getPing());
-	}
+// 	for (%i = 0; %i < ClientGroup.getCount(); %i++)
+// 	{
+// 		%client = ClientGroup.getObject(%i);
+// 		%client.setScore(%client.getPing());
+// 	}
 
-	$pingScoreTick = schedule(1000, 0, "pingScoreTick");
-}
+// 	$pingScoreTick = schedule(1000, 0, "pingScoreTick");
+// }
 
-if (!isEventPending($pingScoreTick))
-	pingScoreTick();
+// if (!isEventPending($pingScoreTick))
+// 	pingScoreTick();
 
 function setServerName(%name)
 {

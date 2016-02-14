@@ -63,3 +63,59 @@ function GameConnection::updateBottomPrint(%this)
 	%text = %text @ "<just:left><br>\c6Exhaustion: \c5" @ %bar @ "<just:right>\c6Time: \c3" @ %time;
 	%this.bottomPrint(%text, 5, 0);
 }
+
+function GameConnection::sendActiveCharacter(%this)
+{
+	%control = %this.getControlObject();
+
+	if (%control.getType() & $TypeMasks::PlayerObjectType)
+	{
+		%target = %control.client;
+	}
+	else if (%control.getType() & $TypeMasks::CameraObjectType)
+	{
+		%target = %control.getOrbitObject().client;
+	}
+
+	if (isObject(%target) && isObject(%target.character))
+	{
+		%name = %target.character.name;
+	}
+
+	%text = "\c3Spectating:" SPC %name @ (%this.isAdmin ? " (" @ %target.getPlayerName() @ ")" : "");
+	%this.bottomPrint(%text);
+}
+
+package DSSpectatePackage
+{
+	function GameConnection::setControlObject(%this, %control)
+	{
+		Parent::setControlObject(%this, %control);
+		%this.sendActiveCharacter();
+	}
+
+	function Camera::setOrbitMode(%this, %obj, %mat, %minDist, %maxDist, %curDist, %ownObj)
+	{
+		Parent::setOrbitMode(%this, %obj, %mat, %minDist, %maxDist, %curDist, %ownObj);
+		%client = %this.getControllingClient();
+
+		if (isObject(%client))
+		{
+			%client.sendActiveCharacter();
+		}
+	}
+
+	function Camera::setMode(%this, %mode, %orbit)
+	{
+		Parent::setMode(%this, %mode, %orbit);
+		%client = %this.getControllingClient();
+
+		if (isObject(%client))
+		{
+			%client.sendActiveCharacter();
+		}
+	}
+};
+
+if ($GameModeArg $= ($DS::Path @ "gamemode.txt"))
+	activatePackage("DSSpectatePackage");

@@ -117,7 +117,7 @@ datablock ShapeBaseImageData(AdvSwordImage)
 	raycastEnabled = 1;
 	raycastRange = 3;
 	raycastFromEye = true;
-	directDamage = 25;
+	directDamage = 30;
 	directDamageType = $DamageType::Sharp;
 	raycastHitExplosion = SwordProjectile;
 };
@@ -181,13 +181,21 @@ function AdvSwordImage::onRaycastCollision(%this, %obj, %col, %pos, %normal, %ve
 
 	if (!%data.isDoor)
 		return;
+	if (%col.lockID $= "")
+	{
+		// %col.doorOpen(%col.isCCW, %obj.client);
+		return;
+	}
+	%random = getRandom(6);
 
-	%random = getRandom(9);
-
-	%col.doorHits += %random < 2 ? 0 : (%random < 9 ? 1 : 2);
+	%col.doorHits += %random < 2 ? 0 : (%random < 6 ? 1 : 2);
 
 	if (%col.doorHits >= 6)
-		%col.fakeKillBrick("10 10 0", -1);
+	{
+		%col.doorOpen(%col.isCCW, %obj.client);
+		%col.lockState = false;
+		%col.broken = true;
+	}
 }
 
 datablock ShapeBaseImageData(AdvSwordBlockImage : AdvSwordImage)
