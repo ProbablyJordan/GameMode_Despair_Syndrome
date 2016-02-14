@@ -2,6 +2,7 @@ $DS::RoomCount = 16;
 $DS::MaxPlayers = $DS::RoomCount;
 $DS::Time::DayLength = 300; //5 mins
 $DS::Time::NightLength = 150; //2.5 mins
+$DS::GameVoteRounds = 3;
 
 if (!isObject(GameRoundCleanup))
 	new SimSet(GameRoundCleanup);
@@ -100,8 +101,9 @@ package DespairSyndromePackage
 		if (%this.numMembers - DSAdminQueue.getCount() >= $DS::RoomCount && %member.isAdmin)
 		{
 			DSAdminQueue.add(%member);
-			messageClient(%this, '', "\c5You have been added to the admin queue due to max playerlimit being reached.");
+			messageClient(%member, '', "\c2You have been added to the admin queue due to max playerlimit being reached.");
 		}
+		messageClient(%member, '', '<font:arial bold:30>\c3Current mode is - \c2%1\c3! %2', %this.gameMode.name, %this.gameMode.desc);
 	}
 	function MiniGameSO::removeMember(%this, %member)
 	{
@@ -120,6 +122,27 @@ package DespairSyndromePackage
 		if (getSimTime() - %this.lastResetTime < 5000)
 			return;
 
+		//Doing this before initialising any of the gamemode stuffs might be a bit bad but w/e
+		cancel(%this.voteSchedule);
+		%this.rounds++;
+		if (%this.rounds % ($DS::GameVoteRounds + 1) == $DS::GameVoteRounds) //Every $DS::GameVoteRounds rounds
+		{
+			%this.voteCount = 0;
+			%this.gameModeVote = true;
+			announce("\c3It's time to vote for the next gametype! Available gametypes:");
+			for (%i = 0; %i < DSGameModeGroup.GetCount(); %i++)
+			{
+				%obj = DSGameModeGroup.getObject(%i);
+				if (!isObject(%obj) || %obj.omit)
+					continue;
+				announce("\c6 - \c2" @ %obj.name @ "\c6: " @ %obj.desc);
+			}
+			announce("\c3Cast your votes via /vote *gametype name*! You have \c660\c3 seconds to cast your votes.");
+			%this.voteSchedule = %this.schedule(60000, "checkVotes");
+			return;
+		}
+		//Voting check above^
+		%this.gameModeVote = false;
 		if (isObject(GameRoundCleanup))
 			GameRoundCleanup.deleteAll();
 		if (isObject(GameCharacters))
@@ -138,7 +161,84 @@ package DespairSyndromePackage
 		cancel(%this.DayTimeSchedule);
 		%this.DayTimeSchedule = %this.schedule(($DS::Time::DayLength/2) * 1000, "DayTimeSchedule");
 	}
+	//Gamemode voting, woo!
+	function MiniGameSO::checkVotes(%this)
+	{
+		cancel(%this.voteSchedule);
+		%miniGame.messageAll('', '\c3 There were \c2%1\c3 votes in total!', %this.voteCount);
+		for (%i = 1; %i <= %this.voteCount; %i++)
+		{
+			%votesfor[%this.votes[%i]]++;
+		}
+		for (%i = 0; %i < DSGameModeGroup.GetCount(); %i++)
+		{
+			%obj = DSGameModeGroup.getObject(%i);
+			if (!isObject(%obj) || %obj.omit)
+				continue;
+			if (%votesfor[%obj] > %majority)
+				%majority = %votesfor[%obj];
+			%contestants[%a++] = %obj;
+			announce("\c2" @ %votesfor[%obj] @ "\c6 votes for \c3" SPC %obj.name @ "!");
+		}
+		for (%i = 1; %i < %a; %i++)
+		{
+			if (%votesfor[%contestants[%i]] >= %majority)
+			{
+				%choices[%c++] = %contestants[%i];
+			}
+		}
+		%winner = %choices[getRandom(1, %c)];
+		announce("\c3The winner is... \c6" @ %winner.name @ "!");
+		$DS::GameMode = %winner;
+		%this.scheduleReset(3000);
+	}
 
+	function serverCmdVote(%client, %a, %b, %c, %d, %e, %f)
+	{
+		if (!$DefaultMiniGame.gameModeVote)
+		{
+			parent::serverCmdVote(%client, %a, %b, %c, %d, %e, %f);
+			return;
+		}
+		if (!%client.inDefaultGame())
+			return;
+		%search = trim(%a SPC %b SPC %c SPC %d SPC %e SPC %f);
+		for (%i = 1; %i <= %miniGame.voteCount; %i++)
+		{
+			if (%miniGame.voters[%i] == %client)
+			{
+				messageClient(%client, '', '\c6You already voted!');
+				return;
+			}
+		}
+		%a = 0;
+		for (%i = 0; %i < DSGameModeGroup.GetCount(); %i++)
+		{
+			%obj = DSGameModeGroup.getObject(%i);
+
+			if (!isObject(%obj) || %obj.omit)
+				continue;
+
+			if (striPos(%obj.name, %search) != -1)
+			{
+				%pick[%a++] = %obj;
+			}
+		}
+		if (%a > 1)
+		{
+			messageClient(%client, '', '\c6Please input a more specific name. There were %1 matches for the one you gave!', %a);
+			return;
+		}
+		if (%a <= 0)
+		{
+			messageClient(%client, '', '\c6There were no matches for given name!');
+			return;
+		}
+		%miniGame.voters[%miniGame.voteCount++] = %client;
+		%miniGame.votes[%miniGame.voteCount] = %pick[1];
+		messageClient(%client, '', '\c6You have cast your vote for %1.', %pick[1].name);
+	}
+	//{end of gamemode voting}
 	function GameConnection::spawnPlayer(%this)
 	{
 		if (!%this.inDefaultGame())
@@ -147,11 +247,11 @@ package DespairSyndromePackage
 		{
 			if (%this.miniGame.numMembers - DSAdminQueue.getCount() >= $DS::MaxPlayers)
 			{
-				CenterPrint(%this, "\c5You won't be able to spawn this round due to max players reached for minigame.");
+				CenterPrint(%this, "\c2You won't be able to spawn this round due to max players reached for minigame.");
 				return;
 			}
 			DSAdminQueue.remove(%member);
-			messageClient(%this, '', "\c5You have been removed from the admin queue.");
+			messageClient(%this, '', "\c2You have been removed from the admin queue.");
 		}
 		Parent::spawnPlayer(%this);
 	}

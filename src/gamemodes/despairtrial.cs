@@ -8,6 +8,7 @@ if (!isObject(DSGameMode_Trial))
 		name = "Despair Trial";
 		desc = "Someone's plotting murder against one of the students... Figure out who it is in a courtroom trial!";
 		class = DSGameMode;
+		omit = false;
 	};
 }
 
