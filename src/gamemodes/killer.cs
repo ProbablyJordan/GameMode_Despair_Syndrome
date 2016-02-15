@@ -1,5 +1,5 @@
 // Default Killer GameMode.
-$DS::GameMode::DaysToSurvive = 4;
+$DS::GameMode::DaysToSurvive = 4; //3 days excluding the first day
 if (!isObject(DSGameMode_Killer))
 {
 	new ScriptObject(DSGameMode_Killer)
@@ -21,6 +21,7 @@ function DSGameMode_Killer::onStart(%this, %miniGame)
 {
 	parent::onStart(%this, %miniGame);
 	%this.killer = "";
+	%this.madekiller = false;
 	%miniGame.messageAll('', '\c5The school is on lockdown due to one of the students going on a killing rampage..');
 	%miniGame.messageAll('', '\c5The objective of innocents is to survive a certain amount of days before help arrives.');
 	%miniGame.messageAll('', '\c5Objective of the killer, however, is to slaughter everyone in sight.');
@@ -86,13 +87,12 @@ function DSGameMode_Killer::checkLastManStanding(%this, %miniGame)
 		if (isObject(%member.player))
 			%alivePlayers[%count++] = %member;
 	}
-	%winner = "";
 	if (%count <= 1)
 	{
 		%this.onEnd(%miniGame, %alivePlayers[%count]);
 	}
-	// else if (!isObject(%this.killer.player))
-	// 	%this.onEnd(%miniGame, %winner);	
+	else if (!isObject(%this.killer) && %this.madekiller) //Killer left the game?
+		%this.onEnd(%miniGame);
 }
 function DSGameMode_Killer::onDay(%this, %miniGame)
 {
@@ -136,6 +136,7 @@ function DSGameMode_Killer::onNight(%this, %miniGame)
 			%this.onNight(%miniGame); //Try again
 			return;
 		}
+		%this.madekiller = true;
 		%this.killer = $DS::GameMode::ForceKiller !$= "" ? $DS::GameMode::ForceKiller : %alivePlayers[getRandom(1, %count)];
 		DSTrialGameMode_Queue.remove(%this.killer); //Remove from queue
 		%this.killer.player.addTool(AdvSwordItem);

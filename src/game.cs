@@ -112,6 +112,7 @@ package DespairSyndromePackage
 			%this.gameMode.onMiniGameLeave(%this, %member);
 		if (%member.isAdmin)
 			DSAdminQueue.remove(%member);
+		%this.checkLastManStanding();
 	}
 	function MiniGameSO::Reset(%this, %client)
 	{
@@ -127,6 +128,7 @@ package DespairSyndromePackage
 		%this.rounds++;
 		if (%this.rounds % ($DS::GameVoteRounds + 1) == $DS::GameVoteRounds) //Every $DS::GameVoteRounds rounds
 		{
+			cancel(%this.DayTimeSchedule);
 			%this.voteCount = 0;
 			%this.gameModeVote = true;
 			announce("\c3It's time to vote for the next gametype! Available gametypes:");
@@ -170,6 +172,7 @@ package DespairSyndromePackage
 		{
 			%votesfor[%this.votes[%i]]++;
 		}
+		%a = 0;
 		for (%i = 0; %i < DSGameModeGroup.GetCount(); %i++)
 		{
 			%obj = DSGameModeGroup.getObject(%i);
@@ -178,9 +181,10 @@ package DespairSyndromePackage
 			if (%votesfor[%obj] > %majority)
 				%majority = %votesfor[%obj];
 			%contestants[%a++] = %obj;
-			announce("\c2" @ %votesfor[%obj] @ "\c6 votes for \c3" SPC %obj.name @ "!");
+			announce((%votesfor[%obj] $= "" ? "\c60" : ("\c2" @ %votesfor[%obj])) @ "\c6 votes for\c3" SPC %obj.name @ "!");
 		}
-		for (%i = 1; %i < %a; %i++)
+		%c = 0;
+		for (%i = 1; %i <= %a; %i++)
 		{
 			if (%votesfor[%contestants[%i]] >= %majority)
 			{
@@ -202,6 +206,7 @@ package DespairSyndromePackage
 		}
 		if (!%client.inDefaultGame())
 			return;
+		%miniGame = %client.miniGame;
 		%search = trim(%a SPC %b SPC %c SPC %d SPC %e SPC %f);
 		for (%i = 1; %i <= %miniGame.voteCount; %i++)
 		{
@@ -261,6 +266,8 @@ package DespairSyndromePackage
 		if (%this != $DefaultMiniGame)
 			return Parent::checkLastManStanding(%this);
 		if (%this.numMembers < 1 || isEventPending(%this.scheduleReset))
+			return 0;
+		if (%this.gameModeVote)
 			return 0;
 		%this.gameMode.checkLastManStanding(%this);
 		return 0;
@@ -358,7 +365,17 @@ package DespairSyndromePackage
 
 	function serverCmdAlarm(%this)
 	{
-		//Todo: make this "scream" hotkey
+		%obj = %this.player;
+		if (!%this.inDefaultGame() || !isObject(%this.player) || %this.player.getState() $= "Dead")
+			return parent::serverCmdAlarm(%this);
+
+		if (getSimTime() - %this.lastScream < 3000) //A limit so it's not spammable
+			return;
+
+		%this.lastScream = getSimTime();
+		%this.haltStaminaReg = getSimTime();
+		%obj.setEnergyLevel(%obj.getEnergyLevel() - 20); //Screaming is riskee y'know
+		serverCmdMessageSent(%this, "!AAAAAAAAAAH!!");
 	}
 
 	function serverCmdLight(%this) //Another "interact" key for inventory stuff and other things
