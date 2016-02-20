@@ -369,11 +369,11 @@ package DespairSyndromePackage
 		if (!%this.inDefaultGame() || !isObject(%this.player) || %this.player.getState() $= "Dead")
 			return parent::serverCmdAlarm(%this);
 
-		if (getSimTime() - %this.lastScream < 3000) //A limit so it's not spammable
+		if (getSimTime() - %obj.lastScream < 15000) //A limit so it's not spammable
 			return;
 
-		%this.lastScream = getSimTime();
-		%this.haltStaminaReg = getSimTime();
+		%obj.lastScream = getSimTime();
+		%obj.haltStaminaReg = getSimTime();
 		%obj.setEnergyLevel(%obj.getEnergyLevel() - 20); //Screaming is riskee y'know
 		serverCmdMessageSent(%this, "!AAAAAAAAAAH!!");
 	}

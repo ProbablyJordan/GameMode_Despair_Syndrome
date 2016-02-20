@@ -217,7 +217,7 @@ function PlayerDSArmor::onCollision(%this, %obj, %col, %vec, %speed)
 				// echo(vectorLen(%col.getVelocity()));
 				if (%col.getDataBlock().image.isWeapon)
 				{
-					%this.damage(%obj, %col.lastTosser, %col.getPosition(), %col.getDataBlock().image.directDamage * getMin(vectorLen(%col.getVelocity())/11, 1), %col.getDataBlock().image.directDamageType);
+					// %this.damage(%obj, %col.lastTosser, %col.getPosition(), %col.getDataBlock().image.directDamage * getMin(vectorLen(%col.getVelocity())/11, 1), %col.getDataBlock().image.directDamageType);
 					%col.getDataBlock().image.onRaycastCollision(%col.lastTosser, %obj, %col.getPosition(), vectorNormalize(vectorAdd(%obj.getHackPosition(), %col.getPosition()))); //haaaaaax
 					%col.lastTosser = ""; //nullify last tosser
 				}
