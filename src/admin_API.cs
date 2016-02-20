@@ -23,14 +23,14 @@ function servercmdAPI_PM(%cl, %query, %msg)
 	if (isObject(%query) && %query.getClassName() $= "GameConnection")
 	{
 		messageClient(%query, '', '\c4Admin PM from\c5 %1\c6: %2', %cl.getPlayerName(), %msg);
-		%query.play2D(AdminBwoinkSound);    //srsly?
-		messageAdmins("\c4PM from \c5" @ %this.getPlayerName() @ "\c6 to \c5" @ %query.getPlayerName() @ "\c6: " @ %msg);
+		%query.play2D(AdminBwoinkSound);	//srsly?
+		messageAdmins("\c4PM from \c5" @ %cl.getPlayerName() @ "\c6 to \c5" @ %query.getPlayerName() @ "\c6: " @ %msg);
 	}
 	else if (isObject(%query = findClientByName(%query)))
 	{
 		messageClient(%query, '', '\c4Admin PM from\c5 %1\c6: %2', %cl.getPlayerName(), %msg);
-		%query.play2D(AdminBwoinkSound);   //srsly?
-		messageAdmins("\c4PM from \c5" @ %this.getPlayerName() @ "\c6 to \c5" @ %query.getPlayerName() @ "\c6: " @ %msg);
+		%query.play2D(AdminBwoinkSound);	//srsly?
+		messageAdmins("\c4PM from \c5" @ %cl.getPlayerName() @ "\c6 to \c5" @ %query.getPlayerName() @ "\c6: " @ %msg);
 	}
 	else
 		commandToClient(%cl, 'API_Error', "PM: Player not found");
