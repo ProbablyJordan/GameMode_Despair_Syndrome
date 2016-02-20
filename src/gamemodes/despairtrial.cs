@@ -32,10 +32,6 @@ datablock ItemData(MemorialItem)
 function DSGameMode_Trial::onMiniGameJoin(%this, %miniGame, %client)
 {
 	parent::onMiniGameJoin(%this, %miniGame, %client);
-	// Abusable (potentially)
-	// if (!isObject(DSTrialGameMode_Queue))
-	// 	new SimSet(DSTrialGameMode_Queue);
-	// DSTrialGameMode_Queue.add(%client);
 }
 
 function DSGameMode_Trial::onMiniGameLeave(%this, %miniGame, %client)
@@ -108,7 +104,10 @@ function DSGameMode_Trial::onDeath(%this, %miniGame, %client, %sourceObject, %so
 		{
 			%other = ClientGroup.getObject(%i);
 			if (%other.isAdmin)
-				messageClient(%other, '', "FREEKILL:" SPC %log);
+			{
+				messageClient(%other, '', "FREEKILL:"SPC %log);
+				commandToClient(%other, 'API_Freekill', %sourceClient, %client);
+			}
 		}
 		%client.corpse.ignore = true;
 		return;

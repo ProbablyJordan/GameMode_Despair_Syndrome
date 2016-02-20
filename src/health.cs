@@ -222,68 +222,71 @@ package DSHealthPackage
 	{
 		if (%damage == 0)
 			return;
-		if (%obj.getState() $= "Dead" || getSimTime() - %obj.spawnTime < $Game::PlayerInvulnerabilityTime)
+		if (%obj.getState()$= "Dead"|| getSimTime() - %obj.spawnTime < $Game::PlayerInvulnerabilityTime)
 			return;
-
 		%source = %src;
-
 		if (isObject(%src.sourceObject))
 			%source = %src.sourceObject;
-
 		if (%damage < 0)
 		{
-			%obj.addHealth(-%damage);
+			%obj.addHealth( - %damage);
 			return;
 		}
-
-		if(%src.getType() & $TypeMasks::PlayerObjectType)
+		if (%src.getType() & $TypeMasks::PlayerObjectType)
 		{
 			%vector = %src.getForwardVector();
 		}
 		else
 		{
-			%vector = vectorScale(%src.normal, -1);
+			%vector = vectorScale(%src.normal, - 1);
 		}
 
-		%dot = vectorDot(%obj.getForwardVector(),%vector);
+		%dot = vectorDot(%obj.getForwardVector(), %vector);
 		%obj.attackCount++;
 		%obj.attackRegion[%obj.attackCount] = %obj.getRegion(%pos);
 		%obj.attackType[%obj.attackCount] = $DamageType_Array[%type];
 		%obj.attackSource[%obj.attackCount] = %src;
 		%obj.attackDot[%obj.attackCount] = %dot;
-		%obj.attacker[%obj.attackCount] = %source.getClassName() $= "GameConnection" ? %source : %source.client;
+		%obj.attacker[%obj.attackCount] = %source.getClassName()$= "GameConnection"? %source: %source.client;
 		%obj.attackTime[%obj.attackCount] = getSimTime();
-		if ($DamageType_Array[%type] $= "Stamina")
+
+		if ($DamageType_Array[%type]$= "Stamina")
 			%obj.haltStaminaReg = getSimTime();
+
 		%obj.attackerName[%obj.attackCount] = isObject(%obj.attacker[%obj.attackCount]) ? %obj.attacker[%obj.attackCount].GetPlayerName() : "";
-		// echo("HARM:" SPC %obj.attackCount SPC %obj.attackRegion[%obj.attackCount] SPC %obj.attackType[%obj.attackCount] SPC %obj.attacker[%obj.attackCount].GetPlayerName());
 		%obj.setDamageFlash(getMax(0.25, %damage / %obj.maxHealth));
 
-		%randMax = %type == $DamageType::Sharp ? 2 : 3; //Sharp weapons have higher chance to cause blood
+		API_sendDamageUpdate(%obj.client, %obj.attacker[%obj.attackCount],
+			(%found.attackTime[%i] - $defaultMiniGame.lastResetTime) / 1000,
+			%obj.attackSource[%obj.attackCount].getName(),
+			%found.attackDot[%i] > 0? "Back": "Front");
+
+		%randMax = %type == $DamageType::Sharp ? 2: 3;
 		%blood = %type != $DamageType::Suicide && %type != $DamageType::Stamina;
 		%obj.playPain();
-		if (%source.getClassName() $= "Player" || %source.getClassName() $= "AIPlayer") //rather good chance of getting blood on yourself
+
+		if (%source.getClassName()$= "Player"|| %source.getClassName()$= "AIPlayer")
 		{
 			%image = %source.getMountedImage(0);
 			%obj.attackSource[%obj.attackCount] = %image;
 			%props = %source.getItemProps();
-			if (%props.class $= "MeleeProps") //Can bloodify!
-				%props.bloody = true; //Always bloodify
-			if (getRandom(1, %randMax) == 1 && %blood && isObject(%image))
+			if (%props.class$= "MeleeProps")
+				%props.bloody = true;
+
+			if (getRandom(1, %randMax) == 1&& %blood && isObject(%image))
 			{
 				%source.bloody["rhand"] = true;
-				// %source.bloody["lhand"] = true; //Idea: bloodify the other hand if player tries to carry the body!
-				%source.bloody["chest_front"] = true; //you filthy murderer, get blood on your chest.
+				%source.bloody["chest_front"] = true;
 				if (isObject(%source.client))
 					%source.client.applyBodyParts();
 			}
-			if (getRandom(1, %randMax) == 1 && %blood)
+			if (getRandom(1, %randMax) == 1&& %blood)
 			{
-				%obj.bloody["chest_" @ (%dot > 0 ? "back" : "front")] = true; //TODO: take sides into account, too. Maybe.
+				%obj.bloody["chest_"@ (%dot > 0? "back": "front")] = true;
 				if (isObject(%obj.client))
 					%obj.client.applyBodyParts();
 			}
-			if (%dot > 0) //Backstab
+			if (%dot > 0)
 			{
 				%damage *= getMax(1, %image.backstabMult) + %dot;
 			}

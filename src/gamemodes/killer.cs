@@ -36,6 +36,8 @@ function DSGameMode_Killer::onStart(%this, %miniGame)
 		{
 			%member = %miniGame.member[%i];
 			DSTrialGameMode_Queue.add(%member);
+			if (%member.isAdmin)
+				commandToClient(%member, 'API_RoundStart');
 		}
 	}
 }
