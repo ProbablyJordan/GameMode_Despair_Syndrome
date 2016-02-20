@@ -6,10 +6,10 @@ function servercmdAPI_Whois(%cl, %query)
 	%count = %mini.numMembers;
 	for (%i = 0; %i < %count; %i++)
 	{
-		%obj = %mini.member[%i];
-		if (!isObject(%obj.character))
+		%member = %mini.member[%i];
+		if (!isObject(%member.character))
 			continue;
-		if (%query $= "" || %query $= %obj.getBLID()
+		if (%query $= "" || %query $= %member.getBLID()
 			|| striPos(%member.getPlayerName(), %query) != -1
 			|| striPos(%member.character.name, %query) != -1)
 			commandToClient(%cl, 'API_WhoisReply', %member, %member.getPlayerName(), %member.character.name);
