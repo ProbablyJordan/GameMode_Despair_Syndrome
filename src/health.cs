@@ -256,11 +256,6 @@ package DSHealthPackage
 		%obj.attackerName[%obj.attackCount] = isObject(%obj.attacker[%obj.attackCount]) ? %obj.attacker[%obj.attackCount].GetPlayerName() : "";
 		%obj.setDamageFlash(getMax(0.25, %damage / %obj.maxHealth));
 
-		API_sendDamageUpdate(%obj.client, %obj.attacker[%obj.attackCount],
-			(%found.attackTime[%i] - $defaultMiniGame.lastResetTime) / 1000,
-			%obj.attackSource[%obj.attackCount].getName(),
-			%found.attackDot[%i] > 0? "Back": "Front");
-
 		%randMax = %type == $DamageType::Sharp ? 2: 3;
 		%blood = %type != $DamageType::Suicide && %type != $DamageType::Stamina;
 		%obj.playPain();
@@ -291,6 +286,9 @@ package DSHealthPackage
 				%damage *= getMax(1, %image.backstabMult) + %dot;
 			}
 		}
+		API_sendDamageUpdate(%obj.client, %obj.attacker[%obj.attackCount],
+			(%obj.attackTime[%obj.attackCount] - $defaultMiniGame.lastResetTime) / 1000,
+			%image.getName(), %obj.attackDot[%obj.attackCount] > 0? "Back": "Front");
 		if (%type == $DamageType::Stamina)
 		{
 			%obj.setEnergyLevel(%obj.getEnergyLevel() - %damage);

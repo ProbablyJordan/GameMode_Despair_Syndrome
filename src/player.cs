@@ -370,7 +370,7 @@ function PlayerDSArmor::onTrigger(%this, %obj, %slot, %state)
 							%obj.client.centerPrint(%text, 6);
 
 						//Hardcode central below
-						if (isObject(%obj.client) && isObject(%obj.client.miniGame.gameMode) && isFunction(%obj.client.miniGame.gameMode, "onBodyExamine"))
+						if (isObject(%obj.client) && isObject(%obj.client.miniGame.gameMode))
 							%obj.client.miniGame.gameMode.onBodyExamine(%obj.client.miniGame, %obj.client, %found);
 					}
 					%obj.lastBodyClick = $Sim::Time;

@@ -12,6 +12,9 @@ function DSGameMode::onMiniGameJoin(%this, %miniGame, %client)
 function DSGameMode::onMiniGameLeave(%this, %miniGame, %client)
 {
 }
+function DSGameMode::onBodyExamine(%this, %miniGame, %client, %body)
+{
+}
 function DSGameMode::onStart(%this, %miniGame)
 {
 	$DefaultMiniGame.lastStageStarted = getSimTime();
@@ -69,6 +72,9 @@ function DSGameMode::onStart(%this, %miniGame)
 	{
 		%member = %miniGame.member[%i];
 		%player = %member.player;
+
+		if (%member.isAdmin)
+			commandToClient(%member, 'API_RoundStart');
 
 		if (!isObject(%player))
 			continue;
