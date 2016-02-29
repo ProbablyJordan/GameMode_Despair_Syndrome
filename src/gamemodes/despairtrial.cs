@@ -105,7 +105,7 @@ function DSGameMode_Trial::onDeath(%this, %miniGame, %client, %sourceObject, %so
 			%other = ClientGroup.getObject(%i);
 			if (%other.isAdmin)
 			{
-				messageClient(%other, '', "FREEKILL:"SPC %log);
+				messageClient(%other, '', "FREEKILL:" SPC %log);
 				commandToClient(%other, 'API_Freekill', %sourceClient, %client);
 			}
 		}

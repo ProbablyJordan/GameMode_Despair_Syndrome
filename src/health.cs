@@ -299,7 +299,11 @@ package DSHealthPackage
 			return;
 		}
 		else
+		{
+			if (%obj.unconscious && %obj.health - %damage > 0)
+				%obj.WakeUp();
 			%obj.setHealth(%obj.health - %damage);
+		}
 		if (%obj.health <= 0)
 		{
 			if (%blood)

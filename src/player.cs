@@ -107,6 +107,8 @@ function PlayerDSArmor::onNewDataBlock(%this, %obj)
 
 function Player::setExhaustion(%this, %val)
 {
+	if (%this.exhaustionImmune) //To be used for players assigned killer roles.
+		return;
 	%this.exhaustion = MClamp(%val, 1, 4);
 	%this.energyLimit = %this.getDataBlock().maxEnergy * (%this.exhaustion/4); //4 bars = 100% stamina, 3 bars = 75%, 2 = 50%, 1 = 25%
 	if (isObject(%this.client))
