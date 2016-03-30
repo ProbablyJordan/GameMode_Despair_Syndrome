@@ -2,39 +2,40 @@ function GameConnection::updateBottomPrint(%this)
 {
 	if (!isObject(%character = %this.character)) return;
 
+	%mode = (%mini = %this.minigame).gamemode;
+	if (isObject(%mode))
+		%text = %mode.getBottomPrintText(%mini, %this);
+	%this.bottomPrint(%text, 5, 1);
+}
+
+function DSGamemode::getBottomPrintText(%mode, %mini, %cl)
+{
+	%character = %cl.character;
 	%nameTextColor = "ffff00";
 	if (%character.gender $= "female")
 		%nameTextColor = "ff11cc";
 	else if (%character.gender $= "male")
 		%nameTextColor = "22ccff";
 
-	for (%i=1; %i<=4; %i++)
-	{
-		%color = %i <= %this.player.exhaustion ? "\c6" : "\c7";
-		%bar = %bar @ %color;
-		if (%i > 1)
-			%bar = %bar @ "|";
-		%bar = %bar @ "---"; //Exhaustion bars
-	}
 	%health = 0;
 	%maxhealth = 0;
 	%stamina = 0;
 	%maxstamina = 0;
-	if (isObject(%this.player))
+	if (isObject(%cl.player))
 	{
-		%health = MFloor(%this.player.getHealth());
-		%maxhealth = %this.player.getMaxHealth();
-		%stamina = MFloor(%this.player.getEnergyLevel());
-		%maxstamina = %this.player.energyLimit;
+		%health = mFloor(%cl.player.getHealth());
+		%maxhealth = %cl.player.getMaxHealth();
+		%stamina = mFloor(%cl.player.getEnergyLevel());
+		%maxstamina = mFloor(%cl.player.energyLimit);
 	}
 
 	%roleColor = "\c7";
 	%role = "Undecided";
-	if (%this.inDefaultGame() && isObject(%this.miniGame.gameMode.killer))
+	if (%cl.inDefaultGame() && isObject(%cl.miniGame.gameMode.killer))
 	{
 		%roleColor = "\c2";
 		%role = "Innocent";
-		if (%this.miniGame.gameMode.killer == %this)
+		if (%cl.miniGame.gameMode.killer == %cl)
 		{
 			%roleColor = "\c0";
 			%role = "Killer";
@@ -60,8 +61,9 @@ function GameConnection::updateBottomPrint(%this)
 	if (%hour == 0)
 		%hour = 12;
 	%time = %hour @ ":" @ %minute SPC %pastNoon;
-	%text = %text @ "<just:left><br>\c6Exhaustion: \c5" @ %bar @ "<just:right>\c6Time: \c3" @ %time;
-	%this.bottomPrint(%text, 5, 0);
+	//%text = %text @ "<just:left><br>\c6Exhaustion: \c5" @ %bar @ "<just:right>\c6Time: \c3" @ %time;
+	%text = %text @ "<br><just:right>\c6Time: \c3" @ %time;
+	return %text;
 }
 
 function GameConnection::sendActiveCharacter(%this)
@@ -77,12 +79,14 @@ function GameConnection::sendActiveCharacter(%this)
 		%target = %control.getOrbitObject().client;
 	}
 
-	if (isObject(%target) && isObject(%target.character))
+	if (isObject(%target))
 	{
-		%name = %target.character.name;
+		if (isObject(%target.character))
+			%name = %target.character.name;
+		%rName = %target.name;
 	}
 
-	%text = "\c3Spectating:" SPC %name @ (%this.isAdmin ? " (" @ %target.getPlayerName() @ ")" : "");
+	%text = "\c3Spectating:" SPC %name @ (%this.isAdmin ? " (" @ %rName @ ")" : "");
 	%this.bottomPrint(%text);
 }
 

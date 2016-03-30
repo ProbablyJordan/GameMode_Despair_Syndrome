@@ -1,12 +1,12 @@
 ////////////////////////////////////////////////////////
 
-datablock ItemData(CaneItem)
+datablock ItemData(WoodBatItem)
 {
 	category = "Weapon";  // Mission editor category
 	className = "Weapon"; // For inventory system
 
 	 // Basic Item Properties
-	shapeFile = $DS::Path @ "res/shapes/tools/Cane.dts";
+	shapeFile = $DS::Path @ "res/shapes/tools/wooden_bat.dts";
 	rotate = false;
 	mass = 1;
 	density = 0.2;
@@ -15,7 +15,7 @@ datablock ItemData(CaneItem)
 	emap = true;
 
 	//gui stuff
-	uiName = "Cane";
+	uiName = "Wooden Bat";
 	iconName = $DS::Path @ "res/icons/icon_Cane";
 	doColorShift = false;
 	colorShiftColor = "0.100 0.500 0.250 1.000";
@@ -23,28 +23,28 @@ datablock ItemData(CaneItem)
 	itemPropsClass = "MeleeProps";
 
 	 // Dynamic properties defined by the scripts
-	image = CaneImage;
+	image = WoodBatImage;
 	canDrop = true;
 	canBlock = true; //Can you block w/ rightclick using this weapon?
-	blockImage = CaneBlockImage; //Image to use when blocking
+	blockImage = WoodBatBlockImage; //Image to use when blocking
 	blockSound["good"] = MeleeBlockSoundGood; //TODO: Weapon-specific block sounds
 	blockSound["decent"] = MeleeBlockSoundDecent;
 	blockSound["bad"] = MeleeBlockSoundBad;
 	blockBaseDrain = 15; //What stamina drain do you get on best possible block
-	blockMaxDrain = 100; //How much stamina can be possibly drained from you at worst block
-	blockEnemyDrain = 44; //How much stamina to drain from opponent on succesful block
+	blockMaxDrain = 70; //How much stamina can be possibly drained from you at worst block
+	blockEnemyDrain = 50; //How much stamina to drain from opponent on succesful block
 
-	w_class = 3; //Weight class: 1 is tiny, 2 is small, 3 is normal-sized, 4 is bulky
+	w_class = 4; //Weight class: 1 is tiny, 2 is small, 3 is normal-sized, 4 is bulky
 };
 
 ////////////////////////////////////////////////////////
 //weapon image//////////////////////////////////////////
 ////////////////////////////////////////////////////////
 
-datablock ShapeBaseImageData(CaneImage)
+datablock ShapeBaseImageData(WoodBatImage)
 {
 	// Basic Item properties
-	shapeFile = $DS::Path @ "res/shapes/tools/Cane.dts";
+	shapeFile = $DS::Path @ "res/shapes/tools/wooden_bat.dts";
 	emap = true;
 
 	mountPoint = 0;
@@ -56,16 +56,16 @@ datablock ShapeBaseImageData(CaneImage)
 
 	className = "WeaponImage";
 
-	item = CaneItem;
+	item = WoodBatItem;
 	ammo = " ";
-	projectile = CaneProjectile;
+	projectile = WoodBatProjectile;
 	projectileType = Projectile;
 
 	melee = true;
 	armReady = true;
 
 	doColorShift = false;
-	colorShiftColor = CaneItem.colorShiftColor;//"0.400 0.196 0 1.000";
+	colorShiftColor = WoodBatItem.colorShiftColor;//"0.400 0.196 0 1.000";
 
 	// Initial start up state
 	stateName[0]					= "Activate";
@@ -104,18 +104,18 @@ datablock ShapeBaseImageData(CaneImage)
 	stateTransitionOnTriggerUp[5]	= "Ready";
 	stateScript[5]					= "EndFire";
 
-	staminaDrain = 30;
+	staminaDrain = 20;
 
 	isWeapon = true;
 	raycastEnabled = 1;
 	raycastRange = 3;
 	raycastFromEye = true;
-	directDamage = 40;
+	directDamage = 30;
 	directDamageType = $DamageType::Brute;
 	raycastHitExplosion = hammerProjectile;
 };
 
-function CaneImage::onMount(%this, %obj, %slot)
+function WoodBatImage::onMount(%this, %obj, %slot)
 {
 	%obj.playThread(1, root);
 	if (%obj.getEnergyLevel() < %this.staminaDrain)
@@ -124,19 +124,19 @@ function CaneImage::onMount(%this, %obj, %slot)
 		%obj.setImageAmmo(0, 1);
 }
 
-function CaneImage::onPreFire(%this, %obj, %slot)
+function WoodBatImage::onPreFire(%this, %obj, %slot)
 {
 	%obj.playThread(1, armReadyRight);
 	%obj.playThread(2, activate);
 	ServerPlay3D(MeleeSwingSound, %obj.getHackPosition());
 }
 
-function CaneImage::EndFire(%this, %obj, %slot)
+function WoodBatImage::EndFire(%this, %obj, %slot)
 {
 	%obj.playThread(1, root);
 }
 
-function CaneImage::Ready(%this, %obj, %slot)
+function WoodBatImage::Ready(%this, %obj, %slot)
 {
 	%obj.playThread(1, root);
 	if (%obj.getEnergyLevel() < %this.staminaDrain)
@@ -145,7 +145,7 @@ function CaneImage::Ready(%this, %obj, %slot)
 		%obj.setImageAmmo(0, 1);
 }
 
-function CaneImage::onCheckFire(%this, %obj, %slot)
+function WoodBatImage::onCheckFire(%this, %obj, %slot)
 {
 	if (%obj.getEnergyLevel() < %this.staminaDrain)
 		%obj.setImageAmmo(0, 0);
@@ -153,7 +153,7 @@ function CaneImage::onCheckFire(%this, %obj, %slot)
 		%obj.setImageAmmo(0, 1);
 }
 
-function CaneImage::onFire(%this, %obj, %slot)
+function WoodBatImage::onFire(%this, %obj, %slot)
 {
 	if(%obj.getDamagePercent() < 1.0)
 		%obj.playThread(2, shiftTo);
@@ -163,7 +163,7 @@ function CaneImage::onFire(%this, %obj, %slot)
 	parent::onFire(%this, %obj, %slot);
 }
 
-function CaneImage::onRaycastCollision(%this, %obj, %col, %pos, %normal, %vec)
+function WoodBatImage::onRaycastCollision(%this, %obj, %col, %pos, %normal, %vec)
 {
 	Parent::onRaycastCollision(%this, %obj, %col, %pos, %normal, %vec);
 	ServerPlay3D(%col.getType() & $TypeMasks::playerObjectType ? UmbrellaHit1Sound : (%col.getDataBlock().isDoor ? WoodHitSound : UmbrellaHit2Sound), %pos, %col.getDataBlock().isDoor ? 1 : 0);
@@ -191,10 +191,10 @@ function CaneImage::onRaycastCollision(%this, %obj, %col, %pos, %normal, %vec)
 	}
 }
 //Block image
-datablock ShapeBaseImageData(CaneBlockImage : CaneImage)
+datablock ShapeBaseImageData(WoodBatBlockImage : WoodBatImage)
 {
 	offset = "0 0 0";
-	rotation = eulerToMatrix("0 90 0"); //due to cane
+	rotation = eulerToMatrix("0 -90 0"); //due to cane
 
 	stateName[0]					= "Activate";
 	stateTimeoutValue[0]			= 0.01;
@@ -205,7 +205,7 @@ datablock ShapeBaseImageData(CaneBlockImage : CaneImage)
 	stateAllowImageChange[1]		= true;
 	stateSequence[1]				= "Ready";
 };
-function CaneBlockImage::onMount(%this, %obj, %slot)
+function WoodBatBlockImage::onMount(%this, %obj, %slot)
 {
 	Parent::onMount(%this,%obj,%slot);
 	%obj.playThread(1, armReadyBoth);
@@ -214,7 +214,7 @@ function CaneBlockImage::onMount(%this, %obj, %slot)
 	%obj.lastBlockTime = $Sim::Time;
 	%obj.regenStamina = 0;
 }
-function CaneBlockImage::onUnMount(%this, %obj, %slot)
+function WoodBatBlockImage::onUnMount(%this, %obj, %slot)
 {
 	Parent::onUnMount(%this,%obj,%slot);
 	%obj.playThread(1, root);

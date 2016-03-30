@@ -1,46 +1,34 @@
-// Default Killer GameMode.
-$DS::GameMode::DaysToSurvive = 4; //3 days excluding the first day
-if (!isObject(DSGameMode_Killer))
+if (!isObject(DSGameMode_Purge))
 {
-	new ScriptObject(DSGameMode_Killer)
+	new ScriptObject(DSGameMode_Purge)
 	{
-		name = "Despair Massacre";
-		desc = "One guy is the killer. Figure out who it is before he kills you all!";
+		name = "The Purge";
+		desc = "The first night is the Purge. Whoever murders on that night becomes a killer for the rest of the round!";
 		class = DSGameMode;
 		omit = false;
-		maxPlayers = 8;
+		minPlayers = 10;
 	};
 }
 
-function DSGameMode_Killer::onMiniGameLeave(%this, %miniGame, %client)
+function DSGameMode_Purge::onMiniGameLeave(%this, %miniGame, %client)
 {
 	parent::onMiniGameLeave(%this, %miniGame, %client);
 	DSTrialGameMode_Queue.remove(%client);
 }
 
-function DSGameMode_Killer::onStart(%this, %miniGame)
+function DSGameMode_Purge::onStart(%this, %miniGame)
 {
 	parent::onStart(%this, %miniGame);
-	%this.killer = "";
 	%this.madekiller = false;
-	%miniGame.messageAll('', '\c5The school is on lockdown due to one of the students going on a killing rampage..');
-	%miniGame.messageAll('', '\c5The objective of innocents is to survive a certain amount of days before help arrives.');
-	%miniGame.messageAll('', '\c5Objective of the killer, however, is to slaughter everyone in sight.');
-	%miniGame.messageAll('', '\c5Note that, like in Despair Trial, killing the killer means stealing their role!');
+	%miniGame.messageAll('', '\c5The school\'s occult club has prophesized that tonight will be the Purge. Tonight, many murderers shall rise and attempt to slay everyone in their path.');
+	%miniGame.messageAll('', '\c5The objective of the innocents is to lynch all the murderers from the night of the Purge.');
+	%miniGame.messageAll('', '\c5The objective of the killers is to kill the remaining survivors before they are all killed off.');
+	%miniGame.messageAll('', '\c5Note that while you cannot kill during the day, killer role stealing from Despair Trial is still in play.');
 	%miniGame.messageAll('', '<font:impact:20>\c3DO NOT MURDER WITHOUT REASON THIS ROUND UNLESS YOU\'RE THE KILLER!!');
-	if (!isObject(DSTrialGameMode_Queue))
-		new SimSet(DSTrialGameMode_Queue);
-
-	if (DSTrialGameMode_Queue.getCount() <= 0)
-	{
-		for (%i = 0; %i < %miniGame.numMembers; %i++)
-		{
-			%member = %miniGame.member[%i];
-			DSTrialGameMode_Queue.add(%member);
-		}
-	}
+	if (!isObject(DSPurgeKillers))
+		new SimSet(DSPurgeKillers);
 }
-function DSGameMode_Killer::onEnd(%this, %miniGame, %winner)
+function DSGameMode_Purge::onEnd(%this, %miniGame, %winner)
 {
 	if (isEventPending(%miniGame.resetSchedule))
 		return;
@@ -51,26 +39,21 @@ function DSGameMode_Killer::onEnd(%this, %miniGame, %winner)
 	%miniGame.messageAll('', %endtext SPC "\c5A new game will begin in 15 sceonds.");
 	%miniGame.scheduleReset(10000);
 }
-function DSGameMode_Killer::onDeath(%this, %miniGame, %client, %sourceObject, %sourceClient, %damageType, %damLoc)
+function DSGameMode_Purge::onDeath(%this, %miniGame, %client, %sourceObject, %sourceClient, %damageType, %damLoc)
 {
-	if (%this.killer == %client)
+	if (%sourceClient == %client || %sourceClient == 0)
+		return;
+	if (DSPurgeKillers.isMember(%client))
 	{
-		if (!isObject(%sourceClient) || %sourceClient == %client)
-		{
-			%this.onEnd(%minigame, 0);
-			return;
-		}
 		%this.killer = %sourceClient;
 		%this.killer.play2d(KillerJingleSound);
-		messageClient(%this.killer, '', '<font:impact:30>YOU BECAME THE KILLER! Self defence? Murder? Doesn\'t matter. Now you have to get away with it. Nobody must know.');
-		%this.killer.centerPrint("<font:impact:30>YOU BECAME THE KILLER!", 3);
+		messageClient(%this.killer, '', '<font:impact:30>YOU BECAME A KILLER! Self defence? Murder? Doesn\'t matter. Now you have to get away with it. Nobody must know.');
+		%this.killer.centerPrint("<font:impact:30>YOU BECAME A KILLER!", 3);
 		%this.killer.player.regenStaminaDefault *= 2;
 		%this.killer.player.exhaustionImmune = true;
 	}
-	else if (%this.killer != %sourceClient) //Freekill?
+	else if (!DSPurgeKillers.isMember(%sourceClient)) //Freekill?
 	{
-		if (%sourceClient == %client || %sourceClient == 0)
-			return;
 		//Maybe penalize?
 		%log = %sourceClient.getPlayerName() SPC "just killed" SPC %client.getPlayerName() SPC "as a non-killer.";
 		echo("\c2" SPC %log);
@@ -85,7 +68,7 @@ function DSGameMode_Killer::onDeath(%this, %miniGame, %client, %sourceObject, %s
 		return;
 	}
 }
-function DSGameMode_Killer::checkLastManStanding(%this, %miniGame)
+function DSGameMode_Purge::checkLastManStanding(%this, %miniGame)
 {
 	%count = 0;
 	for (%i = 0; %i < %miniGame.numMembers; %i++)
@@ -99,10 +82,10 @@ function DSGameMode_Killer::checkLastManStanding(%this, %miniGame)
 	{
 		%this.onEnd(%miniGame, %alivePlayers[%count]);
 	}
-	else if (!isObject(%this.killer) && %this.madekiller) //Killer left the game?
+	else if (DSPurgeKillers.getCount() == 0 && %this.madekiller) //Killer left the game?
 		%this.onEnd(%miniGame);
 }
-function DSGameMode_Killer::onDay(%this, %miniGame)
+function DSGameMode_Purge::onDay(%this, %miniGame)
 {
 	parent::onDay(%this, %miniGame);
 	if (%miniGame.days >= $DS::GameMode::DaysToSurvive)
@@ -112,7 +95,7 @@ function DSGameMode_Killer::onDay(%this, %miniGame)
 	}
 	%miniGame.messageAll('', '\c3%1\c5 Days left until help arrives.', $DS::GameMode::DaysToSurvive - %miniGame.days);
 }
-function DSGameMode_Killer::onNight(%this, %miniGame)
+function DSGameMode_Purge::onNight(%this, %miniGame)
 {
 	if (!isObject(%this.killer))
 	{

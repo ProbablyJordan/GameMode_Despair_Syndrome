@@ -55,14 +55,14 @@ function Player::getMaxHealth(%this)
 	return %this.getDataBlock().maxDamage;
 }
 
-function Player::KnockOut(%this, %duration, %exRestore)
+function Player::KnockOut(%this, %duration)
 {
 	%this.changeDataBlock(PlayerCorpseArmor);
 	%client = %this.client;
 	if (isObject(%client) && isObject(%client.camera))
 	{
-		messageClient(%client, '', 'You will be unconscious for %1 seconds.', %duration / 1000);
-		if (%client.getControlObject() != %client.camera)
+		//messageClient(%client, '', 'You will be unconscious for %1 seconds.', %duration / 1000);
+		if (%client.getControlObject() != %client.camera || %this.currResting)
 		{
 			// %client.camera.setMode("Corpse", %this);
 			// %client.setControlObject(%client.camera);
@@ -97,18 +97,26 @@ function Player::KnockOut(%this, %duration, %exRestore)
 			%camera.setControlObject(%client.dummyCamera);
 		}
 	}
-	if (%exRestore !$= "")
-		%this.setExhaustion(%this.exhaustion + %exRestore);
-	%this.setArmThread(land);
-	%this.playThread(0, "root");
-	%this.playThread(1, "root");
-	%this.playThread(2, "root");
-	%this.playThread(3, "death1");
-	%this.setActionThread("root");
+	//if (%exRestore !$= "")
+	//	%this.setExhaustion(%this.exhaustion + %exRestore);
+	if (!%this.currResting)
+	{
+		%this.setArmThread(land);
+		%this.playThread(0, "root");
+		%this.playThread(1, "root");
+		%this.playThread(2, "root");
+		%this.playThread(3, "death1");
+		%this.setActionThread("root");
+	}
 	%this.unconscious = true;
 	%this.setShapeNameDistance(0);
 	%this.isBody = true;
-	%this.KnockOutTick(%duration/1000);
+	if (%duration > 0)
+	{
+		%this.knockoutStart = getSimTime();
+		%this.knockoutLength = %duration;
+	}
+	//%this.KnockOutTick(%duration/1000);
 }
 
 function Player::KnockOutTick(%this, %ticks, %done)
@@ -144,6 +152,9 @@ function Player::WakeUp(%this)
 	cancel(%this.wakeUpSchedule);
 	if (%this.getState() $= "Dead" || !%this.unconscious)
 		return;
+	%this.currSleeping = 0;
+	%this.currResting = 0;
+	%this.knockoutStart = "";
 	%client = %this.client;
 	if (isObject(%client) && isObject(%client.camera))
 	{
@@ -169,8 +180,16 @@ package DSHealthPackage
 	function Observer::onTrigger(%this, %obj, %slot, %state)
 	{
 		%client = %obj.getControllingClient();
-		if (isObject(%client.player) && %client.player.unconscious)
-			return;
+		if (isObject(%pl = %client.player))
+		{
+			if (%pl.currResting && %state)
+			{
+				%pl.currResting = 0;
+				%pl.WakeUp();
+			}
+			if (%pl.unconscious || %pl.currSleeping)
+				return;
+		}
 		Parent::onTrigger(%this, %obj, %slot, %state);
 	}
 	function serverCmdUseTool(%client, %slot)
@@ -220,6 +239,8 @@ package DSHealthPackage
 
 	function Armor::damage(%this, %obj, %src, %pos, %damage, %type)
 	{
+		if (!%obj.client.inDefaultGame())
+			return;
 		if (%damage == 0)
 			return;
 		if (%obj.getState()$= "Dead"|| getSimTime() - %obj.spawnTime < $Game::PlayerInvulnerabilityTime)
@@ -229,7 +250,7 @@ package DSHealthPackage
 			%source = %src.sourceObject;
 		if (%damage < 0)
 		{
-			%obj.addHealth( - %damage);
+			%obj.addHealth(-%damage);
 			return;
 		}
 		if (%src.getType() & $TypeMasks::PlayerObjectType)
@@ -238,7 +259,7 @@ package DSHealthPackage
 		}
 		else
 		{
-			%vector = vectorScale(%src.normal, - 1);
+			%vector = vectorScale(%src.normal, -1);
 		}
 
 		%dot = vectorDot(%obj.getForwardVector(), %vector);
@@ -250,7 +271,7 @@ package DSHealthPackage
 		%obj.attacker[%obj.attackCount] = %source.getClassName()$= "GameConnection"? %source: %source.client;
 		%obj.attackTime[%obj.attackCount] = getSimTime();
 
-		if ($DamageType_Array[%type]$= "Stamina")
+		if ($DamageType_Array[%type] $= "Stamina")
 			%obj.haltStaminaReg = getSimTime();
 
 		%obj.attackerName[%obj.attackCount] = isObject(%obj.attacker[%obj.attackCount]) ? %obj.attacker[%obj.attackCount].GetPlayerName() : "";
@@ -262,20 +283,23 @@ package DSHealthPackage
 
 		if (%source.getClassName()$= "Player"|| %source.getClassName()$= "AIPlayer")
 		{
-			%image = %source.getMountedImage(0);
+			if (isObject(%item = %obj.lastItemImpact))
+				%image = %item.getDatablock().image;
+			else
+				%image = %source.getMountedImage(0);
 			%obj.attackSource[%obj.attackCount] = %image;
 			%props = %source.getItemProps();
 			if (%props.class$= "MeleeProps")
 				%props.bloody = true;
 
-			if (getRandom(1, %randMax) == 1&& %blood && isObject(%image))
+			if (getRandom(1, %randMax) == 1 && %blood && isObject(%image))
 			{
 				%source.bloody["rhand"] = true;
 				%source.bloody["chest_front"] = true;
 				if (isObject(%source.client))
 					%source.client.applyBodyParts();
 			}
-			if (getRandom(1, %randMax) == 1&& %blood)
+			if (getRandom(1, %randMax) == 1 && %blood)
 			{
 				%obj.bloody["chest_"@ (%dot > 0? "back": "front")] = true;
 				if (isObject(%obj.client))
@@ -286,23 +310,39 @@ package DSHealthPackage
 				%damage *= getMax(1, %image.backstabMult) + %dot;
 			}
 		}
-		API_sendDamageUpdate(%obj.client, %obj.attacker[%obj.attackCount],
-			(%obj.attackTime[%obj.attackCount] - $defaultMiniGame.lastResetTime) / 1000,
-			%image.getName(), %obj.attackDot[%obj.attackCount] > 0? "Back": "Front");
+		
 		if (%type == $DamageType::Stamina)
 		{
-			%obj.setEnergyLevel(%obj.getEnergyLevel() - %damage);
+			%startHealth = %obj.getEnergyLevel();
+			%endHealth = %startHealth - %damage;
+		}
+		else
+		{
+			%startHealth = %obj.health;
+			%endHealth = %obj.health - %damage;
+		}
+		%obj.attackStamina[%obj.attackCount] = (%type == $DamageType::Stamina);
+		%obj.attackHealthS[%obj.attackCount] = getMax(%startHealth, 0);
+		%obj.attackHealthE[%obj.attackCount] = getMax(%endHealth, 0);
+		
+		API_sendDamageUpdate(%obj.client, %obj.attacker[%obj.attackCount],
+			(%obj.attackTime[%obj.attackCount] - $defaultMiniGame.lastResetTime) / 1000,
+			%image.getName(), %obj.attackDot[%obj.attackCount] > 0 ? "Back" : "Front",
+			%type == $DamageType::Stamina, %startHealth, %endHealth);
+		if (%type == $DamageType::Stamina)
+		{
+			%obj.setEnergyLevel(%endHealth);
 			if (%obj.getEnergyLevel() <= 10 && !%obj.unconscious)
 			{
-				%obj.KnockOut(30000, 1); //KO'd for 30 seconds with 1 bar of exhaustion recovery
+				%obj.KnockOut(30000); //KO'd for 30 seconds with 1 bar of exhaustion recovery
 			}
 			return;
 		}
 		else
 		{
-			if (%obj.unconscious && %obj.health - %damage > 0)
+			if (%obj.unconscious && %endHealth > 0)
 				%obj.WakeUp();
-			%obj.setHealth(%obj.health - %damage);
+			%obj.setHealth(%endHealth);
 		}
 		if (%obj.health <= 0)
 		{

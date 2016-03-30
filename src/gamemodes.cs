@@ -28,7 +28,6 @@ function DSGameMode::onStart(%this, %miniGame)
 	for (%i = 0; %i < %count; %i++)
 	{
 		%brick = BrickGroup_888888.getObject(%i);
-		%brick.respawn();
 
 		%data = %brick.getDataBlock();
 
@@ -37,6 +36,14 @@ function DSGameMode::onStart(%this, %miniGame)
 			%brick.doorHits = 0;
 			%brick.broken = false;
 			%brick.setDataBlock(%brick.isCCW ? %data.closedCCW : %data.closedCW);
+		}
+		
+		%name = %brick.getName();
+		if((%len = strLen(%name)) > 5 && getSubStr(%name, 0, 5) $= "_room"
+			&& (%num = getSubStr(%name, 5, %len - 5)) $= (%num | 0))
+		{
+			%brick.createZoneUp(4.5, 0.3);
+			%brick.setZoneSoundproof(1);
 		}
 	}
 	%freeCount = $DS::RoomCount;
@@ -48,11 +55,45 @@ function DSGameMode::onStart(%this, %miniGame)
 		%roomDoor = BrickGroup_888888.NTObject["_door_r" @ %room, 0];
 		%roomDoor.lockId = "R"@%room;
 		%roomDoor.lockState = true;
+		%roomDoor.doorMaxHits = 6;
 		%roomSpawn = BrickGroup_888888.NTObject["_" @ %room, 0];
 	}
+	if(isObject(%door = BrickGroup_888888.NTObject["_door_janitor", 0]))
+	{
+		%door.lockID = "JCloset";
+		%door.lockState = true;
+		%door.doorMaxHits = 12;
+		%closetDoor = %door;
+	}
+	if(isObject(%door = BrickGroup_888888.NTObject["_door_incinerator", 0]))
+	{
+		%door.lockID = "JFurnace";
+		%door.lockState = true;
+		%door.doorMaxHits = 12;
+		%furnaceDoor = %door;
+	}
+	
 	// Random items!
 	%name = "_randomlootspawn";
-	%choices = "CaneItem UmbrellaItem MonkeyWrenchItem PanItem KnifeItem mopItem lockpickItem";
+	//%choice[%choices++-1] = "CaneItem 1";
+	//%choice[%choices++-1] = "UmbrellaItem 1.25";
+	//%choice[%choices++-1] = "MonkeyWrenchItem 1";
+	//%choice[%choices++-1] = "PanItem 1.25";
+	//%choice[%choices++-1] = "KnifeItem 1";
+	//%choice[%choices++-1] = "MopItem 0.75";
+	//%choice[%choices++-1] = "LockpickItem 0.4";
+	//%choice[%choices++-1] = "WoodBatItem 1";
+	%choice[%choices++-1] = "0.8 CaneItem MonkeyWrenchItem KnifeItem";
+	
+	//%choice[%choices++-1] = "0.2 WoodBatItem MetalBatItem AluminumBatItem";
+	%choice[%choices++-1] = "0.2 CaneItem MonkeyWrenchItem KnifeItem";
+	
+	%choice[%choices++-1] = "1.5 UmbrellaItem PanItem";
+	//%choice[%choices++-1] = "0.75 MopItem";
+	%choice[%choices++-1] = "0.4 LockpickItem";
+	
+	for (%i = 0; %i < %choices; %i++)
+		%chance += getWord(%choice[%i], 0);
 
 	%count = BrickGroup_888888.NTObjectCount[%name];
 
@@ -61,10 +102,17 @@ function DSGameMode::onStart(%this, %miniGame)
 	for (%i = 0; %i < %count; %i++)
 	{
 		%brick = BrickGroup_888888.NTObject[%name, %i];
-		%pick = getWord(%choices, getRandom(0, getWordCount(%choices) - 1));
+		%choose = getRandom() * %chance;
+		for (%j = 0; %j < %choices; %j++)
+		{
+			%choose -= getWord(%choice[%j], 0);
+			if(%choose <= 0)
+				break;
+		}
+		%words = getWordCount(%choice[%j]) - 1;
+		%pick = getWord(%choice[%j], getRandom(1, %words));
 		if (%i >= %maxItems)
 			break;
-		echo(%pick);
 		%brick.setItem(%pick);
 	}
 	//Give everyone rooms, names, appearances, roles, etc
@@ -99,8 +147,14 @@ function DSGameMode::onStart(%this, %miniGame)
 		GameCharacters.add(%character);
 		%member.character = %character;
 
-		%character.name = getRandomName(%character.gender);
-		%character.appearance = getRandomAppearance(%character.gender);
+		%specialCharChance = 0.01;
+		if (getRandom() < %specialCharChance)
+			getRandomSpecialChar(%character);
+		else	
+		{
+			%character.name = getRandomName(%character.gender);
+			%character.appearance = getRandomAppearance(%character.gender);
+		}
 
 		%member.applyBodyParts();
 		%member.applyBodyColors();
@@ -160,6 +214,15 @@ function DSGameMode::onStart(%this, %miniGame)
 			%room);
 		%member.updateBottomPrint();
 	}
+	
+	%char = GameCharacters.getObject(getRandom(0, GameCharacters.getCount() - 1));
+	(%props = %char.player.itemProps0).sourceItemData = KeyJanitorItem.getID();
+	%char.player.tool0 = KeyJanitorItem.getID();
+	messageClient(%char.client, 'MsgItemPickup', '', 0, KeyJanitorItem.getID(), 1);
+	if (isObject(%closetDoor))
+		%closetDoor.lockID = %props.id;
+	if (isObject(%furnaceDoor))
+		%furnaceDoor.lockID = %props.id;
 }
 function DSGameMode::onEnd(%this, %miniGame, %winner)
 {
@@ -188,6 +251,26 @@ function DSGameMode::checkLastManStanding(%this, %miniGame)
 		%winner = %alivePlayers[%count];
 		%this.onEnd(%miniGame, %winner);
 	}
+}
+function DSGamemode::isAvailable(%this, %minigame)
+{
+	if (%this.omit)
+		return 0;
+	if (%this.maxPlayers !$= "" && %minigame.numMembers > %this.maxPlayers)
+		return 0;
+	if (%this.minPlayers !$= "" && %minigame.numMembers < %this.minPlayers)
+		return 0;
+	return 1;
+}
+function DSGamemode::unavailableReason(%this, %minigame)
+{
+	if (%this.omit)
+		return "Disabled";
+	if (%this.maxPlayers !$= "" && %minigame.numMembers > %this.maxPlayers)
+		return "Too many players";
+	if (%this.minPlayers !$= "" && %minigame.numMembers < %this.minPlayers)
+		return "Too few players";
+	return "";
 }
 function DSGameMode::onDay(%this, %miniGame)
 {
@@ -229,7 +312,6 @@ function DSGameMode::onNight(%this, %miniGame)
 		if (!isObject(%player))
 			continue;
 
-		%player.updateExhaustion();
 		if (%player.unconscious) continue;
 		%player.setShapeNameDistance($DefaultMiniGame.shapeNameDistance); //Update shapenames
 	}

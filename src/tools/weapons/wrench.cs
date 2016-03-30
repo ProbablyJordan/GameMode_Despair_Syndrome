@@ -196,7 +196,7 @@ function MonkeyWrenchImage::onRaycastCollision(%this, %obj, %col, %pos, %normal,
 
 	%col.doorHits += %random < 2 ? 0 : (%random < 9 ? 1 : 2);
 
-	if (%col.doorHits >= 6)
+	if (%col.doorHits >= %col.doorMaxHits)
 	{
 		%col.doorOpen(%col.isCCW, %obj.client);
 		%col.lockState = false;

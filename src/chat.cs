@@ -1,6 +1,22 @@
 $MaxLinkLength = 32;
 
-function linkify(%text)
+function ParseLinks(%msg)
+{
+	%words = getWordCount(%msg);
+	for(%i=0;%i<%words;%i++)
+	{
+		%word = getWord(%msg, %i);
+		if(getSubStr(%word, 0, 7) $= "http://")
+			%msg = setWord(%msg, %i, "<a:"@(%word=strReplace(%word, "http://", ""))@">"@%word@"</a>");
+		else if(getSubStr(%word, 0, 8) $= "https://")
+			%msg = setWord(%msg, %i, "<a:"@(%word=strReplace(%word, "https://", ""))@">"@%word@"</a>");
+		else if(getSubStr(%word, 0, 6) $= "ftp://")
+			%msg = setWord(%msg, %i, "<a:"@(%word=strReplace(%word, "ftp://", ""))@">"@%word@"</a>");
+	}
+	return trim(%msg);
+}
+
+function ParseLinks(%text)
 {
 	%count = getWordCount(%text);
 
@@ -32,8 +48,14 @@ function linkify(%text)
 
 function serverCmdMe(%client, %m1, %m2, %m3, %m4, %m5, %m6, %m7, %m8, %m9, %m10, %m11, %m12, %m13, %m14, %m15, %m16, %m17, %m18, %m19, %m20, %m20, %m22, %m23, %m24)
 {
-	if (!isObject(%client.player) || %client.player.unconscious)
+	if (!isObject(%client.player) || (%pl.unconscious && !%pl.currResting))
 		return;
+	if(despair_isMuted(%client.getBLID(), 0))
+	{
+		messageClient(%client, '', "You have been muted!");
+		return;
+	}
+	
 	%text = %m1;
 	for (%i=2; %i<=24; %i++)
 		%text = %text SPC %m[%i];
@@ -84,8 +106,14 @@ package ChatPackage
 		if ((!%client.inDefaultGame() && %client.hasSpawnedOnce) || isEventPending(%client.miniGame.resetSchedule))
 			return Parent::serverCmdMessageSent(%client, %text);
 
-		if (isObject(%client.player) && %client.player.unconscious)
+		if (isObject(%pl = %client.player) && (%pl.unconscious && !%pl.currResting))
 			return;
+		
+		if(despair_isMuted(%client.getBLID(), 0))
+		{
+			messageClient(%client, '', "You have been muted!");
+			return;
+		}
 
 		%text = trim(stripMLControlChars(%text));
 
@@ -123,6 +151,8 @@ package ChatPackage
 			%client.player.schedule(strLen(%text) * 35, "playThread", 0, "root");
 		}
 		%count = ClientGroup.getCount();
+		if (!isObject(%client.player) || !%client.inDefaultGame())
+			deadGamesParse(%client, %text);
 		for (%i = 0; %i < %count; %i++)
 		{
 			%other = ClientGroup.getObject(%i);
@@ -154,7 +184,7 @@ package ChatPackage
 					continue;
 				if (mAbs(getWord(%client.player.getEyePoint(), 2) - getWord(%other.player.getEyePoint(), 2) > %zrange)) //Check if it's out of Z range too
 					continue;
-				if (%other.player.unconscious && vectorDist(%client.player.getEyePoint(), %other.player.getEyePoint()) > 4)
+				if ((%other.player.unconscious && !%other.player.currResting) && vectorDist(%client.player.getEyePoint(), %other.player.getEyePoint()) > 4)
 				{
 					%msg = muffleText(%text, 35);
 				}
@@ -172,7 +202,7 @@ package ChatPackage
 		if (isEventPending(%client.miniGame.resetSchedule))
 			return serverCmdMessageSent(%client, %text);
 		
-		if(despair_isMuted(%client.getBLID()))
+		if(despair_isMuted(%client.getBLID(), 1))
 		{
 			messageClient(%client, '', "You have been muted!");
 			return;
@@ -184,7 +214,7 @@ package ChatPackage
 			return;
 		}
 		%text = trim(stripMLControlChars(%text));
-		%text = linkify(%text);
+		%text = ParseLinks(%text);
 		if (%text $= "")
 			return;
 		%structure = '<color:4444FF>[OOC] %1<color:aaaaFF>: %2';

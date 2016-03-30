@@ -38,13 +38,55 @@ function MiniGameSO::DisableWeapons(%this)
 	}
 }
 
+function serverCmdVote(%client, %a, %b, %c, %d, %e, %f)
+{
+	if (!$DefaultMiniGame.gameModeVote)
+		return;
+	if (!%client.inDefaultGame())
+		return;
+	%miniGame = %client.miniGame;
+	%search = trim(%a SPC %b SPC %c SPC %d SPC %e SPC %f);
+	for (%i = 1; %i <= %miniGame.voteCount; %i++)
+	{
+		if (%miniGame.voters[%i] == %client)
+		{
+			messageClient(%client, '', '\c6You already voted!');
+			return;
+		}
+	}
+	%a = 0;
+	for (%i = 0; %i < DSGameModeGroup.GetCount(); %i++)
+	{
+		%obj = DSGameModeGroup.getObject(%i);
+		if (%obj.hide || !%obj.isAvailable(%minigame))
+			continue;
+		if (striPos(%obj.name, %search) != -1)
+		{
+			%pick[%a++] = %obj;
+		}
+	}
+	if (%a > 1)
+	{
+		messageClient(%client, '', '\c6Please input a more specific name. There were %1 matches for the one you gave!', %a);
+		return;
+	}
+	if (%a <= 0)
+	{
+		messageClient(%client, '', '\c6There were no matches for given name!');
+		return;
+	}
+	%miniGame.voters[%miniGame.voteCount++] = %client;
+	%miniGame.votes[%miniGame.voteCount] = %pick[1];
+	messageClient(%client, '', '\c6You have cast your vote for %1.', %pick[1].name);
+}
+
+function GameConnection::inDefaultGame(%this)
+{
+	return isObject($DefaultMiniGame) && %this.miniGame == $DefaultMiniGame;
+}
+
 package DespairSyndromePackage
 {
-	function GameConnection::inDefaultGame(%this)
-	{
-		return isObject($DefaultMiniGame) && %this.miniGame == $DefaultMiniGame;
-	}
-
 	function Armor::onNewDataBlock(%this, %obj)
 	{
 		parent::onNewDataBlock(%this, %obj);
@@ -126,22 +168,39 @@ package DespairSyndromePackage
 		//Doing this before initialising any of the gamemode stuffs might be a bit bad but w/e
 		cancel(%this.voteSchedule);
 		%this.rounds++;
-		if (%this.rounds % ($DS::GameVoteRounds + 1) == $DS::GameVoteRounds) //Every $DS::GameVoteRounds rounds
+		if (!%this.gamemode.isAvailable(%this) || %this.voteRoundCount++ >= $DS::GameVoteRounds) //Every $DS::GameVoteRounds rounds
 		{
-			cancel(%this.DayTimeSchedule);
-			%this.voteCount = 0;
-			%this.gameModeVote = true;
-			announce("\c3It's time to vote for the next gametype! Available gametypes:");
-			for (%i = 0; %i < DSGameModeGroup.GetCount(); %i++)
+			%availCount = 0;
+			%gamemodes = DSGamemodeGroup.getCount();
+			for (%i = 0; %i < %gamemodes; %i++)
+				if ((%gamemode = DSGamemodeGroup.getObject(%i)).isAvailable(%this))
+				{
+					%availCount++;
+					%availGamemode = %gamemode;
+				}
+			if (%availCount > 1)
 			{
-				%obj = DSGameModeGroup.getObject(%i);
-				if (!isObject(%obj) || %obj.omit)
-					continue;
-				announce("\c6 - \c2" @ %obj.name @ "\c6: " @ %obj.desc);
+				cancel(%this.DayTimeSchedule);
+				%this.voteCount = 0;
+				%this.gameModeVote = true;
+				announce("\c3It's time to vote for the next gametype! Available gametypes:");
+				for (%i = 0; %i < DSGameModeGroup.GetCount(); %i++)
+				{
+					%obj = DSGameModeGroup.getObject(%i);
+					if (%obj.hide)
+						continue;
+					if (!%obj.isAvailable(%this))
+						announce("\c6 - \c0" @ %obj.name @ "\c7 (" @ %obj.unavailableReason(%this) @ ") \c6: " @ %obj.desc);
+					else
+						announce("\c6 - \c2" @ %obj.name @ "\c6: " @ %obj.desc);
+				}
+				announce("\c3Cast your votes via /vote *gametype name*! You have \c660\c3 seconds to cast your votes.");
+				%this.voteSchedule = %this.schedule(60000, "checkVotes");
+				%this.voteRoundCount = 0;
+				return;
 			}
-			announce("\c3Cast your votes via /vote *gametype name*! You have \c660\c3 seconds to cast your votes.");
-			%this.voteSchedule = %this.schedule(60000, "checkVotes");
-			return;
+			else
+				$DS::Gamemode = %availGamemode;
 		}
 		//Voting check above^
 		%this.gameModeVote = false;
@@ -176,7 +235,7 @@ package DespairSyndromePackage
 		for (%i = 0; %i < DSGameModeGroup.GetCount(); %i++)
 		{
 			%obj = DSGameModeGroup.getObject(%i);
-			if (!isObject(%obj) || %obj.omit)
+			if (%obj.hide || !%obj.isAvailable(%this))
 				continue;
 			if (%votesfor[%obj] > %majority)
 				%majority = %votesfor[%obj];
@@ -196,59 +255,12 @@ package DespairSyndromePackage
 		$DS::GameMode = %winner;
 		%this.scheduleReset(3000);
 	}
-
-	function serverCmdVote(%client, %a, %b, %c, %d, %e, %f)
-	{
-		if (!$DefaultMiniGame.gameModeVote)
-		{
-			parent::serverCmdVote(%client, %a, %b, %c, %d, %e, %f);
-			return;
-		}
-		if (!%client.inDefaultGame())
-			return;
-		%miniGame = %client.miniGame;
-		%search = trim(%a SPC %b SPC %c SPC %d SPC %e SPC %f);
-		for (%i = 1; %i <= %miniGame.voteCount; %i++)
-		{
-			if (%miniGame.voters[%i] == %client)
-			{
-				messageClient(%client, '', '\c6You already voted!');
-				return;
-			}
-		}
-		%a = 0;
-		for (%i = 0; %i < DSGameModeGroup.GetCount(); %i++)
-		{
-			%obj = DSGameModeGroup.getObject(%i);
-
-			if (!isObject(%obj) || %obj.omit)
-				continue;
-
-			if (striPos(%obj.name, %search) != -1)
-			{
-				%pick[%a++] = %obj;
-			}
-		}
-		if (%a > 1)
-		{
-			messageClient(%client, '', '\c6Please input a more specific name. There were %1 matches for the one you gave!', %a);
-			return;
-		}
-		if (%a <= 0)
-		{
-			messageClient(%client, '', '\c6There were no matches for given name!');
-			return;
-		}
-		%miniGame.voters[%miniGame.voteCount++] = %client;
-		%miniGame.votes[%miniGame.voteCount] = %pick[1];
-		messageClient(%client, '', '\c6You have cast your vote for %1.', %pick[1].name);
-	}
 	//{end of gamemode voting}
 	function GameConnection::spawnPlayer(%this)
 	{
 		if (!%this.inDefaultGame())
 			return Parent::spawnPlayer(%this);
-		if (%this.isAdmin && DSAdminQueue.isMember(%this))
+		if (%this.isAdmin && isObject(DSAdminQueue) && DSAdminQueue.isMember(%this))
 		{
 			if (%this.miniGame.numMembers - DSAdminQueue.getCount() >= $DS::MaxPlayers)
 			{
@@ -269,7 +281,8 @@ package DespairSyndromePackage
 			return 0;
 		if (%this.gameModeVote)
 			return 0;
-		%this.gameMode.checkLastManStanding(%this);
+		if (isObject(%this.gamemode))
+			%this.gameMode.checkLastManStanding(%this);
 		return 0;
 	}
 
@@ -449,7 +462,7 @@ package DespairSyndromePackage
 
 		while (isObject(%col = containerSearchNext()))
 		{
-			if (%col.isBody)
+			if (%col.isBody && !%col.currResting)
 			{
 				%corpse = %col;
 				break;
@@ -471,6 +484,25 @@ package DespairSyndromePackage
 				%player.playThread(2, "activate2");
 			}
 		}
+	}
+	
+	function servercmdUseSprayCan(%cl, %colorID)
+	{
+		if (!%cl.inDefaultGame())
+			Parent::servercmdUseSprayCan(%cl, %colorID);
+		else if (isObject(%pl = %cl.player) && isObject(%tool = %pl.tool[%pl.currTool]) && %tool.interactable)
+			%tool.onInteract(%cl, %pl);
+	}
+
+	function servercmdDropTool(%cl, %slot)
+	{
+		if (!%cl.inDefaultGame() || !isObject(%pl = %cl.player) || %pl.getState() $= "Dead")
+			Parent::servercmdDropTool(%cl, %slot);
+
+		if (%pl.unconscious) //Can't do stuff while unconscious bro
+			return;
+		
+		Parent::servercmdDropTool(%cl, %slot);
 	}
 };
 

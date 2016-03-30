@@ -6,6 +6,8 @@ $FOOTSTEPS_MAXBLOODSTEPS = 30;
 
 function Player::updateFootsteps(%this, %lastVert)
 {
+	if (!isObject(%cl = %this.client) || !%cl.inDefaultGame())
+		return;
 	cancel(%this.updateFootsteps);
 
 	if (%this.getState() $= "Dead" || %this.isCorpse)

@@ -56,18 +56,24 @@ function serverCmdHelp(%this, %cat)
 			%text[%count++] = " \c31\c6. \c0Don't be a dick!\c6 We're all here to have fun. If you block doorways, lock people in your rooms or break dormitory doors as a non-killer w/o a reason you will be banned.";
 			%text[%count++] = " \c32\c6. \c0Do not gamethrow!\c6 This means don't screw up evidence by cleaning up the crime scene and don't toss the body into incinerator before it's even discovered by everyone else.";
 			%text[%count++] = " \c33\c6. \c0Don't freekill!\c6 It's really obvious to admins when you freekill. We will figure if it's self-defence or not, but expect to be banned if you kill someone without a reason.";
-			%text[%count++] = " \c34\c6. \c0Don't metagame!\c6 Do not use OOC chat for in-game info! If you are seen talking about ongoing round in team chat chances are you will be banned.";
-			%text[%count++] = " \c35\c6. \c0Don't ERP (Erotic RolePlay)!\c6 It is obnoxious as fuck and serves no purpose other than to get some preteens' dick wet and annoy everyone else.";
+			%text[%count++] = " \c34\c6. \c0Don't knock people out randomly!\c6 It slows down the game, distracts from the killer, and just pisses people off.";
+			%text[%count++] = " \c35\c6. \c0Don't metagame!\c6 Do not use OOC chat for in-game info! If you are seen talking about ongoing round in team chat chances are you will be banned.";
+			%text[%count++] = " \c36\c6. \c0Don't ERP (Erotic RolePlay)!\c6 It is obnoxious as fuck and serves no purpose other than to get some preteens' dick wet and annoy everyone else.";
 			%text[%count++] = " \c0    EXAMPLES PROVIDED IN THIS LIST ARE ONLY EXAMPLES. THEY DO NOT ENCAPSULATE THE FULL EXTENT OF THE RULE'S EFFECT. PLEASE USE /REPORT IF YOU WANT TO CLARIFY A RULE WITH AN ADMIN.";
 			%text[%count++] = " \c3If someone is breaking the rules, use /report *message* to get an admin's attention!";
 			%text[%count++] = " \c5Page Up to read the above.";
 		case "7" or "admin":
+			if (!(%this.isAdmin || %this.isSuperAdmin))
+				return;
 			%text[%count++] = "\c3[ADMIN]";
-			%text[%count++] = " \c6/mute \c3time name \c7- \c6Restrict \c3name \c6from using OOC chat for \c3time";
+			%text[%count++] = " \c6/mute \c3name time \c7- \c6Restrict \c3name \c6from using OOC chat for \c3time";
 			%text[%count++] = " \c6/unmute \c3name \c7- \c6Unmute \c3name \c6, allowing them to use OOC chat again";
+			%text[%count++] = " \c6/icmute \c3name time \c7- \c6Restrict \c3name \c6from using in-character chat for \c3time";
+			%text[%count++] = " \c6/icunmute \c3name \c7- \c6Unmute \c3name \c6, allowing them to use in-character chat again";
 			%text[%count++] = " \c6/viewMute \c7- \c6See everybody that is muted";
 			%text[%count++] = " \c6/getKiller \c7- \c6Find out who the killer is (for administration purposes, if you do it to cheat you'll probably be de-admined (and banned!))";
 			%text[%count++] = " \c6/whoIs \c3name \c7- \c6Find out who \c3name\c6's in-game alias is";
+			%text[%count++] = " \c6/viewInv \c3name \c7- \c6View a client's inventory";
 			%text[%count++] = " \c6/viewQueue \c7- \c6See who is in line to be the murderer";
 			%text[%count++] = " \c6/addToQueue \c3name \c7- \c6Remove \c3name \c6from the murderer queue";
 			%text[%count++] = " \c6/removeFromQueue \c3name \c7- \c6Add \c3name \c6to the murderer queue";
@@ -86,16 +92,14 @@ function serverCmdHelp(%this, %cat)
 			%text[%count++] = "   \c34\c6 - \c3mechanics\c6: Game mechanics - sprinting, locking doors, etc.";
 			%text[%count++] = "   \c35\c6 - \c3combat\c6: How to melee like a pro.";
 			%text[%count++] = "   \c36\c6 - \c3rules\c6: Read this to avoid getting banned";
-			%text[%count++] = "   \c37\c6 - \c3admin\c6: Various admin commands";
+			if (%this.isAdmin || %this.isSuperAdmin)
+				%text[%count++] = "   \c37\c6 - \c3admin\c6: Various admin commands";
 			%text[%count++] = "\c6======";
 			%text[%count++] = "\c5Say \c3/help *category*\c5 for more info on certain topics.";
 	}
 
 	for (%i=1; %i<=%count; %i++)
-	{
-		
 		messageClient(%this, '', %text[%i]);
-	}
 }
 
 function serverCmdRules(%this)

@@ -2,9 +2,9 @@
 if (!isObject(ZoneGroup))
 	new SimSet(ZoneGroup);
 
-registerOutputEvent(fxDTSBrick, removeZone);
-registerOutputEvent(fxDTSBrick, createZoneUp, "string 5 32" TAB "string 5 32", 1);
-registerOutputEvent(fxDTSBrick, setZoneSoundProof, "bool 0", 1);
+registerOutputEvent("fxDTSBrick", "removeZone");
+registerOutputEvent("fxDTSBrick", "createZoneUp", "string 5 32\tstring 5 32", 1);
+registerOutputEvent("fxDTSBrick", "setZoneSoundProof", "bool 0", 1);
 function fxDTSBrick::setZoneSoundProof(%this,%val,%client)
 {
 	if(isObject(%this.zone))

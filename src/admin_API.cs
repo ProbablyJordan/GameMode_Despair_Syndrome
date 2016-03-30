@@ -20,13 +20,7 @@ function servercmdAPI_PM(%cl, %query, %msg)
 {
 	if (!(%cl.isAdmin || %cl.isSuperAdmin || %cl.hasAPIAccess))
 		return;
-	if (isObject(%query) && %query.getClassName() $= "GameConnection")
-	{
-		messageClient(%query, '', '\c4Admin PM from\c5 %1\c6: %2', %cl.getPlayerName(), %msg);
-		%query.play2D(AdminBwoinkSound);	//srsly?
-		messageAdmins("\c4PM from \c5" @ %cl.getPlayerName() @ "\c6 to \c5" @ %query.getPlayerName() @ "\c6: " @ %msg);
-	}
-	else if (isObject(%query = findClientByName(%query)))
+	if ((isObject(%query) && %query.getClassName() $= "GameConnection") || isObject(%query = findClientByName(%query)))
 	{
 		messageClient(%query, '', '\c4Admin PM from\c5 %1\c6: %2', %cl.getPlayerName(), %msg);
 		%query.play2D(AdminBwoinkSound);	//srsly?
@@ -34,6 +28,30 @@ function servercmdAPI_PM(%cl, %query, %msg)
 	}
 	else
 		commandToClient(%cl, 'API_Error', "PM: Player not found");
+}
+
+function serverCmdAPI_PMCC(%cl, %query0, %query1, %msg)
+{
+	if (!(%cl.isAdmin || %cl.isSuperAdmin || %cl.hasAPIAccess))
+		return;
+	%msg = ParseLinks(%msg);
+	if (%msg $= "")
+		return;
+	if ((isObject(%query0) && %query0.getClassName() $= "GameConnection") || isObject(%query0 = findClientByName(%query0)))
+	{
+		messageClient(%query0, '', '\c4Admin PM from \c5%1\c6: %2',%cl.getPlayerName(), %msg);
+		%query0.play2d(AdminBwoinkSound);
+		if ((isObject(%query1) && %query1.getClassName() $= "GameConnection") || isObject(%query1 = findClientByName(%targ1)))
+		{
+			messageClient(%query1, '', "\c4Admin PM from \c5"@ %cl.getPlayerName() @"\c6 to \c3"@ %query0.getPlayerName() @"\c6: "@%msg);
+			%query1.play2d(AdminBwoinkSound);
+			messageAdmins("\c4PM from \c5"@ %cl.getPlayerName() @"\c6 to \c3"@ %query0.getPlayerName() @ "\c6 and \c3" @ %query1.getPlayerName() @"\c6: "@%msg);
+		}
+		else
+			messageAdmins("\c4PM from \c5"@ %this.getPlayerName() @"\c6 to \c3"@ %target.getPlayerName() @"\c6: "@%msg);
+	}
+	else
+		commandToClient(%cl, 'API_Error', "PMCC: Player not found");
 }
 
 function servercmdAPI_GetKiller(%cl)

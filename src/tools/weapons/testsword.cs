@@ -190,7 +190,7 @@ function AdvSwordImage::onRaycastCollision(%this, %obj, %col, %pos, %normal, %ve
 
 	%col.doorHits += %random < 2 ? 0 : (%random < 6 ? 1 : 2);
 
-	if (%col.doorHits >= 6)
+	if (%col.doorHits >= %col.doorMaxHits)
 	{
 		%col.doorOpen(%col.isCCW, %obj.client);
 		%col.lockState = false;

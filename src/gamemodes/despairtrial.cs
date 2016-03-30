@@ -9,6 +9,7 @@ if (!isObject(DSGameMode_Trial))
 		desc = "Someone's plotting murder against one of the students... Figure out who it is in a courtroom trial!";
 		class = DSGameMode;
 		omit = false;
+		minPlayers = 4;
 	};
 }
 
@@ -28,6 +29,66 @@ datablock ItemData(MemorialItem)
 	friction = 0.6;
 	emap = true;
 };
+
+function DSGamemode_Trial::getBottomPrintText(%this, %minigame, %cl)
+{
+	if (!%this.trial)
+		return Parent::getBottomPrintText(%this, %minigame, %cl);
+	
+	%character = %cl.character;
+	%nameTextColor = "ffff00";
+	if (%character.gender $= "female")
+		%nameTextColor = "ff11cc";
+	else if (%character.gender $= "male")
+		%nameTextColor = "22ccff";
+
+	%health = 0;
+	%maxhealth = 0;
+	%stamina = 0;
+	%maxstamina = 0;
+	if (isObject(%cl.player))
+	{
+		%health = mFloor(%cl.player.getHealth());
+		%maxhealth = %cl.player.getMaxHealth();
+		%stamina = mFloor(%cl.player.getEnergyLevel());
+		%maxstamina = mFloor(%cl.player.energyLimit);
+	}
+
+	%roleColor = "\c7";
+	%role = "Undecided";
+	if (%cl.inDefaultGame() && isObject(%cl.miniGame.gameMode.killer))
+	{
+		%roleColor = "\c2";
+		%role = "Innocent";
+		if (%cl.miniGame.gameMode.killer == %cl)
+		{
+			%roleColor = "\c0";
+			%role = "Killer";
+		}
+	}
+
+	%text = "\c6Health: \c0"@%health@"/"@%maxhealth@"<just:right>\c6Name: <color:"@%nameTextColor@">"@%character.name@"\c6 (\c3Room #"@%character.room@"\c6)";
+	%text = %text @ "<just:left><br>\c6Stamina: \c5"@%stamina@"/"@%maxstamina @ "<just:right>\c6Role:" SPC %roleColor @ %role;
+	if (%this.vote)
+	{
+		%time = mCeil(getTimeRemaining(%this.trialSchedule) / 1000);
+		%seconds = %time % 60;
+		%minutes = (%time - %seconds) / 60;
+		if (%seconds < 10)
+			%seconds = "0" @ %seconds;
+		%text = %text @ "<br><just:right>\c6Time to vote: \c3" @ %minutes @ ":" @ %seconds;
+	}
+	else
+	{
+		%time = mCeil(getTimeRemaining(%this.trialSchedule) / 1000);
+		%seconds = %time % 60;
+		%minutes = (%time - %seconds) / 60;
+		if (%seconds < 10)
+			%seconds = "0" @ %seconds;
+		%text = %text @ "<br><just:right>\c6Time to discuss: \c3" @ %minutes @ ":" @ %seconds;
+	}
+	return %text;
+}
 
 function DSGameMode_Trial::onMiniGameJoin(%this, %miniGame, %client)
 {
@@ -53,7 +114,7 @@ function DSGameMode_Trial::onStart(%this, %miniGame)
 	%this.forceTrialCount = 0;
 	%this.killerRevealed = false;
 	cancel(%this.trialSchedule);
-	activatepackage(DSTrialPackge);
+	activatepackage(DSTrialPackage);
 	%miniGame.messageAll('', '\c5The culprit will be decided on by night. The first day doesn\'t have a killer, so use this time to study each other\'s behaviours.');
 	%miniGame.messageAll('', '\c5The lore is that everyone was dragged into a murder game by a psycho mastermind. Nobody knows who the mastermind is...');
 	%miniGame.messageAll('', '\c5Rules are: The culprit kills someone and has to get away with it. Once bodies are found, investigation period starts, and after that, the vote.');
@@ -79,16 +140,21 @@ function DSGameMode_Trial::onEnd(%this, %miniGame, %winner)
 	deactivatepackage(DSTrialPackge);
 	%this.vote = false;
 	%endtext = isObject(%winner) && %winner == %this.killer ? "\c3The killer wins!" : "\c3The killer loses!";
-	%endtext = %endtext SPC %this.killer.getPlayerName() @ (isObject(%this.killer.character) ? " (" @ %this.killer.character.name @ ")" : "") SPC "was the killer this round.";
+	if (isObject(%killer = %this.killer))
+		%endtext = %endtext SPC %killer.getPlayerName() @ (isObject(%killer.character) ? " (" @ %killer.character.name @ ")" : "") SPC "was the killer this round.";
+	else %endtext = %endtext SPC "Nobody was the killer this round.";
 	%miniGame.messageAll('', %endtext SPC "\c5A new game will begin in 15 sceonds.");
 	%miniGame.scheduleReset(10000);
 }
 function DSGameMode_Trial::onDeath(%this, %miniGame, %client, %sourceObject, %sourceClient, %damageType, %damLoc)
 {
-	if (%sourceClient == %client || %sourceClient == 0)
-		return;
-	if (%this.killer $= %client)
+	if (%this.killer == %client)
 	{
+		if (!isObject(%sourceClient) || %sourceClient == %client)
+		{
+			%this.onEnd(%minigame, 0);
+			return;
+		}
 		%this.killer = %sourceClient;
 		%this.killer.play2d(KillerJingleSound);
 		messageClient(%this.killer, '', '<font:impact:30>YOU BECAME THE KILLER! Self defence? Murder? Doesn\'t matter. Now you have to get away with it. Nobody must know.');
@@ -96,6 +162,8 @@ function DSGameMode_Trial::onDeath(%this, %miniGame, %client, %sourceObject, %so
 	}
 	else if (%this.killer != %sourceClient) //Freekill?
 	{
+		if (%sourceClient == %client || %sourceClient == 0)
+			return;
 		//Maybe penalize?
 		%log = %sourceClient.getPlayerName() SPC "just killed" SPC %client.getPlayerName() SPC "as a non-killer.";
 		echo("\c2" SPC %log);
@@ -114,7 +182,10 @@ function DSGameMode_Trial::onDeath(%this, %miniGame, %client, %sourceObject, %so
 	}
 
 	%this.deathCount++;
-	if (%this.deathCount >= 3) //This is one kill more than the voting check.
+	%maxDeaths = mCeil(GameCharacters.getCount() / 4);
+	if (isEventPending(%this.trialSchedule))
+		%maxDeaths--;
+	if (%this.deathCount >= %maxDeaths) //This is one kill more than the voting check.
 		%miniGame.DisableWeapons();
 }
 function DSGameMode_Trial::checkLastManStanding(%this, %miniGame)
@@ -224,7 +295,8 @@ function DSGameMode_Trial::makeBodyAnnouncement(%this, %miniGame, %multiple)
 }
 function DSGameMode_Trial::checkInvestigationStart(%this, %miniGame, %no_announce)
 {
-	if (%this.deathCount >= 2) //Only disable weapons when there are 2 murders max
+	%maxDeaths = mCeil(GameCharacters.getCount() / 4);
+	if (%this.deathCount >= %maxDeaths) //Only disable weapons when there are 2 murders max
 		%miniGame.DisableWeapons();
 	if (%this.deathCount > 0 && !isEventPending(%this.trialSchedule) && !%this.vote)
 	{
@@ -241,8 +313,6 @@ function DSGameMode_Trial::trialStart(%this, %miniGame)
 	{
 		%character = GameCharacters.getObject(%i);
 		%player = %character.player;
-		if (!isObject(%character))
-			continue;
 
 		%stand = BrickGroup_888888.NTObject["_courtstand_" @ %character.room, 0];
 		%center = BrickGroup_888888.NTObject["_courtroom_center", 0];
@@ -257,7 +327,7 @@ function DSGameMode_Trial::trialStart(%this, %miniGame)
 			GameRoundCleanup.add(%sign);
 			%sign.PointAt(getWords(%center.getTransform(), 0, 2));
 			%status = "(LEFT)";
-			if (isObject(%player))
+			if (isObject(%player) && !%player.clientLeft)
 				%status = %player.ignore ? "(FREEKILL)" : (%player.suicide ? "(SUICIDE)" : "(DEAD)");
 			%sign.setShapeName(%character.name SPC %status);
 			%sign.setShapeNameColor("0.5 0.5 0.5");
@@ -331,14 +401,22 @@ function DSGameMode_Trial::checkVotes(%this, %miniGame)
 	%this.onEnd(%miniGame, !%win ? %this.killer : "");
 }
 
-package DSTrialPackge
+package DSTrialPackage
 {
-	function serverCmdVote(%client, %a, %b)
+	function serverCmdVote(%client, %a, %b, %c, %d, %e, %f)
 	{
-		if (!%client.inDefaultGame() || !isObject(%client.player)) return;
+		if (!%client.inDefaultGame() || !isObject(%client.player))
+		{
+			Parent::servercmdVote(%client, %a, %b, %c, %d, %e, %f);
+			return;
+		}
 		%search = trim(%a SPC %b);
 		%miniGame = %client.miniGame;
-		if (!%miniGame.gameMode.vote) return;
+		if (!%miniGame.gameMode.vote)
+		{
+			Parent::servercmdVote(%client, %a, %b, %c, %d, %e, %f);
+			return;
+		}
 		for (%i = 1; %i <= %miniGame.gameMode.voteCount; %i++)
 		{
 			if (%miniGame.gameMode.voters[%i] == %client)

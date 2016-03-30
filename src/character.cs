@@ -243,6 +243,42 @@ function getRandomHairName(%gender)
 	return %choice[getRandom(%high)];
 }
 
+function getRandomSpecialChar(%char)
+{
+	//%char[%chars++-1] = "Name\tChance\tGender\tSkin\tFace\tDecal\tHair\tShirt\tPants\tShoes\tHair";
+	%char[%chars++-1] = "William T. Riker\t1\tM\t1 0.8 0.6\tMale07Smiley\tSpace-New\thair_messy\t0.7 0.1 0.1\t0.1 0.1 0.1\t0.1 0.1 0.1\t0.05 0.025 0";
+	%char[%chars++-1] = "Mr. T\t1\tM\t0.4 0.2 0\tBrownSmiley\tMedieval-Tunic\thair_mohawk\t0 0 0\t0.8 0 0\t0.2 0.2 0.2\t0 0 0";
+	%char[%chars++-1] = "Jamie Hyneman\t1\tM\t1 0.8 0.6\tJamie\tAAA-None\tscoutHat\t1 1 1\t0.2 0.2 0.2\t0.4 0.2 0\t0.1 0.1 0.1";
+	%char[%chars++-1] = "Adam Savage\t1\tM\t1 0.8 0.6\tAdamSavage\tAAA-None\theadSkin\t0.2 0.2 0.2\t0.2 0.2 0.2\t0.4 0.2 0\t1 0.8 0.6";
+	for (%i = 0; %i < %chars; %i++)
+		%chance += getField(%char[%i], 1);
+	%choose = getRandom() * %chance;
+	for (%i = 0; %i < %chars; %i++)
+	{
+		%choose -= getField(%char[%i], 1);
+		if (%choose <= 0)
+		{
+			%choose = %char[%i];
+			break;
+		}
+	}
+	%char.name = getField(%choose, 0);
+	if(getField(%choose, 2) $= "M")
+		%char.gender = "male";
+	else
+		%char.gender = "female";
+	%app = new ScriptObject();
+	%app.skinColor = getField(%choose, 3) @ " 1";
+	%app.faceName = getField(%choose, 4);
+	%app.decalName = getField(%choose, 5);
+	%app.hairName = getField(%choose, 6);
+	%app.shirtColor = getField(%choose, 7) @ " 1";
+	%app.pantsColor = getField(%choose, 8) @ " 1";
+	%app.shoesColor = getField(%choose, 9) @ " 1";
+	%app.hairColor = getField(%choose, 10) @ " 1";
+	%char.appearance = %app;
+}
+
 package DSCharacterPackage
 {
 	function GameConnection::applyBodyParts(%this)
@@ -251,7 +287,7 @@ package DSCharacterPackage
 		%character = %this.character;
 		if (!isObject(%obj) || %this.miniGame != $DefaultMiniGame || !isObject(%character))
 		{
-			Parent::applyBodyColors(%this);
+			Parent::applyBodyParts(%this);
 			return;
 		}
 		%appearance = %character.appearance;

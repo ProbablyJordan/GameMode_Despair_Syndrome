@@ -30,6 +30,12 @@ package DSConnectionPackage
 {
 	function GameConnection::onClientLeaveGame(%this, %a, %b, %c)
 	{
+		if (%this.inDefaultGame() && isObject(%pl = %this.player))
+		{
+			%pl.clientLeft = 1;
+			%pl.kill();
+		}
+		Parent::onClientLeaveGame(%this, %a, %b, %c);
 		for (%i = 0; %i < ClientGroup.getCount(); %i++)
 		{
 			%client = ClientGroup.getObject(%i);
@@ -41,7 +47,6 @@ package DSConnectionPackage
 		}
 		if ($Pref::Server::DespairSyndrome::RequireAdmins && !%adminOn)
 			setServerName("(NO ADMINS)" @ $Pref::Server::Name);
-		parent::onClientLeaveGame(%this, %a, %b, %c);
 	}
 	function GameConnection::startLoad(%this, %a, %b, %c)
 	{

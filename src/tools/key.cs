@@ -27,6 +27,55 @@ datablock ItemData(KeyItem)
 	// collisionThreshold = 3;
 };
 
+datablock ItemData(KeyJanitorItem : KeyItem)
+{
+	doColorShift = 1;
+	colorShiftColor = "0 0 1 1";
+	image = KeyJanitorImage;
+};
+
+datablock ItemData(KeyFurnaceItem : KeyItem)
+{
+	doColorShift = 1;
+	colorShiftColor = "1 0 0 1";
+	image = KeyFurnaceImage;
+};
+
+datablock ItemData(KeyringItem)
+{
+	shapeFile = "base/data/shapes/empty.dts";
+
+	mass = 1;
+	density = 0.2;
+	elasticity = 0.2;
+	friction = 0.6;
+
+	uiName = "Key Ring";
+	iconName = "Add-Ons/Item_Key/Icon_KeyA";
+	doColorShift = true;
+	colorShiftColor = "1 1 0 1";
+
+	itemPropsClass = "KeyProps";
+	itemPropsAlways = true;
+
+	customPickupAlways = true;
+	customPickupMultiple = true;
+
+	image = KeyImage;
+
+	canDrop = true;
+	interactable = true;
+
+	w_class = 2; //Weight class: 1 is tiny, 2 is small, 3 is normal-sized, 4 is bulky
+	// collisionSFX = KeyImpactSFX;
+	// collisionThreshold = 3;
+};
+
+function KeyringItem::onInteract(%data, %cl, %pl)
+{
+	talk("\c0DBG\c6: " @ %cl.name);
+}
+
 function KeyProps::onAdd(%this)
 {
 	%this.name = "Key";
@@ -38,11 +87,26 @@ datablock ShapeBaseImageData(KeyImage)
 	className = "WeaponImage";
 	shapeFile = "Add-Ons/Item_Key/keya.dts";
 
+	isKey = true;
 	item = KeyItem;
 	armReady = true;
 
 	doColorShift = KeyItem.doColorShift;
 	colorShiftColor = KeyItem.colorShiftColor;
+};
+
+datablock ShapeBaseImageData(KeyJanitorImage : KeyImage)
+{
+	item = KeyJanitorItem;
+	doColorShift = KeyJanitorItem.doColorShift;
+	colorShiftColor = KeyJanitorItem.colorShiftColor;
+};
+
+datablock ShapeBaseImageData(KeyFurnaceImage : KeyImage)
+{
+	item = KeyFurnaceItem;
+	doColorShift = KeyFurnaceItem.doColorShift;
+	colorShiftColor = KeyFurnaceItem.colorShiftColor;
 };
 
 function KeyImage::onMount(%this, %obj, %slot)
@@ -75,7 +139,7 @@ package KeyPackage
 	{
 		Parent::onTrigger(%this, %obj, %slot, %state);
 
-		if (!%state || %obj.getMountedImage(0) != KeyImage.getID() || (%slot != 0 && %slot != 4))
+		if (!%state || !%obj.getMountedImage(0).isKey || (%slot != 0 && %slot != 4))
 			return;
 
 		%a = %obj.getEyePoint();

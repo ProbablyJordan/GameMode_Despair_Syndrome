@@ -68,6 +68,8 @@ datablock PlayerData(PlayerDSArmor : PlayerStandardArmor)
 	regenStamina = 0.5;
 	rechargeRate = 0;
 	jumpSound = "";
+	
+	convertRatio0 = 0.01;  // stamina to exhaustion ratio
 };
 
 datablock PlayerData(PlayerDSFrozenArmor : PlayerStandardArmor)
@@ -100,56 +102,31 @@ function PlayerDSArmor::onNewDataBlock(%this, %obj)
 	%obj.regenStaminaDefault = %this.regenStamina;
 	%obj.regenStamina = %this.regenStamina;
 	%obj.energyLimit = %this.maxEnergy;
-	%obj.monitorEnergyLevel();
-	%obj.exhaustion = 4;
-	%obj.exhaustionImmune = false;
-}
-
-function Player::setExhaustion(%this, %val)
-{
-	if (%this.exhaustionImmune) //To be used for players assigned killer roles.
-		return;
-	%this.exhaustion = MClamp(%val, 1, 4);
-	%this.energyLimit = %this.getDataBlock().maxEnergy * (%this.exhaustion/4); //4 bars = 100% stamina, 3 bars = 75%, 2 = 50%, 1 = 25%
-	if (isObject(%this.client))
-		%this.client.updateBottomPrint();
-}
-
-function Player::updateExhaustion(%this) //Call this every night
-{
-	if (%this.exhaustionImmune) //To be used for players assigned killer roles.
-		return;
-	if (%this.exhaustion $= "")
-		%this.setExhaustion(4);
-	if (!%this.unconscious)
+	%obj.convertRatio0 = %this.convertRatio0;
+	%obj.monitorEnergyLevel(getSimTime());
+	if (%obj.currSleepLevel $= "")
 	{
-		%this.setExhaustion(%this.exhaustion--);
-		%msg = "You feel tired. You should probably get some sleep with \c3/sleep\c0.";
-		if (%this.exhaustion <= 2)
-			%msg = "You feel exhausted! You really need to get some sleep with \c3/sleep\c0.";
-		if (%this.exhaustion <= 1)
-			%msg = "You feel drained! If you don't sleep with \c3/sleep\c0, you might fall unconscious.";
-		if (%this.exhaustion <= 0)
-		{
-			%msg = "You got too exhausted and have fallen unconscious...";
-			%this.KnockOut(120000, 2); //2 minute KO. Regain 2 bars tho
-		}
-		if (isObject(%this.client))
-		{
-			messageClient(%this.client, '', %msg);
-		}
+		%obj.currSleepLevel = 25 * 0.583333333;
+		%obj.speedMult = 1;
 	}
+	%obj.exhaustionImmune = false;
 }
 
 function serverCmdSleep(%this, %bypass)
 {
-	if(!isObject(%this.player) || !%this.inDefaultGame() || %this.miniGame.gameMode.trial)
+	if(!isObject(%pl = %this.player) || !%this.inDefaultGame() || %this.miniGame.gameMode.trial)
 		return;
+	if (%pl.currSleepLevel < 25)
+	{
+		%this.chatMessage("\c6You can't sleep yet - you don't feel tired!");
+		return;
+	}
 	if (%bypass)
 	{
-		if (%this.player.unconscious)
+		if ((%pl.unconscious && !%pl.currResting) || %pl.currSleeping)
 			return;
-		%this.player.KnockOut(90000, 2); //1.30 minute KO w/ 2 bars of exhaustion recovery
+		%pl.currSleeping = 1;
+		%pl.KnockOut(-1); //1.30 minute KO w/ 2 bars of exhaustion recovery
 		%this.updateBottomPrint();
 		return;
 	}
@@ -157,12 +134,34 @@ function serverCmdSleep(%this, %bypass)
 	commandToClient(%this, 'messageBoxYesNo', "Sleep Prompt", %message, 'SleepAccept');
 }
 
+function servercmdRest(%cl)
+{
+	if (!isObject(%pl = %cl.player) || !%cl.inDefaultGame() || %cl.miniGame.gameMode.trial)
+		return;
+	if (%pl.currSleeping || %pl.currResting || %pl.unconscious)
+		return;
+	%cl.setControlObject(%cam = %cl.camera);
+	%cam.setMode("CORPSE", %pl);
+	%cl.centerPrint("\c6You are resting. Left-click to wake up.", 3);
+	%pl.changeDatablock(PlayerCorpseArmor);
+	%pl.setArmThread(land);
+	%pl.playThread(0, "root");
+	%pl.playThread(1, "root");
+	%pl.playThread(2, "root");
+	%pl.playThread(3, "death1");
+	%pl.setActionThread("root");
+	%pl.currResting = 1;
+	%pl.unconscious = 1;
+	%pl.setShapeNameDistance(0);
+	%pl.isBody = true;
+}
+
 function serverCmdSleepAccept(%this)
 {
 	serverCmdSleep(%this, 1);
 }
 
-function Player::monitorEnergyLevel(%this)
+function Player::monitorEnergyLevel(%this, %last)
 {
 	cancel(%this.monitorEnergyLevel);
 
@@ -174,9 +173,9 @@ function Player::monitorEnergyLevel(%this)
 	{
 		%this.running = false;
 		%this.regenStamina = %this.regenStaminaDefault;
-		%this.setMaxForwardSpeed(%this.getDataBlock().maxForwardSpeed);
-		%this.setMaxSideSpeed(%this.getDataBlock().maxSideSpeed);
-		%this.setMaxBackwardSpeed(%this.getDataBlock().maxBackwardSpeed);
+		%this.setMaxForwardSpeed(%this.getDataBlock().maxForwardSpeed * %this.speedMult);
+		%this.setMaxSideSpeed(%this.getDataBlock().maxSideSpeed * %this.speedMult);
+		%this.setMaxBackwardSpeed(%this.getDataBlock().maxBackwardSpeed * %this.speedMult);
 	}
 
 	if (%this.running && vectorLen(%this.getVelocity()) > %this.getDataBlock().maxForwardSpeed)
@@ -185,9 +184,9 @@ function Player::monitorEnergyLevel(%this)
 
 		if (%this.getEnergyLevel() < 1)
 		{
-			%this.setMaxForwardSpeed(%this.getDataBlock().maxForwardSpeed * 0.5);
-			%this.setMaxSideSpeed(%this.getDataBlock().maxSideSpeed * 0.5);
-			%this.setMaxBackwardSpeed(%this.getDataBlock().maxBackwardSpeed * 0.5);
+			%this.setMaxForwardSpeed(%this.getDataBlock().maxForwardSpeed * %this.speedMult * 0.5);
+			%this.setMaxSideSpeed(%this.getDataBlock().maxSideSpeed * %this.speedMult * 0.5);
+			%this.setMaxBackwardSpeed(%this.getDataBlock().maxBackwardSpeed * %this.speedMult * 0.5);
 		}
 	}
 	else //idle
@@ -195,7 +194,12 @@ function Player::monitorEnergyLevel(%this)
 		%restoreStamina = %this.regenStamina;
 		if (getSimTime() - %this.haltStaminaReg < 1300)
 			%restoreStamina = %restoreStamina * ((getSimTime() - %this.haltStaminaReg)/1300);
-		%this.setEnergyLevel(GetMin(%this.getEnergyLevel() + %restoreStamina, %this.energyLimit)); //Energy Limit used for exhaustion stuffs
+		%currStamina = %this.getEnergyLevel();
+		%newStamina = getMin(%currStamina + %restoreStamina, %this.energyLimit);
+		%deltaStamina = %newStamina - %currStamina;
+		//if (%deltaStamina > 0)
+		//	%this.currSleepLevel += %deltaStamina * %this.convertRatio0;
+		%this.setEnergyLevel(%newStamina); //Energy Limit used for exhaustion stuffs
 	}
 	%this.client.updateBottomPrint();
 	// %show = %this.getEnergyLevel() < %this.getDataBlock().maxEnergy;
@@ -203,7 +207,7 @@ function Player::monitorEnergyLevel(%this)
 	// if (%show != %last)
 	// 	commandToClient(%this.client, 'ShowEnergyBar', %show);
 
-	%this.monitorEnergyLevel = %this.schedule(32, monitorEnergyLevel);
+	%this.monitorEnergyLevel = %this.schedule(32, monitorEnergyLevel, %now);
 }
 
 function PlayerDSArmor::onCollision(%this, %obj, %col, %vec, %speed)
@@ -219,8 +223,9 @@ function PlayerDSArmor::onCollision(%this, %obj, %col, %vec, %speed)
 				// echo(vectorLen(%col.getVelocity()));
 				if (%col.getDataBlock().image.isWeapon)
 				{
-					// %this.damage(%obj, %col.lastTosser, %col.getPosition(), %col.getDataBlock().image.directDamage * getMin(vectorLen(%col.getVelocity())/11, 1), %col.getDataBlock().image.directDamageType);
+					%obj.lastItemImpact = %col;
 					%col.getDataBlock().image.onRaycastCollision(%col.lastTosser, %obj, %col.getPosition(), vectorNormalize(vectorAdd(%obj.getHackPosition(), %col.getPosition()))); //haaaaaax
+					%obj.lastItemImpact = "";
 					%col.lastTosser = ""; //nullify last tosser
 				}
 				else
@@ -330,7 +335,9 @@ function PlayerDSArmor::onTrigger(%this, %obj, %slot, %state)
 						else
 							%character = %found.character;
 						%text = "\c6This is" SPC (isObject(%character) ? %character.name : "Unknown") @ "'s body.";
-						if (%found.unconscious)
+						if (%found.currResting)
+							%text = %text @ "\n\c3They appear to be resting.";
+						else if (%found.unconscious)
 							%text = %text @ "\n\c3They are unconscious.";
 						//Unfinished body examination flavortext below
 						//"Their head has 2 cuts and 1 bruises from behind, 1 cut from the side and 1 cut from the front." -- Intended results
@@ -414,17 +421,17 @@ function PlayerDSArmor::onTrigger(%this, %obj, %slot, %state)
 			%obj.setEnergyLevel(%obj.getEnergyLevel() - 10);
 			%obj.running = true;
 			%obj.regenStamina = 0;
-			%obj.setMaxForwardSpeed(%this.maxForwardSpeed * 1.75);
-			%obj.monitorEnergyLevel();
+			%obj.setMaxForwardSpeed(%this.maxForwardSpeed * %obj.speedMult * 1.75);
+			%obj.monitorEnergyLevel(getSimTime());
 		}
 		else
 		{
 			%obj.running = false;
 			%obj.regenStamina = %obj.regenStaminaDefault;
-			%obj.setMaxForwardSpeed(%obj.getDataBlock().maxForwardSpeed);
-			%obj.setMaxSideSpeed(%obj.getDataBlock().maxSideSpeed);
-			%obj.setMaxBackwardSpeed(%obj.getDataBlock().maxBackwardSpeed);
-			%obj.monitorEnergyLevel();
+			%obj.setMaxForwardSpeed(%obj.getDataBlock().maxForwardSpeed * %obj.speedMult);
+			%obj.setMaxSideSpeed(%obj.getDataBlock().maxSideSpeed * %obj.speedMult);
+			%obj.setMaxBackwardSpeed(%obj.getDataBlock().maxBackwardSpeed * %obj.speedMult);
+			%obj.monitorEnergyLevel(getSimTime());
 		}
 	}
 }

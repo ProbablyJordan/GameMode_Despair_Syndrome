@@ -35,11 +35,13 @@ exec("./src/health.cs");
 exec("./src/inventory.cs");
 exec("./src/docs_commands.cs");
 exec("./src/chat.cs");
+exec("./src/deadGames.cs");
 exec("./src/gamemodes.cs");
 exec("./src/game.cs");
 exec("./src/admin.cs");
 exec("./src/admin_API.cs");
 exec("./src/connection.cs");
+exec("./src/sleep.cs");
 
 exec("./src/gamemodes/default.cs");
 exec("./src/gamemodes/killer.cs");
@@ -54,13 +56,7 @@ exec("./src/tools/lockpick.cs");
 
 exec("./src/tools/food/cheeseburger.cs");
 
-exec("./src/tools/weapons/melee.cs");
-exec("./src/tools/weapons/testsword.cs");
-exec("./src/tools/weapons/umbrella.cs");
-exec("./src/tools/weapons/cane.cs");
-exec("./src/tools/weapons/wrench.cs");
-exec("./src/tools/weapons/pan.cs");
-exec("./src/tools/weapons/knife.cs");
+exec("./src/tools/weapons/_init.cs");
 
 swordExplosion.soundProfile = "";
 hammerExplosion.lightStartRadius = 0;

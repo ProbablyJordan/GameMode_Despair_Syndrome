@@ -1,0 +1,10 @@
+exec("./aluminum_bat.cs");
+exec("./cane.cs");
+exec("./knife.cs");
+exec("./melee.cs");
+exec("./metal_bat.cs");
+exec("./pan.cs");
+exec("./testsword.cs");
+exec("./umbrella.cs");
+exec("./wood_bat.cs");
+exec("./wrench.cs");
