@@ -5,13 +5,18 @@ function sleepyTime(%last)
 	%dcLength = $DS::Time::DayLength + $DS::Time::NightLength;
 	%sleepPeriod = %dcLength * 0.80;
 	%increase = (%time * 25) / %sleepPeriod;
-	%count = ClientGroup.getCount();
 	%dreamProb = 1 - mPow(0.9, %time);
+	%count = ClientGroup.getCount();
 	for (%i = 0; %i < %count; %i++)
 	{
 		%cl = ClientGroup.getObject(%i);
 		if (!%cl.inDefaultGame() || !isObject(%pl = %cl.player))
 			continue;
+		if ($Dbg::HealthRegen > 0)
+		{
+			%pl.health = mClampF(%pl.health + $Dbg::HealthRegen * %time, 0, %pl.maxHealth);
+			%cl.updateBottomprint();
+		}
 		if (%cl.minigame.gameMode.trial)
 		{
 			if (%pl.knockoutStart !$= "" || %pl.currSleeping || %pl.currResting || %pl.unconscious)
@@ -19,6 +24,7 @@ function sleepyTime(%last)
 			%pl.currSleeping = 0;
 			%pl.currSleepLevel = 0;
 			%pl.knockoutStart = "";
+			%pl.energyLimit = %pl.getDataBlock().maxEnergy;
 			continue;
 		}
 		if (%pl.knockoutStart !$= "")
@@ -35,11 +41,11 @@ function sleepyTime(%last)
 			}
 			else
 			{
-				%time = mCeil((%pl.knockoutLength - vectorDist(%pl.knockoutStart, %now)) / 1000);
-				if (%cl.lastSleepMsgTime != %time)
+				%sleepTime = mCeil((%pl.knockoutLength - vectorDist(%pl.knockoutStart, %now)) / 1000);
+				if (%cl.lastSleepMsgTime != %sleepTime)
 				{
-					%cl.centerPrint("\c6" @ %time @ " second" @ (%time == 1 ? "" : "s") @ " left until you wake up.", 3);
-					%cl.lastSleepMsgTime = %time;
+					%cl.centerPrint("\c6" @ %sleepTime @ " second" @ (%sleepTime == 1 ? "" : "s") @ " left until you wake up.", 3);
+					%cl.lastSleepMsgTime = %sleepTime;
 				}
 			}
 		}
@@ -48,12 +54,12 @@ function sleepyTime(%last)
 			doDream(%cl, %dreamProb, 0.15);
 			if (%pl.currSleepLevel > 25)
 			{
-				%time = ((%pl.currSleepLevel - 25) / 300) * %sleepPeriod;
-				%time = mCeil(%time + %sleepPeriod / 4);
-				if (%cl.lastSleepMsgTime != %time)
+				%sleepTime = ((%pl.currSleepLevel - 25) / 300) * %sleepPeriod;
+				%sleepTime = mCeil(%sleepTime + %sleepPeriod / 4);
+				if (%cl.lastSleepMsgTime != %sleepTime)
 				{
-					%cl.centerPrint("\c6" @ %time @ " second" @ (%time == 1 ? "" : "s") @ " left until you wake up.", 3);
-					%cl.lastSleepMsgTime = %time;
+					%cl.centerPrint("\c6" @ %sleepTime @ " second" @ (%sleepTime == 1 ? "" : "s") @ " left until you wake up.", 3);
+					%cl.lastSleepMsgTime = %sleepTime;
 				}
 				%decrease = %increase * 12;
 				if(%decrease + 25 > %pl.currSleepLevel)
@@ -66,11 +72,11 @@ function sleepyTime(%last)
 			}
 			else
 			{
-				%time = mCeil((%pl.currSleepLevel / 100) * %sleepPeriod);
-				if (%cl.lastSleepMsgTime != %time)
+				%sleepTime = mCeil((%pl.currSleepLevel / 100) * %sleepPeriod);
+				if (%cl.lastSleepMsgTime != %sleepTime)
 				{
-					%cl.centerPrint("\c6" @ %time @ " second" @ (%time == 1 ? "" : "s") @ " left until you wake up.", 3);
-					%cl.lastSleepMsgTime = %time;
+					%cl.centerPrint("\c6" @ %sleepTime @ " second" @ (%sleepTime == 1 ? "" : "s") @ " left until you wake up.", 3);
+					%cl.lastSleepMsgTime = %sleepTime;
 				}
 				%pl.currSleepLevel -= %increase * 4;
 			}
@@ -85,7 +91,7 @@ function sleepyTime(%last)
 		else
 		{
 			%pl.currSleepLevel += %increase;
-			if (%cl.minigame.gamemode.killer == %cl)
+			if ((%mini = %cl.minigame).gamemode.isKiller(%mini, %cl))
 				%pl.currSleepLevel = 0;
 			if (%pl.currSleepLevel >= 100)
 			{

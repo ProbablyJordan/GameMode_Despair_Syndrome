@@ -35,40 +35,7 @@ function DSGamemode_Trial::getBottomPrintText(%this, %minigame, %cl)
 	if (!%this.trial)
 		return Parent::getBottomPrintText(%this, %minigame, %cl);
 	
-	%character = %cl.character;
-	%nameTextColor = "ffff00";
-	if (%character.gender $= "female")
-		%nameTextColor = "ff11cc";
-	else if (%character.gender $= "male")
-		%nameTextColor = "22ccff";
-
-	%health = 0;
-	%maxhealth = 0;
-	%stamina = 0;
-	%maxstamina = 0;
-	if (isObject(%cl.player))
-	{
-		%health = mFloor(%cl.player.getHealth());
-		%maxhealth = %cl.player.getMaxHealth();
-		%stamina = mFloor(%cl.player.getEnergyLevel());
-		%maxstamina = mFloor(%cl.player.energyLimit);
-	}
-
-	%roleColor = "\c7";
-	%role = "Undecided";
-	if (%cl.inDefaultGame() && isObject(%cl.miniGame.gameMode.killer))
-	{
-		%roleColor = "\c2";
-		%role = "Innocent";
-		if (%cl.miniGame.gameMode.killer == %cl)
-		{
-			%roleColor = "\c0";
-			%role = "Killer";
-		}
-	}
-
-	%text = "\c6Health: \c0"@%health@"/"@%maxhealth@"<just:right>\c6Name: <color:"@%nameTextColor@">"@%character.name@"\c6 (\c3Room #"@%character.room@"\c6)";
-	%text = %text @ "<just:left><br>\c6Stamina: \c5"@%stamina@"/"@%maxstamina @ "<just:right>\c6Role:" SPC %roleColor @ %role;
+	%msg = Parent::getBottomPrintText(%this, %minigame, %cl);
 	if (%this.vote)
 	{
 		%time = mCeil(getTimeRemaining(%this.trialSchedule) / 1000);
@@ -76,7 +43,7 @@ function DSGamemode_Trial::getBottomPrintText(%this, %minigame, %cl)
 		%minutes = (%time - %seconds) / 60;
 		if (%seconds < 10)
 			%seconds = "0" @ %seconds;
-		%text = %text @ "<br><just:right>\c6Time to vote: \c3" @ %minutes @ ":" @ %seconds;
+		%text = "\c6Time to vote: \c3" @ %minutes @ ":" @ %seconds;
 	}
 	else
 	{
@@ -85,9 +52,11 @@ function DSGamemode_Trial::getBottomPrintText(%this, %minigame, %cl)
 		%minutes = (%time - %seconds) / 60;
 		if (%seconds < 10)
 			%seconds = "0" @ %seconds;
-		%text = %text @ "<br><just:right>\c6Time to discuss: \c3" @ %minutes @ ":" @ %seconds;
+		%text = "\c6Time to discuss: \c3" @ %minutes @ ":" @ %seconds;
 	}
-	return %text;
+	%field = getFirstField(%msg, "\c6Time");
+	%msg = setField(%msg, %field, %text);
+	return %msg;
 }
 
 function DSGameMode_Trial::onMiniGameJoin(%this, %miniGame, %client)
@@ -138,6 +107,7 @@ function DSGameMode_Trial::onEnd(%this, %miniGame, %winner)
 		return;
 	cancel(%this.trialSchedule);
 	deactivatepackage(DSTrialPackge);
+	%this.trial = false;
 	%this.vote = false;
 	%endtext = isObject(%winner) && %winner == %this.killer ? "\c3The killer wins!" : "\c3The killer loses!";
 	if (isObject(%killer = %this.killer))
@@ -167,11 +137,12 @@ function DSGameMode_Trial::onDeath(%this, %miniGame, %client, %sourceObject, %so
 		//Maybe penalize?
 		%log = %sourceClient.getPlayerName() SPC "just killed" SPC %client.getPlayerName() SPC "as a non-killer.";
 		echo("\c2" SPC %log);
+		freekillRecordLine(%sourceClient, "FREEKILL: {0} killed {1} (BL_ID: {2})!", %client.name, %client.bl_id);
 		%count = ClientGroup.getCount();
 		for (%i = 0; %i < %count; %i++)
 		{
 			%other = ClientGroup.getObject(%i);
-			if (%other.isAdmin)
+			if (%other.getModLevel() != 0)
 			{
 				messageClient(%other, '', "FREEKILL:" SPC %log);
 				commandToClient(%other, 'API_Freekill', %sourceClient, %client);
@@ -224,36 +195,8 @@ function DSGameMode_Trial::onNight(%this, %miniGame)
 {
 	if (!isObject(%this.killer))
 	{
-		%count = 0;
-		for (%i = 0; %i < DSTrialGameMode_Queue.getCount(); %i++)
-		{
-			%member = DSTrialGameMode_Queue.getObject(%i);
-
-			if (isObject(%member.player) && %member.inDefaultGame())
-			{
-				%alivePlayers[%count++] = %member;
-			}
-		}
-		if (%count <= 0)
-		{
-			DSTrialGameMode_Queue.clear();
-			for (%i = 0; %i < %miniGame.numMembers; %i++)
-			{
-				%member = %miniGame.member[%i];
-				if (!%member.ignoreQueue)
-					DSTrialGameMode_Queue.add(%member);
-			}
-			if (DSTrialGameMode_Queue.getCount() <= 0) //Error handler so it doesn't go infinite looping on me
-			{
-				announce("\c0ERROR\c3: No killer can be picked even after refilling the queue! Yell at Jack Noir about this.");
-				%this.onEnd(%miniGame, "");
-				return;
-			}
-			%this.onNight(%miniGame); //Try again
-			return;
-		}
 		%this.madekiller = true;
-		%this.killer = $DS::GameMode::ForceKiller !$= "" ? $DS::GameMode::ForceKiller : %alivePlayers[getRandom(1, %count)];
+		%this.killer = $DS::GameMode::ForceKiller !$= "" ? $DS::GameMode::ForceKiller : chooseNextClient("Killer");
 		DSTrialGameMode_Queue.remove(%this.killer); //Remove from queue
 		%this.killer.player.regenStaminaDefault *= 2;
 		%this.killer.player.exhaustionImmune = true;
@@ -265,6 +208,14 @@ function DSGameMode_Trial::onNight(%this, %miniGame)
 	parent::onNight(%this, %miniGame);
 	//%this.checkInvestigationStart(%miniGame);
 }
+
+function DSGamemode_Trial::teamMessageSent(%this, %minigame, %client, %text)
+{
+	if (isObject(%this.killer) && %this.trial)
+		return;
+	Parent::teamMessageSent(%this, %minigame, %client, %text);
+}
+
 function DSGameMode_Trial::onBodyExamine(%this, %miniGame, %client, %body)
 {
 	for (%i=1; %i <= %body.bodyDiscoveries; %i++) //Check if the client had already discovered the body
@@ -412,7 +363,7 @@ package DSTrialPackage
 		}
 		%search = trim(%a SPC %b);
 		%miniGame = %client.miniGame;
-		if (!%miniGame.gameMode.vote)
+		if (%minigame.gamemode.getID() != DSGamemode_Trial.getID() || !%miniGame.gameMode.vote)
 		{
 			Parent::servercmdVote(%client, %a, %b, %c, %d, %e, %f);
 			return;
@@ -562,6 +513,46 @@ package DSTrialPackage
 				%start = true;
 			if (%start)
 				%gameMode.voteStart($defaultMiniGame);
+		}
+	}
+	
+	function servercmdDropTool(%cl, %slot)
+	{
+		if (!%cl.inDefaultGame() || !(%mode = %cl.minigame.gamemode).trial
+			|| %mode.getID() != DSGamemode_Trial.getID() || !isObject(%pl = %cl.player))
+			Parent::servercmdDropTool(%cl, %slot);
+		else
+		{
+			if (!isObject(%pl.tool[%slot]))
+				return;
+			%tool = %pl.tool[%slot];
+			%pl.tool[%slot] = "";
+			messageClient(%cl, 'MsgItemPickup', '', %slot, -1, 1);
+			%value = 3.825 + %pl.itemOffset;
+			if (isObject(%props = %pl.itemProps[%slot]))
+				%pl.itemProps[%slot] = "";
+			%item = new Item()
+			{
+				position = "0 0 0";
+				datablock = %tool;
+				itemProps = %props;
+				minigame = %cl;
+				static = true;
+				rotate = true;
+			};
+			%value -= getWord(%box = %item.getWorldBox(), 2);
+			%height = getWord(%box, 5) - getWord(%box, 2);
+			%pl.itemOffset += %height + 0.2;
+			%offset = setWord("0 0 0", 2, %value);
+			%item.setTransform(vectorAdd(%pl.getPosition(), %offset));
+			if (%tool.getName() $= "KeyItem")
+				%item.setShapeName(%item.itemProps.name);
+			else if (%tool.getName() $= "KeyJanitorItem")
+				%item.setShapeName(strReplace(%item.itemProps.name, "Key", "Janitor Key"));
+			else
+				%item.setShapeName(%tool.uiName);
+			MissionCleanup.add(%item);
+			GameRoundCleanup.add(%item);
 		}
 	}
 };

@@ -1,3 +1,40 @@
+function formatString(%format, %a0, %a1, %a2, %a3, %a4, %a5, %a6, %a7, %a8, %a9)
+{
+	%len = strLen(%format);
+	for(%i=0;%i<%len;%i++)
+	{
+		%char = getSubStr(%format, %i, 1);
+		if(%char $= "{")
+		{
+			%depth++;
+			if(%depth == 1)
+			{
+				%record = 1;
+				continue;
+			}
+		}
+		else if(%char $= "}")
+		{
+			%depth--;
+			if(%depth == 0)
+			{
+				%record = 0;
+				if(strLen(%value) == 1 && strPos("0123456789", %value) != -1)
+					%out = %out @ %a[%value];
+				else if(%value $= "[")
+					%out = %out @ "{";
+				else if(%value $= "]")
+					%out = %out @ "}";
+				%value = "";
+				continue;
+			}
+		}
+		if(!%record) %out = %out @ %char;
+		else %value = %value @ %char;
+	}
+	return %out;
+}
+
 function naturalGrammarList(%list) {
 	%fields = getFieldCount(%list);
 

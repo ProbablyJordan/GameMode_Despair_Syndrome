@@ -338,9 +338,35 @@ package DSCharacterPackage
 			Parent::applyBodyColors(%this);
 			return;
 		}
-		%appearance = %character.appearance;
-		%obj.setDecalName(%appearance.decalName);
-		%obj.setFaceName(%appearance.faceName);
+		%obj.applyBodyColors();
+	}
+};
+
+function Player::applyBodyColors(%obj)
+{
+	if (!isObject(%character = %obj.client.character) && !isObject(%character = %obj.character))
+		return;
+	%appearance = %character.appearance;
+	%obj.setDecalName(%appearance.decalName);
+	%obj.setFaceName(%appearance.faceName);
+	if (%obj.charred)
+	{
+		%obj.setNodeColor("headSkin", getCharredColor(%appearance.skinColor));
+		%obj.setNodeColor("chest", getCharredColor(%appearance.shirtColor));
+		%obj.setNodeColor("femchest", getCharredColor(%appearance.shirtColor));
+		%obj.setNodeColor("pants", getCharredColor(%appearance.pantsColor));
+		%obj.setNodeColor("lshoe", getCharredColor(%appearance.shoesColor));
+		%obj.setNodeColor("rshoe", getCharredColor(%appearance.shoesColor));
+		%obj.setNodeColor("larm", getCharredColor(%appearance.shirtColor));
+		%obj.setNodeColor("rarm", getCharredColor(%appearance.shirtColor));
+		%obj.setNodeColor("larmslim", getCharredColor(%appearance.shirtColor));
+		%obj.setNodeColor("rarmslim", getCharredColor(%appearance.shirtColor));
+		%obj.setNodeColor("lhand", getCharredColor(%appearance.skinColor));
+		%obj.setNodeColor("rhand", getCharredColor(%appearance.skinColor));
+		%obj.setNodeColor(%appearance.hairName, getCharredColor(%appearance.hairColor));
+	}
+	else
+	{
 		%obj.setNodeColor("headSkin", %appearance.skinColor);
 		%obj.setNodeColor("chest", %appearance.shirtColor);
 		%obj.setNodeColor("femchest", %appearance.shirtColor);
@@ -367,7 +393,14 @@ package DSCharacterPackage
 		%obj.setNodeColor("femchest_blood_front", "0.7 0 0 1");
 		%obj.setNodeColor("femchest_blood_back", "0.7 0 0 1");
 	}
-};
+}
+
+function getCharredColor(%color)
+{
+	%value = getWord(%color, 0) * 0.2126 + getWord(%color, 1) * 0.7152 + getWord(%color, 2) * 0.0722;
+	%value = (%value + 0.3) / 2;
+	return %value SPC %value SPC %value SPC getWord(%color, 3);
+}
 
 if ($GameModeArg $= ($DS::Path @ "gamemode.txt"))
 	activatePackage("DSCharacterPackage");

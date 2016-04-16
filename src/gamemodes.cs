@@ -36,6 +36,10 @@ function DSGameMode::onStart(%this, %miniGame)
 			%brick.doorHits = 0;
 			%brick.broken = false;
 			%brick.setDataBlock(%brick.isCCW ? %data.closedCCW : %data.closedCW);
+			%brick.doorMaxHits = 4;
+			%brick.doorLockpickDifficulty = 7;
+			if (%brick.getName() $= "_door_trial")
+				%brick.impervious = 1;
 		}
 		
 		%name = %brick.getName();
@@ -56,6 +60,7 @@ function DSGameMode::onStart(%this, %miniGame)
 		%roomDoor.lockId = "R"@%room;
 		%roomDoor.lockState = true;
 		%roomDoor.doorMaxHits = 6;
+		%roomDoor.doorLockpickDifficulty = 10;
 		%roomSpawn = BrickGroup_888888.NTObject["_" @ %room, 0];
 	}
 	if(isObject(%door = BrickGroup_888888.NTObject["_door_janitor", 0]))
@@ -63,6 +68,7 @@ function DSGameMode::onStart(%this, %miniGame)
 		%door.lockID = "JCloset";
 		%door.lockState = true;
 		%door.doorMaxHits = 12;
+		%roomDoor.doorLockpickDifficulty = 40;
 		%closetDoor = %door;
 	}
 	if(isObject(%door = BrickGroup_888888.NTObject["_door_incinerator", 0]))
@@ -70,24 +76,19 @@ function DSGameMode::onStart(%this, %miniGame)
 		%door.lockID = "JFurnace";
 		%door.lockState = true;
 		%door.doorMaxHits = 12;
+		%roomDoor.doorLockpickDifficulty = 40;
 		%furnaceDoor = %door;
 	}
+	if(isObject(%furnace = BrickGroup_888888.NTObject["_incineratorBase", 0]))
+		$Furnace = %furnace;
+	else
+		$Furnace = -1;
 	
 	// Random items!
 	%name = "_randomlootspawn";
-	//%choice[%choices++-1] = "CaneItem 1";
-	//%choice[%choices++-1] = "UmbrellaItem 1.25";
-	//%choice[%choices++-1] = "MonkeyWrenchItem 1";
-	//%choice[%choices++-1] = "PanItem 1.25";
-	//%choice[%choices++-1] = "KnifeItem 1";
-	//%choice[%choices++-1] = "MopItem 0.75";
-	//%choice[%choices++-1] = "LockpickItem 0.4";
-	//%choice[%choices++-1] = "WoodBatItem 1";
 	%choice[%choices++-1] = "0.8 CaneItem MonkeyWrenchItem KnifeItem";
-	
 	//%choice[%choices++-1] = "0.2 WoodBatItem MetalBatItem AluminumBatItem";
 	%choice[%choices++-1] = "0.2 CaneItem MonkeyWrenchItem KnifeItem";
-	
 	%choice[%choices++-1] = "1.5 UmbrellaItem PanItem";
 	//%choice[%choices++-1] = "0.75 MopItem";
 	%choice[%choices++-1] = "0.4 LockpickItem";
@@ -115,6 +116,14 @@ function DSGameMode::onStart(%this, %miniGame)
 			break;
 		%brick.setItem(%pick);
 	}
+	
+	%count = Brickgroup_888888.NTObjectCount[%name = "_stair_block"];
+	for (%i = 0; %i < %count; %i++)
+	{
+		%brick = Brickgroup_888888.NTObject[%name, %i];
+		%brick.disappear(0);
+	}
+	
 	//Give everyone rooms, names, appearances, roles, etc
 	for (%i = 0; %i < %miniGame.numMembers && %freeCount; %i++)
 	{
@@ -223,6 +232,8 @@ function DSGameMode::onStart(%this, %miniGame)
 		%closetDoor.lockID = %props.id;
 	if (isObject(%furnaceDoor))
 		%furnaceDoor.lockID = %props.id;
+	
+	generalTick(getSimTime());
 }
 function DSGameMode::onEnd(%this, %miniGame, %winner)
 {
@@ -235,6 +246,104 @@ function DSGameMode::onEnd(%this, %miniGame, %winner)
 	}
 	%miniGame.messageAll('', %endtext SPC "\c5A new game will begin in 10 sceonds.");
 	%miniGame.scheduleReset(10000);
+}
+function DSGameMode::onDay(%this, %miniGame)
+{
+	$DefaultMiniGame.lastStageStarted = getSimTime();
+	$DefaultMiniGame.shapeNameDistance = 13.5;
+	for (%i = 0; %i < %miniGame.numMembers; %i++)
+	{
+		%member = %miniGame.member[%i];
+		%player = %member.player;
+
+		if (!isObject(%player))
+			continue;
+		if (%player.unconscious) continue;
+		%player.setShapeNameDistance($DefaultMiniGame.shapeNameDistance); //Update shapenames
+	}
+	loadEnvironment($DS::Path @ "data/env/day.txt");
+	%miniGame.messageAll('', '\c5All water in the building has resumed function. Cafeteria has been unlocked.');
+	%name = "_sink";
+	%count = BrickGroup_888888.NTObjectCount[%name];
+	for (%i = 0; %i < %count; %i++)
+	{
+		%brick = BrickGroup_888888.NTObject[%name, %i];
+		%brick.eventEnabled0 = true;
+		%brick.eventEnabled1 = true;
+		%brick.eventEnabled2 = false;
+	}
+	%name = "_showerFaucet";
+	%count = BrickGroup_888888.NTObjectCount[%name];
+	for (%i = 0; %i < %count; %i++)
+	{
+		%brick = BrickGroup_888888.NTObject[%name, %i];
+		%brick.eventEnabled0 = true;
+		%brick.eventEnabled1 = true;
+		%brick.eventEnabled2 = true;
+		%brick.eventEnabled3 = false;
+	}
+	%count = Brickgroup_888888.NTObjectCount[%name = "_door_cafe"];
+	for (%i = 0; %i < %count; %i++)
+	{
+		Brickgroup_888888.NTObject[%name, %i].lockVector = "";
+	}
+	%miniGame.days++;
+}
+function DSGameMode::onNight(%this, %miniGame)
+{
+	$DefaultMiniGame.lastStageStarted = getSimTime();
+	$DefaultMiniGame.shapeNameDistance = 5;
+	//Exhaust all players
+	for (%i = 0; %i < %miniGame.numMembers; %i++)
+	{
+		%member = %miniGame.member[%i];
+		%player = %member.player;
+
+		if (!isObject(%player))
+			continue;
+
+		if (%player.unconscious) continue;
+		%player.setShapeNameDistance($DefaultMiniGame.shapeNameDistance); //Update shapenames
+	}
+	loadEnvironment($DS::Path @ "data/env/night.txt");
+	%miniGame.messageAll('', '\c5All water in the building has been disabled for the night. Cafeteria will be off-limits in 30 seconds.');
+	%name = "_sink";
+	%count = BrickGroup_888888.NTObjectCount[%name];
+	for (%i = 0; %i < %count; %i++)
+	{
+		%brick = BrickGroup_888888.NTObject[%name, %i];
+		%brick.eventEnabled0 = false;
+		%brick.eventEnabled1 = false;
+		%brick.eventEnabled2 = true;
+	}
+	%name = "_showerFaucet";
+	%count = BrickGroup_888888.NTObjectCount[%name];
+	for (%i = 0; %i < %count; %i++)
+	{
+		%brick = BrickGroup_888888.NTObject[%name, %i];
+		%brick.eventEnabled0 = false;
+		%brick.eventEnabled1 = false;
+		%brick.eventEnabled2 = false;
+		%brick.eventEnabled3 = false;
+		%brick.setEmitter(-1);
+	}
+	%count = Brickgroup_888888.NTObjectCount[%name = "_door_cafe"];
+	for (%i = 0; %i < %count; %i++)
+	{
+		if(!(%brick = Brickgroup_888888.NTObject[%name, %i]).broken)
+			%brick.door(4);
+		%right = vectorCross(%brick.getForwardVector(), %brick.getUpVector());
+		%brick.lockVector = vectorScale(%right, %brick.isCCW ? 1 : -1);
+	}
+	%count = Brickgroup_888888.NTObjectCount[%name = "_stair_block"];
+	for (%i = 0; %i < %count; %i++)
+	{
+		%brick = Brickgroup_888888.NTObject[%name, %i];
+		%brick.disappear(-1);
+	}
+}
+function DSGameMode::onDeath(%this, %miniGame, %client, %sourceObject, %sourceClient, %damageType, %damLoc)
+{
 }
 function DSGameMode::checkLastManStanding(%this, %miniGame)
 {
@@ -272,61 +381,7 @@ function DSGamemode::unavailableReason(%this, %minigame)
 		return "Too few players";
 	return "";
 }
-function DSGameMode::onDay(%this, %miniGame)
+function DSGamemode::isKiller(%this, %minigame, %cl)
 {
-	$DefaultMiniGame.lastStageStarted = getSimTime();
-	$DefaultMiniGame.shapeNameDistance = 13.5;
-	for (%i = 0; %i < %miniGame.numMembers; %i++)
-	{
-		%member = %miniGame.member[%i];
-		%player = %member.player;
-
-		if (!isObject(%player))
-			continue;
-		if (%player.unconscious) continue;
-		%player.setShapeNameDistance($DefaultMiniGame.shapeNameDistance); //Update shapenames
-	}
-	loadEnvironment($DS::Path @ "data/env/day.txt");
-	%miniGame.messageAll('', '\c5All water in the building has resumed function. Cafeteria has been unlocked.');
-	%name = "_sink";
-	%count = BrickGroup_888888.NTObjectCount[%name];
-	for (%i = 0; %i < %count; %i++)
-	{
-		%brick = BrickGroup_888888.NTObject[%name, %i];
-		%brick.eventEnabled0 = true;
-		%brick.eventEnabled1 = true;
-		%brick.eventEnabled2 = false;
-	}
-	%miniGame.days++;
-}
-function DSGameMode::onNight(%this, %miniGame)
-{
-	$DefaultMiniGame.lastStageStarted = getSimTime();
-	$DefaultMiniGame.shapeNameDistance = 5;
-	//Exhaust all players
-	for (%i = 0; %i < %miniGame.numMembers; %i++)
-	{
-		%member = %miniGame.member[%i];
-		%player = %member.player;
-
-		if (!isObject(%player))
-			continue;
-
-		if (%player.unconscious) continue;
-		%player.setShapeNameDistance($DefaultMiniGame.shapeNameDistance); //Update shapenames
-	}
-	loadEnvironment($DS::Path @ "data/env/night.txt");
-	%miniGame.messageAll('', '\c5All water in the building has been disabled for the night. Cafeteria will be off-limits in 30 seconds.');
-	%name = "_sink";
-	%count = BrickGroup_888888.NTObjectCount[%name];
-	for (%i = 0; %i < %count; %i++)
-	{
-		%brick = BrickGroup_888888.NTObject[%name, %i];
-		%brick.eventEnabled0 = false;
-		%brick.eventEnabled1 = false;
-		%brick.eventEnabled2 = true;
-	}
-}
-function DSGameMode::onDeath(%this, %miniGame, %client, %sourceObject, %sourceClient, %damageType, %damLoc)
-{
+	return %cl.minigame == %minigame && %this.killer == %cl;
 }

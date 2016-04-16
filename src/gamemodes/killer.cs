@@ -74,12 +74,16 @@ function DSGameMode_Killer::onDeath(%this, %miniGame, %client, %sourceObject, %s
 		//Maybe penalize?
 		%log = %sourceClient.getPlayerName() SPC "just killed" SPC %client.getPlayerName() SPC "as a non-killer.";
 		echo("\c2" SPC %log);
+		freekillRecordLine(%sourceClient, "FREEKILL: {0} killed {1} (BL_ID: {2})!", %client.name, %client.bl_id);
 		%count = ClientGroup.getCount();
 		for (%i = 0; %i < %count; %i++)
 		{
 			%other = ClientGroup.getObject(%i);
-			if (%other.isAdmin)
+			if (%other.getModLevel() != 0)
+			{
 				messageClient(%other, '', "FREEKILL:" SPC %log);
+				commandToClient(%other, 'API_Freekill', %sourceClient, %client);
+			}
 		}
 		%client.corpse.ignore = true;
 		return;
@@ -116,36 +120,8 @@ function DSGameMode_Killer::onNight(%this, %miniGame)
 {
 	if (!isObject(%this.killer))
 	{
-		%count = 0;
-		for (%i = 0; %i < DSTrialGameMode_Queue.getCount(); %i++)
-		{
-			%member = DSTrialGameMode_Queue.getObject(%i);
-
-			if (isObject(%member.player) && %member.inDefaultGame())
-			{
-				%alivePlayers[%count++] = %member;
-			}
-		}
-		if (%count <= 0)
-		{
-			DSTrialGameMode_Queue.clear();
-			for (%i = 0; %i < %miniGame.numMembers; %i++)
-			{
-				%member = %miniGame.member[%i];
-				if (!%member.ignoreQueue)
-					DSTrialGameMode_Queue.add(%member);
-			}
-			if (DSTrialGameMode_Queue.getCount() <= 0) //Error handler so it doesn't go infinite looping on me
-			{
-				announce("\c0ERROR\c3: No killer can be picked even after refilling the queue! Yell at Jack Noir about this.");
-				%this.onEnd(%miniGame, "");
-				return;
-			}
-			%this.onNight(%miniGame); //Try again
-			return;
-		}
 		%this.madekiller = true;
-		%this.killer = $DS::GameMode::ForceKiller !$= "" ? $DS::GameMode::ForceKiller : %alivePlayers[getRandom(1, %count)];
+		%this.killer = $DS::GameMode::ForceKiller !$= "" ? $DS::GameMode::ForceKiller : chooseNextClient("Killer");
 		DSTrialGameMode_Queue.remove(%this.killer); //Remove from queue
 		%this.killer.player.addTool(AdvSwordItem);
 		%this.killer.player.regenStaminaDefault *= 2;

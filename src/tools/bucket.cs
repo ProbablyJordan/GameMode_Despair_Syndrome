@@ -23,7 +23,7 @@ datablock ItemData(BucketItem) {
 
 function BucketItem::onAdd(%this, %obj)
 {
-	Parent::onAdd(%this, %obj);
+	//Parent::onAdd(%this, %obj);
 	//talk("applying colors to bucket " @ %obj);
 	%obj.playThread(0, "liq-1");
 	%obj.schedule(1000, "setNodeColor", "bucket32", "0.6 0.6 0.6 1");

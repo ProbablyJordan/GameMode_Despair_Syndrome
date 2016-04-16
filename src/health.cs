@@ -243,8 +243,10 @@ package DSHealthPackage
 			return;
 		if (%damage == 0)
 			return;
-		if (%obj.getState()$= "Dead"|| getSimTime() - %obj.spawnTime < $Game::PlayerInvulnerabilityTime)
+		if (%obj.getState()$= "Dead" || getSimTime() - %obj.spawnTime < $Game::PlayerInvulnerabilityTime)
 			return;
+		if ((!isObject(%src) || %src == %obj) && (isObject(%carry = %obj.carryPlayer) || ($Sim::Time - %obj.carryEnd < 3 && isObject(%carry = %obj.lastTosser))))
+			%src = %carry;
 		%source = %src;
 		if (isObject(%src.sourceObject))
 			%source = %src.sourceObject;
@@ -325,6 +327,13 @@ package DSHealthPackage
 		%obj.attackHealthS[%obj.attackCount] = getMax(%startHealth, 0);
 		%obj.attackHealthE[%obj.attackCount] = getMax(%endHealth, 0);
 		
+		%atk = %obj.attacker[%obj.attackCount];
+		generalRecordLine(%atk, "DAMAGE: {1} attacked {2} from the {3} with a {4}, reducing their {5} from {6} to {7}!",
+			%atk.character.name @ " (" @ %atk.name @ ", " @ %atk.bl_id @ ")",
+			%obj.client.character.name @ " (" @ %obj.client.name @ ", " @ %obj.client.bl_id @ ")",
+			%obj.attackDot[%obj.attackCount] > 0 ? "back" : "front", %image.item.uiName,
+			%obj.attackStamina[%obj.attackCount] ? "stamina" : "health",
+			%obj.attackHealthS[%obj.attackCount], %obj.attackHealthE[%obj.attackCount]);
 		API_sendDamageUpdate(%obj.client, %obj.attacker[%obj.attackCount],
 			(%obj.attackTime[%obj.attackCount] - $defaultMiniGame.lastResetTime) / 1000,
 			%image.getName(), %obj.attackDot[%obj.attackCount] > 0 ? "Back" : "Front",

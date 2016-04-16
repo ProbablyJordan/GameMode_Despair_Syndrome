@@ -169,26 +169,7 @@ function MetalBatImage::onRaycastCollision(%this, %obj, %col, %pos, %normal, %ve
 	ServerPlay3D(%col.getType() & $TypeMasks::playerObjectType ? UmbrellaHit1Sound : (%col.getDataBlock().isDoor ? WoodHitSound : UmbrellaHit2Sound), %pos, %col.getDataBlock().isDoor ? 1 : 0);
 	if (!(%col.getType() & $TypeMasks::FxBrickObjectType))
 		return;
-
-	%data = %col.getDataBlock();
-
-	if (!%data.isDoor)
-		return;
-	if (%col.lockID $= "")
-	{
-		// %col.doorOpen(%col.isCCW, %obj.client);
-		return;
-	}
-	%random = getRandom(14);
-
-	%col.doorHits += %random < 2 ? 0 : (%random < 14 ? 1 : 2);
-
-	if (%col.doorHits >= %col.doorMaxHits)
-	{
-		%col.doorOpen(%col.isCCW, %obj.client);
-		%col.lockState = false;
-		%col.broken = true;
-	}
+	%col.doorDamage("1 13 1");
 }
 //Block image
 datablock ShapeBaseImageData(MetalBatBlockImage : MetalBatImage)

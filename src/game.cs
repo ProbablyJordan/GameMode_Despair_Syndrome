@@ -10,6 +10,51 @@ if (!isObject(GameRoundCleanup))
 if (!isObject(GameCharacters))
 	new SimSet(GameCharacters);
 
+function generalTick(%last)
+{
+	cancel($GeneralTick);
+	%time = vectorDist(%last, %now = getSimTime());
+	%count = ClientGroup.getCount();
+	for (%i = 0; %i < %count; %i++)
+	{
+		%client = ClientGroup.getObject(%i);
+		if (isObject(%pl = %client.player))
+			continue;
+		%client.updateBottomprint();
+	}
+	%chars = GameCharacters.getCount();
+	if (isObject($Furnace))
+	{
+		%burnBox = $Furnace.getWorldBox();
+		%burnBox = setWord(%burnBox, 2, getWord(%burnBox, 5));
+		%burnBox = setWord(%burnBox, 5, getWord(%burnBox, 5) + 1);
+		$Furnace.b=%burnbox;
+		for (%i = 0; %i < %chars; %i++)
+		{
+			%char = GameCharacters.getObject(%i);
+			if (!isObject(%pl = %char.player))
+				continue;
+			if (%pl.getState() $= "DEAD" && isInBox(%pl.getHackPosition(), %burnBox))
+			{
+				%pl.charred = true;
+				%pl.applyBodyColors();
+			}
+		}
+	}
+	$GeneralTick = schedule(50, 0, "generalTick", %now);
+}
+
+function isInBox(%pos, %box)
+{
+	if ((%x = getWord(%pos, 0)) < getWord(%box, 0) || %x > getWord(%box, 3))
+		return false;
+	if ((%y = getWord(%pos, 1)) < getWord(%box, 1) || %x > getWord(%box, 4))
+		return false;
+	if ((%z = getWord(%pos, 2)) < getWord(%box, 2) || %x > getWord(%box, 5))
+		return false;
+	return true;
+}
+
 function MiniGameSO::DayTimeSchedule(%this)
 {
 	cancel(%this.DayTimeSchedule);
@@ -35,6 +80,20 @@ function MiniGameSO::DisableWeapons(%this)
 			continue;
 		if (%player.getMountedImage(0) && %player.getMountedImage(0).isWeapon)
 			%player.unMountImage(0);
+	}
+}
+function MiniGameSO::EnableWeapons(%this)
+{
+	%this.noWeapons = false;
+	for (%i = 0; %i < %this.numMembers; %i++)
+	{
+		%member = %this.member[%i];
+		%player = %member.player;
+		if (!isObject(%player) || isObject(%player.getMountedImage(0))
+			|| !isObject(%item = %player.tool[%player.currTool]))
+			continue;
+		%player.mountImage(%item.image);
+		fixArmReady(%player);
 	}
 }
 
@@ -164,11 +223,16 @@ package DespairSyndromePackage
 		// Play nice with the default rate limiting.
 		if (getSimTime() - %this.lastResetTime < 5000)
 			return;
+		
+		if (!isObject($DS::Gamemode))
+			$DS::Gamemode = DSGamemode_Default;
+		if (!isObject(%this.gamemode))
+			%this.gamemode = $DS::Gamemode;
 
 		//Doing this before initialising any of the gamemode stuffs might be a bit bad but w/e
 		cancel(%this.voteSchedule);
 		%this.rounds++;
-		if (!%this.gamemode.isAvailable(%this) || %this.voteRoundCount++ >= $DS::GameVoteRounds) //Every $DS::GameVoteRounds rounds
+		if (!(%this.gamemode.isAvailable(%this) || %this.forceRound) || %this.voteRoundCount++ >= $DS::GameVoteRounds) //Every $DS::GameVoteRounds rounds
 		{
 			%availCount = 0;
 			%gamemodes = DSGamemodeGroup.getCount();
@@ -210,15 +274,14 @@ package DespairSyndromePackage
 			GameCharacters.deleteAll();
 		if (isObject(DecalGroup))
 			DecalGroup.deleteAll();
-
-		if (!isObject($DS::GameMode))
-			$DS::GameMode = DSGameMode_Default;
-		%this.gameMode = $DS::GameMode;
+		
+		%this.forceRound = 0;
+		%this.gamemode = $DS::Gamemode;
 		Parent::reset(%this, %client);
-		%this.gameMode.onStart(%this);
+		%this.gamemode.onStart(%this);
 		%this.currTime = "Day";
 		%this.days = 0;
-		%this.gameMode.onDay(%this);
+		%this.gamemode.onDay(%this);
 		cancel(%this.DayTimeSchedule);
 		%this.DayTimeSchedule = %this.schedule(($DS::Time::DayLength/2) * 1000, "DayTimeSchedule");
 	}
@@ -252,6 +315,8 @@ package DespairSyndromePackage
 		}
 		%winner = %choices[getRandom(1, %c)];
 		announce("\c3The winner is... \c6" @ %winner.name @ "!");
+		%this.gamemode = %winner;
+		%this.forceRound = 1;
 		$DS::GameMode = %winner;
 		%this.scheduleReset(3000);
 	}

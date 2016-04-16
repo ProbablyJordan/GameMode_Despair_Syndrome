@@ -118,19 +118,56 @@ function KeyImage::onMount(%this, %obj, %slot)
 		%obj.client.centerPrint("\c3" @ %props.name @ "\n", 2.5);
 }
 
+function fxDtsBrick::doorDamage(%brick, %damageChance)
+{
+	if (!%brick.getDatablock().isDoor || %brick.impervious)
+		return;
+	%words = getWordCount(%damageChance);
+	for (%i = 0; %i < %words; %i++)
+		%sum += getWord(%damageChance, %i);
+	%select = getRandom(0, %sum - 1);
+	for (%i = 0; %i < %words; %i++)
+	{
+		%select -= getWord(%damageChance, %i);
+		if (%select < 0)
+			break;
+	}
+	%brick.doorHits += %i;
+	if (%brick.doorHits >= %brick.doorMaxHits)
+	{
+		%brick.doorOpen(%brick.isCCW, %obj.client);
+		%brick.lockState = false;
+		%brick.broken = true;
+	}
+}
+
 package KeyPackage
 {
 	function FxDTSBrick::door(%this, %state, %client)
 	{
 		if (%this.broken)
-		{
-			%client.centerPrint("\c2The door lock is broken...", 2);
-		}
+			if (%this.lockID !$= "")
+				%client.centerPrint("\c2The door lock is broken...", 2);
+			else
+				%client.centerPrint("\c2The door hinges are broken...", 2);
 		else if (%this.lockId !$= "" && %this.lockState)
 		{
 			%client.centerPrint("\c2The door is locked.", 2);
 			serverPlay3d(DoorJiggleSound, %this.getWorldBoxCenter(), 1);
 		}
+		else if (%this.lockVector !$= "")
+			if (!isObject(%pl = %client.player))
+			{
+				%client.centerPrint("\c2The door is locked.", 2);
+				serverPlay3d(DoorJiggleSound, %this.getWorldBoxCenter(), 1);
+			}
+			else if (%this.getDatablock().isOpen || vectorDot(%pl.getEyeVector(), %this.lockVector) >= 0)
+				Parent::door(%this, %state, %client);
+			else
+			{
+				%client.centerPrint("\c2The door is locked.", 2);
+				serverPlay3d(DoorJiggleSound, %this.getWorldBoxCenter(), 1);
+			}
 		else
 			Parent::door(%this, %state, %client);
 	}

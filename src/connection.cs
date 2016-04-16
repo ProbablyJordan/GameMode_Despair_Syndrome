@@ -33,6 +33,8 @@ package DSConnectionPackage
 		if (%this.inDefaultGame() && isObject(%pl = %this.player))
 		{
 			%pl.clientLeft = 1;
+			%pl.carryPlayer = "";
+			%pl.lastTosser = "";
 			%pl.kill();
 		}
 		Parent::onClientLeaveGame(%this, %a, %b, %c);
@@ -53,30 +55,21 @@ package DSConnectionPackage
 		if(getNumKeyId() $= %this.bl_id)
 			%isAdmin = 1;
 		
+		%blid = " " @ %this.bl_id @ " ";
 		if(!%isAdmin)
 		{
-			for(%i = 0; %i < getWordCount($Pref::Server::AutoAdminList); %i++)
-			{
-				if(getWord($Pref::Server::AutoAdminList, %i) $= %this.bl_id)
-				{
-					%isAdmin = 1;
-					break;
-				}
-			}
-			for(%i = 0; %i < getWordCount($Pref::Server::AutoSuperAdminList); %i++)
-			{
-				if(getWord($Pref::Server::AutoSuperAdminList, %i) $= %this.bl_id)
-				{
-					%isAdmin = 1;
-					break;
-				}
-			}
+			if (strPos(" " @ $Pref::Server::AutoModList @ " ", %blid) != -1)
+				%isMod = 1;
+			if (strPos(" " @ $Pref::Server::AutoAdminList @ " ", %blid) != -1)
+				%isAdmin = 1;
+			else if (strPos(" " @ $Pref::Server::AutoSuperAdminList @ " ", %blid) != -1)
+				%isAdmin = 1;
 		}
 		%count = ClientGroup.getCount();
 		for (%i=0;%i<ClientGroup.getCount();%i++)
 		{
 			%member = ClientGroup.getObject(%i);
-			if (%member.isAdmin)
+			if (%member.getModLevel() >= 1)
 			{
 				%adminOn = true;
 				if(!isObject(%member.miniGame) || isObject(DSAdminQueue) && DSAdminQueue.isMember(%member))
@@ -90,7 +83,7 @@ package DSConnectionPackage
 			%this.delete("Server is full ("@$DS::MaxPlayers@" max players).\nOpen player slots you might see are reserved for admins due to the server's heavy reliance on proper administration.\n<a:forum.blockland.us/index.php?topic=292001.45>Forum Topic</a>");
 			return;
 		}
-		if ($Pref::Server::DespairSyndrome::RequireAdmins && !%isAdmin)
+		if ($Pref::Server::DespairSyndrome::RequireAdmins && !(%isAdmin || %isMod))
 		{
 			if (!%adminOn)
 			{

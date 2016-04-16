@@ -176,26 +176,7 @@ function AdvSwordImage::onRaycastCollision(%this, %obj, %col, %pos, %normal, %ve
 	ServerPlay3D(%col.getType() & $TypeMasks::FxBrickObjectType && %col.getDataBlock().isDoor ? WoodHitSound : swordHitSound, %pos, %col.getDataBlock().isDoor ? 1 : 0);
 	if (!(%col.getType() & $TypeMasks::FxBrickObjectType))
 		return;
-
-	%data = %col.getDataBlock();
-
-	if (!%data.isDoor)
-		return;
-	if (%col.lockID $= "")
-	{
-		// %col.doorOpen(%col.isCCW, %obj.client);
-		return;
-	}
-	%random = getRandom(6);
-
-	%col.doorHits += %random < 2 ? 0 : (%random < 6 ? 1 : 2);
-
-	if (%col.doorHits >= %col.doorMaxHits)
-	{
-		%col.doorOpen(%col.isCCW, %obj.client);
-		%col.lockState = false;
-		%col.broken = true;
-	}
+	%col.doorDamage("1 5 1");
 }
 
 datablock ShapeBaseImageData(AdvSwordBlockImage : AdvSwordImage)

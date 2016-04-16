@@ -256,6 +256,7 @@ function PlayerDSArmor::onTrigger(%this, %obj, %slot, %state)
 			%time = $Sim::Time - %item.carryStart;
 			cancel(%item.carrySchedule);
 			%item.lastTosser = %obj;
+			%item.carryEnd = $Sim::Time;
 			%item.carryPlayer = 0;
 			%obj.carryObject = 0;
 			%obj.playThread(2, "root");
@@ -334,7 +335,10 @@ function PlayerDSArmor::onTrigger(%this, %obj, %slot, %state)
 							%character = %found.client.character;
 						else
 							%character = %found.character;
-						%text = "\c6This is" SPC (isObject(%character) ? %character.name : "Unknown") @ "'s body.";
+						if(%found.charred)
+							%text = "\c6The body is charred beyond recognition.";
+						else
+							%text = "\c6This is" SPC (isObject(%character) ? %character.name : "Unknown") @ "'s body.";
 						if (%found.currResting)
 							%text = %text @ "\n\c3They appear to be resting.";
 						else if (%found.unconscious)
@@ -360,7 +364,7 @@ function PlayerDSArmor::onTrigger(%this, %obj, %slot, %state)
 						// 	%text = %text @ "\n\c6Their" SPC %limb SPC "has";
 						// 	%text = %text SPC %limbDamageCount[%limb] SPC "wounds.";
 						// }
-						if (%suicide)
+						if (%found.suicide)
 							%text = %text @ "\n\c5It appears to be suicide...";
 						if (%damageCount["back cut"] > 0 || %damageCount["back bruise"] > 0)
 						{
@@ -449,6 +453,8 @@ function Item::carryTick(%this)
 	}
 	if (%player.getMountedImage(0))
 	{
+		%this.lastTosser = %player;
+		%this.carryEnd = $Sim::Time;
 		%this.carryPlayer = 0;
 		%player.carryObject = 0;
 		return;
@@ -461,6 +467,8 @@ function Item::carryTick(%this)
 
 	if (vectorDist(%center, %target) > 5)
 	{
+		%this.lastTosser = %player;
+		%this.carryEnd = $Sim::Time;
 		%this.carryPlayer = 0;
 		%player.carryObject = 0;
 		%player.playThread(2, "root");
@@ -475,6 +483,9 @@ function Player::carryTick(%this)
 	cancel(%this.carrySchedule);
 	if (!%this.isBody)
 	{
+		%player = %this.carryPlayer;
+		%this.lastTosser = %player;
+		%this.carryEnd = $Sim::Time;
 		%this.carryPlayer = 0;
 		%player.carryObject = 0;
 		%player.playThread(2, "root");
@@ -484,11 +495,16 @@ function Player::carryTick(%this)
 
 	if (!isObject(%player) || %player.getState() $= "Dead")
 	{
+		%this.lastTosser = %player;
+		%this.carryEnd = $Sim::Time;
 		%this.carryPlayer = 0;
+		%player.carryObject = 0;
 		return;
 	}
 	if (%player.getMountedImage(0))
 	{
+		%player = %this.carryPlayer;
+		%this.lastTosser = %player;
 		%this.carryPlayer = 0;
 		%player.carryObject = 0;
 		return;

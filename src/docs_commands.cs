@@ -63,24 +63,28 @@ function serverCmdHelp(%this, %cat)
 			%text[%count++] = " \c3If someone is breaking the rules, use /report *message* to get an admin's attention!";
 			%text[%count++] = " \c5Page Up to read the above.";
 		case "7" or "admin":
-			if (!(%this.isAdmin || %this.isSuperAdmin))
+			if (%this.getModLevel() == 0)
 				return;
 			%text[%count++] = "\c3[ADMIN]";
-			%text[%count++] = " \c6/mute \c3name time \c7- \c6Restrict \c3name \c6from using OOC chat for \c3time";
-			%text[%count++] = " \c6/unmute \c3name \c7- \c6Unmute \c3name \c6, allowing them to use OOC chat again";
-			%text[%count++] = " \c6/icmute \c3name time \c7- \c6Restrict \c3name \c6from using in-character chat for \c3time";
-			%text[%count++] = " \c6/icunmute \c3name \c7- \c6Unmute \c3name \c6, allowing them to use in-character chat again";
-			%text[%count++] = " \c6/viewMute \c7- \c6See everybody that is muted";
-			%text[%count++] = " \c6/getKiller \c7- \c6Find out who the killer is (for administration purposes, if you do it to cheat you'll probably be de-admined (and banned!))";
-			%text[%count++] = " \c6/whoIs \c3name \c7- \c6Find out who \c3name\c6's in-game alias is";
-			%text[%count++] = " \c6/viewInv \c3name \c7- \c6View a client's inventory";
-			%text[%count++] = " \c6/viewQueue \c7- \c6See who is in line to be the murderer";
-			%text[%count++] = " \c6/addToQueue \c3name \c7- \c6Remove \c3name \c6from the murderer queue";
-			%text[%count++] = " \c6/removeFromQueue \c3name \c7- \c6Add \c3name \c6to the murderer queue";
-			%text[%count++] = " \c6/damageLogs \c3name \c7- \c6See who \c3name \c6has damaged over the course of the round";
-			%text[%count++] = " \c6/toggleOOC \c7- \c6Globally turn on/off OOC chat";
-			%text[%count++] = " \c6/reset \c7- \c6Reset the round, if the murderer hasn't done anything in like 5 days you should probably use this command";
-			%text[%count++] = " \c6/ac \c3message \c7- \c6Talk through admin-only chat";
+			if (%this.getModLevel() >= $ModLvl::Moderator)
+			{
+				%text[%count++] = " \c6/ac \c3message \c7- \c6Talk through admin-only chat";
+				%text[%count++] = " \c6/damageLogs \c3name \c7- \c6See who \c3name \c6has damaged over the course of the round";
+				%text[%count++] = " \c6/pm \c3name message \c7- \c6Send an admin PM to a person";
+				%text[%count++] = " \c6/mute \c3name time \c7- \c6Restrict \c3name \c6from using OOC chat for \c3time";
+				%text[%count++] = " \c6/unmute \c3name \c7- \c6Unmute \c3name \c6, allowing them to use OOC chat again";
+			}
+			if (%this.getModLevel() >= $ModLvl::Admin)
+			{
+				%text[%count++] = " \c6/icmute \c3name time \c7- \c6Restrict \c3name \c6from using in-character chat for \c3time";
+				%text[%count++] = " \c6/icunmute \c3name \c7- \c6Unmute \c3name \c6, allowing them to use in-character chat again";
+				%text[%count++] = " \c6/viewMute \c7- \c6See everybody that is muted";
+				%text[%count++] = " \c6/getKiller \c7- \c6Find out who the killer is (for administration purposes, if you do it to cheat you'll probably be de-admined (and banned!))";
+				%text[%count++] = " \c6/whoIs \c3name \c7- \c6Find out who \c3name\c6's in-game alias is";
+				%text[%count++] = " \c6/viewInv \c3name \c7- \c6View a client's inventory";
+				%text[%count++] = " \c6/toggleOOC \c7- \c6Globally turn on/off OOC chat";
+				%text[%count++] = " \c6/reset \c7- \c6Reset the round, if the murderer hasn't done anything in like 5 days you should probably use this command";
+			}
 			%text[%count++] = " \c5Page Up to read the above.";
 		default:
 			%text[%count++] = "<font:impact:30>\c6Welcome to Despair Syndrome!";
@@ -92,7 +96,7 @@ function serverCmdHelp(%this, %cat)
 			%text[%count++] = "   \c34\c6 - \c3mechanics\c6: Game mechanics - sprinting, locking doors, etc.";
 			%text[%count++] = "   \c35\c6 - \c3combat\c6: How to melee like a pro.";
 			%text[%count++] = "   \c36\c6 - \c3rules\c6: Read this to avoid getting banned";
-			if (%this.isAdmin || %this.isSuperAdmin)
+			if (%this.getModLevel() != 0)
 				%text[%count++] = "   \c37\c6 - \c3admin\c6: Various admin commands";
 			%text[%count++] = "\c6======";
 			%text[%count++] = "\c5Say \c3/help *category*\c5 for more info on certain topics.";
