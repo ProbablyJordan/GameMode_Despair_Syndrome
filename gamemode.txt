@@ -70,9 +70,12 @@ ADDON Brick_BaseplatePack
 ADDON Brick_Checkpoint
 ADDON Brick_Corner
 ADDON Brick_DecorativeBlocks
-ADDON Brick_DemiansBB
-ADDON Brick_DemiansBB2
-ADDON Brick_DemiansBB3
+ADDON Brick_DemiansBP_1x
+ADDON Brick_DemiansBP_2x_Tall
+ADDON Brick_DemiansBP_2x_Wide
+ADDON Brick_DemiansBP_3x_Tall
+ADDON Brick_DemiansBP_3x_Wide
+ADDON Brick_DemiansBP_5x_Tall
 ADDON Brick_Doors_Demian
 ADDON Brick_Doors_Demian_Arched
 ADDON Brick_Doors_Demian_Big

@@ -209,13 +209,6 @@ function DSGameMode_Trial::onNight(%this, %miniGame)
 	//%this.checkInvestigationStart(%miniGame);
 }
 
-function DSGamemode_Trial::teamMessageSent(%this, %minigame, %client, %text)
-{
-	if (isObject(%this.killer) && %this.trial)
-		return;
-	Parent::teamMessageSent(%this, %minigame, %client, %text);
-}
-
 function DSGameMode_Trial::onBodyExamine(%this, %miniGame, %client, %body)
 {
 	for (%i=1; %i <= %body.bodyDiscoveries; %i++) //Check if the client had already discovered the body

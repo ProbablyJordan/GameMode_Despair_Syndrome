@@ -364,35 +364,33 @@ function Player::applyBodyColors(%obj)
 		%obj.setNodeColor("lhand", getCharredColor(%appearance.skinColor));
 		%obj.setNodeColor("rhand", getCharredColor(%appearance.skinColor));
 		%obj.setNodeColor(%appearance.hairName, getCharredColor(%appearance.hairColor));
+		return;
 	}
-	else
-	{
-		%obj.setNodeColor("headSkin", %appearance.skinColor);
-		%obj.setNodeColor("chest", %appearance.shirtColor);
-		%obj.setNodeColor("femchest", %appearance.shirtColor);
-		%obj.setNodeColor("pants", %appearance.pantsColor);
-		%obj.setNodeColor("lshoe", %appearance.shoesColor);
-		%obj.setNodeColor("rshoe", %appearance.shoesColor);
-		%obj.setNodeColor("larm", %appearance.shirtColor);
-		%obj.setNodeColor("rarm", %appearance.shirtColor);
-		%obj.setNodeColor("larmslim", %appearance.shirtColor);
-		%obj.setNodeColor("rarmslim", %appearance.shirtColor);
-		%obj.setNodeColor("lhand", %appearance.skinColor);
-		%obj.setNodeColor("rhand", %appearance.skinColor);
-		//hair color
-		%obj.setNodeColor(%appearance.hairName, %appearance.hairColor);
-		//Set blood colors.
-		%obj.setNodeColor("lshoe_blood", "0.7 0 0 1");
-		%obj.setNodeColor("rshoe_blood", "0.7 0 0 1");
-		%obj.setNodeColor("lhand_blood", "0.7 0 0 1");
-		%obj.setNodeColor("rhand_blood", "0.7 0 0 1");
-		%obj.setNodeColor("chest_blood_front", "0.7 0 0 1");
-		%obj.setNodeColor("chest_blood_back", "0.7 0 0 1");
-		%obj.setNodeColor("chest_blood_lside", "0.7 0 0 1");
-		%obj.setNodeColor("chest_blood_rside", "0.7 0 0 1");
-		%obj.setNodeColor("femchest_blood_front", "0.7 0 0 1");
-		%obj.setNodeColor("femchest_blood_back", "0.7 0 0 1");
-	}
+	%obj.setNodeColor("headSkin", %appearance.skinColor);
+	%obj.setNodeColor("chest", %appearance.shirtColor);
+	%obj.setNodeColor("femchest", %appearance.shirtColor);
+	%obj.setNodeColor("pants", %appearance.pantsColor);
+	%obj.setNodeColor("lshoe", %appearance.shoesColor);
+	%obj.setNodeColor("rshoe", %appearance.shoesColor);
+	%obj.setNodeColor("larm", %appearance.shirtColor);
+	%obj.setNodeColor("rarm", %appearance.shirtColor);
+	%obj.setNodeColor("larmslim", %appearance.shirtColor);
+	%obj.setNodeColor("rarmslim", %appearance.shirtColor);
+	%obj.setNodeColor("lhand", %appearance.skinColor);
+	%obj.setNodeColor("rhand", %appearance.skinColor);
+	//hair color
+	%obj.setNodeColor(%appearance.hairName, %appearance.hairColor);
+	//Set blood colors.
+	%obj.setNodeColor("lshoe_blood", "0.7 0 0 1");
+	%obj.setNodeColor("rshoe_blood", "0.7 0 0 1");
+	%obj.setNodeColor("lhand_blood", "0.7 0 0 1");
+	%obj.setNodeColor("rhand_blood", "0.7 0 0 1");
+	%obj.setNodeColor("chest_blood_front", "0.7 0 0 1");
+	%obj.setNodeColor("chest_blood_back", "0.7 0 0 1");
+	%obj.setNodeColor("chest_blood_lside", "0.7 0 0 1");
+	%obj.setNodeColor("chest_blood_rside", "0.7 0 0 1");
+	%obj.setNodeColor("femchest_blood_front", "0.7 0 0 1");
+	%obj.setNodeColor("femchest_blood_back", "0.7 0 0 1");
 }
 
 function getCharredColor(%color)

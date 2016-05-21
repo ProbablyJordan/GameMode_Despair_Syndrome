@@ -1,3 +1,7 @@
+//onLightKey input event
+registerInputEvent(fxDtsBrick,"onLightKey","Self fxDtsBrick\tPlayer Player\tClient GameConnection\tMinigame Minigame");
+//Check Game.cs, serverCmdLight for activation method
+
 //soundproof zone funtime
 if (!isObject(ZoneGroup))
 	new SimSet(ZoneGroup);
@@ -89,11 +93,12 @@ function Player::cleanPlayer(%this, %type, %client)
 }
 
 //Storage bricks events
-registerOutputEvent(fxDTSBrick, makeStorage, "bool 1" TAB "int 1 32 4" TAB "string 199 128" TAB "int 1 4 3", 0);
+registerOutputEvent(fxDTSBrick, makeStorage, "bool 1" TAB "int 1 32 4" TAB "string 64 100" TAB "int 1 4 3", 0);
 registerOutputEvent(fxDTSBrick, setStorageItems, "string 199 128", 0);
 registerOutputEvent(fxDTSBrick, setRandomStorageItems, "string 199 128", 0);
 registerOutputEvent(fxDTSBrick, clearStoredItems, "", 0);
 registerOutputEvent(fxDTSBrick, allowStoringItems, "bool 1", 0);
+registerOutputEvent(fxDTSBrick, storeOrTakeItem, "", 1);
 // registerOutputEvent(fxDTSBrick, viewStorage, 1);
 // function fxDTSBrick::viewStorage(%this, %client)
 // {
@@ -141,6 +146,35 @@ function fxDTSBrick::clearStoredItems(%this)
 		if (isObject(%this.itemProps[%i]))
 			%this.itemProps[%i].delete();
 		%this.tool[%i] = "";
+	}
+}
+function fxDTSBrick::storeOrTakeItem(%this, %client)
+{
+	if (!%this.storageBrick)
+		return;
+	if (!isObject(%client) || !isObject(%player = %client.player) || %player.getState() $= "Dead")
+		return;
+
+	if (%this.allowStoringItems && isObject(%player.tool[%player.currTool]))
+	{
+		if (%player.tool[%player.currTool].w_class > %this.w_class_max)
+		{
+			commandToClient(%this, 'CenterPrint', "\c3" @ %player.tool[%player.currTool].uiName SPC "\c6is too big for this storage!", 1);
+			return;
+		}
+		if (%this.storeItem(%player.tool[%player.currTool], %player.getItemProps(%player.currTool), 1) != -1)
+		{
+			%player.itemProps[%player.currTool] = "";
+			%player.removeToolSlot(%player.currTool, 1);
+			%player.playThread(2, "shiftAway");
+			if (%player.isViewingInventory)
+				%this.updateInventoryView();
+		}
+	}
+	else
+	{
+		%this.startViewingInventory(%this);
+		%player.playThread(2, "activate2");
 	}
 }
 function fxDTSBrick::storeItem(%this, %data, %props)

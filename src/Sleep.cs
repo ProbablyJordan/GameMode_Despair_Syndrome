@@ -1,6 +1,6 @@
-function sleepyTime(%last)
+function MiniGameSO::sleepyTime(%this, %last)
 {
-	cancel($SleepyTime);
+	cancel(%this.SleepyTimeSchedule);
 	%time = vectorDist(%last, %now = getSimTime()) / 1000;
 	%dcLength = $DS::Time::DayLength + $DS::Time::NightLength;
 	%sleepPeriod = %dcLength * 0.80;
@@ -147,10 +147,8 @@ function sleepyTime(%last)
 		%stamina = getMin(125 - %pl.currSleepLevel, 100) / 100;
 		%pl.energyLimit = %pl.getDataBlock().maxEnergy * %stamina;
 	}
-	$SleepyTime = schedule(16, 0, "sleepyTime", %now);
+	%this.SleepyTimeSchedule = %this.schedule(16, "sleepyTime", %now);
 }
-if(!isEventPending($SleepyTime))
-	sleepyTime(getSimTime());
 
 function doDream(%cl, %dreamProb, %charProb)
 {

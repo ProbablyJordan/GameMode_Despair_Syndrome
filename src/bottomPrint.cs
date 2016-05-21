@@ -16,8 +16,7 @@ function GameConnection::updateBottomPrint(%this)
 
 function DSGamemode::getBottomPrintText(%mode, %mini, %cl)
 {
-	if ((%cam = %cl.getControlObject()).getType() & $Typemasks::CameraObjectType
-		&& isObject(%targ = %cam.getOrbitObject().client))
+	if (isObject(%cam = %cl.getControlObject()) && %cam.getType() & $Typemasks::CameraObjectType && isObject(%targ = %cam.getOrbitObject().client))
 	{
 		%cl = %targ;
 		%isSpectate = 1;

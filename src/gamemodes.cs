@@ -117,7 +117,7 @@ function DSGameMode::onStart(%this, %miniGame)
 		%brick.setItem(%pick);
 	}
 	
-	%count = Brickgroup_888888.NTObjectCount[%name = "_stair_block"];
+	%count = Brickgroup_888888.NTObjectCount[%name = "_stairblock_1f"];
 	for (%i = 0; %i < %count; %i++)
 	{
 		%brick = Brickgroup_888888.NTObject[%name, %i];
@@ -335,7 +335,7 @@ function DSGameMode::onNight(%this, %miniGame)
 		%right = vectorCross(%brick.getForwardVector(), %brick.getUpVector());
 		%brick.lockVector = vectorScale(%right, %brick.isCCW ? 1 : -1);
 	}
-	%count = Brickgroup_888888.NTObjectCount[%name = "_stair_block"];
+	%count = Brickgroup_888888.NTObjectCount[%name = "_stairblock_1f"];
 	for (%i = 0; %i < %count; %i++)
 	{
 		%brick = Brickgroup_888888.NTObject[%name, %i];

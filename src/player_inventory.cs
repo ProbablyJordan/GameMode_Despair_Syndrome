@@ -1,3 +1,4 @@
+//This function will also check if player's overall "carry weight" exceeds the limit
 function Player::addTool(%this, %data, %props, %ignoreProps)
 {
 	%data = %data.getID();

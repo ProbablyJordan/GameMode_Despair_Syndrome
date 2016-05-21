@@ -229,6 +229,10 @@ package DespairSyndromePackage
 		if (!isObject(%this.gamemode))
 			%this.gamemode = $DS::Gamemode;
 
+		//Sleepytime schedule
+		if(!isEventPending(%this.sleepyTimeSchedule))
+			%this.sleepyTime(getSimTime());
+
 		//Doing this before initialising any of the gamemode stuffs might be a bit bad but w/e
 		cancel(%this.voteSchedule);
 		%this.rounds++;
@@ -480,31 +484,12 @@ package DespairSyndromePackage
 		{
 			%data = %ray.getDataBlock();
 
-			if (%ray.storageBrick)
-			{
-				if (%ray.allowStoringItems && isObject(%player.tool[%player.currTool]))
-				{
-					if (%player.tool[%player.currTool].w_class > %ray.w_class_max)
-					{
-						commandToClient(%this, 'CenterPrint', "\c3" @ %player.tool[%player.currTool].uiName SPC "\c6is too big for this storage!", 1);
-						return;
-					}
-					if (%ray.storeItem(%player.tool[%player.currTool], %player.getItemProps(%player.currTool), 1) != -1)
-					{
-						%player.itemProps[%player.currTool] = "";
-						%player.removeToolSlot(%player.currTool, 1);
-						%player.playThread(2, "shiftAway");
-						if (%player.isViewingInventory)
-							%this.updateInventoryView();
-					}
-				}
-				else
-				{
-					%this.startViewingInventory(%ray);
-					%player.playThread(2, "activate2");
-				}
-				return;
-			}
+			$inputTarget_Self = %ray;
+			$inputTarget_Player = %player;
+			$inputTarget_Client = %this;
+			$inputTarget_Minigame = getMinigameFromObject(%this);
+			%ray.processInputEvent("onLightKey",%this);
+
 			if (%data.isDoor) //Knock knock
 			{
 				%player.playThread(2, "shiftAway");

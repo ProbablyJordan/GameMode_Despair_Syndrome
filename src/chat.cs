@@ -138,7 +138,86 @@ package ChatPackage
 			return;
 		
 		generalRecordLine(%client, "CHAT: {0}{1}: {2}", isObject(%char = %client.character) ? " [Char: " @ %char.name @ "]" : "", %text);
-		(%mini = %client.minigame).gamemode.messageSent(%mini, %client, %text);
+		%mini = %client.minigame;
+		%text = trim(stripMLControlChars(%text));
+		%player = %client.player;
+		
+		%name = %client.getPlayerName();
+		if (isObject(%client.character))
+			%name = %client.character.name;
+		
+		%structure = '<color:ffaa44>%1<color:ffffff> %3, %4\"%2\"';
+		%does = "says";
+		%range = 24;
+		%zrange = 16;
+		if (getSubStr(%text, 0, 1) $= "!") //shouting
+		{
+			%text = getSubStr(%text, 1, strLen(%text));
+			%does = "shouts";
+			%font = "<font:Verdana:28>";
+			%range = 100;
+			%zrange = 32;
+		}
+		else if(getSubStr(%text, 0, 1) $= "@") //Whispering
+		{
+			%text = getSubStr(%text, 1, strLen(%text));
+			%does = "whispers";
+			%font = "<font:segoe ui light:24>";
+			%range = 4;
+			%zrange = 4;
+		}
+		
+		if (%text $= "")
+			return;
+		
+		if (isObject(%client.player))
+		{
+			%client.player.playThread(0, "talk");
+			%client.player.schedule(strLen(%text) * 35, "playThread", 0, "root");
+		}
+		%count = ClientGroup.getCount();
+		if (!isObject(%client.player) || !%client.inDefaultGame())
+			deadGamesParse(%client, %text);
+		for (%i = 0; %i < %count; %i++)
+		{
+			%other = ClientGroup.getObject(%i);
+			%msg = %text;
+			if (!isObject(%client.player) || !%client.inDefaultGame()) //dead chat
+			{
+				%structure = '\c7[DEAD] %1<color:aaaaaa>: %2';
+				if (!%client.hasSpawnedOnce)
+					%structure = '\c7[SPEC] %1<color:aaaaaa>: %2';
+				if(isObject(%other.player)) //Listener's player is alive. Don't transmit the message to them.
+					continue;
+			}
+			else if (%other.inDefaultGame() && isObject(%other.player))
+			{
+				%playerZone = getZoneFromPos(%other.player.getEyePoint());
+				%otherZone = getZoneFromPos(%client.player.getEyePoint());
+				if (isObject(%playerZone) && %playerZone.isSoundProof && (!isObject(%otherZone) || %otherZone != %playerZone))
+				{
+					// talk("The sound was made in soundproof zone. Player" SPC %client.getPlayerName() SPC "didn't hear it!");
+					continue;
+				}
+				if (isObject(%otherZone) && %otherZone.isSoundProof && (!isObject(%playerZone) || %playerZone != %otherZone))
+				{
+					// talk("The player is in a soundproof zone. Player" SPC %client.getPlayerName() SPC "didn't hear it!");
+					continue;
+				}
+				
+				if (vectorDist(%client.player.getEyePoint(), %other.player.getEyePoint()) > %range) //Out of range
+					continue;
+				if (mAbs(getWord(%client.player.getEyePoint(), 2) - getWord(%other.player.getEyePoint(), 2) > %zrange)) //Check if it's out of Z range too
+					continue;
+				if ((%other.player.unconscious && !%other.player.currResting) && vectorDist(%client.player.getEyePoint(), %other.player.getEyePoint()) > 4)
+				{
+					%msg = muffleText(%text, 35);
+				}
+			}
+			
+			messageClient(%other, '', %structure,
+								%name, %msg, %does, %font);
+		}
 	}
 
 	function serverCmdTeamMessageSent(%client, %text) //OOC
@@ -184,104 +263,16 @@ package ChatPackage
 		if (%text $= "")
 			return;
 		generalRecordLine(%client, "OOC CHAT: {0} {1}", %text);
-		(%mini = %client.minigame).gamemode.teamMessageSent(%mini, %client, %text);
+		%structure = '<color:4444FF>[OOC] %1<color:aaaaFF>: %2';
+		%count = ClientGroup.getCount();
+		for (%i = 0; %i < %count; %i++)
+		{
+			%other = ClientGroup.getObject(%i);
+			messageClient(%other, '', %structure,
+								%client.getPlayerName(), %text);
+		}
 	}
 };
-
-function DSGamemode::messageSent(%gamemode, %minigame, %client, %text)
-{
-	%text = trim(stripMLControlChars(%text));
-	%player = %client.player;
-	
-	%name = %client.getPlayerName();
-	if (isObject(%client.character))
-		%name = %client.character.name;
-	
-	%structure = '<color:ffaa44>%1<color:ffffff> %3, %4\"%2\"';
-	%does = "says";
-	%range = 24;
-	%zrange = 16;
-	if (getSubStr(%text, 0, 1) $= "!") //shouting
-	{
-		%text = getSubStr(%text, 1, strLen(%text));
-		%does = "shouts";
-		%font = "<font:Verdana:28>";
-		%range = 100;
-		%zrange = 32;
-	}
-	else if(getSubStr(%text, 0, 1) $= "@") //Whispering
-	{
-		%text = getSubStr(%text, 1, strLen(%text));
-		%does = "whispers";
-		%font = "<font:segoe ui light:24>";
-		%range = 4;
-		%zrange = 4;
-	}
-	
-	if (%text $= "")
-		return;
-	
-	if (isObject(%client.player))
-	{
-		%client.player.playThread(0, "talk");
-		%client.player.schedule(strLen(%text) * 35, "playThread", 0, "root");
-	}
-	%count = ClientGroup.getCount();
-	if (!isObject(%client.player) || !%client.inDefaultGame())
-		deadGamesParse(%client, %text);
-	for (%i = 0; %i < %count; %i++)
-	{
-		%other = ClientGroup.getObject(%i);
-		%msg = %text;
-		if (!isObject(%client.player) || !%client.inDefaultGame()) //dead chat
-		{
-			%structure = '\c7[DEAD] %1<color:aaaaaa>: %2';
-			if (!%client.hasSpawnedOnce)
-				%structure = '\c7[SPEC] %1<color:aaaaaa>: %2';
-			if(isObject(%other.player)) //Listener's player is alive. Don't transmit the message to them.
-				continue;
-		}
-		else if (%other.inDefaultGame() && isObject(%other.player))
-		{
-			%playerZone = getZoneFromPos(%other.player.getEyePoint());
-			%otherZone = getZoneFromPos(%client.player.getEyePoint());
-			if (isObject(%playerZone) && %playerZone.isSoundProof && (!isObject(%otherZone) || %otherZone != %playerZone))
-			{
-				// talk("The sound was made in soundproof zone. Player" SPC %client.getPlayerName() SPC "didn't hear it!");
-				continue;
-			}
-			if (isObject(%otherZone) && %otherZone.isSoundProof && (!isObject(%playerZone) || %playerZone != %otherZone))
-			{
-				// talk("The player is in a soundproof zone. Player" SPC %client.getPlayerName() SPC "didn't hear it!");
-				continue;
-			}
-			
-			if (vectorDist(%client.player.getEyePoint(), %other.player.getEyePoint()) > %range) //Out of range
-				continue;
-			if (mAbs(getWord(%client.player.getEyePoint(), 2) - getWord(%other.player.getEyePoint(), 2) > %zrange)) //Check if it's out of Z range too
-				continue;
-			if ((%other.player.unconscious && !%other.player.currResting) && vectorDist(%client.player.getEyePoint(), %other.player.getEyePoint()) > 4)
-			{
-				%msg = muffleText(%text, 35);
-			}
-		}
-		
-		messageClient(%other, '', %structure,
-							%name, %msg, %does, %font);
-	}
-}
-
-function DSGamemode::TeamMessageSent(%gamemode, %minigame, %client, %text)
-{
-	%structure = '<color:4444FF>[OOC] %1<color:aaaaFF>: %2';
-	%count = ClientGroup.getCount();
-	for (%i = 0; %i < %count; %i++)
-	{
-		%other = ClientGroup.getObject(%i);
-		messageClient(%other, '', %structure,
-							%client.getPlayerName(), %text);
-	}
-}
 
 if ($GameModeArg $= ($DS::Path @ "gamemode.txt"))
 	activatePackage("ChatPackage");

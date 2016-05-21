@@ -17,7 +17,6 @@ exec("./lib/soundsystem.cs");
 exec("./lib/sfx.cs");
 exec("./lib/Support_Raycasts.cs");
 exec("./lib/text.cs");
-exec("./lib/items.cs");
 exec("./lib/timedfiring.cs");
 exec("./lib/timedraycast.cs");
 
@@ -38,6 +37,7 @@ exec("./Src/Game.cs");
 exec("./Src/Gamemodes.cs");
 exec("./Src/Health.cs");
 exec("./Src/Inventory.cs");
+exec("./Src/Player_inventory.cs");
 exec("./Src/Invis.cs");
 exec("./Src/Namelist.cs");
 exec("./Src/Overwrite.cs");
