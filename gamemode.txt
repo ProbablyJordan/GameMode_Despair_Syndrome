@@ -59,14 +59,10 @@ ADDON Weapon_Gun
 ADDON Weapon_Guns_Akimbo
 
 //Add-ons required for the build
-ADDON Brick_18Degree
 ADDON Brick_1RandomPack
-ADDON Brick_1x1_2side_print
 ADDON Brick_2x2FRoundPrint
 ADDON Brick_4x4fPrintPlateC
 ADDON Brick_4x4f_PrintPlate
-ADDON Brick_BaseplateBlocks
-ADDON Brick_BaseplatePack
 ADDON Brick_Checkpoint
 ADDON Brick_Corner
 ADDON Brick_DecorativeBlocks
@@ -95,7 +91,6 @@ ADDON Brick_Interactive
 ADDON Brick_InvertedCorners
 ADDON Brick_Jirue
 ADDON Brick_LegoCrates
-ADDON Brick_Plant
 ADDON Brick_PoleAdapters
 ADDON Brick_Poster_8x
 ADDON Brick_PrintBaseplates
@@ -106,7 +101,6 @@ ADDON Brick_PrintPlatesCeiling
 ADDON Brick_Print_Icons
 ADDON Brick_Ramp_Prints
 ADDON Brick_RazorWire
-ADDON Brick_RoofTiles_V3
 ADDON Brick_Round_Corners
 ADDON Brick_SmallRampsPack
 ADDON Brick_TAGdoors

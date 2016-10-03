@@ -1,6 +1,6 @@
 //NOTE TO SELF: TSShapeConstructor has to be done BEFORE player datablock.
-datablock TSShapeConstructor(mDespairsyndromeDts) {
-	baseShape = "base/data/shapes/player/m_despairsyndrome.dts";
+datablock TSShapeConstructor(mDsDts) {
+	baseShape = "base/data/shapes/player/m_ds.dts";
 	sequence0 = "base/data/shapes/player/m_root.dsq root";
 	sequence1 = "base/data/shapes/player/m_run.dsq run";
 	sequence2 = "base/data/shapes/player/m_run.dsq walk";
@@ -44,7 +44,7 @@ datablock TSShapeConstructor(mDespairsyndromeDts) {
 
 datablock PlayerData(PlayerDSArmor : PlayerStandardArmor)
 {
-	shapeFile = "base/data/shapes/player/m_despairsyndrome.dts";
+	shapeFile = "base/data/shapes/player/m_ds.dts";
 	uiName = "Despair Syndrome Player";
 
 	cameraMaxDist = 2;
@@ -74,7 +74,7 @@ datablock PlayerData(PlayerDSArmor : PlayerStandardArmor)
 
 datablock PlayerData(PlayerDSFrozenArmor : PlayerStandardArmor)
 {
-	shapeFile = "base/data/shapes/player/m_despairsyndrome.dts";
+	shapeFile = "base/data/shapes/player/m_ds.dts";
 	uiName = "Frozen Player";
 	canJet = 0;
 	jumpForce = 0;
@@ -85,7 +85,7 @@ datablock PlayerData(PlayerDSFrozenArmor : PlayerStandardArmor)
 
 datablock PlayerData(PlayerCorpseArmor : PlayerStandardArmor)
 {
-	shapeFile = "base/data/shapes/player/m_despairsyndrome.dts";
+	shapeFile = "base/data/shapes/player/m_ds.dts";
 	uiName = "Corpse Player";
 	canJet = 0;
 	boundingBox = "5 5 4";
@@ -214,6 +214,8 @@ function PlayerDSArmor::onCollision(%this, %obj, %col, %vec, %speed)
 {
 	if (%col.getClassName() $= "Item")
 	{
+		return; //no throw damage bullshit
+		//comment above for thrwo damage
 		if ($defaultMiniGame.noWeapons)
 			return;
 		if (!isObject(%col.carryPlayer) && isObject(%col.lastTosser) && %col.lastTosser != %obj) //We shouldn't be able to hurt our tosser

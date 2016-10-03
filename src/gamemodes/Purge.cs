@@ -5,7 +5,7 @@ if (!isObject(DSGamemode_Purge))
 		name = "The Purge";
 		desc = "The first night is the Purge. Whoever murders on that night becomes a killer for the rest of the round!";
 		class = DSGameMode;
-		omit = false;
+		omit = true;
 		minPlayers = 10;
 	};
 }

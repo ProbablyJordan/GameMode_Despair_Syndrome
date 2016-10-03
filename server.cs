@@ -20,6 +20,7 @@ exec("./lib/text.cs");
 exec("./lib/timedfiring.cs");
 exec("./lib/timedraycast.cs");
 
+exec("./Src/Sounds.cs"); //Exec this before blood.cs or shit breaks due to missing audioprofiles
 exec("./Src/Admin.cs");
 exec("./Src/Admin_API.cs");
 exec("./Src/Admin_Mod.cs");
@@ -44,7 +45,6 @@ exec("./Src/Overwrite.cs");
 exec("./Src/Player.cs");
 exec("./Src/QueueChooser.cs");
 exec("./Src/Sleep.cs");
-exec("./Src/Sounds.cs");
 
 exec("./Src/Gamemodes/Default.cs");
 exec("./Src/Gamemodes/Killer.cs");
@@ -65,7 +65,6 @@ exec("./Src/Tools/Weapons/_Init.cs");
 //if (isFile("Add-Ons/Script_UserDataGatherer/Server.cs"))
 //	exec("Add-Ons/Script_UserDataGatherer/Server.cs");
 
-swordExplosion.soundProfile = "";
 hammerExplosion.lightStartRadius = 0;
 hammerExplosion.lightEndRadius = 0;
 if (!isObject($DS::GameMode))

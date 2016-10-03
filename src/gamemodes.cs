@@ -30,19 +30,24 @@ function DSGameMode::onStart(%this, %miniGame)
 		%brick = BrickGroup_888888.getObject(%i);
 
 		%data = %brick.getDataBlock();
-
+		%name = %brick.getName();
 		if (%data.isDoor)
 		{
 			%brick.doorHits = 0;
+			%brick.impervious = 0;
 			%brick.broken = false;
 			%brick.setDataBlock(%brick.isCCW ? %data.closedCCW : %data.closedCW);
 			%brick.doorMaxHits = 4;
 			%brick.doorLockpickDifficulty = 7;
-			if (%brick.getName() $= "_door_trial")
+			if (%name $= "_door_trial")
 				%brick.impervious = 1;
+			if (getSubStr(%name, 0, 7) $= "_door_r")
+			{
+				%brick.unoccupied = 1;
+				%brick.setColor(50); //gray
+			}
 		}
 		
-		%name = %brick.getName();
 		if((%len = strLen(%name)) > 5 && getSubStr(%name, 0, 5) $= "_room"
 			&& (%num = getSubStr(%name, 5, %len - 5)) $= (%num | 0))
 		{
@@ -171,6 +176,8 @@ function DSGameMode::onStart(%this, %miniGame)
 		%roomDoor = BrickGroup_888888.NTObject["_door_r" @ %room, 0];
 		%roomSpawn = BrickGroup_888888.NTObject["_" @ %room, 0];
 		%point = %roomSpawn.getTransform();
+		%roomDoor.unoccupied = 0;
+		%roomDoor.setColor(61); //Brown
 		%player.setTransform(%point);
 		%player.setShapeName(%character.name, 8564862);
 		%player.setShapeNameDistance($DefaultMiniGame.shapeNameDistance);

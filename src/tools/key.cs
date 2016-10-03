@@ -152,7 +152,10 @@ package KeyPackage
 				%client.centerPrint("\c2The door hinges are broken...", 2);
 		else if (%this.lockId !$= "" && %this.lockState)
 		{
-			%client.centerPrint("\c2The door is locked.", 2);
+			if (%this.unoccupied)
+				%client.centerPrint("\c2This room is unoccupied.", 2);
+			else
+				%client.centerPrint("\c2The door is locked.", 2);
 			serverPlay3d(DoorJiggleSound, %this.getWorldBoxCenter(), 1);
 		}
 		else if (%this.lockVector !$= "")

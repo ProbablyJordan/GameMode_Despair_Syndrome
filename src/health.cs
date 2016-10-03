@@ -274,7 +274,16 @@ package DSHealthPackage
 		%obj.attackTime[%obj.attackCount] = getSimTime();
 
 		if ($DamageType_Array[%type] $= "Stamina")
-			%obj.haltStaminaReg = getSimTime();
+		{
+			%nonlethal = true;
+			if (%obj.unconscious)
+			{
+				%type = $DamageType::Blunt;
+				%damage /= 2;
+			}
+			else
+				%obj.haltStaminaReg = getSimTime();
+		}
 
 		%obj.attackerName[%obj.attackCount] = isObject(%obj.attacker[%obj.attackCount]) ? %obj.attacker[%obj.attackCount].GetPlayerName() : "";
 		%obj.setDamageFlash(getMax(0.25, %damage / %obj.maxHealth));
@@ -349,8 +358,14 @@ package DSHealthPackage
 		}
 		else
 		{
-			if (%obj.unconscious && %endHealth > 0)
-				%obj.WakeUp();
+			if(%obj.unconscious && %endhealth > 0)
+			{
+				if(!%nonlethal || %endhealth < 50)
+				{
+					%obj.wakeUp();
+				}
+			}
+
 			%obj.setHealth(%endHealth);
 		}
 		if (%obj.health <= 0)
